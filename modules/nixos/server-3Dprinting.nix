@@ -11,6 +11,9 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    environment.systemPackages = [
+      pkgs.dfu-util # for flashing boards (cheetah v2.0, U2C)
+    ];
     # verify with: ip -s link show can0
     systemd.network.links."10-can" = {
       matchConfig.Kind = "can";
