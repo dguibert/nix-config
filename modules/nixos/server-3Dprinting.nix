@@ -35,6 +35,12 @@ in
           # Serial port connected to the microcontroller
           serial = "/dev/serial/by-id/usb-Klipper_stm32f401xc_2E0028000851383531393138-if00";
         };
+        "mcu ebb36" = {
+          enable = true;
+          # Run klipper-genconf to generate this
+          configFile = ./server-3Dprinting/ebb36.config;
+          serial = null;
+        };
         "mcu display" = {
           enable = true;
           # Run klipper-genconf to generate this
@@ -59,6 +65,8 @@ in
         };
         mcu.serial = firmwares.mcu.serial;
         mcu.restart_method = "command";
+
+        "mcu ebb36".canbus_uuid = "c114d5f98943";
 
         # https://docs.fluidd.xyz/configuration/initial_setup
         virtual_sdcard.path = "/gcodes";
