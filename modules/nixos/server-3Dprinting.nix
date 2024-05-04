@@ -194,8 +194,8 @@ in
           # See calibrating rotation_distance on extruders doc
           #rotation_distance = 21.54087;
           rotation_distance = "22.251425904873";
-          gear_ratio = "50:10"; # For Mini Afterburner
-          microsteps = 32;
+          #gear_ratio = "50:10"; # For Mini Afterburner
+          microsteps = 16;
           nozzle_diameter = 0.400;
           filament_diameter = 1.750;
           heater_pin = "ebb36:HE0"; #"PC6";
@@ -214,7 +214,8 @@ in
           max_temp = 270;
           min_extrude_temp = 0;
           max_extrude_only_distance = 150.0;
-          max_extrude_cross_section = 0.8;
+          max_extrude_only_velocity = 120;
+          #max_extrude_cross_section = 0.8;
           pressure_advance = 0.04; # For ABS 15*0.005 See tuning pressure advance doc
           pressure_advance_smooth_time = 0.040;
         };
@@ -222,9 +223,14 @@ in
           uart_pin = "ebb36:EXT_UART"; #"PA3";
           #tx_pin = "PA2";
           #uart_address = 3;
-          #interpolate = false;
-          run_current = 0.3;
-          #sense_resistor = 0.110;
+          interpolate = true;
+          run_current = 0.85;
+          hold_current = 0.100;
+          sense_resistor = 0.110;
+          # driver_TBL: 0
+          # driver_HEND: 6
+          # driver_HSTRT: 7
+          # driver_TOFF: 4
           stealthchop_threshold = 0; # Set to 0 for spreadcycle, avoid using stealthchop on extruder
         };
 
