@@ -330,9 +330,10 @@ in
         };
         idle_timeout.timeout = 1800;
 
-        #input_shaper.shaper_freq_x = 72.972972; #90*3/3.7;
-        #input_shaper.shaper_freq_y = 90; #90*3/3;
-        #input_shaper.shaper_type = "ei";
+        input_shaper.shaper_type_x = "2hump_ei";
+        input_shaper.shaper_freq_x = "75.0"; # Hz
+        input_shaper.shaper_type_y = "mzv";
+        input_shaper.shaper_freq_y = "84.6"; # Hz
 
         homing_override = {
           axes = "xyz";
