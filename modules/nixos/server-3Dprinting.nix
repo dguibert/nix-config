@@ -55,6 +55,10 @@ in
           min_temp = 0;
           max_temp = 100;
         };
+        "temperature_sensor ebb36" = {
+          sensor_type = "temperature_mcu";
+          sensor_mcu = "ebb36";
+        };
         printer = {
           kinematics = "corexy";
           max_velocity = 300;
@@ -183,9 +187,9 @@ in
           stealthchop_threshold = 0;
         };
         extruder = {
-          step_pin = "PB2";
-          dir_pin = "PA15"; # Add ! if moving opposite direction
-          enable_pin = "!PD2";
+          step_pin = "ebb36:EXT_STEP"; #"PB2";
+          dir_pin = "!ebb36:EXT_DIR"; #"PA15"; # Add ! if moving opposite direction
+          enable_pin = "!ebb36:EXT_EN"; #"!PD2";
           full_steps_per_rotation = 200; # 1.8 degree motor
           # See calibrating rotation_distance on extruders doc
           #rotation_distance = 21.54087;
@@ -194,9 +198,9 @@ in
           microsteps = 32;
           nozzle_diameter = 0.400;
           filament_diameter = 1.750;
-          heater_pin = "PC6";
+          heater_pin = "ebb36:HE0"; #"PC6";
           sensor_type = "Generic 3950";
-          sensor_pin = "PC4";
+          sensor_pin = "ebb36:TH0"; #"PC4";
           control = "pid"; # Do PID calibration
           # M106 S64
           # PID_CALIBRATE HEATER=extruder TARGET=245
@@ -215,14 +219,46 @@ in
           pressure_advance_smooth_time = 0.040;
         };
         "tmc2209 extruder" = {
-          uart_pin = "PA3";
-          tx_pin = "PA2";
-          uart_address = 3;
-          interpolate = false;
-          run_current = 0.7;
-          sense_resistor = 0.110;
+          uart_pin = "ebb36:EXT_UART"; #"PA3";
+          #tx_pin = "PA2";
+          #uart_address = 3;
+          #interpolate = false;
+          run_current = 0.3;
+          #sense_resistor = 0.110;
           stealthchop_threshold = 0; # Set to 0 for spreadcycle, avoid using stealthchop on extruder
         };
+
+        ## ADXL345
+        adxl345 = {
+          cs_pin = "ebb36:ADXL_CS";
+          spi_software_sclk_pin = "ebb36:ADXL_SCLK";
+          spi_software_mosi_pin = "ebb36:ADXL_MOSI";
+          spi_software_miso_pin = "ebb36:ADXL_MISO";
+          axes_map = "x,y,z";
+        };
+
+        resonance_tester = {
+          accel_chip = "adxl345";
+          probe_points = "60,60,20";
+        };
+        ## RGB
+        #[neopixel my_neopixel]
+        #pin: can0:RGBLED
+        #chain_count: 12
+        #color_order: GRB
+        #initial_RED: 0.0
+        #initial_GREEN: 0.0
+        #initial_BLUE: 0.0
+
+        ## PT100
+        # [temperature_sensor PT100]
+        # sensor_type: MAX31865
+        # sensor_pin: can0:PT100_CS
+        # spi_bus: spi1
+        # min_temp: -50
+        # max_temp: 350
+        # rtd_reference_r: 430
+
         heater_bed = {
           heater_pin = "PC7";
           ### Sensor Types
@@ -251,7 +287,7 @@ in
         };
         "heater_fan hotend_fan" = {
           # FAN1 Connector
-          pin = "PA13";
+          pin = "ebb36:FAN0"; #"PA13";
           max_power = 1.0;
           kick_start_time = 0.5;
           heater = "extruder";
@@ -276,7 +312,7 @@ in
 
         fan = {
           # Print Cooling Fan: FAN0 Connector
-          pin = "PA14";
+          pin = "ebb36:FAN1"; #"PA14";
           max_power = 1.0;
           kick_start_time = 0.5;
           ###depending on your fan, you may need to increase or reduce this value
@@ -567,6 +603,28 @@ in
              EXP3_2=PC12, EXP3_4=PB14, EXP3_6=PB13, EXP3_8=PB15, EXP3_10=<5V>
              # Pins EXP3_4, EXP3_8, EXP3_6 are also MISO, MOSI, SCK of bus \"spi2\"
         ";
+        "board_pins ebb36_G0B1_v1.2" = {
+          mcu = "ebb36";
+          aliases = "";
+          aliases_step =
+            "EXT_EN=PD2,EXT_STEP=PD0,EXT_DIR=PD1,EXT_UART=PA15";
+          aliases_limitsw = # these are preferred for endstops (including klicky)
+            "LIMIT_1=PB7,LIMIT_2=PB5,LIMIT_3=PB6";
+          aliases_bltouch = # these are the dupont connectors for bltouch
+            "PROBE_1=PB9,PROBE_2=PB8";
+          aliases_fans =
+            "FAN0=PA1,FAN1=PA0";
+          aliases_thermistors =
+            "TH0=PA3,PT100_CS=PA4,PT100_SCLK=PA5,PT100_MISO=PA6,PT100_MOSI=PA7";
+          aliases_heaters =
+            "HE0=PB13";
+          aliases_rgb =
+            "RGBLED=PD3";
+          aliases_adxl =
+            "ADXL_CS=PB12,ADXL_SCLK=PB10,ADXL_MISO=PB2,ADXL_MOSI=PB11";
+          aliases_i2c =
+            "AUX0=PB3,AUX1=PB4";
+        };
 
         # https://www.klipper3d.org/Exclude_Object.html
         exclude_object = { };
