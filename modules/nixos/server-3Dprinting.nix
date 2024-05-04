@@ -132,7 +132,7 @@ in
           sense_resistor = 0.110;
           stealthchop_threshold = 0;
           diag_pin = "^PB4";
-          driver_SGTHRS = 120;
+          driver_SGTHRS = 90;
         };
         stepper_y = {
           step_pin = "PC14";
@@ -159,7 +159,7 @@ in
           sense_resistor = 0.110;
           stealthchop_threshold = 0;
           diag_pin = "^PC8";
-          driver_SGTHRS = 120;
+          driver_SGTHRS = 90;
         };
         stepper_z = {
           step_pin = "PB9";
@@ -207,9 +207,10 @@ in
           # pid_Kp=20.292 pid_Ki=1.313 pid_Kd=78.378
           # pid_Kp=20.431 pid_Ki=1.273 pid_Kd=81.977
           #pid_Kp=20.040 pid_Ki=0.961 pid_Kd=104.459 # 20230418 V0.2
-          pid_Kp = 20.040;
-          pid_Ki = 0.961;
-          pid_Kd = 104.459;
+          # 20240504 V0.2 dragonburner butterfly hotend
+          pid_Kp = 20.459;
+          pid_Ki = 0.967;
+          pid_Kd = 108.174;
           min_temp = 0;
           max_temp = 270;
           min_extrude_temp = 0;
