@@ -170,9 +170,9 @@ in
           #rotation_distance = 2; # for T8x2 lead screan
           microsteps = 32;
           endstop_pin = "^PB1";
-          position_endstop = 120;
-          position_max = 120;
-          position_min = -1.5;
+          position_endstop = 116.800;
+          position_max = 116.800;
+          #position_min = 1.300;
           homing_speed = 20; # max 100
           second_homing_speed = 3.0; # max 100
           homing_retract_dist = 3.0;
