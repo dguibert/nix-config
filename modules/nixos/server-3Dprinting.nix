@@ -193,7 +193,8 @@ in
           full_steps_per_rotation = 200; # 1.8 degree motor
           # See calibrating rotation_distance on extruders doc
           #rotation_distance = 21.54087;
-          rotation_distance = "22.251425904873";
+          #rotation_distance = "22.251425904873";
+          rotation_distance = "4.72";
           #gear_ratio = "50:10"; # For Mini Afterburner
           microsteps = 16;
           nozzle_diameter = 0.400;
@@ -225,13 +226,13 @@ in
           #tx_pin = "PA2";
           #uart_address = 3;
           interpolate = true;
-          run_current = 0.85;
+          run_current = 0.6;
           hold_current = 0.100;
           sense_resistor = 0.110;
-          # driver_TBL: 0
-          # driver_HEND: 6
-          # driver_HSTRT: 7
-          # driver_TOFF: 4
+          driver_TBL = 0;
+          driver_HEND = 6;
+          driver_HSTRT = 7;
+          driver_TOFF = 4;
           stealthchop_threshold = 0; # Set to 0 for spreadcycle, avoid using stealthchop on extruder
         };
 
