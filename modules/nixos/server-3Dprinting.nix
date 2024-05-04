@@ -194,7 +194,7 @@ in
           # See calibrating rotation_distance on extruders doc
           #rotation_distance = 21.54087;
           #rotation_distance = "22.251425904873";
-          rotation_distance = "4.72";
+          rotation_distance = 4.6492;
           #gear_ratio = "50:10"; # For Mini Afterburner
           microsteps = 16;
           nozzle_diameter = 0.400;
