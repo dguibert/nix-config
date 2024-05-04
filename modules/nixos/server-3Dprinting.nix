@@ -188,7 +188,7 @@ in
         };
         extruder = {
           step_pin = "ebb36:EXT_STEP"; #"PB2";
-          dir_pin = "!ebb36:EXT_DIR"; #"PA15"; # Add ! if moving opposite direction
+          dir_pin = "ebb36:EXT_DIR"; #"PA15"; # Add ! if moving opposite direction
           enable_pin = "!ebb36:EXT_EN"; #"!PD2";
           full_steps_per_rotation = 200; # 1.8 degree motor
           # See calibrating rotation_distance on extruders doc
