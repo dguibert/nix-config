@@ -208,12 +208,13 @@ in
           # pid_Kp=20.292 pid_Ki=1.313 pid_Kd=78.378
           # pid_Kp=20.431 pid_Ki=1.273 pid_Kd=81.977
           #pid_Kp=20.040 pid_Ki=0.961 pid_Kd=104.459 # 20230418 V0.2
-          # 20240504 V0.2 dragonburner butterfly hotend
-          pid_Kp = 20.459;
-          pid_Ki = 0.967;
-          pid_Kd = 108.174;
+          # 20240506 V0.2 dragonburner butterfly hotend
+          # PID_CALIBRATE HEATER=extruder TARGET=250
+          pid_Kp = 20.129;
+          pid_Ki = 0.913;
+          pid_Kd = 110.956;
           min_temp = 0;
-          max_temp = 270;
+          max_temp = 280;
           min_extrude_temp = 0;
           max_extrude_only_distance = 150.0;
           max_extrude_only_velocity = 120;
