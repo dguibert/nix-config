@@ -995,11 +995,11 @@
         "st-src": "st-src"
       },
       "locked": {
-        "lastModified": 1716571462,
-        "narHash": "sha256-mRnXqvgbOQGfo12FD90bL5trFr1gBzYSo7XCdJceXo0=",
+        "lastModified": 1716577160,
+        "narHash": "sha256-N4HXPs/oSXrQmOjeZZA1hoQksgVU7ppOGDaXw7bzULs=",
         "owner": "dguibert",
         "repo": "nur-packages",
-        "rev": "4f72dd7aad60c32364dcd4f8af23c41f952865b0",
+        "rev": "5092c03d5ec9f43262309c4aa35be14d7a215515",
         "type": "github"
       },
       "original": {
