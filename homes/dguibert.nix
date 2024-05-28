@@ -191,6 +191,7 @@ in
       withBash.history-merge = false;
       services.gpg-agent.enable = lib.mkForce false;
       withStylixTheme.enable = false; # -fromYAML- fails
+      stylix.targets.gnome.enable = false;
 
       home.username = "bguibertd";
       home.homeDirectory = "/home_nfs/bguibertd";
