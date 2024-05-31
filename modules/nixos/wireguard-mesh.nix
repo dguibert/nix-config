@@ -89,7 +89,7 @@ in
                   "fe80::/64"
                   "ff02::1:6/128"
                 ];
-                Endpoint = mkIf (peer ? endpoint) peer.endpoint;
+                Endpoint = if (peer ? endpoint) then peer.endpoint else null;
                 PersistentKeepalive = peer.persistentKeepalive or 0;
               };
             }
