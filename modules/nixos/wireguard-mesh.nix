@@ -79,19 +79,17 @@ in
 
           wireguardPeers = [
             {
-              wireguardPeerConfig = {
-                PublicKey = peer.publicKey;
-                AllowedIPs = [
-                  "0.0.0.0/0"
-                  #"ff02::/16"
-                  "::/0"
-                  # The Babel protocol uses IPv6 link-local unicast and multicast addresses
-                  "fe80::/64"
-                  "ff02::1:6/128"
-                ];
-                Endpoint = if (peer ? endpoint) then peer.endpoint else null;
-                PersistentKeepalive = peer.persistentKeepalive or 0;
-              };
+              PublicKey = peer.publicKey;
+              AllowedIPs = [
+                "0.0.0.0/0"
+                #"ff02::/16"
+                "::/0"
+                # The Babel protocol uses IPv6 link-local unicast and multicast addresses
+                "fe80::/64"
+                "ff02::1:6/128"
+              ];
+              Endpoint = if (peer ? endpoint) then peer.endpoint else null;
+              PersistentKeepalive = peer.persistentKeepalive or 0;
             }
           ];
         }));
