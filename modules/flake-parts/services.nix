@@ -17,84 +17,87 @@ let
   };
 
   haproxy = [
-    ({ config, lib, pkgs, inputs, ... }: {
-      networking.firewall.allowedTCPPorts = [ 443 ];
-      services.haproxy.enable = true;
-      ### https://datamakes.com/2018/02/17/high-intensity-port-sharing-with-haproxy/
-      services.haproxy.config = ''
-        defaults
-          log  global
-          mode tcp
-          timeout connect 10s
-          timeout client 36h
-          timeout server 36h
-        global
-          log /dev/log  local0 debug
+    ({ config, lib, pkgs, inputs, ... }:
+      let
+        haproxy_internal_ip = "192.168.127.254";
+      in
+      {
+        networking.firewall.allowedTCPPorts = [ 443 ];
+        systemd.network.netdevs."40-haproxy" = {
+          netdevConfig = {
+            Name = "haproxy";
+            Kind = "dummy";
+          };
+        };
+        systemd.network.networks."40-haproxy" = {
+          name = "haproxy";
+          networkConfig.Address = "${haproxy_internal_ip}/32";
+          routingPolicyRules = [
+            {
+              From = "${haproxy_internal_ip}";
+              Table = "103";
+            }
+          ];
+          routes = [
+            {
+              Destination = "0.0.0.0/0";
+              Type = "local";
+              Table = "103";
+            }
+          ];
+        };
+        services.haproxy.enable = true;
+        ### https://datamakes.com/2018/02/17/high-intensity-port-sharing-with-haproxy/
+        services.haproxy.config = ''
+          defaults
+            log  global
+            mode tcp
+            timeout connect 10s
+            timeout client 36h
+            timeout server 36h
+          global
+            log /dev/log  local0 debug
 
-        frontend ssl
-          mode tcp
-          log global
-          option tcplog
-          bind 0.0.0.0:443
-          tcp-request inspect-delay 3s
-          tcp-request content accept if { req.ssl_hello_type 1 }
+          frontend ssl
+            mode tcp
+            log global
+            option tcplog
+            bind 0.0.0.0:443 transparent
+            tcp-request inspect-delay 3s
+            tcp-request content accept if { req.ssl_hello_type 1 }
 
-          acl    ssh_payload        payload(0,7)    -m bin 5353482d322e30
-          #acl valid_payload req.payload(0,7) -m str "SSH-2.0"
-          #tcp-request content reject if !valid_payload
-          #tcp-request content accept if { req_ssl_hello_type 1 }
+            acl    ssh_payload        payload(0,7)    -m bin 5353482d322e30
+            #acl valid_payload req.payload(0,7) -m str "SSH-2.0"
+            #tcp-request content reject if !valid_payload
+            #tcp-request content accept if { req_ssl_hello_type 1 }
 
-          use_backend openssh            if ssh_payload
-          use_backend openssh            if !{ req.ssl_hello_type 1 } { req.len 0 }
-          use_backend shadowsocks        if !{ req.ssl_hello_type 1 } !{ req.len 0 }
+            use_backend openssh            if ssh_payload
+            use_backend openssh            if !{ req.ssl_hello_type 1 } { req.len 0 }
+            use_backend shadowsocks        if !{ req.ssl_hello_type 1 } !{ req.len 0 }
 
-        backend openssh
-          mode tcp
-          server openssh 127.0.0.1:44322
-        backend shadowsocks
-          mode tcp
-          server socks 127.0.0.1:${toString config.services.shadowsocks.port}
+          backend openssh
+            mode tcp
+            server openssh ${haproxy_internal_ip}:44322 source 0.0.0.0 usesrc clientip
+          backend shadowsocks
+            mode tcp
+            server socks ${haproxy_internal_ip}:${toString config.services.shadowsocks.port} source 0.0.0.0 usesrc clientip
+        '';
+        # Enable the OpenSSH daemon.
+        services.openssh.enable = true;
+        services.openssh.listenAddresses = [
+          { addr = "127.0.0.1"; port = 44322; }
+          { addr = "${haproxy_internal_ip}"; port = 44322; }
+        ];
 
-        #frontend ssl_t
-        #  mode tcp
-        #  log global
-        #  option tcplog
-        #  bind 192.168.1.14:4443
-        #  tcp-request inspect-delay 3s
-        #  tcp-request content accept if { req.ssl_hello_type 1 }
-
-        #  acl    ssh_payload        payload(0,7)    -m bin 5353482d322e30
-
-        #  use_backend openssh_t          if ssh_payload
-        #  use_backend openssh_t          if !{ req.ssl_hello_type 1 } { req.len 0 }
-        #  use_backend shadowsocks        if !{ req.ssl_hello_type 1 } !{ req.len 0 }
-
-        #backend openssh_t
-        #  mode tcp
-        #  source 0.0.0.0 usesrc clientip
-        #  server openssh {config.systemd.network.networks."01-lo-ssh".networkConfig.Address}:44322
-      '';
-      # Enable the OpenSSH daemon.
-      services.openssh.enable = true;
-      services.openssh.listenAddresses = [
-        { addr = "127.0.0.1"; port = 44322; }
-        #{ addr = config.systemd.network.networks."01-lo-ssh".networkConfig.Address; port = 44322; }
-      ];
-      #systemd.network.networks."01-lo-ssh" = {
-      #  name = "lo";
-      #  networkConfig.Address = "172.16.0.22";
-      #  linkConfig.RequiredForOnline = "yes";
-      #};
-
-      #echo -n "ss://"`echo -n chacha20-ietf-poly1305:$(sops --extract '["shadowsocks"]' -d hosts/rpi31/secrets/secrets.yaml)@$(curl -4 ifconfig.io):443 | base64` | qrencode -t UTF8
-      sops.secrets.shadowsocks.sopsFile = ../../hosts/rpi41/secrets/secrets.yaml;
-      services.shadowsocks = {
-        enable = true;
-        localAddress = [ "127.0.0.1" ];
-        port = 8388;
-        passwordFile = config.sops.secrets.shadowsocks.path;
-      };
-    })
+        #echo -n "ss://"`echo -n chacha20-ietf-poly1305:$(sops --extract '["shadowsocks"]' -d hosts/rpi31/secrets/secrets.yaml)@$(curl -4 ifconfig.io):443 | base64` | qrencode -t UTF8
+        sops.secrets.shadowsocks.sopsFile = ../../hosts/rpi41/secrets/secrets.yaml;
+        services.shadowsocks = {
+          enable = true;
+          localAddress = [ haproxy_internal_ip ];
+          port = 8388;
+          passwordFile = config.sops.secrets.shadowsocks.path;
+        };
+      })
   ];
 
   adb = [ ({ ... }: { programs.adb.enable = true; }) ];
