@@ -12,7 +12,10 @@ in
   config = lib.mkIf cfg.enable {
     services.sshguard = {
       enable = true;
+      attack_threshold = 20;
       blacklist_file = "/persist/var/lib/sshguard/blacklist.db";
+      blacklist_threshold = 120;
+      detection_time = 30 * 24 * 3600;
       whitelist = [
         "192.168.1.24"
         "10.147.27.0/24"
@@ -22,7 +25,7 @@ in
 
     # to prevent multiple authentication attempts during a single connection
     services.openssh.extraConfig = ''
-      MaxAuthTries 5
+      MaxAuthTries 2
     '';
   };
 }
