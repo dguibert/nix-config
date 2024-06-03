@@ -74,7 +74,7 @@ let
               end = "277958655";
               content = {
                 type = "swap";
-                randomEncryption = true;
+                randomEncryption = false;
               };
             };
             zfs = {

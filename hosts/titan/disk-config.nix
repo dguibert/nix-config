@@ -59,7 +59,7 @@ let
               end = "${toString (INST_PARTSIZE_ESP+INST_PARTSIZE_SWAP)}GiB";
               content = {
                 type = "swap";
-                #randomEncryption = true;
+                randomEncryption = false;
               };
             };
             zfs = {
