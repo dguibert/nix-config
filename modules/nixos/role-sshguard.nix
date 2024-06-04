@@ -13,7 +13,7 @@ in
     services.sshguard = {
       enable = true;
       attack_threshold = 20;
-      blacklist_threshold = 120;
+      blacklist_threshold = 20;
       detection_time = 30 * 24 * 3600;
       whitelist = [
         "192.168.1.24"
