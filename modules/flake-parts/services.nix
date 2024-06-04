@@ -51,37 +51,40 @@ let
         services.haproxy.config = ''
           defaults
             log  global
-            mode tcp
             timeout connect 10s
             timeout client 36h
             timeout server 36h
           global
             log /dev/log  local0 debug
 
-          frontend ssl
+          listen sslh
             mode tcp
-            log global
-            option tcplog
             bind 0.0.0.0:443 transparent
-            tcp-request inspect-delay 3s
+            tcp-request inspect-delay 15s
             tcp-request content accept if { req.ssl_hello_type 1 }
 
-            acl    ssh_payload        payload(0,7)    -m bin 5353482d322e30
-            #acl valid_payload req.payload(0,7) -m str "SSH-2.0"
-            #tcp-request content reject if !valid_payload
+            #acl    ssh_payload        payload(0,7)    -m bin 5353482d322e30
+            acl ssh_payload req.payload(0,7) -m str "SSH-2.0"
+            #tcp-request content reject if !ssh_payload
             #tcp-request content accept if { req_ssl_hello_type 1 }
 
             use_backend openssh            if ssh_payload
             use_backend openssh            if !{ req.ssl_hello_type 1 } { req.len 0 }
             use_backend shadowsocks        if !{ req.ssl_hello_type 1 } !{ req.len 0 }
+            timeout client 2h
+            log global
 
           backend openssh
             mode tcp
             server openssh ${haproxy_internal_ip}:44322 source 0.0.0.0 usesrc clientip
+            timeout server 2h
+            log global
           backend shadowsocks
             mode tcp
             server socks ${haproxy_internal_ip}:${toString config.services.shadowsocks.port} source 0.0.0.0 usesrc clientip
+            log global
         '';
+        services.haproxy.user = "root"; # for transparent
         # Enable the OpenSSH daemon.
         services.openssh.enable = true;
         services.openssh.listenAddresses = [

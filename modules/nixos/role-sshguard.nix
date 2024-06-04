@@ -13,7 +13,6 @@ in
     services.sshguard = {
       enable = true;
       attack_threshold = 20;
-      blacklist_file = "/persist/var/lib/sshguard/blacklist.db";
       blacklist_threshold = 120;
       detection_time = 30 * 24 * 3600;
       whitelist = [
@@ -21,7 +20,8 @@ in
         "10.147.27.0/24"
       ];
     };
-    systemd.tmpfiles.rules = [ "d /persist/var/lib/sshguard 1770 root root -" ];
+    #systemd.tmpfiles.rules = [ "d /persist/var/lib/sshguard 1770 root root -" ];
+    #systemd.tmpfiles.rules = [ "L /var/lib/sshguard/blacklist.db - - - - /persist/var/lib/sshguard/blacklist.db" ];
 
     # to prevent multiple authentication attempts during a single connection
     services.openssh.extraConfig = ''
