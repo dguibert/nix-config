@@ -39,7 +39,7 @@ with lib; {
       main = {
         term = "xterm";
 
-        dpi-aware = "no";
+        dpi-aware = "yes";
       };
       scrollback = {
         lines = "100000";
