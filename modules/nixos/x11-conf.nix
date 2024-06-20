@@ -8,7 +8,7 @@
     services.xserver.xkb.options = "eurosign:e";
 
     #services.xserver.videoDrivers = [ "intel" "displaylink" ]; # error: Package ‘evdi-1.4.1+git2017-06-12’ in /home/dguibert/code/nixpkgs/pkgs/os-specific/linux/evdi/default.nix:26 is marked as broken, refusing to evaluate.
-    hardware.graphics.driSupport32Bit = true;
+    hardware.graphics.enable32Bit = true;
 
     #  services.xserver.desktopManager.default = "gnome3";
     #  services.xserver.desktopManager.gnome3.enable = true;

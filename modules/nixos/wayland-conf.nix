@@ -14,7 +14,7 @@
     security.polkit.enable = true;
     security.pam.services.swaylock = { };
     hardware.graphics.enable = lib.mkDefault true;
-    hardware.graphics.driSupport32Bit = true;
+    hardware.graphics.enable32Bit = true;
     fonts.enableDefaultPackages = lib.mkDefault true;
     fonts.fontDir.enable = true;
     fonts.enableGhostscriptFonts = true;
