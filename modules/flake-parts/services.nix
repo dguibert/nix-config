@@ -277,7 +277,7 @@ in
     ../nixos/wayland-conf.nix
     ({ config, lib, pkgs, inputs, ... }: {
       wayland-conf.enable = true;
-      hardware.opengl.driSupport32Bit = lib.mkForce false; # Option driSupport32Bit only makes sense on a 64-bit system.
+      hardware.graphics.driSupport32Bit = lib.mkForce false; # Option driSupport32Bit only makes sense on a 64-bit system.
     })
   ]
   ;

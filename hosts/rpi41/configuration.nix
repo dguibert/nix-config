@@ -44,9 +44,8 @@ rec {
 
   documentation.nixos.enable = false;
 
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
-    setLdLibraryPath = true;
     package = pkgs.mesa.drivers;
   };
   programs.gnupg.agent.pinentryPackage = lib.mkForce pkgs.pinentry-curses;

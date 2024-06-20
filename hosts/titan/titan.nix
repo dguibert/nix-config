@@ -4,7 +4,6 @@
     ./configuration.nix
     ../../modules/nixos/defaults
   ];
-  #hardware.opengl.extraPackages = [ pkgs.vaapiVdpau /*pkgs.libvdpau-va-gl*/ ];
   environment.systemPackages = [ pkgs.pavucontrol pkgs.ipmitool pkgs.ntfs3g ];
 
   networking.firewall.checkReversePath = false;
