@@ -47,6 +47,9 @@ in
       stylix.fonts.sizes.applications = 11;
       stylix.fonts.sizes.terminal = 11;
 
+
+      programs.foot.settings.main.font = "Fira Code:pixelsize=15";
+
       stylix.targets.xresources.enable = true;
       stylix.targets.vim.enable = false;
       stylix.targets.emacs.enable = false;
