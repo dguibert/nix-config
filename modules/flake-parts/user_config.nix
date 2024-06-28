@@ -3,7 +3,7 @@ let
   l = lib // builtins;
   t = l.types;
 
-  user_config = lib.importJSON ../../config.json;
+  user_config = lib.importJSON inputs.config_json;
 
 in
 {

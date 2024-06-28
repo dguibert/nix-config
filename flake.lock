@@ -130,6 +130,19 @@
         "type": "github"
       }
     },
+    "config_json": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1,
+        "narHash": "sha256-9CX610ln1u3MogJ4gOFBeIjlryNZRfRzmaOyT544chw=",
+        "path": "configs/default/config.json",
+        "type": "path"
+      },
+      "original": {
+        "path": "configs/default/config.json",
+        "type": "path"
+      }
+    },
     "deploy-rs": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -1264,6 +1277,7 @@
         "base16-shell": "base16-shell",
         "base16-tmux": "base16-tmux",
         "base16-vim": "base16-vim",
+        "config_json": "config_json",
         "deploy-rs": "deploy-rs",
         "disko": "disko",
         "emacs-overlay": [

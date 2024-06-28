@@ -1,6 +1,8 @@
 {
   description = "Configurations of my systems";
 
+  inputs.config_json.url = "path:configs/default/config.json";
+  inputs.config_json.flake = false;
   # To update all inputs:
   # $ nix flake update --recreate-lock-file
   inputs.home-manager.url = "github:dguibert/home-manager/pu";
