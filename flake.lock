@@ -1009,11 +1009,11 @@
         "st-src": "st-src"
       },
       "locked": {
-        "lastModified": 1719826349,
-        "narHash": "sha256-+8t+THFIqhuOKNREGmWqOdA6CfIDC1MH8n0xEtxfcqc=",
+        "lastModified": 1719827889,
+        "narHash": "sha256-6/GytbTHQF+6/r58INoFTGi4ixYXBv2MB1bIg9fCkGM=",
         "owner": "dguibert",
         "repo": "nur-packages",
-        "rev": "be6657053579bbffbaea3abf74ab2929feb759eb",
+        "rev": "9e24fa0df8e48e3fbee7161592d6bc1b0fcfca4a",
         "type": "github"
       },
       "original": {
