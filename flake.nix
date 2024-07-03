@@ -22,7 +22,6 @@
   inputs.nixpkgs.url = "github:dguibert/nur-packages?refs=master";
   inputs.nixpkgs.inputs.nixpkgs.follows = "upstream_nixpkgs";
   inputs.nixpkgs_with_stdenv.url = "path:nixpkgs";
-  inputs.nixpkgs_with_stdenv.inputs.nix.follows = "nix";
   inputs.nixpkgs_with_stdenv.inputs.nixpkgs.follows = "nixpkgs";
 
   inputs.disko.url = github:nix-community/disko;
@@ -67,7 +66,6 @@
   inputs.flake-utils.follows = "nixpkgs/flake-utils";
 
   inputs.pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
-  inputs.pre-commit-hooks.inputs.flake-utils.follows = "nixpkgs/flake-utils";
   inputs.pre-commit-hooks.inputs.nixpkgs.follows = "nixpkgs/nixpkgs";
 
   #inputs.hyprland.url = "github:hyprwm/Hyprland";
