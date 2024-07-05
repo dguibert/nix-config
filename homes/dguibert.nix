@@ -164,6 +164,7 @@ in
 
         tig
         python3
+        python3Packages.pip
 
         nxsession
       ];
