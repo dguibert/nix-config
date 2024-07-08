@@ -23,7 +23,7 @@ with lib; {
       mako # notification daemon
       brightnessctl
 
-      gnome3.adwaita-icon-theme # Icons for gnome packages that sometimes use them but don't depend on them
+      adwaita-icon-theme # Icons for gnome packages that sometimes use them but don't depend on them
 
       waypipe
       grim
