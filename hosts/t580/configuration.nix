@@ -53,31 +53,15 @@ rec {
   systemd.network.enable = lib.mkForce true;
   networking.dhcpcd.enable = false;
 
-  systemd.network.netdevs."40-bond0" = {
-    netdevConfig.Name = "bond0";
-    netdevConfig.Kind = "bond";
-    bondConfig.Mode = "active-backup";
-    bondConfig.MIIMonitorSec = "100s";
-    bondConfig.PrimaryReselectPolicy = "always";
-  };
   systemd.network.networks = {
-    "40-bond0" = {
-      name = "bond0";
+    "40-wlan0" = {
+      name = "wlan0";
       DHCP = "yes";
-      networkConfig.BindCarrier = "enp0s31f6 wlp4s0";
       linkConfig.MACAddress = "d2:b6:17:1d:b8:97";
       # make routing on this interface a dependency for network-online.target
       linkConfig.RequiredForOnline = "routable";
     };
-  } // listToAttrs (flip map [ "enp0s31f6" "wlp4s0" "enp0s20f0u4u1" ] (bi:
-    nameValuePair "40-${bi}" {
-      name = "${bi}";
-      DHCP = "no";
-      networkConfig.Bond = "bond0";
-      networkConfig.IPv6PrivacyExtensions = "kernel";
-      linkConfig.MACAddress = "d2:b6:17:1d:b8:97";
-      linkConfig.RequiredForOnline = "no";
-    }));
+  };
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
