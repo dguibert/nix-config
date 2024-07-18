@@ -19,24 +19,34 @@ rec {
   boot.loader.systemd-boot.configurationLimit = 6;
 
   networking.hostName = "t580"; # Define your hostname.
-  networking.supplicant.wlp4s0 = {
-    configFile.path = "/persist/etc/wpa_supplicant.conf";
-    userControlled.group = "network";
-    extraConf = ''
-      ap_scan=1
-      p2p_disabled=1
-    '';
-    extraCmdArgs = "-u";
+  networking.wireless.iwd.enable = true;
+  networking.wireless.iwd.settings = {
+    IPv6 = {
+      Enabled = true;
+    };
+    Settings = {
+      AutoConnect = true;
+    };
   };
+  #systemd.tmpfiles.rules = [
+  #  # "C /var/lib/iwd/network1.psk 0400 root root - /run/secrets/iwd_network_network1.psk"
+  #  "C /var/lib/iwd/network1.psk 0600 root root - ${n1}"
+  #  "C /var/lib/iwd/home.psk 0600 root root - ${config.sops.secrets."iwd_home.psk".path}"
+  #];
+  #networking.supplicant.wlp4s0 = {
+  #  configFile.path = "/persist/etc/wpa_supplicant.conf";
+  #  userControlled.group = "network";
+  #  extraConf = ''
+  #    ap_scan=1
+  #    p2p_disabled=1
+  #  '';
+  #  extraCmdArgs = "-u";
+  #};
 
   sops.defaultSopsFile = ./secrets/secrets.yaml;
 
   services.fwupd.enable = true;
   powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
-
-  #networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  #networking.wireless.userControlled.enable = true;
-  #environment.etc."wpa_supplicant.conf".source = "/persist/etc/wpa_supplicant.conf";
 
   networking.useNetworkd = lib.mkForce false;
   networking.useDHCP = false;
