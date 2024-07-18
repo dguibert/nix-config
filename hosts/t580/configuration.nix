@@ -21,12 +21,9 @@ rec {
   networking.hostName = "t580"; # Define your hostname.
   networking.wireless.iwd.enable = true;
   networking.wireless.iwd.settings = {
-    IPv6 = {
-      Enabled = true;
-    };
-    Settings = {
-      AutoConnect = true;
-    };
+    General.AddressRandomization = "network";
+    IPv6.Enabled = true;
+    Settings.AutoConnect = true;
   };
   #systemd.tmpfiles.rules = [
   #  # "C /var/lib/iwd/network1.psk 0400 root root - /run/secrets/iwd_network_network1.psk"
