@@ -19,55 +19,46 @@ rec {
   boot.loader.systemd-boot.configurationLimit = 6;
 
   networking.hostName = "t580"; # Define your hostname.
-  networking.supplicant.wlp4s0 = {
-    configFile.path = "/persist/etc/wpa_supplicant.conf";
-    userControlled.group = "network";
-    extraConf = ''
-      ap_scan=1
-      p2p_disabled=1
-    '';
-    extraCmdArgs = "-u";
+  networking.wireless.iwd.enable = true;
+  networking.wireless.iwd.settings = {
+    General.AddressRandomization = "network";
+    IPv6.Enabled = true;
+    Settings.AutoConnect = true;
   };
+  #systemd.tmpfiles.rules = [
+  #  # "C /var/lib/iwd/network1.psk 0400 root root - /run/secrets/iwd_network_network1.psk"
+  #  "C /var/lib/iwd/network1.psk 0600 root root - ${n1}"
+  #  "C /var/lib/iwd/home.psk 0600 root root - ${config.sops.secrets."iwd_home.psk".path}"
+  #];
+  #networking.supplicant.wlp4s0 = {
+  #  configFile.path = "/persist/etc/wpa_supplicant.conf";
+  #  userControlled.group = "network";
+  #  extraConf = ''
+  #    ap_scan=1
+  #    p2p_disabled=1
+  #  '';
+  #  extraCmdArgs = "-u";
+  #};
 
   sops.defaultSopsFile = ./secrets/secrets.yaml;
 
   services.fwupd.enable = true;
   powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
 
-  #networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  #networking.wireless.userControlled.enable = true;
-  #environment.etc."wpa_supplicant.conf".source = "/persist/etc/wpa_supplicant.conf";
-
   networking.useNetworkd = lib.mkForce false;
   networking.useDHCP = false;
   systemd.network.enable = lib.mkForce true;
   networking.dhcpcd.enable = false;
 
-  systemd.network.netdevs."40-bond0" = {
-    netdevConfig.Name = "bond0";
-    netdevConfig.Kind = "bond";
-    bondConfig.Mode = "active-backup";
-    bondConfig.MIIMonitorSec = "100s";
-    bondConfig.PrimaryReselectPolicy = "always";
-  };
   systemd.network.networks = {
-    "40-bond0" = {
-      name = "bond0";
+    "40-wlan0" = {
+      name = "wlan0";
       DHCP = "yes";
-      networkConfig.BindCarrier = "enp0s31f6 wlp4s0";
       linkConfig.MACAddress = "d2:b6:17:1d:b8:97";
       # make routing on this interface a dependency for network-online.target
       linkConfig.RequiredForOnline = "routable";
     };
-  } // listToAttrs (flip map [ "enp0s31f6" "wlp4s0" "enp0s20f0u4u1" ] (bi:
-    nameValuePair "40-${bi}" {
-      name = "${bi}";
-      DHCP = "no";
-      networkConfig.Bond = "bond0";
-      networkConfig.IPv6PrivacyExtensions = "kernel";
-      linkConfig.MACAddress = "d2:b6:17:1d:b8:97";
-      linkConfig.RequiredForOnline = "no";
-    }));
+  };
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";

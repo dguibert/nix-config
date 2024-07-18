@@ -17,14 +17,14 @@ in
         mcu = {
           enable = true;
           # Run klipper-genconf to generate this
-          configFile = ./server-3Dprinting/config;
+          configFile = ./server-3Dprinting/mcu/config;
           # Serial port connected to the microcontroller
           serial = "/dev/serial/by-id/usb-Klipper_stm32f401xc_2E0028000851383531393138-if00";
         };
         "mcu display" = {
           enable = true;
           # Run klipper-genconf to generate this
-          configFile = ./server-3Dprinting/display.config;
+          configFile = ./server-3Dprinting/display/config;
           # Serial port connected to the microcontroller
           serial = "/dev/serial/by-id/usb-Klipper_stm32f042x6_05000B000543303848373220-if00";
         };
