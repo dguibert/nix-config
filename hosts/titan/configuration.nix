@@ -195,7 +195,7 @@ rec {
   #  inheritParentConfig = true;
   #  configuration = {
   # https://nixos.wiki/wiki/Nvidia
-  #services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
     # Modesetting is required.
     modesetting.enable = true;
@@ -205,11 +205,11 @@ rec {
     nvidiaSettings = true;
 
     powerManagement.enable = true;
-    open = true;
+    open = false;
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidiaPackages.beta.open;
-    #forceFullCompositionPipeline = true;
+    package = config.boot.kernelPackages.nvidiaPackages.latest;
+    forceFullCompositionPipeline = true;
   };
   #  };
   #};
