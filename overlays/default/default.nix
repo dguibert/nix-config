@@ -12,6 +12,20 @@ final: prev: with final; {
 
   conky_nox11 = (conky.override { x11Support = false; });
 
+  python312 = prev.python312.override {
+    packageOverrides = python-self: python-super: with python-self; {
+      boto3 = final.lib.upgradeOverride python-super.boto3 (oldAttrs: rec {
+        src = fetchFromGitHub {
+          owner = "boto";
+          repo = "boto3";
+          rev = "refs/tags/${oldAttrs.version}";
+          hash = "sha256-ZipBiB09Bg1D5Ly6R5DkValGe1tDq55b7LnrqU71y/A=";
+        };
+
+      });
+
+    };
+  };
   #nixos-option = prev.nixos-option.override {
   #  nix = prev.nixStable;
   #};
