@@ -140,6 +140,7 @@ in
       ];
       centralMailHost.enable = false;
       withGui.enable = false;
+      withZellij.enable = true;
       withCustomProfile.enable = true;
       withCustomProfile.suffix = "x86_64";
       withEmacs.enable = true;
