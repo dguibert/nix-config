@@ -1,7 +1,7 @@
 { ... }: {
   imports = [
-    (import ./root/default.nix)
-    (import ./dguibert/default.nix)
+    ./root/default.nix
+    ./dguibert/default.nix
   ];
 
   users.mutableUsers = false;
