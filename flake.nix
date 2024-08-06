@@ -65,8 +65,8 @@
   inputs.flake-parts.follows = "nixpkgs/flake-parts";
   inputs.flake-utils.follows = "nixpkgs/flake-utils";
 
-  inputs.pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
-  inputs.pre-commit-hooks.inputs.nixpkgs.follows = "nixpkgs/nixpkgs";
+  inputs.git-hooks-nix.url = "github:cachix/git-hooks.nix";
+  inputs.git-hooks-nix.inputs.nixpkgs.follows = "nixpkgs/nixpkgs";
 
   #inputs.hyprland.url = "github:hyprwm/Hyprland";
   #inputs.hyprland.url = "git+https://github.com/dguibert/Hyprland?submodules=1";
