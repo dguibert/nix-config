@@ -168,6 +168,10 @@ in
         python3Packages.pip
 
         nxsession
+
+        figlet
+        fdupes
+        rdfind
       ];
 
       home.sessionVariables.NIX_SSL_CERT_FILE = "/etc/pki/tls/certs/ca-bundle.crt";
