@@ -137,11 +137,12 @@ with lib; {
             separate-outputs = true;
           };
           network = {
-            interface = "bond0";
+            #interface = "bond0";
             format = "{ifname}";
             format-wifi = "{essid} ({signalStrength}%) ";
             format-ethernet = "{bandwidthDownBytes}  {bandwidthUpBytes}";
-            format-disconnected = ""; # An empty format will hide the module.
+            #format-disconnected = ""; # An empty format will hide the module.
+            format-disconnected = ""; # An empty format will hide the module.
             tooltip-format = "{ipaddr}/{cidr} {ifname} via {gwaddr}";
             tooltip-format-wifi = "{essid} ({signalStrength}%) ";
             tooltip-format-ethernet = "{ifname} ";
