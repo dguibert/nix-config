@@ -186,7 +186,7 @@ with lib; {
       ];
       settings = {
         plugin.split-monitor-workspaces = {
-          count = 9;
+          count = 10; # 9 are used but 1-9 are on 1st monitor, 11-19 are on snd
           keep_focused = 0;
           enable_notifications = 0;
           enable_persistent_workspaces = 0;
