@@ -184,13 +184,13 @@ with lib; {
       plugins = [
         inputs.split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces
       ];
-      plugin.split-monitor-workspaces = {
-        count = 9;
-        keep_focused = 0;
-        enable_notifications = 0;
-        enable_persistent_workspaces = 0;
-      };
       settings = {
+        plugin.split-monitor-workspaces = {
+          count = 9;
+          keep_focused = 0;
+          enable_notifications = 0;
+          enable_persistent_workspaces = 0;
+        };
         env = lib.mkIf cfg.nvidia.enable [
           "LIBVA_DRIVER_NAME,nvidia"
           "GBM_BACKEND,nvidia-drm"
