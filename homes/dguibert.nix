@@ -96,6 +96,7 @@ in
 
       # don't use full bash config
       withBash.enable = false;
+      withGpg.enable = false;
       programs.bash.enable = true;
       programs.bash.historySize = -1; # no truncation
       programs.bash.historyFile = "$HOME/.bash_history";
