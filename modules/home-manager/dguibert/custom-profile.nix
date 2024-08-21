@@ -20,7 +20,7 @@ in
     programs.bash.bashrcExtra = /*(homes.withoutX11 args).programs.bash.initExtra +*/ ''
       export NIX_STATE_DIR=${config.home.sessionVariables.NIX_STATE_DIR}
       export NIX_PROFILE=${config.home.sessionVariables.NIX_PROFILE}
-      export PATH=$NIX_PROFILE/bin:${activationPkgs.nix}/bin:$PATH
+      export PATH=$NIX_PROFILE/bin:$PATH
     '';
     home.activation.setNixVariables = lib.hm.dag.entryBefore [ "writeBoundary" "checkLinkTargets" "checkFilesChanges" ]
       ''
