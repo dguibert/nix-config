@@ -1422,11 +1422,11 @@
         "nixpkgs-stable": "nixpkgs-stable_4"
       },
       "locked": {
-        "lastModified": 1724227653,
-        "narHash": "sha256-dNB9+GbdKIKtFAyHe4YvHwOQV19UzJx6+9NArnpS4hU=",
+        "lastModified": 1724227996,
+        "narHash": "sha256-oUfN14guPLG2J9+hGbxZ1pWFeRhtxW0y0cP+yUdg0HM=",
         "owner": "dguibert",
         "repo": "sops-nix",
-        "rev": "28f62f59dfa9fe4ac0112183c6edcf71cf26c995",
+        "rev": "d6868253f13654ab6e7c7274c3695fd33b8cc2a7",
         "type": "github"
       },
       "original": {
