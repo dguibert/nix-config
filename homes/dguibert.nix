@@ -150,11 +150,8 @@ in
       home.homeDirectory = "/home_nfs/bguibertd";
       home.stateVersion = "22.11";
 
-      home.sessionPath = [
-        "${pkgs.nix}/bin"
-      ];
-
       home.packages = with pkgs; [
+        nix
         xpra
         bashInteractive
 
@@ -204,13 +201,10 @@ in
       home.homeDirectory = "/home_nfs/bguibertd";
       home.stateVersion = "22.11";
 
-      home.sessionPath = [
-        "${pkgs.nix}/bin"
-      ];
-
       _module.args.activationPkgs = pkgs.buildPackages;
       home.packages = with pkgs; [
         bashInteractive
+        nix
       ];
     })
   ];
