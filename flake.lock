@@ -1422,15 +1422,15 @@
         "nixpkgs-stable": "nixpkgs-stable_4"
       },
       "locked": {
-        "lastModified": 1723501126,
-        "narHash": "sha256-N9IcHgj/p1+2Pvk8P4Zc1bfrMwld5PcosVA0nL6IGdE=",
-        "owner": "Mic92",
+        "lastModified": 1724227653,
+        "narHash": "sha256-dNB9+GbdKIKtFAyHe4YvHwOQV19UzJx6+9NArnpS4hU=",
+        "owner": "dguibert",
         "repo": "sops-nix",
-        "rev": "be0eec2d27563590194a9206f551a6f73d52fa34",
+        "rev": "28f62f59dfa9fe4ac0112183c6edcf71cf26c995",
         "type": "github"
       },
       "original": {
-        "owner": "Mic92",
+        "owner": "dguibert",
         "repo": "sops-nix",
         "type": "github"
       }
