@@ -8,7 +8,8 @@ with lib; {
   config = lib.mkIf config.withGui.enable {
     programs.bash.bashrcExtra = ''
       if [[ -z $WAYLAND_DISPLAY ]] && [[ "$XDG_VTNR" -eq 1 ]] && command -v Hyprland >/dev/null ; then
-      dbus-run-session Hyprland
+      #dbus-run-session Hyprland
+      systemctl --user start --wait hyprland-session
       fi
     '';
 
@@ -81,7 +82,7 @@ with lib; {
     xdg.configFile."waybar/style.css".source = ./waybar-style.css;
     xdg.configFile."waybar/config".text =
       let
-        default_conf = mon: {
+        default_conf = mon: interface: {
           layer = "top";
           output = mon;
           modules-left = [ "hyprland/workspaces" "hyprland/window" ];
@@ -137,12 +138,12 @@ with lib; {
             separate-outputs = true;
           };
           network = {
-            #interface = "bond0";
+            interface = interface;
             format = "{ifname}";
-            format-wifi = "{essid} ({signalStrength}%) ";
+            format-wifi = "{bandwidthDownBytes}  {bandwidthUpBytes}  {essid} ({signalStrength}%) ";
             format-ethernet = "{bandwidthDownBytes}  {bandwidthUpBytes}";
-            #format-disconnected = ""; # An empty format will hide the module.
-            format-disconnected = ""; # An empty format will hide the module.
+            format-disconnected = ""; # An empty format will hide the module.
+            #format-disconnected = ""; # An empty format will hide the module.
             tooltip-format = "{ipaddr}/{cidr} {ifname} via {gwaddr}";
             tooltip-format-wifi = "{essid} ({signalStrength}%) ";
             tooltip-format-ethernet = "{ifname} ";
@@ -153,10 +154,28 @@ with lib; {
       in
       builtins.toJSON
         [
-          (default_conf "HDMI-A-1")
-          (default_conf "DVI-D-1")
-          (default_conf "eDP-1")
+          (default_conf "HDMI-A-1" "bond0")
+          (default_conf "DVI-D-1" "bond0")
+          (default_conf "eDP-1" "wlan0")
         ];
+
+    systemd.user.services.hyprland-session = {
+      Unit = {
+        Description = "Hyprland - Tiling compositor with the looks";
+        Documentation = "man:Hyprland(1)";
+        BindsTo = "graphical-session.target";
+        Before = "graphical-session.target";
+        Wants = [ "graphical-session-pre.target" "tray.target" ];
+        After = "graphical-session-pre.target";
+      };
+      Service = {
+        Type = "notify";
+        ExecStart = "${config.wayland.windowManager.hyprland.package}/bin/Hyprland";
+        ExecStop = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl dispatch exit";
+        Restart = "on-failure";
+        Slice = "session.slice";
+      };
+    };
 
     systemd.user.services.waybar = {
       Unit = {
@@ -172,10 +191,6 @@ with lib; {
         RestartSec = 5;
         Restart = "always";
       };
-    };
-
-    systemd.user.targets.hyprland-session.Unit = {
-      Wants = [ "tray.target" ];
     };
 
     wayland.windowManager.hyprland = {
@@ -205,10 +220,6 @@ with lib; {
       extraConfig = builtins.readFile ./hyprland.conf;
       systemd = {
         variables = [ "--all" ];
-        extraCommands = [
-          "systemctl --user stop graphical-session.target"
-          "systemctl --user start hyprland-session.target"
-        ];
       };
     };
   };
