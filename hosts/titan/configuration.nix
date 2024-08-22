@@ -100,7 +100,7 @@ rec {
     #https://lwn.net/Articles/635357/
     "nohugeiomap"
     "systemd.setenv=SYSTEMD_SULOGIN_FORCE=1"
-    "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
+    #"nvidia.NVreg_PreserveVideoMemoryAllocations=1"
 
   ];
   boot.zfs.devNodes = "/dev/disk/by-id";
