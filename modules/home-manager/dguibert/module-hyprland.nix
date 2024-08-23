@@ -206,6 +206,10 @@ with lib; {
           enable_notifications = 0;
           enable_persistent_workspaces = 0;
         };
+        render = lib.mkIf cfg.nvidia.enable {
+          explicit_sync = 0;
+          explicit_sync_kms = 0;
+        };
         env = lib.mkIf cfg.nvidia.enable [
           "LIBVA_DRIVER_NAME,nvidia"
           "GBM_BACKEND,nvidia-drm"
