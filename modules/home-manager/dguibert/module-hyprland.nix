@@ -8,8 +8,7 @@ with lib; {
   config = lib.mkIf config.withGui.enable {
     programs.bash.bashrcExtra = ''
       if [[ -z $WAYLAND_DISPLAY ]] && [[ "$XDG_VTNR" -eq 1 ]] && command -v Hyprland >/dev/null ; then
-      #dbus-run-session Hyprland
-      systemctl --user start --wait hyprland-session
+      dbus-run-session Hyprland
       fi
     '';
 
@@ -224,6 +223,10 @@ with lib; {
       extraConfig = builtins.readFile ./hyprland.conf;
       systemd = {
         variables = [ "--all" ];
+        extraCommands = [
+          "systemctl --user stop graphical-session.target"
+          "systemctl --user start hyprland-session"
+        ];
       };
     };
   };
