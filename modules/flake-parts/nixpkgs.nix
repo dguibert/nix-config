@@ -7,6 +7,14 @@ let
     inputs.nxsession.overlay
     #inputs.nixpkgs-wayland.overlay
     inputs.hyprland.overlays.default
+    # for rpi31
+    (final: prev: {
+      makeModulesClosure = { kernel, firmware, rootModules, allowMissing ? false }: prev.makeModulesClosure
+        {
+          inherit kernel firmware rootModules;
+          allowMissing = true;
+        };
+    })
   ];
 
   packages = config:
