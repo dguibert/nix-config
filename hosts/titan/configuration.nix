@@ -215,6 +215,7 @@ rec {
   #};
   #nixpkgs.config.xorg.abiCompat = "1.18";
   hardware.bluetooth.enable = true;
+  hardware.enableAllFirmware = true;
 
   # https://nixos.org/nixos/manual/index.html#sec-container-networking
   networking.nat.enable = true;
