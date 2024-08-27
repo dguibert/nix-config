@@ -87,6 +87,7 @@
   services.xserver.libinput.enable = lib.mkDefault true;
   hardware.trackpoint.enable = lib.mkDefault true;
   hardware.trackpoint.emulateWheel = lib.mkDefault config.hardware.trackpoint.enable;
+  hardware.bluetooth.enable = true;
 
   # Disable governor set in hardware-configuration.nix,
   # required when services.tlp.enable is true:
