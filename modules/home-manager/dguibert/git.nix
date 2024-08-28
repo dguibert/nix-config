@@ -21,7 +21,7 @@
   programs.git.iniContent.rebase.autosquash = true;
   programs.git.iniContent.credential.helper = [
     # https://github.com/languitar/pass-git-helper
-    # maybe neetd to define ~/.config/pass-git-helper/git-pass-mapping.ini
+    # maybe need to define ~/.config/pass-git-helper/git-pass-mapping.ini
     "!type pass-git-helper >/dev/null && pass-git-helper $@"
     "store"
     "cache --timeout 86400"
@@ -34,6 +34,7 @@
   programs.git.iniContent.color.ui = "auto";
   programs.git.iniContent.diff.tool = "vimdiff";
   programs.git.iniContent.diff.renames = "copies";
+  programs.git.iniContent.diff.sopsdiffer.textconv = "sops decrypt";
   programs.git.iniContent.merge.tool = "vimdiff";
   programs.git.iniContent.pull.ff = "only"; # fast-forward only
 
