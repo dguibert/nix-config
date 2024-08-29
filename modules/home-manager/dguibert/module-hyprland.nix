@@ -158,24 +158,6 @@ with lib; {
           (default_conf "eDP-1" "wlan0")
         ];
 
-    systemd.user.services.hyprland-session = {
-      Unit = {
-        Description = "Hyprland - Tiling compositor with the looks";
-        Documentation = "man:Hyprland(1)";
-        BindsTo = "graphical-session.target";
-        Before = "graphical-session.target";
-        Wants = [ "graphical-session-pre.target" "tray.target" ];
-        After = "graphical-session-pre.target";
-      };
-      Service = {
-        Type = "notify";
-        ExecStart = "${config.wayland.windowManager.hyprland.package}/bin/Hyprland";
-        ExecStop = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl dispatch exit";
-        Restart = "on-failure";
-        Slice = "session.slice";
-      };
-    };
-
     systemd.user.services.waybar = {
       Unit = {
         Description = "Modular status panel for Wayland";
@@ -190,6 +172,10 @@ with lib; {
         RestartSec = 5;
         Restart = "always";
       };
+    };
+
+    systemd.user.targets.hyprland-session.Unit = {
+      Wants = [ "tray.target" ];
     };
 
     wayland.windowManager.hyprland = {
@@ -225,7 +211,7 @@ with lib; {
         variables = [ "--all" ];
         extraCommands = [
           "systemctl --user stop graphical-session.target"
-          "systemctl --user start hyprland-session"
+          "systemctl --user start hyprland-session.target"
         ];
       };
     };
