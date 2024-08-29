@@ -208,8 +208,9 @@ rec {
     open = false;
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidiaPackages.beta;
-    #forceFullCompositionPipeline = true;
+    #package = config.boot.kernelPackages.nvidiaPackages.beta;
+    package = config.boot.kernelPackages.nvidiaPackages.production;
+    forceFullCompositionPipeline = true;
   };
   #  };
   #};
