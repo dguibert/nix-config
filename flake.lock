@@ -20,11 +20,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1724273991,
-        "narHash": "sha256-+aUSOXKGpS5CRm1oTitgNAr05ThQNbKIXalZHl3nC6Y=",
+        "lastModified": 1724781866,
+        "narHash": "sha256-ItgACCJCwn8Rx7p8hJBpnU9eCtrdmkg4AbqMZL/rXlY=",
         "owner": "hyprwm",
         "repo": "aquamarine",
-        "rev": "9a3161ad4c78dc420d1cbb3aae638222608c7de4",
+        "rev": "7cc3d3179c06caf3769afb3eb0c69aa55676c96a",
         "type": "github"
       },
       "original": {
@@ -814,11 +814,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1724338689,
-        "narHash": "sha256-1KAXrACmMQZSclcdjWsERkl/VkCEaB2uMd9RkxD7JXU=",
+        "lastModified": 1724916892,
+        "narHash": "sha256-puFGGvNuuEfxXRL+lnF1R5P/s50UyK19t9YHwrPLMFc=",
         "ref": "refs/heads/main",
-        "rev": "9401b362d4097d335fb6d062d49b93629ca8393a",
-        "revCount": 5128,
+        "rev": "e06051c804610e5532bcbf704382b53aed656170",
+        "revCount": 5156,
         "submodules": true,
         "type": "git",
         "url": "https://github.com/dguibert/Hyprland"
