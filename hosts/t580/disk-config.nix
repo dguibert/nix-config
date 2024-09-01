@@ -138,7 +138,7 @@ in
       datasets = {
         "local/root" = ds_mount null;
         "local/empty-root" = ds_mount "/";
-        "local/home" = ds_mount "/home";
+        "local/home" = ds_mount null;
         "local/nix" = ds_mount "/nix";
         "safe/home/dguibert" = ds_mount "/persist/home/dguibert";
         "safe/home/root" = ds_mount "/root";
