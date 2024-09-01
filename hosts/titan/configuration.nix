@@ -204,12 +204,14 @@ rec {
     networkConfig.BindCarrier = "eno1 eno2";
     # make routing on this interface a dependency for network-online.target
     linkConfig.RequiredForOnline = "routable";
+    linkConfig.MACAddress = "1A:8E:26:C3:83:BB";
   };
   systemd.network.networks."40-eno1" = {
     name = "eno1";
     DHCP = "no";
     networkConfig.Bond = "bond0";
     networkConfig.IPv6PrivacyExtensions = "kernel";
+    linkConfig.MACAddress = "1A:8E:26:C3:83:BB";
     linkConfig.RequiredForOnline = "no";
   };
   systemd.network.networks."40-eno2" = {
@@ -217,6 +219,7 @@ rec {
     DHCP = "no";
     networkConfig.Bond = "bond0";
     networkConfig.IPv6PrivacyExtensions = "kernel";
+    linkConfig.MACAddress = "1A:8E:26:C3:83:BB";
     linkConfig.RequiredForOnline = "no";
   };
 
