@@ -126,6 +126,7 @@
               {
                 hostname = "${nixosConfig.config.networking.hostName}";
                 sshOpts = [ "-o" "ControlMaster=no" ]; # https://github.com/serokell/deploy-rs/issues/106
+                profilesOrder = [ "system" "dguibert" ];
                 profiles.system.path = self.legacyPackages.${system}.deploy-rs.lib.activate.nixos nixosConfig;
                 profiles.system.user = "root";
                 # Fast connection to the node. If this is true, copy the whole closure instead of letting the node substitute.
