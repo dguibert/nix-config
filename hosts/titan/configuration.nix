@@ -67,7 +67,7 @@ rec {
     unitConfig.DefaultDependencies = "no";
     serviceConfig.Type = "oneshot";
     script = ''
-      zfs rollback -r rpool_rt580/local/root@blank && echo "rollback complete"
+      zfs rollback -r rpool_vanif0/local/root@blank && echo "rollback complete"
     '';
   };
 
