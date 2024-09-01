@@ -48,6 +48,7 @@ in
                 ".config/sops"
                 ".config/google-chrome"
                 ".mozilla/firefox"
+                ".mgit"
                 #{
                 #  directory = ".local/share/Steam";
                 #  method = "symlink";
