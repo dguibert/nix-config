@@ -46,6 +46,8 @@ in
                 ".password-store"
                 ".password-store.git"
                 ".config/sops"
+                ".config/google-chrome"
+                ".mozilla/firefox"
                 #{
                 #  directory = ".local/share/Steam";
                 #  method = "symlink";
