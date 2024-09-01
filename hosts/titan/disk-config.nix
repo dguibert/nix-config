@@ -139,7 +139,7 @@ in
 
       datasets = {
         "local/root" = ds_mount "/";
-        "local/home" = ds_mount "/home";
+        "local/home" = ds_mount null;
         "local/home/dguibert" = {
           #ds_mount "/home/dguibert";
           type = "zfs_fs";
