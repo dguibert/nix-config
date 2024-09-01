@@ -33,6 +33,7 @@ in
           home.persistence = {
             "/persist/home/${config.home.username}" = {
               directories = [
+                ".ssh"
                 "bin"
                 "archives"
                 "code"
