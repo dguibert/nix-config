@@ -45,6 +45,7 @@ in
                 ".vim"
                 ".password-store"
                 ".password-store.git"
+                ".config/sops"
                 #{
                 #  directory = ".local/share/Steam";
                 #  method = "symlink";
@@ -53,6 +54,8 @@ in
                 "Maildir"
               ];
               files = [
+                ".bash_history"
+                ".bash_history_backup"
                 ".mrconfig"
                 ".mrtrust"
                 ".vimrc"
