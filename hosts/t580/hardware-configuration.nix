@@ -28,9 +28,53 @@
   fileSystems."/persist".neededForBoot = true;
 
   # https://grahamc.com/blog/erase-your-darlings
-  boot.initrd.postDeviceCommands = lib.mkAfter ''
-    zfs rollback -r rpool_rt580/local/root@blank
-  '';
+  boot.initrd.postDeviceCommands = lib.mkIf (!config.boot.initrd.systemd.enable) (lib.mkAfter ''
+    zpool import rpool_rt580
+    #zfs rollback -r rpool_rt580/local/root@blank
+    zfs rollback -r rpool_rt580/local/empty-root@blank
+  '');
+  boot.initrd.systemd.services.rollback = {
+    description = "Rollback ZFS datasets to a pristine state";
+    wantedBy = [
+      "initrd.target"
+    ];
+    after = [
+      #"zfs-import-rpool_rt580.service"
+      "zfs-import.target"
+    ];
+    before = [
+      "sysroot.mount"
+    ];
+    path = with pkgs; [
+      zfs
+    ];
+    unitConfig.DefaultDependencies = "no";
+    serviceConfig.Type = "oneshot";
+    script = ''
+      zfs rollback -r rpool_rt580/local/empty-root@blank && echo "rollback complete"
+    '';
+  };
+  environment.persistence."/persist" = {
+    hideMounts = true;
+    enableDebugging = true;
+    directories = [
+      "/var/log"
+      "/var/lib/jellyfin"
+      "/var/lib/nixos"
+      "/var/lib/bluetooth"
+      #"/var/lib/step-ca"
+      "/var/lib/systemd/coredump"
+    ];
+    files = [
+      "/etc/machine-id"
+    ];
+  };
+  specialisation.stage1 = {
+    inheritParentConfig = true;
+    configuration = {
+      boot.initrd.systemd.enable = true;
+    };
+  };
 
   boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
   # https://lists.ubuntu.com/archives/kernel-team/2020-November/114986.html
@@ -78,6 +122,8 @@
     datasets."rpool_rt580/safe".recursive = true;
     datasets."rpool_rt580/local/root".use_template = [ "root" ];
     datasets."rpool_rt580/local/root".recursive = true;
+    datasets."rpool_rt580/local/empty-root".use_template = [ "root" ];
+    datasets."rpool_rt580/local/empty-root".recursive = true;
 
     extraArgs = [ "--verbose" ];
   };

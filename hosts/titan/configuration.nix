@@ -44,11 +44,33 @@ rec {
     options zfs zfs_txg_timeout=15
   '';
 
-  boot.initrd.postDeviceCommands = ''
-    # https://grahamc.com/blog/erase-your-darlings
+  # https://grahamc.com/blog/erase-your-darlings
+  boot.initrd.postDeviceCommands = lib.mkIf (!config.boot.initrd.systemd.enable) (lib.mkAfter ''
     zpool import rpool_vanif0
     zfs rollback -r rpool_vanif0/local/root@blank
-  '';
+  '');
+  boot.initrd.systemd.services.rollback = {
+    description = "Rollback ZFS datasets to a pristine state";
+    wantedBy = [
+      "initrd.target"
+    ];
+    after = [
+      #"zfs-import-rpool_rt580.service"
+      "zfs-import.target"
+    ];
+    before = [
+      "sysroot.mount"
+    ];
+    path = with pkgs; [
+      zfs
+    ];
+    unitConfig.DefaultDependencies = "no";
+    serviceConfig.Type = "oneshot";
+    script = ''
+      zfs rollback -r rpool_rt580/local/root@blank && echo "rollback complete"
+    '';
+  };
+
 
   fileSystems."/tmp".neededForBoot = true;
   fileSystems."/nix".neededForBoot = true;
@@ -61,6 +83,7 @@ rec {
       "/var/log"
       "/var/lib/jellyfin"
       "/var/lib/nixos"
+      "/var/lib/bluetooth"
       #"/var/lib/step-ca"
       "/var/lib/systemd/coredump"
     ];

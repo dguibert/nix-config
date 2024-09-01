@@ -130,10 +130,14 @@ in
         relatime = "on";
         xattr = "sa";
       };
-      postCreateHook = "zfs snapshot local/root@blank";
+      postCreateHook = "
+        zfs snapshot local/root@blank
+        zfs snapshot local/empty-root@blank
+      ";
 
       datasets = {
-        "local/root" = ds_mount "/";
+        "local/root" = ds_mount null;
+        "local/empty-root" = ds_mount "/";
         "local/home" = ds_mount "/home";
         "local/nix" = ds_mount "/nix";
         "safe/home/dguibert" = ds_mount "/home/dguibert";
