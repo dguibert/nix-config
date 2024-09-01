@@ -8,6 +8,7 @@
   #    [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
   #    ];
 
+  boot.initrd.systemd.enable = true;
   boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" "acpi_call" ];
@@ -69,12 +70,6 @@
     files = [
       "/etc/machine-id"
     ];
-  };
-  specialisation.stage1 = {
-    inheritParentConfig = true;
-    configuration = {
-      boot.initrd.systemd.enable = true;
-    };
   };
 
   boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;

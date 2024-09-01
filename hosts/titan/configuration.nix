@@ -31,6 +31,7 @@ rec {
     inherit lib;
   };
 
+  boot.initrd.systemd.enable = true;
   boot.initrd.availableKernelModules = [ "ehci_pci" "ahci" "isci" "usbhid" "usb_storage" "sd_mod" "nvme" ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModprobeConfig = ''
@@ -92,12 +93,6 @@ rec {
     ];
   };
 
-  specialisation.stage1 = {
-    inheritParentConfig = true;
-    configuration = {
-      boot.initrd.systemd.enable = true;
-    };
-  };
   #fileSystems."/tmp" = { device = "tmpfs"; fsType = "tmpfs"; options = [ "defaults" "noatime" "mode=1777" "size=140G" ]; neededForBoot = true; };
   # to build robotnix more thant 100G are needed
   # git/... fails with normalization/utf8only of zfs
