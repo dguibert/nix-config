@@ -25,6 +25,45 @@ in
   imports = [
     inputs.sops-nix.homeManagerModules.sops
     inputs.impermanence.nixosModules.home-manager.impermanence
+    ({ config, lib, ... }: {
+      options.withPersistence.enable = mkEnableOption "Use Impermanence";
+
+      config = lib.mkIf config.withPersistence.enable
+        {
+          home.persistence = {
+            "/persist/home/${config.home.username}" = {
+              directories = [
+                "bin"
+                "archives"
+                "code"
+                "Documents"
+                "Pictures"
+                "Videos"
+                "work"
+                "templates"
+                ".videos"
+                ".vim"
+                ".password-store"
+                ".password-store.git"
+                #{
+                #  directory = ".local/share/Steam";
+                #  method = "symlink";
+                #}
+              ] ++ optionals config.centralMailHost.enable [
+                "Maildir"
+              ];
+              files = [
+                ".mrconfig"
+                ".mrtrust"
+                ".vimrc"
+                ".signature"
+                ".signature.work"
+              ];
+              allowOther = true;
+            };
+          };
+        };
+    })
     ({ ... }: {
       sops.age.sshKeyPaths = [ "/home/dguibert/.ssh/id_ed25519" ];
       sops.defaultSopsFile = ./dguibert/secrets.yaml;

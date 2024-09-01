@@ -140,7 +140,7 @@ in
         "local/empty-root" = ds_mount "/";
         "local/home" = ds_mount "/home";
         "local/nix" = ds_mount "/nix";
-        "safe/home/dguibert" = ds_mount "/home/dguibert";
+        "safe/home/dguibert" = ds_mount "/persist/home/dguibert";
         "safe/home/root" = ds_mount "/root";
         "safe/persist" = ds_mount "/persist";
       };

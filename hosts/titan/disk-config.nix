@@ -147,9 +147,9 @@ in
         };
         "local/nix" = ds_mount "/nix";
         "safe/home/root" = ds_mount "/root";
-        "safe/home/dguibert" = ds_mount "/home/dguibert";
-        "safe/home/dguibert/Videos" = ds_mount "/home/dguibert/Videos";
-        "safe/home/dguibert/notmuch" = ds_mount "/home/dguibert/Maildir/.notmuch";
+        "safe/home/dguibert" = ds_mount "/persist/home/dguibert";
+        "safe/home/dguibert/Videos" = ds_mount "/persist/home/dguibert/Videos";
+        "safe/home/dguibert/notmuch" = ds_mount "/persist/home/dguibert/Maildir/.notmuch";
         "safe/persist" = ds_mount "/persist";
 
         "local/nix--home_nfs-bguibertd-nix" = ds_mount "/home_nfs/bguibertd/nix";

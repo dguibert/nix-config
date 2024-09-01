@@ -48,6 +48,7 @@ in
       #wayland.windowManager.hyprland.enable = true;
       #wayland.windowManager.hyprland.package = pkgs.hyprland;
       withGui.enable = true;
+      withPersistence.enable = true;
       withEmacs.enable = true;
       withZellij.enable = true;
       #withVSCode.enable = true;
@@ -66,6 +67,7 @@ in
       #wayland.windowManager.hyprland.enable = true;
       centralMailHost.enable = true;
       withGui.enable = true;
+      withPersistence.enable = true;
       hyprland.nvidia.enable = true;
       withEmacs.enable = true;
       withZellij.enable = true;
