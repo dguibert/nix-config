@@ -165,7 +165,10 @@
               in
               {
                 #profiles.root.path = inputs.deploy-rs.lib.aarch64-linux.activate.custom
-                profiles.dguibert.path = self.legacyPackages.${system}.deploy-rs.lib.activate.custom homeConfig.activationPackage "./activate";
+                profiles.dguibert.path = self.legacyPackages.${system}.deploy-rs.lib.activate.custom homeConfig.activationPackage ''
+                  export HOME_MANAGER_BACKUP_EXT=backup
+                  ./activate
+                '';
                 profiles.dguibert.user = "dguibert";
               })
             {
