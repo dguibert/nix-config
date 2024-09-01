@@ -62,6 +62,7 @@
       "/var/lib/jellyfin"
       "/var/lib/nixos"
       "/var/lib/bluetooth"
+      "/var/lib/iwd"
       #"/var/lib/step-ca"
       "/var/lib/systemd/coredump"
     ];
