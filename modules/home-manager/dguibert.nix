@@ -54,6 +54,7 @@ in
                 #  directory = ".local/share/Steam";
                 #  method = "symlink";
                 #}
+                ".gnupg/private-keys-v1.d"
               ] ++ optionals config.centralMailHost.enable [
                 "Maildir"
               ];
@@ -65,6 +66,7 @@ in
                 ".vimrc"
                 ".signature"
                 ".signature.work"
+                ".gnupg/pubring.kbx"
               ];
               allowOther = true;
             };
