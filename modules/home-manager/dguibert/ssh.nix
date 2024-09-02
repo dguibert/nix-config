@@ -54,7 +54,7 @@
       enable = true;
       compression = true;
       controlMaster = "auto";
-      controlPath = "~/.ssh/socket-%C";
+      controlPath = "/run/user/%i/socket-%C";
       controlPersist = "4h";
 
       #extraOptionOverrides = ''
