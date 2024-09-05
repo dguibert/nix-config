@@ -23,7 +23,7 @@ let
     # packages with overriden stdenv
       system: builtins.trace "use of nixpkgs_with_custom_stdenv" inputs.nixpkgs_with_stdenv.legacyPackages.${system}.appendOverlays overlays
     else
-      system: inputs.nixpkgs.legacyPackages.${system}.appendOverlays overlays
+      system: inputs.nur_packages.legacyPackages.${system}.appendOverlays overlays
   ;
 in
 {
