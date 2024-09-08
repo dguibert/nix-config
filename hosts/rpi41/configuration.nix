@@ -7,7 +7,7 @@ with lib;
 
 rec {
   imports = [
-    #(import "${inputs.nixpkgs.inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix")
+    #(import "${inputs.nur_packages.inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix")
     #sdImage.compressImage = false;
     ({ ... }: {
       fileSystems = {

@@ -9,7 +9,7 @@ in
   };
 
   config.modules.hosts.iso = [
-    (import "${inputs.nixpkgs.inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix")
+    (import "${inputs.nur_packages.inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix")
     self.nixosModules.zfs
     ({ config, ... }: { zfs-conf.enable = true; })
     ({ config, lib, pkgs, resources, ... }: {

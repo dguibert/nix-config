@@ -108,8 +108,6 @@ in
       chromium.commandLineArgs = "--enable-features=UseOzonePlatform --ozone-platform=wayland";
     };
 
-    #nixpkgs.overlays = inputs.nixpkgs.legacyPackages.${pkgs.system}.overlays;
-
     #home.file.".vim/base16.vim".source = ./base16.vim;
     home.file.".editorconfig".source = ./dguibert/editorconfig;
 

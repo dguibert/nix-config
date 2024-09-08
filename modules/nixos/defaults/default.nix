@@ -1,6 +1,6 @@
 { config, lib, pkgs, resources, inputs, ... }: {
   imports = [
-    inputs.nixpkgs.inputs.nixpkgs.nixosModules.notDetected
+    inputs.nur_packages.inputs.nixpkgs.nixosModules.notDetected
     inputs.sops-nix.nixosModules.sops
     inputs.disko.nixosModules.disko
     inputs.impermanence.nixosModules.impermanence

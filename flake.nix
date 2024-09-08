@@ -143,7 +143,7 @@
           (inputs.nur_packages.lib.mapAttrs
             (host: homeConfig:
               let
-                system = self.nixosConfigurations.${host}.config.nur_packages.localSystem.system;
+                system = self.nixosConfigurations.${host}.config.nixpkgs.localSystem.system;
               in
               {
                 #profiles.root.path = inputs.deploy-rs.lib.aarch64-linux.activate.custom
