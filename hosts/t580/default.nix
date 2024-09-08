@@ -8,7 +8,7 @@
   config.modules.hosts.t580 = [ ./configuration.nix ];
 
   config.flake.nixosConfigurations = withSystem "x86_64-linux" ({ system, ... }: {
-    t580 = inputs.nixpkgs.lib.nixosSystem {
+    t580 = inputs.self.lib.nixosSystem {
       inherit system;
 
       specialArgs = {

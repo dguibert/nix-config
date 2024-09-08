@@ -8,7 +8,7 @@
   config.modules.hosts.rpi31 = [ ./configuration.nix ];
 
   config.flake.nixosConfigurations = withSystem "aarch64-linux" ({ system, ... }: {
-    rpi31 = inputs.nixpkgs.lib.nixosSystem {
+    rpi31 = inputs.self.lib.nixosSystem {
       inherit system;
 
       specialArgs = {

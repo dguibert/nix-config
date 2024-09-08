@@ -18,7 +18,7 @@
   ];
 
   config.flake.nixosConfigurations = withSystem "x86_64-linux" ({ system, ... }: {
-    titan = inputs.nixpkgs.lib.nixosSystem {
+    titan = inputs.self.lib.nixosSystem {
       inherit system;
 
       specialArgs = {

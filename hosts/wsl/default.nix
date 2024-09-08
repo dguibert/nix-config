@@ -48,7 +48,7 @@
   ];
 
   config.flake.nixosConfigurations = withSystem "x86_64-linux" ({ system, ... }: {
-    wsl = inputs.nixpkgs.lib.nixosSystem {
+    wsl = inputs.self.lib.nixosSystem {
       inherit system;
 
       specialArgs = {
