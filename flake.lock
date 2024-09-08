@@ -166,10 +166,13 @@
     "config_json": {
       "flake": false,
       "locked": {
-        "lastModified": 1725455457,
-        "narHash": "sha256-KnyFLII4tQYnyCPBmtJ0jjtWk93WYneHTOKmbANcU6M=",
-        "path": "configs/custom/config.json",
-        "type": "path"
+        "dir": "configs/default/config.json",
+        "lastModified": 1723627683,
+        "narHash": "sha256-KBTOxF0USeP5O6cMf8O92uG9d5vIykcZJzu2lHwWDoA=",
+        "owner": "dguibert",
+        "repo": "nix-config",
+        "rev": "a798e6ff09c0bbdb7d42d51243b3d8001995a632",
+        "type": "github"
       },
       "original": {
         "path": "configs/default/config.json",
