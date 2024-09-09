@@ -55,6 +55,7 @@ in
                 #  method = "symlink";
                 #}
                 ".gnupg/private-keys-v1.d"
+                ".emacs.private"
               ] ++ optionals config.centralMailHost.enable [
                 "Maildir"
               ];
