@@ -56,6 +56,7 @@ in
                 #}
                 ".gnupg/private-keys-v1.d"
                 ".emacs.private"
+                ".local/state/nix"
               ] ++ optionals config.centralMailHost.enable [
                 "Maildir"
               ];
