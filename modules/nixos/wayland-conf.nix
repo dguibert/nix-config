@@ -25,6 +25,7 @@
       terminus_font
       powerline-fonts
       nerdfonts
+      emacs-all-the-icons-fonts
       /*corefonts*/
       #noto-fonts
       #noto-fonts-cjk
