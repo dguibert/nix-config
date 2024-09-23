@@ -122,11 +122,5 @@ rec {
   };
 
 
-  #environment.noXlibs = false; #https://github.com/NixOS/nixpkgs/issues/102137
-  #programs.ssh.setXAuthLocation = false;
-  #security.pam.services.su.forwardXAuth = lib.mkForce false;
-
-  #fonts.fontconfig.enable = false;
-
   services.getty.autologinUser = lib.mkIf (config.users.dguibert.enable) "dguibert";
 }
