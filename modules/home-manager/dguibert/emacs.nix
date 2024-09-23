@@ -10,9 +10,9 @@
     home.sessionVariables.VISUAL = "emacsclient -s server -c -a emacs"; # $VISUAL opens in GUI mode
 
     programs.emacs.enable = true;
-    home.file.".emacs.d/init.el".source = "${inputs.nixpkgs}/overlays/emacs.d/init.el";
-    home.file.".emacs.d/emacs.org".source = "${inputs.nixpkgs}/overlays/emacs.d/emacs.org";
-    home.file.".emacs.d/site-lisp".source = "${inputs.nixpkgs}/overlays/emacs.d/site-lisp";
+    home.file.".emacs.d/init.el".source = "${inputs.nur_packages}/overlays/emacs.d/init.el";
+    home.file.".emacs.d/emacs.org".source = "${inputs.nur_packages}/overlays/emacs.d/emacs.org";
+    home.file.".emacs.d/site-lisp".source = "${inputs.nur_packages}/overlays/emacs.d/site-lisp";
 
     programs.emacs.package = pkgs.my-emacs;
     services.emacs.enable = true;

@@ -9,7 +9,7 @@ in
   };
 
   config.modules.hosts.iso = [
-    (import "${inputs.nixpkgs.inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix")
+    (import "${inputs.nur_packages.inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix")
     self.nixosModules.zfs
     ({ config, ... }: { zfs-conf.enable = true; })
     ({ config, lib, pkgs, resources, ... }: {
@@ -43,7 +43,7 @@ in
   ];
 
   config.flake.nixosConfigurations = withSystem "x86_64-linux" ({ system, ... }: {
-    iso = inputs.nixpkgs.lib.nixosSystem {
+    iso = inputs.self.lib.nixosSystem {
       inherit system;
 
       specialArgs = {

@@ -3,7 +3,7 @@
     let
       l = lib // builtins;
     in
-    inputs.nixpkgs.lib // {
+    inputs.nur_packages.lib // {
       genHomeManagerConfiguration = import ../../lib/gen-home-manager-configuration.nix { inherit lib; };
     };
 }

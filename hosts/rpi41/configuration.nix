@@ -7,7 +7,7 @@ with lib;
 
 rec {
   imports = [
-    #(import "${inputs.nixpkgs.inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix")
+    #(import "${inputs.nur_packages.inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix")
     #sdImage.compressImage = false;
     ({ ... }: {
       fileSystems = {
@@ -121,12 +121,6 @@ rec {
     extraCmdArgs = "-u";
   };
 
-
-  #environment.noXlibs = false; #https://github.com/NixOS/nixpkgs/issues/102137
-  #programs.ssh.setXAuthLocation = false;
-  #security.pam.services.su.forwardXAuth = lib.mkForce false;
-
-  #fonts.fontconfig.enable = false;
 
   services.getty.autologinUser = lib.mkIf (config.users.dguibert.enable) "dguibert";
 }

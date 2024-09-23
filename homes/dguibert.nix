@@ -58,6 +58,9 @@ in
 
       programs.direnv.enable = true;
       programs.direnv.nix-direnv.enable = true;
+      home.packages = with pkgs; [
+        pass-git-helper
+      ];
     })
   ];
 
@@ -77,6 +80,9 @@ in
 
       programs.direnv.enable = true;
       programs.direnv.nix-direnv.enable = true;
+      home.packages = with pkgs; [
+        pass-git-helper
+      ];
     })
   ];
 

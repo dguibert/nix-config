@@ -72,7 +72,7 @@
     ];
   };
 
-  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+  #boot.kernelPackages = pkgs.linuxPackages_latest;
   # https://lists.ubuntu.com/archives/kernel-team/2020-November/114986.html
   #boot.kernelPackages = pkgs.linuxPackages_testing;
   # *** ZFS Version: zfs-2.0.4-1

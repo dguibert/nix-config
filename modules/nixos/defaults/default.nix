@@ -1,9 +1,18 @@
 { config, lib, pkgs, resources, inputs, ... }: {
   imports = [
-    inputs.nixpkgs.inputs.nixpkgs.nixosModules.notDetected
+    inputs.nur_packages.inputs.nixpkgs.nixosModules.notDetected
     inputs.sops-nix.nixosModules.sops
     inputs.disko.nixosModules.disko
     inputs.impermanence.nixosModules.impermanence
+    inputs.home-manager.nixosModules.home-manager
+    ({
+      home-manager.useGlobalPkgs = true;
+      home-manager.useUserPackages = true;
+      home-manager.extraSpecialArgs = {
+        inherit inputs pkgs;
+        sopsDecrypt_ = pkgs.sopsDecrypt_;
+      };
+    })
     ({ ... }: { programs.fuse.userAllowOther = true; })
 
     ../distributed-build-conf.nix
@@ -38,12 +47,15 @@
   #nixpkgs.overlays = inputs.self.legacyPackages.${pkgs.system}.overlays;
   ### TODO understand why it's necessary instead of default pkgs.nix (nix build: OK, nixops: KO)
   nix.package = inputs.nix.packages."${config.nixpkgs.localSystem.system}".default;
-  nix.registry = lib.mkForce (lib.mapAttrs
+  nix.registry = lib.mkForce ((lib.mapAttrs
     (id: flake: {
       inherit flake;
       from = { inherit id; type = "indirect"; };
     })
-    inputs);
+    (builtins.removeAttrs inputs [ "self" "nixpkgs" ])) // {
+    nixpkgs.from = { id = "nixpkgs"; type = "indirect"; };
+    nixpkgs.flake = inputs.self;
+  });
   nix.settings.system-features = [ "recursive-nix" ] ++ # default
     [ "nixos-test" "benchmark" "big-parallel" "kvm" ] ++
     lib.optionals (config.nixpkgs ? localSystem && config.nixpkgs.localSystem ? system) [

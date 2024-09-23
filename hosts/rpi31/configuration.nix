@@ -7,7 +7,7 @@ with lib;
 
 rec {
   imports = [
-    (import "${inputs.nixpkgs.inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix")
+    (import "${inputs.nur_packages.inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix")
     (import "${inputs.nixos-hardware}/raspberry-pi/3/default.nix")
     ../../modules/nixos/defaults
   ];
@@ -106,8 +106,6 @@ rec {
   };
 
 
-
-  environment.noXlibs = false; #https://github.com/NixOS/nixpkgs/issues/102137
   programs.ssh.setXAuthLocation = false;
   security.pam.services.su.forwardXAuth = lib.mkForce false;
 
