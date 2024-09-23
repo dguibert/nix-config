@@ -50,11 +50,9 @@ in
     services.dnsmasq = {
       settings.servers = [ "127.0.0.1" ];
       resolveLocalQueries = false;
-      extraConfig = ''
-        except-interface=lo
-        bind-interfaces
-        no-hosts
-      '';
+      settings.except-interface = "lo";
+      settings.bind-interfaces = true;
+      settings.no-hosts = true;
     };
 
     ## Provides cloudflare DNS over TOR
