@@ -131,8 +131,7 @@ rec {
 
   services.openssh.enable = true;
 
-  #boot.kernelPackages = pkgs.linuxPackages_5_15;
-  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+  #boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.extraModulePackages = [ pkgs.linuxPackages.perf ];
   # *** ZFS Version: zfs-2.0.4-1
   # *** Compatible Kernels: 3.10 - 5.11
