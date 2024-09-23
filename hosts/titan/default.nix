@@ -15,6 +15,8 @@
     { environment.stub-ld.enable = false; } # conflict with nix-ld
 
     inputs.envfs.nixosModules.envfs
+    { home-manager.users.dguibert = { imports = config.modules.homes."dguibert@titan"; }; }
+    #{users.dguibert.with-home-manager = true;}
   ];
 
   config.flake.nixosConfigurations = withSystem "x86_64-linux" ({ system, ... }: {
@@ -23,7 +25,7 @@
 
       specialArgs = {
         pkgs = self.legacyPackages.${system};
-        inherit inputs;
+        inherit inputs self;
       };
       modules = config.modules.hosts.titan;
     };

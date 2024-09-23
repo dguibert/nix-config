@@ -4,6 +4,15 @@
     inputs.sops-nix.nixosModules.sops
     inputs.disko.nixosModules.disko
     inputs.impermanence.nixosModules.impermanence
+    inputs.home-manager.nixosModules.home-manager
+    ({
+      home-manager.useGlobalPkgs = true;
+      home-manager.useUserPackages = true;
+      home-manager.extraSpecialArgs = {
+        inherit inputs pkgs;
+        sopsDecrypt_ = pkgs.sopsDecrypt_;
+      };
+    })
     ({ ... }: { programs.fuse.userAllowOther = true; })
 
     ../distributed-build-conf.nix
