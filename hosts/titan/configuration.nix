@@ -49,6 +49,7 @@ rec {
   boot.initrd.postDeviceCommands = lib.mkIf (!config.boot.initrd.systemd.enable) (lib.mkAfter ''
     zpool import rpool_vanif0
     zfs rollback -r rpool_vanif0/local/root@blank
+    zfs rollback -r rpool_vanif0/local/home/dguibert@blank && echo "rollback complete"
   '');
   boot.initrd.systemd.services.rollback = {
     description = "Rollback ZFS datasets to a pristine state";
@@ -69,6 +70,7 @@ rec {
     serviceConfig.Type = "oneshot";
     script = ''
       zfs rollback -r rpool_vanif0/local/root@blank && echo "rollback complete"
+      zfs rollback -r rpool_vanif0/local/home/dguibert@blank && echo "rollback complete"
     '';
   };
 

@@ -141,7 +141,7 @@ in
         "local/root" = ds_mount "/";
         "local/home" = ds_mount null;
         "local/home/dguibert" = {
-          #ds_mount "/home/dguibert";
+          mountpoint = "/home/dguibert";
           type = "zfs_fs";
           options.mountpoint = "legacy";
         };
