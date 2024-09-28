@@ -33,42 +33,43 @@ in
           home.persistence = {
             "/persist/home/${config.home.username}" = {
               directories = [
-                ".ssh"
-                "bin"
                 "archives"
+                "bin"
                 "code"
+                ".config/google-chrome"
+                ".config/sops"
                 "Documents"
-                "Pictures"
-                "Videos"
-                "work"
-                "templates"
-                ".videos"
-                ".vim"
+                ".emacs.private"
+                ".gnupg/private-keys-v1.d"
+                ".local/state/nix"
+                ".mgit"
+                ".mozilla/firefox"
                 ".password-store"
                 ".password-store.git"
-                ".config/sops"
-                ".config/google-chrome"
-                ".mozilla/firefox"
-                ".mgit"
+                "Pictures"
+                ".ssh"
+                "templates"
+                ".videos"
+                "Videos"
+                ".vim"
+                "work"
                 #{
                 #  directory = ".local/share/Steam";
                 #  method = "symlink";
                 #}
-                ".gnupg/private-keys-v1.d"
-                ".emacs.private"
-                ".local/state/nix"
               ] ++ optionals config.centralMailHost.enable [
                 "Maildir"
               ];
               files = [
                 ".bash_history"
                 ".bash_history_backup"
+                ".config/pass-git-helper/git-pass-mapping.ini"
+                ".gnupg/pubring.kbx"
                 ".mrconfig"
                 ".mrtrust"
-                ".vimrc"
                 ".signature"
                 ".signature.work"
-                ".gnupg/pubring.kbx"
+                ".vimrc"
               ];
               allowOther = true;
             };
