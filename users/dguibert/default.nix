@@ -57,5 +57,45 @@ in
       };
 
     users.groups.dguibert.gid = 1000;
+    environment.persistence."/persist" = {
+      enable = true; # NB: Defaults to true, not needed
+      hideMounts = true;
+      users.dguibert = {
+        directories = [
+          "archives"
+          "bin"
+          "code"
+          ".config/google-chrome"
+          ".config/sops"
+          "Documents"
+          ".emacs.private"
+          ".local/state/nix"
+          ".mgit"
+          ".mozilla/firefox"
+          ".password-store"
+          ".password-store.git"
+          "Pictures"
+          "templates"
+          ".videos"
+          "Videos"
+          ".vim"
+          "work"
+          "Maildir"
+          { directory = ".gnupg"; mode = "0700"; }
+          { directory = ".ssh"; mode = "0700"; }
+        ];
+        files = [
+          ".bash_history"
+          ".bash_history_backup"
+          ".config/pass-git-helper/git-pass-mapping.ini"
+          ".gnupg/pubring.kbx"
+          ".mrconfig"
+          ".mrtrust"
+          ".signature"
+          ".signature.work"
+          ".vimrc"
+        ];
+      };
+    };
   };
 }

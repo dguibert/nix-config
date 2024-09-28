@@ -78,6 +78,9 @@ rec {
   fileSystems."/tmp".neededForBoot = true;
   fileSystems."/nix".neededForBoot = true;
   fileSystems."/persist".neededForBoot = true;
+  fileSystems."/persist/home/dguibert".neededForBoot = true;
+  fileSystems."/persist/home/dguibert/Videos".neededForBoot = true;
+  fileSystems."/persist/home/dguibert/Maildir/.notmuch".neededForBoot = true;
   # https://github.com/nix-community/impermanence
   environment.persistence."/persist" = {
     hideMounts = true;

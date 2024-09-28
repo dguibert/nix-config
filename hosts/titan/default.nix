@@ -15,7 +15,7 @@
     { environment.stub-ld.enable = false; } # conflict with nix-ld
 
     inputs.envfs.nixosModules.envfs
-    { home-manager.users.dguibert = { imports = config.modules.homes."dguibert@titan"; }; }
+    #{ home-manager.users.dguibert = { imports = config.modules.homes."dguibert@titan"; }; }
     #{users.dguibert.with-home-manager = true;}
   ];
 
