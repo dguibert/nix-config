@@ -142,6 +142,9 @@
     #https://linrunner.de/tlp/support/optimizing.html
 
     TLP_DEFAULT_MODE = "BAT";
+
+    START_CHARGE_THRESH_BAT1 = 75;
+    STOP_CHARGE_THRESH_BAT1 = 80;
     # Extend battery runtime
     ## Change CPU energy/performance policy to balance_power (default is balance_performance):
     #CPU_ENERGY_PERF_POLICY_ON_AC="balance_performance";
