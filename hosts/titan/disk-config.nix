@@ -144,6 +144,9 @@ in
           mountpoint = "/home/dguibert";
           type = "zfs_fs";
           options.mountpoint = "legacy";
+          mountOptions = [
+            "uid=dguibert"
+          ];
         };
         "local/nix" = ds_mount "/nix";
         "safe/home/root" = ds_mount "/root";
