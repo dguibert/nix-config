@@ -130,6 +130,7 @@
   hardware.trackpoint.enable = lib.mkDefault true;
   hardware.trackpoint.emulateWheel = lib.mkDefault config.hardware.trackpoint.enable;
   hardware.bluetooth.enable = true;
+  services.mpris-proxy.enable = true;
 
   # Disable governor set in hardware-configuration.nix,
   # required when services.tlp.enable is true:

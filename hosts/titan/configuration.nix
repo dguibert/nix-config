@@ -247,6 +247,7 @@ rec {
   #};
   #nixpkgs.config.xorg.abiCompat = "1.18";
   hardware.bluetooth.enable = true;
+  services.mpris-proxy.enable = true;
   hardware.enableAllFirmware = true;
 
   # https://nixos.org/nixos/manual/index.html#sec-container-networking
