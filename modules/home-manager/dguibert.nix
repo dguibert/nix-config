@@ -65,6 +65,7 @@ in
                 ".bash_history_backup"
                 ".config/pass-git-helper/git-pass-mapping.ini"
                 ".gnupg/pubring.kbx"
+                ".gnupg/trustdb.gpg"
                 ".mrconfig"
                 ".mrtrust"
                 ".signature"
