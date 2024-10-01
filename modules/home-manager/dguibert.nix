@@ -64,6 +64,7 @@ in
                 ".bash_history"
                 ".bash_history_backup"
                 ".config/pass-git-helper/git-pass-mapping.ini"
+                ".git-credentials"
                 ".gnupg/pubring.kbx"
                 ".gnupg/trustdb.gpg"
                 ".mrconfig"
