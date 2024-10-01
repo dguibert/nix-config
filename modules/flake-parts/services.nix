@@ -109,6 +109,9 @@ let
     ({ config, lib, pkgs, inputs, ... }: {
       _file = "services.nix[jellyfin]";
       config = {
+        networking.hosts = {
+          "192.168.1.24" = [ "media.orsin.org" ];
+        };
         services.jellyfin.enable = true;
         systemd.services.jellyfin = lib.mkIf config.services.jellyfin.enable {
           serviceConfig.PrivateUsers = lib.mkForce false;
