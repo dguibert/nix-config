@@ -1,21 +1,5 @@
 { config, inputs, withSystem, self, ... }:
 let
-  distribution = {
-    # 443: shadowsocks+ssh
-    haproxy = [ "rpi41" ];
-    adb = [ "titan" "t580" ];
-    jellyfin = [ "titan" ];
-    role-libvirtd = [ "titan" ];
-    role-tinyca = [ "titan" ];
-    role-robotnix-ota-server = [ "titan" ];
-    role-mopidy = [ ];
-    desktop = [ "titan" "t580" ];
-    server-3Dprinting = [ "rpi31" ];
-    zigbee = [ "rpi41" ];
-    platypush = [ "titan" "rpi41" ];
-    rkvm = [ "titan" "rpi41" ];
-  };
-
   haproxy = [
     ({ config, lib, pkgs, inputs, ... }:
       let
@@ -109,9 +93,6 @@ let
     ({ config, lib, pkgs, inputs, ... }: {
       _file = "services.nix[jellyfin]";
       config = {
-        networking.hosts = {
-          "192.168.1.24" = [ "media.orsin.org" ];
-        };
         services.jellyfin.enable = true;
         systemd.services.jellyfin = lib.mkIf config.services.jellyfin.enable {
           serviceConfig.PrivateUsers = lib.mkForce false;
@@ -287,14 +268,19 @@ in
   modules.hosts.t580 = [ ]
     ++ adb
     ++ desktop
-    ++ platypush
+    #++ platypush
   ;
   modules.hosts.titan = [ ]
     ++ adb
     ++ jellyfin
+    ++ [{
+    networking.hosts = {
+      "192.168.1.24" = [ "media.orsin.org" ];
+    };
+  }]
     ++ role-libvirtd
     ++ role-tinyca
-    ++ role-robotnix-ota-server
+    #++ role-robotnix-ota-server
     #++ role-mopidy
     ++ desktop
     ++ platypush

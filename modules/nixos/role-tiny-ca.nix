@@ -151,6 +151,7 @@ in
       #intermediatePasswordFile = "/etc/nixos/secrets/tiny-ca.passwd";
       settings = /* builtins.fromJSON config/ca.json*/ {
         dnsNames = [
+          "pki.orsin.org"
           "localhost"
           "192.168.1.24"
           "10.147.27.24"
