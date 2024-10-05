@@ -15,7 +15,7 @@
   inputs.nix.follows = "nur_packages/nix";
 
   inputs.nur.url = "github:nix-community/NUR";
-  inputs.sops-nix.url = "github:dguibert/sops-nix"; # for dg/use-with-cross-system
+  inputs.sops-nix.url = "github:dguibert/sops-nix/pu"; # for dg/use-with-cross-system
   inputs.sops-nix.inputs.nixpkgs.follows = "nur_packages/nixpkgs";
 
   inputs.upstream_nixpkgs.url = "github:dguibert/nixpkgs/pu";
