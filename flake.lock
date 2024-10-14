@@ -136,7 +136,7 @@
       "locked": {
         "lastModified": 1719900901,
         "narHash": "sha256-9CX610ln1u3MogJ4gOFBeIjlryNZRfRzmaOyT544chw=",
-        "path": "configs/default/config.json",
+        "path": "/home/dguibert/code/nix-config/configs/default/config.json",
         "type": "path"
       },
       "original": {
