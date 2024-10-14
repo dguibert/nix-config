@@ -1197,9 +1197,9 @@
         ]
       },
       "locked": {
-        "lastModified": 1,
+        "lastModified": 1715939360,
         "narHash": "sha256-5ive/mQZ5QaoYDw7yObQfDPJK2imFAWeg6x47dqokiU=",
-        "path": "nixpkgs",
+        "path": "/home/dguibert/code/nix-config/nixpkgs",
         "type": "path"
       },
       "original": {
