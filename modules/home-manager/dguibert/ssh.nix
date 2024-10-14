@@ -88,5 +88,6 @@
       ;
     };
 
+  programs.git.iniContent.annex.ssh-options = "-S /run/user/%i/socket-%C";
 
 }

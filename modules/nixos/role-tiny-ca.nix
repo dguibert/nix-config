@@ -25,9 +25,9 @@ in
       ../../online-ca-orsin/certs/intermediate_ca.crt
     ];
 
-    ##networking.hosts = {
-    ##  "192.168.1.24" = [ "jellyfin.local" ];
-    ##};
+    networking.hosts = {
+      "192.168.1.24" = [ "pki.orsin.org" ];
+    };
     ###services.nginx = {
     ###  enable = true;
     ###  virtualHosts."blog.example.com" = {
@@ -133,6 +133,10 @@ in
       });
     '';
 
+    systemd.tmpfiles.rules = [
+      "L /var/lib/step-ca/db - - - - /persist/var/lib/step-ca/db"
+    ];
+
     # https://github.com/NixOS/nixpkgs/pull/112322
     # https://github.com/smallstep/certificates/discussions/529
     ##
@@ -147,6 +151,7 @@ in
       #intermediatePasswordFile = "/etc/nixos/secrets/tiny-ca.passwd";
       settings = /* builtins.fromJSON config/ca.json*/ {
         dnsNames = [
+          "pki.orsin.org"
           "localhost"
           "192.168.1.24"
           "10.147.27.24"

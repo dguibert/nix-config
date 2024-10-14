@@ -150,6 +150,10 @@ rec {
 
   networking.hostId = "8425e349";
   networking.hostName = "titan";
+  networking.domain = "orsin.org";
+  networking.hosts = {
+    "192.168.1.24" = [ "titan.orsin.org" ];
+  };
 
   ##qemu-user.aarch64 = true;
   boot.binfmt.emulatedSystems = [ "aarch64-linux" "armv7l-linux" ];
@@ -247,7 +251,6 @@ rec {
   #};
   #nixpkgs.config.xorg.abiCompat = "1.18";
   hardware.bluetooth.enable = true;
-  services.mpris-proxy.enable = true;
   hardware.enableAllFirmware = true;
 
   # https://nixos.org/nixos/manual/index.html#sec-container-networking

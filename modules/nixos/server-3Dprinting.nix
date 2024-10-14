@@ -210,9 +210,13 @@ in
           #pid_Kp=20.040 pid_Ki=0.961 pid_Kd=104.459 # 20230418 V0.2
           # 20240506 V0.2 dragonburner butterfly hotend
           # PID_CALIBRATE HEATER=extruder TARGET=250
-          pid_Kp = 20.129;
-          pid_Ki = 0.913;
-          pid_Kd = 110.956;
+          #pid_Kp = 20.129;
+          #pid_Ki = 0.913;
+          #pid_Kd = 110.956;
+          # PID_CALIBRATE HEATER=extruder TARGET=245
+          pid_Kp = 19.993;
+          pid_Ki = 0.854;
+          pid_Kd = 116.951;
           min_temp = 0;
           max_temp = 280;
           min_extrude_temp = 0;
