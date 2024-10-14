@@ -134,7 +134,7 @@
     "config_json": {
       "flake": false,
       "locked": {
-        "lastModified": 1,
+        "lastModified": 1719900901,
         "narHash": "sha256-9CX610ln1u3MogJ4gOFBeIjlryNZRfRzmaOyT544chw=",
         "path": "configs/default/config.json",
         "type": "path"
