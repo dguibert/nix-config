@@ -73,6 +73,8 @@ in
                 ".signature"
                 ".signature.work"
                 ".vimrc"
+              ] ++ optionals config.centralMailHost.enable [
+                ".davmail.properties"
               ];
               allowOther = true;
             };
