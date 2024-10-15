@@ -10,7 +10,7 @@
       })
       (builtins.removeAttrs inputs [ "self" "nixpkgs" ])) // {
       nixpkgs.from = { id = "nixpkgs"; type = "indirect"; };
-      nixpkgs.flake = inputs.self;
+      nixpkgs.flake = inputs.self // { lastModified = 0; };
     });
   };
 }
