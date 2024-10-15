@@ -37,6 +37,7 @@ in
                 "bin"
                 "code"
                 ".config/google-chrome"
+                ".config/kvibes"
                 ".config/sops"
                 "Documents"
                 ".emacs.private"
