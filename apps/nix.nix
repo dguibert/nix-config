@@ -9,6 +9,7 @@
             nixConf = pkgs.writeTextDir "opt/nix.conf" ''
               sandbox = false
               auto-optimise-store = true
+              allowed-users = *
               system-features = recursive-nix nixos-test benchmark big-parallel kvm
               sandbox-fallback = false
               keep-outputs = true       # Nice for developers
