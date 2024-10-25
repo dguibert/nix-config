@@ -99,22 +99,6 @@
         "type": "github"
       }
     },
-    "base16-tmux": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1727571738,
-        "narHash": "sha256-AOITVZMhqELOzL5Jw54NIX7R8gFbTJqrHEDuPwgGYDQ=",
-        "owner": "tinted-theming",
-        "repo": "base16-tmux",
-        "rev": "44fbe9034653c83a8ae68941aaeeeeb7503cd1ae",
-        "type": "github"
-      },
-      "original": {
-        "owner": "tinted-theming",
-        "repo": "base16-tmux",
-        "type": "github"
-      }
-    },
     "base16-vim": {
       "flake": false,
       "locked": {
@@ -1359,7 +1343,6 @@
       "inputs": {
         "base16": "base16",
         "base16-shell": "base16-shell",
-        "base16-tmux": "base16-tmux",
         "base16-vim": "base16-vim",
         "config_json": "config_json",
         "deploy-rs": "deploy-rs",

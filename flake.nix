@@ -24,7 +24,7 @@
   inputs.nixpkgs_with_stdenv.url = "path:nixpkgs";
   inputs.nixpkgs_with_stdenv.inputs.nixpkgs.follows = "nur_packages";
 
-  inputs.disko.url = github:nix-community/disko;
+  inputs.disko.url = "github:nix-community/disko";
   #inputs.disko.url = github:dguibert/disko;
   inputs.disko.inputs.nixpkgs.follows = "nur_packages";
 
@@ -36,15 +36,13 @@
   inputs.stylix.inputs.nixpkgs.follows = "nur_packages";
   inputs.stylix.inputs.home-manager.follows = "home-manager";
   inputs.stylix.inputs.base16.follows = "base16";
-  inputs.stylix.inputs.base16-tmux.follows = "base16-tmux";
   inputs.stylix.inputs.base16-vim.follows = "base16-vim";
 
   inputs.base16.url = "github:SenchoPens/base16.nix";
   #inputs.base16.inputs.nixpkgs.follows = "nur_packages";
   inputs.tt-schemes = { url = "github:tinted-theming/schemes"; flake = false; };
-  inputs.base16-tmux = { url = github:tinted-theming/base16-tmux; flake = false; };
-  inputs.base16-vim = { url = github:tinted-theming/base16-vim; flake = false; };
-  inputs.base16-shell = { url = github:tinted-theming/tinted-shell; flake = false; };
+  inputs.base16-vim = { url = "github:tinted-theming/base16-vim"; flake = false; };
+  inputs.base16-shell = { url = "github:tinted-theming/tinted-shell"; flake = false; };
   inputs.gitignore = { url = "github:hercules-ci/gitignore"; flake = false; };
 
   inputs.nxsession.url = "github:dguibert/nxsession";
