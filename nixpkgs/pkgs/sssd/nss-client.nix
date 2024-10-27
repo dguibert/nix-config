@@ -4,7 +4,7 @@
 , glibc
 , pam
 , openldap
-, kerberos
+, krb5
 , dnsutils
 , cyrus_sasl
 , nss
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     pkg-config
     pam
     openldap
-    kerberos
+    krb5
     dnsutils
     cyrus_sasl
     nss
