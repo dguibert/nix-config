@@ -1235,10 +1235,13 @@
         ]
       },
       "locked": {
-        "lastModified": 1715939360,
-        "narHash": "sha256-5ive/mQZ5QaoYDw7yObQfDPJK2imFAWeg6x47dqokiU=",
-        "path": "/home/dguibert/code/nix-config/nixpkgs",
-        "type": "path"
+        "dir": "nixpkgs",
+        "lastModified": 1730043577,
+        "narHash": "sha256-dv82vYmeYAn1Rz5PExBfJZ8ajmvi4whcP7DT3l4aBgY=",
+        "owner": "dguibert",
+        "repo": "nix-config",
+        "rev": "a6d862e212cc46f3923917b436056458bb137b5a",
+        "type": "github"
       },
       "original": {
         "path": "nixpkgs",
