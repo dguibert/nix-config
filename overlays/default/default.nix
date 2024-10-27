@@ -14,6 +14,14 @@ final: prev: with final; {
 
   python312 = prev.python312.override {
     packageOverrides = python-self: python-super: with python-self; {
+      proxy-py = final.lib.upgradeOverride python-super.proxy-py (oldAttrs: rec {
+        src = fetchFromGitHub {
+          owner = "abhinavsingh";
+          repo = "proxy.py";
+          rev = "refs/tags/v${oldAttrs.version}";
+          hash = "sha256-icFYpuPF76imPxsRcbqvC03pHdGga2GUwvKqbeWg3+E=";
+        };
+      });
       #boto3 = final.lib.upgradeOverride python-super.boto3 (oldAttrs: rec {
       #  src = fetchFromGitHub {
       #    owner = "boto";
