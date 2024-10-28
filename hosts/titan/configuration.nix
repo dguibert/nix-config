@@ -92,6 +92,7 @@ rec {
       "/var/lib/bluetooth"
       #"/var/lib/step-ca"
       "/var/lib/systemd/coredump"
+      "/var/lib/step-ca"
     ];
     files = [
       "/etc/machine-id"

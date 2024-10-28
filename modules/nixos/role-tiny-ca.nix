@@ -133,9 +133,10 @@ in
       });
     '';
 
-    systemd.tmpfiles.rules = [
-      "L /var/lib/step-ca - - - - /persist/var/lib/step-ca"
-    ];
+    # move to environment.persistence."/persist".direcotries
+    #systemd.tmpfiles.rules = [
+    #  "L /var/lib/step-ca - - - - /persist/var/lib/step-ca"
+    #];
 
     # https://github.com/NixOS/nixpkgs/pull/112322
     # https://github.com/smallstep/certificates/discussions/529
