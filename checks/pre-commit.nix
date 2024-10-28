@@ -6,19 +6,22 @@
         src = ./..;
         hooks = {
           nixpkgs-fmt.enable = true;
+          nixpkgs-fmt.stages = [ "pre-commit" ];
           prettier.enable = true;
+          prettier.stages = [ "pre-commit" ];
           trailing-whitespace = {
             enable = true;
             name = "trim trailing whitespace";
             entry = "${pkgs.python3.pkgs.pre-commit-hooks}/bin/trailing-whitespace-fixer";
             types = [ "text" ];
-            stages = [ "commit" "push" "manual" ];
+            stages = [ "pre-commit" "pre-push" "manual" ];
           };
           check-merge-conflict = {
             enable = true;
             name = "check for merge conflicts";
             entry = "${pkgs.python3.pkgs.pre-commit-hooks}/bin/check-merge-conflict";
             types = [ "text" ];
+            stages = [ "pre-commit" "pre-push" ];
           };
         };
       };
