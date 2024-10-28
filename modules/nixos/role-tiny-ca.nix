@@ -134,7 +134,7 @@ in
     '';
 
     systemd.tmpfiles.rules = [
-      "L /var/lib/step-ca/db - - - - /persist/var/lib/step-ca/db"
+      "L /var/lib/step-ca - - - - /persist/var/lib/step-ca"
     ];
 
     # https://github.com/NixOS/nixpkgs/pull/112322
