@@ -36,6 +36,7 @@ in
                 "archives"
                 "bin"
                 "code"
+                ".config/calibre"
                 ".config/google-chrome"
                 ".config/kvibes"
                 ".config/sops"
