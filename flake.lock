@@ -913,15 +913,15 @@
     },
     "impermanence": {
       "locked": {
-        "lastModified": 1727649413,
-        "narHash": "sha256-FA53of86DjFdeQzRDVtvgWF9o52rWK70VHGx0Y8fElQ=",
-        "owner": "nix-community",
+        "lastModified": 1730232861,
+        "narHash": "sha256-BkP8ppGZyawyykU03dCX2y1EHiCGS2O9dpnSbDmq614=",
+        "owner": "dguibert",
         "repo": "impermanence",
-        "rev": "d0b38e550039a72aff896ee65b0918e975e6d48e",
+        "rev": "089f7735a679e9e3dd3265e350f3636325a25a11",
         "type": "github"
       },
       "original": {
-        "owner": "nix-community",
+        "owner": "dguibert",
         "repo": "impermanence",
         "type": "github"
       }

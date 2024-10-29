@@ -95,7 +95,8 @@
   inputs.nixos-wsl.inputs.nixpkgs.follows = "nur_packages";
   inputs.nixos-wsl.inputs.flake-utils.follows = "nur_packages/flake-utils";
 
-  inputs.impermanence.url = "github:nix-community/impermanence";
+  #inputs.impermanence.url = "github:nix-community/impermanence";
+  inputs.impermanence.url = "github:dguibert/impermanence";
 
   inputs.microvm.url = "github:astro/microvm.nix";
   inputs.microvm.inputs.nixpkgs.follows = "nur_packages";
