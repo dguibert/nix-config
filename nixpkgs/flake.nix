@@ -39,6 +39,8 @@
           nix = dontCheck prev.nixVersions.nix_2_18;
         };
         p11-kit = dontCheck prev.p11-kit;
+
+        libseat = prev.seatd;
       };
 
       legacyPackages.x86_64-linux = nixpkgsFor "x86_64-linux";
