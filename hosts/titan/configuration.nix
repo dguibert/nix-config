@@ -90,9 +90,8 @@ rec {
       "/var/lib/jellyfin"
       "/var/lib/nixos"
       "/var/lib/bluetooth"
-      #"/var/lib/step-ca"
+      "/var/lib/private/step-ca"
       "/var/lib/systemd/coredump"
-      "/var/lib/step-ca"
     ];
     files = [
       "/etc/machine-id"
