@@ -28,6 +28,7 @@
     ({ config, ... }: { role-otp-authentication.enable = true; })
     ../role-zigbee.nix
     ../role-microvm.nix
+    ../conf-kanata.nix
 
     #../../modules/services.nix
 
