@@ -15,6 +15,7 @@ in
       keyboards = {
         internalKeyboard = {
           devices = [
+            "/dev/input/by-id/usb-0557_2419-event-kbd"
             "/dev/input/by-id/usb-Dell_Dell_USB_Keyboard-event-kbd"
           ];
           extraDefCfg = "process-unmapped-keys yes";
