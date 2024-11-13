@@ -1,8 +1,8 @@
 {
   description = "Configurations of my systems";
 
-  inputs.config_json.url = "path:configs/default/config.json";
-  inputs.config_json.flake = false;
+  #inputs.config_json.url = "path:configs/default/config.json";
+  inputs.config_json.url = "github:dguibert/nix-config?dir=configs/default";
   # To update all inputs:
   # $ nix flake update --recreate-lock-file
   inputs.home-manager.url = "github:dguibert/home-manager/pu";
@@ -243,6 +243,7 @@
         "aarch64-linux"
       ];
       imports = [
+        inputs.config_json.flakeModule.user_config_settings
         #./home/profiles
         ./homes
         ./hosts
