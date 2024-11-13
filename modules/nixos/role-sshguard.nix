@@ -12,8 +12,8 @@ in
   config = lib.mkIf cfg.enable {
     services.sshguard = {
       enable = true;
-      attack_threshold = 20;
-      blacklist_threshold = 20;
+      attack_threshold = 10;
+      blacklist_threshold = 10;
       detection_time = 30 * 24 * 3600;
       whitelist = [
         "192.168.1.24"
@@ -25,7 +25,7 @@ in
 
     # to prevent multiple authentication attempts during a single connection
     services.openssh.extraConfig = ''
-      MaxAuthTries 2
+      MaxAuthTries 1
     '';
   };
 }
