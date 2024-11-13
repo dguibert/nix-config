@@ -116,16 +116,20 @@
       }
     },
     "config_json": {
-      "flake": false,
       "locked": {
-        "lastModified": 1719900901,
-        "narHash": "sha256-9CX610ln1u3MogJ4gOFBeIjlryNZRfRzmaOyT544chw=",
-        "path": "/home/dguibert/code/nix-config/configs/default/config.json",
-        "type": "path"
+        "dir": "configs/default",
+        "lastModified": 1731528095,
+        "narHash": "sha256-r8pEP/y0E1DIYWrShAB37gqFvOYBFLTAV0No8akE67U=",
+        "owner": "dguibert",
+        "repo": "nix-config",
+        "rev": "13790b43106859c7efd09f5c819917869ed27054",
+        "type": "github"
       },
       "original": {
-        "path": "configs/default/config.json",
-        "type": "path"
+        "dir": "configs/default",
+        "owner": "dguibert",
+        "repo": "nix-config",
+        "type": "github"
       }
     },
     "deploy-rs": {
