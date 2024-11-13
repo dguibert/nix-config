@@ -26,7 +26,8 @@ let
       openjfx21 = pkgs.openjfx21.override { withWebKit = true; };
       openjfx23 = pkgs.openjfx23.override { withWebKit = true; };
     };
-    preferZulu = false; };
+    preferZulu = false;
+  };
 in
 {
   imports = [
@@ -151,7 +152,7 @@ in
         programs.bash.initExtra = ''
           source ${config.lib.stylix.colors { templateRepo=inputs.base16-shell; use-ifd="always"; target = "base16"; }}
         '';
-        home.file.".vim/base16.vim".source = config.lib.stylix.colors { templateRepo = inputs.base16-vim; use-ifd = "always"; target="base16"; };
+        home.file.".vim/base16.vim".source = config.lib.stylix.colors { templateRepo = inputs.base16-vim; use-ifd = "always"; target = "base16"; };
 
         xresources.properties = with config.lib.stylix.colors.withHashtag; {
           "*.faceSize" = config.stylix.fonts.sizes.terminal;
