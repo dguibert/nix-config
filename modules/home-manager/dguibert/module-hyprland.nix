@@ -19,7 +19,6 @@ with lib; {
       swaylock # lockscreen
       swayidle
       wlr-randr
-      xwayland # for legacy apps
       mako # notification daemon
       brightnessctl
 
