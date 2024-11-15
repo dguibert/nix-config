@@ -633,11 +633,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1728889683,
-        "narHash": "sha256-P7GWY5UoXEnD9fyKxCf23ghFx1Y7z1RzX3lz5EWnWC0=",
+        "lastModified": 1731701764,
+        "narHash": "sha256-Ra00DvL//SJU9ZeSA/Wpd0YZTOHedkDsivuGM46qzSA=",
         "owner": "dguibert",
         "repo": "home-manager",
-        "rev": "682300efa3846f59970125e4cc0ca9cd2c6f3809",
+        "rev": "b4658d0886cef051f1bf413d95a14a57062c3346",
         "type": "github"
       },
       "original": {
@@ -1167,16 +1167,18 @@
       },
       "locked": {
         "dir": "nixpkgs",
-        "lastModified": 1730043577,
-        "narHash": "sha256-dv82vYmeYAn1Rz5PExBfJZ8ajmvi4whcP7DT3l4aBgY=",
+        "lastModified": 1731528095,
+        "narHash": "sha256-r8pEP/y0E1DIYWrShAB37gqFvOYBFLTAV0No8akE67U=",
         "owner": "dguibert",
         "repo": "nix-config",
-        "rev": "a6d862e212cc46f3923917b436056458bb137b5a",
+        "rev": "13790b43106859c7efd09f5c819917869ed27054",
         "type": "github"
       },
       "original": {
-        "path": "nixpkgs",
-        "type": "path"
+        "dir": "nixpkgs",
+        "owner": "dguibert",
+        "repo": "nix-config",
+        "type": "github"
       }
     },
     "nur": {
