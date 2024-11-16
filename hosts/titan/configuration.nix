@@ -252,7 +252,7 @@ rec {
     inheritParentConfig = true;
     configuration = {
       # https://nixos.wiki/wiki/Nvidia
-      services.xserver.videoDrivers = [ "nouveau" ];
+      services.xserver.videoDrivers = lib.mkForce [ "nouveau" ];
     };
   };
   #nixpkgs.config.xorg.abiCompat = "1.18";
