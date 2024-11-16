@@ -243,12 +243,18 @@ rec {
     open = false;
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    #package = config.boot.kernelPackages.nvidiaPackages.beta;
-    package = config.boot.kernelPackages.nvidiaPackages.production;
+    package = config.boot.kernelPackages.nvidiaPackages.beta;
+    #package = config.boot.kernelPackages.nvidiaPackages.production;
     forceFullCompositionPipeline = true;
   };
-  #  };
-  #};
+
+  specialisation.nouveau = {
+    inheritParentConfig = true;
+    configuration = {
+      # https://nixos.wiki/wiki/Nvidia
+      services.xserver.videoDrivers = [ "nouveau" ];
+    };
+  };
   #nixpkgs.config.xorg.abiCompat = "1.18";
   hardware.bluetooth.enable = true;
   hardware.enableAllFirmware = true;
