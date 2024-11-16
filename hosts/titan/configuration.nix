@@ -303,6 +303,15 @@ rec {
 
       autosnap = true;
     };
+    templates.impermanence = {
+      frequently = 8;
+      hourly = 0;
+      daily = 0;
+      monthly = 0;
+      yearly = 0;
+
+      autosnap = true;
+    };
     templates.media = {
       hourly = 4;
       daily = 2;
@@ -311,6 +320,7 @@ rec {
 
       autosnap = true;
     };
+    datasets."rpool_vanif0/local/home/dguibert".use_template = [ "impermanence" ];
     datasets."rpool_vanif0/local/root".use_template = [ "prod" ];
     datasets."rpool_vanif0/safe".use_template = [ "prod" ];
     datasets."rpool_vanif0/safe".recursive = true;
