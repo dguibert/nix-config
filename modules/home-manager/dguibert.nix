@@ -43,10 +43,12 @@ in
               directories = [
                 "archives"
                 "bin"
+                "3D_printing"
                 "code"
                 ".config/calibre"
                 ".config/google-chrome"
                 ".config/kvibes"
+                ".config/OrcaSlicer"
                 ".config/sops"
                 "Documents"
                 ".emacs.private"

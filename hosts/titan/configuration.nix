@@ -243,12 +243,18 @@ rec {
     open = false;
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    #package = config.boot.kernelPackages.nvidiaPackages.beta;
-    package = config.boot.kernelPackages.nvidiaPackages.production;
+    package = config.boot.kernelPackages.nvidiaPackages.beta;
+    #package = config.boot.kernelPackages.nvidiaPackages.production;
     forceFullCompositionPipeline = true;
   };
-  #  };
-  #};
+
+  specialisation.nouveau = {
+    inheritParentConfig = true;
+    configuration = {
+      # https://nixos.wiki/wiki/Nvidia
+      services.xserver.videoDrivers = lib.mkForce [ "nouveau" ];
+    };
+  };
   #nixpkgs.config.xorg.abiCompat = "1.18";
   hardware.bluetooth.enable = true;
   hardware.enableAllFirmware = true;
@@ -297,6 +303,15 @@ rec {
 
       autosnap = true;
     };
+    templates.impermanence = {
+      frequently = 8;
+      hourly = 0;
+      daily = 0;
+      monthly = 0;
+      yearly = 0;
+
+      autosnap = true;
+    };
     templates.media = {
       hourly = 4;
       daily = 2;
@@ -305,6 +320,7 @@ rec {
 
       autosnap = true;
     };
+    datasets."rpool_vanif0/local/home/dguibert".use_template = [ "impermanence" ];
     datasets."rpool_vanif0/local/root".use_template = [ "prod" ];
     datasets."rpool_vanif0/safe".use_template = [ "prod" ];
     datasets."rpool_vanif0/safe".recursive = true;
