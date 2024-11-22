@@ -19,7 +19,7 @@ in
       networking.wireless.interfaces = [ "wlan0" ];
     })
     ({ config, lib, pkgs, ... }: {
-      boot.kernelPackages = pkgs.linuxPackages_latest;
+      boot.kernelPackages = pkgs.linuxPackages_6_6;
       boot.supportedFilesystems = [ "zfs" ];
       users.extraUsers.root.initialPassword = lib.mkForce "OhPha3gu";
       services.openssh.enable = true;

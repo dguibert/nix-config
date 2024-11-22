@@ -138,7 +138,7 @@
                 # This defaults to `true`
                 magicRollback = false;
               })
-            (builtins.removeAttrs self.nixosConfigurations [ "iso" ]))
+            (builtins.removeAttrs self.nixosConfigurations [ "iso" "iso-aarch64" ]))
           # root profiles
           (inputs.nur_packages.lib.mapAttrs
             (host: homeConfig:
