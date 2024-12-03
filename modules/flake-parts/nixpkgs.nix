@@ -18,7 +18,7 @@ let
   ];
 
   packages = config:
-    if config'.user_config.nixpkgs_with_custom_stdenv or false
+    if config.user_config.nixpkgs_with_custom_stdenv or false
     then
     # packages with overriden stdenv
       system: builtins.trace "use of nixpkgs_with_custom_stdenv" inputs.nixpkgs_with_stdenv.legacyPackages.${system}.appendOverlays overlays
