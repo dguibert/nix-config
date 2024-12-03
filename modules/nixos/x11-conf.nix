@@ -26,7 +26,8 @@
     fonts.fonts = with pkgs ; [
       terminus_font
       powerline-fonts
-      nerdfonts
+      nerd-fonts.fira-code
+      nerd-fonts.symbols-only
       /*corefonts*/
       #noto-fonts
       #noto-fonts-cjk

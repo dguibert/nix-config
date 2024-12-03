@@ -24,7 +24,8 @@
     fonts.packages = with pkgs ; [
       terminus_font
       powerline-fonts
-      nerdfonts
+      nerd-fonts.fira-code
+      nerd-fonts.symbols-only
       emacs-all-the-icons-fonts
       /*corefonts*/
       #noto-fonts
