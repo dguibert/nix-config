@@ -37,6 +37,9 @@
         nix = dontCheck prev.nix; # build-remote-input-addressed.sh... [FAIL]
         nixStable = dontCheck prev.nixStable; # build-remote-input-addressed.sh... [FAIL]
         p11-kit = dontCheck prev.p11-kit;
+        watchman = (dontCheck prev.watchman).overrideAttrs (o: {
+          buildInputs = o.buildInputs ++ [ prev.gtest ];
+        }); # CacheTest.future: malloc(): unaligned tcache chunk detected
 
         libseat = prev.seatd;
       };
