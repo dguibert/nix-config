@@ -1,7 +1,6 @@
 {
   description = "Configurations of my systems";
 
-  #inputs.config_json.url = "path:configs/default/config.json";
   inputs.config_json.url = "github:dguibert/nix-config?dir=configs/default";
   # To update all inputs:
   # $ nix flake update --recreate-lock-file
@@ -21,7 +20,7 @@
   inputs.upstream_nixpkgs.url = "github:dguibert/nixpkgs/pu";
   inputs.nur_packages.url = "github:dguibert/nur-packages?refs=master";
   inputs.nur_packages.inputs.nixpkgs.follows = "upstream_nixpkgs";
-  inputs.nixpkgs_with_stdenv.url = "path:nixpkgs";
+  inputs.nixpkgs_with_stdenv.url = "github:dguibert/nix-config?dir=nixpkgs";
   inputs.nixpkgs_with_stdenv.inputs.nixpkgs.follows = "nur_packages";
 
   inputs.disko.url = "github:nix-community/disko";
