@@ -220,6 +220,12 @@ let
     })
   ];
 
+  waydroid = [
+    ({ config, lib, pkgs, inputs, ... }: {
+      virtualisation.waydroid.enable = true;
+    })
+  ];
+
   rkvm = [
     ({ config, lib, pkgs, inputs, ... }: {
       sops.secrets.rkvm-certificate.sopsFile = ../../secrets/defaults.yaml;
@@ -269,6 +275,7 @@ in
   modules.hosts.t580 = [ ]
     ++ adb
     ++ desktop
+    ++ waydroid
     #++ platypush
   ;
   modules.hosts.titan = [ ]
