@@ -71,7 +71,7 @@ in
       centralMailHost.enable = true;
       withGui.enable = true;
       withPersistence.enable = true;
-      hyprland.nvidia.enable = true;
+      hyprland.nvidia.enable = false;
       withEmacs.enable = true;
       withZellij.enable = true;
       home.username = "dguibert";
