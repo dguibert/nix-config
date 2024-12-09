@@ -181,7 +181,7 @@ with lib; {
       enable = true;
       package = pkgs.hyprland;
       plugins = [
-        inputs.split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces
+        pkgs.hyprlandPlugins.split-monitor-workspaces
       ];
       settings = {
         plugin.split-monitor-workspaces = {

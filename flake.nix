@@ -65,9 +65,6 @@
   inputs.git-hooks-nix.url = "github:cachix/git-hooks.nix";
   inputs.git-hooks-nix.inputs.nixpkgs.follows = "nur_packages/nixpkgs";
 
-  inputs.split-monitor-workspaces.url = "github:Duckonaut/split-monitor-workspaces";
-  inputs.split-monitor-workspaces.inputs.hyprland.follows = "hyprland"; # <- make sure this line is present for the plugin to work as intended
-
   inputs.hyprland-contrib = {
     url = "github:hyprwm/contrib";
     inputs.nixpkgs.follows = "nur_packages";
