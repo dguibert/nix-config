@@ -93,10 +93,25 @@ rec {
       "/var/lib/private/step-ca"
       "/var/lib/systemd/coredump"
     ];
-    files = [
-      "/etc/machine-id"
+  };
+  boot.initrd.systemd.tmpfiles.settings.preservation."/sysroot/persist/etc/machine-id".f = {
+    user = "root";
+    group = "root";
+    mode = ":0644";
+    argument = "uninitialized\\n";
+  };
+
+  systemd.services.systemd-machine-id-commit = {
+    unitConfig.ConditionPathIsMountPoint = [
+      ""
+      "/persist/etc/machine-id"
+    ];
+    serviceConfig.ExecStart = [
+      ""
+      "systemd-machine-id-setup --commit --root /persist"
     ];
   };
+
 
   #fileSystems."/tmp" = { device = "tmpfs"; fsType = "tmpfs"; options = [ "defaults" "noatime" "mode=1777" "size=140G" ]; neededForBoot = true; };
   # to build robotnix more thant 100G are needed
