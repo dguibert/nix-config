@@ -67,8 +67,22 @@
       #"/var/lib/step-ca"
       "/var/lib/systemd/coredump"
     ];
-    files = [
-      "/etc/machine-id"
+  };
+  boot.initrd.systemd.tmpfiles.settings.preservation."/sysroot/persist/etc/machine-id".f = {
+    user = "root";
+    group = "root";
+    mode = ":0644";
+    argument = "uninitialized\\n";
+  };
+
+  systemd.services.systemd-machine-id-commit = {
+    unitConfig.ConditionPathIsMountPoint = [
+      ""
+      "/persist/etc/machine-id"
+    ];
+    serviceConfig.ExecStart = [
+      ""
+      "systemd-machine-id-setup --commit --root /persist"
     ];
   };
 
