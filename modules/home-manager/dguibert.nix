@@ -45,6 +45,7 @@ in
                 "bin"
                 "3D_printing"
                 "code"
+                ".config/Beeper"
                 ".config/calibre"
                 ".config/google-chrome"
                 ".config/kvibes"
