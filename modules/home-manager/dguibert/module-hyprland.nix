@@ -181,9 +181,12 @@ with lib; {
       enable = true;
       package = pkgs.hyprland;
       plugins = [
-        pkgs.hyprlandPlugins.split-monitor-workspaces
+        #pkgs.hyprlandPlugins.split-monitor-workspaces
+        pkgs.hyprlandPlugins.hyprsplit
       ];
       settings = {
+        plugin.hyprsplit.num_workspaces = 9;
+
         plugin.split-monitor-workspaces = {
           count = 10; # 9 are used but 1-9 are on 1st monitor, 11-19 are on snd
           keep_focused = 0;
