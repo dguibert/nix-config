@@ -88,7 +88,7 @@ rec {
       networkConfig.BindCarrier = "eth0 wlan0";
       linkConfig.MACAddress = "b8:27:eb:46:86:14";
     };
-  } // listToAttrs (flip map [ "eth0" "wlan0" ] (bi:
+  } // listToAttrs (flip map [ "enu1u1" "wlan0" ] (bi:
     nameValuePair "40-${bi}" {
       name = "${bi}";
       DHCP = "no";
