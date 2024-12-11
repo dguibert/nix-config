@@ -186,7 +186,7 @@ with lib; {
         inputs.hyprsplit.packages.${pkgs.system}.hyprsplit
       ];
       settings = {
-        plugin.hyprsplit.num_workspaces = 9;
+        plugin.hyprsplit.num_workspaces = 10;
 
         render = lib.mkIf cfg.nvidia.enable {
           explicit_sync = 0;
