@@ -65,6 +65,13 @@
   inputs.git-hooks-nix.url = "github:cachix/git-hooks.nix";
   inputs.git-hooks-nix.inputs.nixpkgs.follows = "nur_packages/nixpkgs";
 
+  #inputs.hyprland.url = "github:hyprwm/Hyprland";
+  #inputs.hyprland.url = "git+https://github.com/dguibert/Hyprland?submodules=1";
+  inputs.hyprland.url = "github:dguibert/Hyprland?ref=refs/heads/main&submodules=1";
+  inputs.hyprland.inputs.nixpkgs.follows = "nur_packages";
+  inputs.hyprsplit.url = "github:dguibert/hyprsplit";
+  inputs.hyprsplit.inputs.hyprland.follows = "hyprland";
+
   inputs.hyprland-contrib = {
     url = "github:hyprwm/contrib";
     inputs.nixpkgs.follows = "nur_packages";
