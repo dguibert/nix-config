@@ -25,6 +25,10 @@ in
       canConfig.BitRate = "1M";
     };
 
+    # https://klipper.discourse.group/t/mcu-mcu-shutdown-timer-too-close-on-voron-2-4/8758/6
+    systemd.services.klipper.serviceConfig.Nice = -18;
+    systemd.services.klipper.serviceConfig.IOSchedulingPriority = lib.mkForce 1;
+
     services.klipper = rec {
       enable = true;
       firmwares = {
