@@ -277,7 +277,12 @@
         };
 
         inventory.modules = {
-          #custom-module = ./modules/my_module;
+          jellyfin = ./modules/clan/jellyfin;
+        };
+        inventory.services = {
+          jellyfin.titan = {
+            roles.default.machines = [ "titan" ];
+          };
         };
         # All machines in the ./machines will be imported.
 
