@@ -269,7 +269,7 @@
         # Ensure this is unique among all clans you want to use.
         meta.name = "orsin.homelab";
 
-        pkgsForSystem = self.legacyPackages;
+        pkgsForSystem = system: self.legacyPackages.${system};
 
         specialArgs = {
           inherit inputs;
