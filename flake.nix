@@ -103,10 +103,15 @@
 
   inputs.nixos-hardware.url = "github:NixOS/nixos-hardware";
 
+  #inputs.flake-parts.url = "github:hercules-ci/flake-parts";
+  #inputs.flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
+
   inputs.clan-core.url = "git+https://git.clan.lol/clan/clan-core";
   inputs.clan-core.inputs.nixpkgs.follows = "nur_packages/nixpkgs"; # Needed if your configuration uses nixpkgs unstable.
   # New
   inputs.clan-core.inputs.flake-parts.follows = "flake-parts";
+  inputs.nixpkgs.follows = "nur_packages/nixpkgs";
+
   inputs.systems.follows = "clan-core/systems";
 
   nixConfig.extra-experimental-features = [ "nix-command" "flakes" ];
@@ -263,6 +268,13 @@
       clan = {
         # Ensure this is unique among all clans you want to use.
         meta.name = "orsin.homelab";
+
+        pkgsForSystem = self.legacyPackages;
+
+        specialArgs = {
+          inherit inputs;
+          self' = self;
+        };
 
         inventory.modules = {
           #custom-module = ./modules/my_module;

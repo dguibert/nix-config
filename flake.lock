@@ -1530,6 +1530,10 @@
         "nix-ld": "nix-ld",
         "nixos-hardware": "nixos-hardware",
         "nixos-wsl": "nixos-wsl",
+        "nixpkgs": [
+          "nur_packages",
+          "nixpkgs"
+        ],
         "nixpkgs_with_stdenv": "nixpkgs_with_stdenv",
         "nur": "nur",
         "nur_packages": "nur_packages",

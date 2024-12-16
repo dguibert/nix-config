@@ -3,6 +3,8 @@ with lib;
 rec {
   imports =
     [
+      inputs.sops-nix.nixosModules.sops
+      inputs.disko.nixosModules.disko
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ({ ... }: { services.udisks2.enable = true; })

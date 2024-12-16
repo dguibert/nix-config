@@ -278,21 +278,21 @@ in
     ++ waydroid
     #++ platypush
   ;
-  modules.hosts.titan = [ ]
-    ++ adb
-    ++ jellyfin
-    ++ [{
-    networking.hosts = {
-      "192.168.1.24" = [ "media.orsin.org" ];
-    };
-  }]
-    ++ role-libvirtd
-    ++ role-tinyca
-    #++ role-robotnix-ota-server
-    #++ role-mopidy
-    ++ desktop
-    ++ platypush
-    ++ microvm
-    ++ rkvm
-  ;
+  #modules.hosts.titan = [ ]
+  #  ++ adb
+  #  ++ jellyfin
+  #  ++ [{
+  #  networking.hosts = {
+  #    "192.168.1.24" = [ "media.orsin.org" ];
+  #  };
+  #}]
+  #  ++ role-libvirtd
+  #  ++ role-tinyca
+  #  #++ role-robotnix-ota-server
+  #  #++ role-mopidy
+  #  ++ desktop
+  #  ++ platypush
+  #  ++ microvm
+  #  ++ rkvm
+  #;
 }
