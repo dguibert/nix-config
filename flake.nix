@@ -281,6 +281,7 @@
           adb.service.roles.default.machines = [ "t580" "titan" ];
           haproxy.service.roles.default.machines = [ "rpi41" ];
           jellyfin.titan.roles.default.machines = [ "titan" ];
+          libvirtd.titan.roles.default.machines = [ "titan" ];
         };
         # All machines in the ./machines will be imported.
 

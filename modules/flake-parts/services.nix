@@ -1,21 +1,5 @@
 { config, inputs, withSystem, self, ... }:
 let
-  # role-libvirtd
-  role-libvirtd = [
-    ../nixos/role-libvirtd.nix
-    ({ config, lib, pkgs, inputs, ... }: {
-      # https://nixos.org/nixops/manual/#idm140737318329504
-      role.libvirtd.enable = true;
-      #virtualisation.anbox.enable = true;
-      #services.nfs.server.enable = true;
-      virtualisation.docker.enable = true;
-      virtualisation.docker.enableOnBoot = false; #start by socket activation
-      virtualisation.docker.storageDriver = "zfs";
-      services.dockerRegistry.enable = true;
-
-      programs.singularity.enable = true;
-    })
-  ];
   # role-tinyca
   role-tinyca = [
     ../nixos/role-tiny-ca.nix
@@ -152,13 +136,11 @@ in
     #++ platypush
   ;
   #modules.hosts.titan = [ ]
-  #  ++ adb
   #  ++ [{
   #  networking.hosts = {
   #    "192.168.1.24" = [ "media.orsin.org" ];
   #  };
   #}]
-  #  ++ role-libvirtd
   #  ++ role-tinyca
   #  #++ role-robotnix-ota-server
   #  #++ role-mopidy
