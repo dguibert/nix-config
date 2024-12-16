@@ -14,6 +14,7 @@ let
       (lib.filterAttrs
         (modName: type:
           (type == "regular" && lib.hasSuffix ".nix" modName && modName != "all-modules.nix")
+          || (type == "directory" && kind == "clan")
         )
         (builtins.readDir (modulesDir + "/${kind}")));
 

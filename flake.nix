@@ -276,10 +276,9 @@
           self' = self;
         };
 
-        inventory.modules = {
-          jellyfin = ./modules/clan/jellyfin;
-        };
+        inventory.modules = self.modules.clan;
         inventory.services = {
+          adb.service.roles.default.machines = [ "t580" "titan" ];
           jellyfin.titan = {
             roles.default.machines = [ "titan" ];
           };
