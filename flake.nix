@@ -61,6 +61,7 @@
 
   inputs.flake-parts.follows = "nur_packages/flake-parts";
   inputs.flake-utils.follows = "nur_packages/flake-utils";
+  inputs.flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
 
   inputs.git-hooks-nix.url = "github:cachix/git-hooks.nix";
   inputs.git-hooks-nix.inputs.nixpkgs.follows = "nur_packages/nixpkgs";
@@ -101,6 +102,11 @@
   inputs.microvm.inputs.nixpkgs.follows = "nur_packages";
 
   inputs.nixos-hardware.url = "github:NixOS/nixos-hardware";
+
+  inputs.clan-core.url = "git+https://git.clan.lol/clan/clan-core";
+  inputs.clan-core.inputs.nixpkgs.follows = "nur_packages"; # Needed if your configuration uses nixpkgs unstable.
+  # New
+  inputs.clan-core.inputs.flake-parts.follows = "flake-parts";
 
   nixConfig.extra-experimental-features = [ "nix-command" "flakes" ];
 
@@ -251,6 +257,27 @@
         ./checks
         ./shells
       ];
+      # Usage see: https://docs.clan.lol
+      clan = {
+         # Ensure this is unique among all clans you want to use.
+         meta.name = "orsin.homelab";
+
+         inventory.modules = {
+           #custom-module = ./modules/my_module;
+         };
+         # All machines in the ./machines will be imported.
+
+         # Prerequisite: boot into the installer.
+         # See: https://docs.clan.lol/getting-started/installer
+         # local> mkdir -p ./machines/machine1
+         # local> Edit ./machines/<machine>/configuration.nix to your liking.
+         machines = {
+           # You can also specify additional machines here.
+           # somemachine = {
+           #  imports = [ ./some-machine/configuration.nix ];
+           # }
+         };
+      };
 
       perSystem = { config, self', inputs', pkgs, system, ... }: {
         # This is highly advised, and will prevent many possible mistakes

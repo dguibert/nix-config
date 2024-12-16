@@ -3,6 +3,7 @@
   perSystem = { config, self', inputs', pkgs, system, ... }:
     let
       inherit inputs;
+      inherit (inputs.clan-core.packages.${system}) clan-cli;
       inherit (inputs.sops-nix.packages.${system}) sops-import-keys-hook ssh-to-pgp;
       deploy-rs = pkgs.deploy-rs.deploy-rs;
       pre-commit-check-shellHook = inputs.self.checks.${system}.pre-commit-check.shellHook;
@@ -53,6 +54,8 @@
 
           nix
           nix-output-monitor
+          
+          clan-cli
         ];
         nativeBuildInputs = [
           sops-import-keys-hook
