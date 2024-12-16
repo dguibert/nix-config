@@ -22,25 +22,6 @@ let
       role.robotnix-ota-server.openFirewall = true;
     })
   ];
-  # mopidy-server
-  role-mopidy = [
-    ../nixos/role-mopidy.nix
-    ({ config, lib, pkgs, inputs, ... }: {
-      role.mopidy-server.enable = true; # TODO migrate to pipewire
-      role.mopidy-server.listenAddress = "192.168.1.24";
-      role.mopidy-server.configuration.local.media_dir = "/home/dguibert/Music/mopidy";
-      role.mopidy-server.configuration.m3u = {
-        enabled = true;
-        playlists_dir = "/home/dguibert/Music/playlists";
-        base_dir = config.role.mopidy-server.configuration.local.media_dir;
-        default_extension = ".m3u8";
-      };
-      role.mopidy-server.configuration.local.scan_follow_symlinks = true;
-      role.mopidy-server.configuration.iris.country = "FR";
-      role.mopidy-server.configuration.iris.locale = "FR";
-    })
-  ];
-
   desktop = [
     ../nixos/wayland-conf.nix
     ../nixos/yubikey-gpg-conf.nix
@@ -143,7 +124,6 @@ in
   #}]
   #  ++ role-tinyca
   #  #++ role-robotnix-ota-server
-  #  #++ role-mopidy
   #  ++ desktop
   #  ++ platypush
   #  ++ microvm

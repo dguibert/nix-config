@@ -1,7 +1,4 @@
-{ config, lib, pkgs, ... }:
-
-with lib;
-
+{ config, lib, pkgs, inputs, ... }:
 let
   cfg = config.role.mopidy-server;
 
@@ -15,10 +12,9 @@ let
     cp -v ${silence_mp3} $out/silence.mp3
   '';
 in
-{
+with lib; {
   options = {
     role.mopidy-server = {
-      enable = mkEnableOption "Enable a mopidy server";
       listenAddress = mkOption {
         type = types.str;
         default = "127.0.0.1";
@@ -38,7 +34,7 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
+  config = {
     role.mopidy-server.configuration = {
       audio = {
         mixer = "software";
@@ -223,5 +219,17 @@ in
           <loglevel>4</loglevel> <!-- 4 Debug, 3 Info, 2 Warn, 1 Error -->
       </logging>
     '';
+
+    role.mopidy-server.listenAddress = "192.168.1.24";
+    role.mopidy-server.configuration.local.media_dir = "/home/dguibert/Music/mopidy";
+    role.mopidy-server.configuration.m3u = {
+      enabled = true;
+      playlists_dir = "/home/dguibert/Music/playlists";
+      base_dir = config.role.mopidy-server.configuration.local.media_dir;
+      default_extension = ".m3u8";
+    };
+    role.mopidy-server.configuration.local.scan_follow_symlinks = true;
+    role.mopidy-server.configuration.iris.country = "FR";
+    role.mopidy-server.configuration.iris.locale = "FR";
   };
 }
