@@ -104,13 +104,14 @@
   inputs.nixos-hardware.url = "github:NixOS/nixos-hardware";
 
   inputs.clan-core.url = "git+https://git.clan.lol/clan/clan-core";
-  inputs.clan-core.inputs.nixpkgs.follows = "nur_packages"; # Needed if your configuration uses nixpkgs unstable.
+  inputs.clan-core.inputs.nixpkgs.follows = "nur_packages/nixpkgs"; # Needed if your configuration uses nixpkgs unstable.
   # New
   inputs.clan-core.inputs.flake-parts.follows = "flake-parts";
+  inputs.systems.follows = "clan-core/systems";
 
   nixConfig.extra-experimental-features = [ "nix-command" "flakes" ];
 
-  outputs = { self, flake-parts, ... }@inputs:
+  outputs = { self, flake-parts, systems, ... }@inputs:
     let
       # Memoize nixpkgs for different platforms for efficiency.
       inherit (self) outputs;
@@ -249,6 +250,7 @@
       ];
       imports = [
         inputs.config_json.flakeModule.user_config_settings
+        inputs.clan-core.flakeModules.default
         #./home/profiles
         ./homes
         ./hosts
@@ -259,24 +261,24 @@
       ];
       # Usage see: https://docs.clan.lol
       clan = {
-         # Ensure this is unique among all clans you want to use.
-         meta.name = "orsin.homelab";
+        # Ensure this is unique among all clans you want to use.
+        meta.name = "orsin.homelab";
 
-         inventory.modules = {
-           #custom-module = ./modules/my_module;
-         };
-         # All machines in the ./machines will be imported.
+        inventory.modules = {
+          #custom-module = ./modules/my_module;
+        };
+        # All machines in the ./machines will be imported.
 
-         # Prerequisite: boot into the installer.
-         # See: https://docs.clan.lol/getting-started/installer
-         # local> mkdir -p ./machines/machine1
-         # local> Edit ./machines/<machine>/configuration.nix to your liking.
-         machines = {
-           # You can also specify additional machines here.
-           # somemachine = {
-           #  imports = [ ./some-machine/configuration.nix ];
-           # }
-         };
+        # Prerequisite: boot into the installer.
+        # See: https://docs.clan.lol/getting-started/installer
+        # local> mkdir -p ./machines/machine1
+        # local> Edit ./machines/<machine>/configuration.nix to your liking.
+        machines = {
+          # You can also specify additional machines here.
+          # somemachine = {
+          #  imports = [ ./some-machine/configuration.nix ];
+          # }
+        };
       };
 
       perSystem = { config, self', inputs', pkgs, system, ... }: {

@@ -123,7 +123,8 @@
         ],
         "nixos-facter-modules": "nixos-facter-modules",
         "nixpkgs": [
-          "nur_packages"
+          "nur_packages",
+          "nixpkgs"
         ],
         "sops-nix": "sops-nix",
         "systems": "systems",
@@ -476,7 +477,10 @@
     },
     "flake-parts_3": {
       "inputs": {
-        "nixpkgs-lib": "nixpkgs-lib"
+        "nixpkgs-lib": [
+          "nur_packages",
+          "nixpkgs"
+        ]
       },
       "locked": {
         "lastModified": 1733312601,
@@ -1148,16 +1152,16 @@
         "nixpkgs-regression": "nixpkgs-regression"
       },
       "locked": {
-        "lastModified": 1733933420,
-        "narHash": "sha256-Og+SGDzHPOCNJ/I86UPGjSMtvw752aBPuoI5rjz8fHo=",
+        "lastModified": 1733950751,
+        "narHash": "sha256-oLnicXjXtZ4k8L56YbM5J133hauyjTUP96bbqMluDwQ=",
         "owner": "dguibert",
         "repo": "nix",
-        "rev": "83216a154a2b04f664b18afd9dfb94a6c722be6f",
+        "rev": "3f7af30386adaf36d044c550776e3b05bb583960",
         "type": "github"
       },
       "original": {
         "owner": "dguibert",
-        "ref": "83216a154a2b04f664b18afd9dfb94a6c722be6f",
+        "ref": "3f7af30386adaf36d044c550776e3b05bb583960",
         "repo": "nix",
         "type": "github"
       }
@@ -1267,18 +1271,6 @@
         "repo": "nixpkgs",
         "rev": "a62e6edd6d5e1fa0329b8653c801147986f8d446",
         "type": "github"
-      }
-    },
-    "nixpkgs-lib": {
-      "locked": {
-        "lastModified": 1733096140,
-        "narHash": "sha256-1qRH7uAUsyQI7R1Uwl4T+XvdNv778H0Nb5njNrqvylY=",
-        "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/5487e69da40cbd611ab2cadee0b4637225f7cfae.tar.gz"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/5487e69da40cbd611ab2cadee0b4637225f7cfae.tar.gz"
       }
     },
     "nixpkgs-regression": {
@@ -1433,15 +1425,17 @@
         "nixpkgs": [
           "upstream_nixpkgs"
         ],
-        "st-src": "st-src"
+        "st-src": "st-src",
+        "systems": "systems_6"
       },
       "locked": {
-        "lastModified": 1733942876,
-        "narHash": "sha256-K204Pc3BZXHkbPYwQOhGLl+xMrsWHazmbKy/Rlz6+dQ=",
-        "owner": "dguibert",
-        "repo": "nur-packages",
-        "rev": "304b5d71d08b9b6ae5ae5a170ba1cb2c79fd78fa",
-        "type": "github"
+        "lastModified": 1734379518,
+        "narHash": "sha256-racMcf0FzUY0TBZ/q/y8AiAYfAJunv8NkdMRecaSeIQ=",
+        "ref": "refs/heads/master",
+        "rev": "300d5e10b31618ad4693016ca9e09badc4085f00",
+        "revCount": 1369,
+        "type": "git",
+        "url": "ssh://titan/~/code/nur-packages"
       },
       "original": {
         "owner": "dguibert",
@@ -1542,6 +1536,10 @@
         "nxsession": "nxsession",
         "sops-nix": "sops-nix_2",
         "stylix": "stylix",
+        "systems": [
+          "clan-core",
+          "systems"
+        ],
         "terranix": "terranix",
         "tt-schemes": "tt-schemes",
         "upstream_nixpkgs": "upstream_nixpkgs"
@@ -1643,7 +1641,7 @@
         "nixpkgs": [
           "nur_packages"
         ],
-        "systems": "systems_6",
+        "systems": "systems_7",
         "tinted-foot": "tinted-foot",
         "tinted-kitty": "tinted-kitty",
         "tinted-tmux": "tinted-tmux"
@@ -1738,6 +1736,21 @@
       }
     },
     "systems_6": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
+    "systems_7": {
       "locked": {
         "lastModified": 1681028828,
         "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
