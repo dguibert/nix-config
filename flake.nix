@@ -7,10 +7,6 @@
   inputs.home-manager.url = "github:dguibert/home-manager/pu";
   inputs.home-manager.inputs.nixpkgs.follows = "nur_packages/nixpkgs";
 
-  inputs.hydra.url = "github:dguibert/hydra/pu";
-  inputs.hydra.inputs.nix.follows = "nix";
-  inputs.hydra.inputs.nixpkgs.follows = "nur_packages/nixpkgs";
-
   inputs.nix.follows = "nur_packages/nix";
 
   inputs.nur.url = "github:nix-community/NUR";
