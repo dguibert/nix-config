@@ -300,7 +300,10 @@
 
           _3d_printing.voron02_1.roles.voron02_1.machines = [ "rpi31" ];
 
+          sshguard.service.roles.default.machines = [ "all" ];
+
           totp-authentication.service.roles.default.tags = [ "all" ];
+
         };
 
         # Prerequisite: boot into the installer.

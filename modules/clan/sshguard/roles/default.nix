@@ -1,15 +1,15 @@
 { config, lib, ... }:
 let
-  cfg = config.role.sshguard;
+  cfg = config.clan.sshguard;
 in
 {
-  options.role.sshguard.enable = lib.mkOption {
-    default = true;
-    description = "Wether to enable sshguard role";
-    type = lib.types.bool;
-  };
+  #options.clan.sshguard.option = lib.mkOption {
+  #  default = true;
+  #  description = "";
+  #  type = lib.types.bool;
+  #};
 
-  config = lib.mkIf cfg.enable {
+  config = {
     services.sshguard = {
       enable = true;
       services = [ "sshd" "sshd-session" ];
