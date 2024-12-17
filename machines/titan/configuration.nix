@@ -17,9 +17,6 @@
 
   networking.firewall.checkReversePath = false;
 
-  virtualisation.virtualbox.host.enable = true;
-  systemd.network.wait-online.ignoredInterfaces = [ "vboxnet0" ];
-
   nix.extraOptions = ''
     secret-key-files = ${config.sops.secrets."cache-priv-key.pem".path}
   '';
