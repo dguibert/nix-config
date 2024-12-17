@@ -285,6 +285,11 @@
           libvirtd.titan.roles.default.machines = [ "titan" ];
           tiny-ca.orsin.roles.server.machines = [ "titan" ];
           #mopidy.titan.roles.default.machines = [ "titan" ];
+          rkvm.desktop = {
+            roles.server.machines = [ "titan" ];
+            roles.client.machines = [ "rpi41" ];
+            config.server = "192.168.1.24";
+          };
         };
         # All machines in the ./machines will be imported.
 
