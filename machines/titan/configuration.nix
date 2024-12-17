@@ -25,13 +25,4 @@
   '';
   sops.defaultSopsFile = ./secrets/secrets.yaml;
   sops.secrets."cache-priv-key.pem" = { };
-
-  services.openssh.extraConfig = ''
-    Match Group sftponly
-    ChrootDirectory %h
-    ForceCommand internal-sftp
-    AllowTcpForwarding no
-    X11Forwarding no
-    PasswordAuthentication no
-  '';
 }
