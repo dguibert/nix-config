@@ -22,8 +22,6 @@
     ../role-dns.nix
     ../role-sshguard.nix
     ../role-wireguard-mesh.nix
-    ../role-otp-authentication.nix
-    ({ config, ... }: { role-otp-authentication.enable = true; })
     ../role-zigbee.nix
     ../role-microvm.nix
     ../conf-kanata.nix

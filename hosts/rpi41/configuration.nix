@@ -19,6 +19,7 @@ rec {
       };
     })
     (import "${inputs.nixos-hardware}/raspberry-pi/4/default.nix")
+    inputs.sops-nix.nixosModules.sops
     ../../modules/nixos/defaults
   ];
   hardware.raspberry-pi."4".fkms-3d.enable = true;

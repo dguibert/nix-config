@@ -9,6 +9,7 @@ rec {
   imports = [
     (import "${inputs.nur_packages.inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix")
     (import "${inputs.nixos-hardware}/raspberry-pi/3/default.nix")
+    inputs.sops-nix.nixosModules.sops
     ../../modules/nixos/defaults
   ];
   #sdImage.bootSize = 512;

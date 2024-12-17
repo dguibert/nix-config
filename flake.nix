@@ -299,6 +299,8 @@
           yubikey.instance_1.roles.default.tags = [ "desktop" ];
 
           _3d_printing.voron02_1.roles.voron02_1.machines = [ "rpi31" ];
+
+          totp-authentication.service.roles.default.tags = [ "all" ];
         };
 
         # Prerequisite: boot into the installer.
