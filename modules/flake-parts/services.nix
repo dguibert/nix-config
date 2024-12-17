@@ -1,13 +1,5 @@
 { config, inputs, withSystem, self, ... }:
 let
-  # role-robotnix-ota-server
-  role-robotnix-ota-server = [
-    ../nixos/role-robotnix-ota.nix
-    ({ config, lib, pkgs, inputs, ... }: {
-      role.robotnix-ota-server.enable = true;
-      role.robotnix-ota-server.openFirewall = true;
-    })
-  ];
   # platypush
   platypush = [
     ({ config, lib, pkgs, inputs, ... }: {
