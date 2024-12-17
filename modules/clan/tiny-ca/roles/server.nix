@@ -1,6 +1,8 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, inputs, pkgsForSystem, ... }:
 let
   cfg = config.role.tiny-ca;
+
+  pkgs = pkgsForSystem config.nixpkgs.system;
 in
 {
   # https://smallstep.com/blog/build-a-tiny-ca-with-raspberry-pi-yubikey/

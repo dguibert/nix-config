@@ -274,6 +274,7 @@
         specialArgs = {
           inherit inputs;
           self' = self;
+          pkgsForSystem = system: self.legacyPackages.${system};
         };
 
         inventory.modules = self.modules.clan;

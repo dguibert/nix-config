@@ -1,19 +1,5 @@
 { config, inputs, withSystem, self, ... }:
 let
-  # role-tinyca
-  role-tinyca = [
-    ../nixos/role-tiny-ca.nix
-    ({ config, lib, pkgs, inputs, ... }: {
-      role.tiny-ca.enable = true;
-      services.step-ca.intermediatePasswordFile = config.sops.secrets.orsin-ca-intermediatePassword.path;
-      sops.secrets.orsin-ca-intermediatePassword = {
-        sopsFile = ../../secrets/defaults.yaml;
-      };
-      networking.firewall.interfaces."bond0".allowedTCPPorts = [
-        config.services.step-ca.port
-      ];
-    })
-  ];
   # role-robotnix-ota-server
   role-robotnix-ota-server = [
     ../nixos/role-robotnix-ota.nix
@@ -122,7 +108,6 @@ in
   #    "192.168.1.24" = [ "media.orsin.org" ];
   #  };
   #}]
-  #  ++ role-tinyca
   #  #++ role-robotnix-ota-server
   #  ++ desktop
   #  ++ platypush
