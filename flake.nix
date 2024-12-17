@@ -304,6 +304,8 @@
 
           totp-authentication.service.roles.default.tags = [ "all" ];
 
+          wireguard-mesh-vpn.service.roles.orsin-peer.tags = [ "all" ];
+
         };
 
         # Prerequisite: boot into the installer.
