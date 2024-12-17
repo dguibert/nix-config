@@ -8,18 +8,6 @@ let
       role.robotnix-ota-server.openFirewall = true;
     })
   ];
-  desktop = [
-    ../nixos/yubikey-gpg-conf.nix
-  ];
-  # server-3dprinting
-  server-3Dprinting = [
-    ../nixos/server-3Dprinting.nix
-    ({ config, lib, pkgs, inputs, ... }: {
-      server-3Dprinting.enable = true;
-      networking.firewall.interfaces."eth0".allowedTCPPorts = [ 80 ];
-    })
-  ];
-
   # platypush
   platypush = [
     ({ config, lib, pkgs, inputs, ... }: {
@@ -49,9 +37,6 @@ let
 
 in
 {
-  modules.hosts.rpi31 = [ ]
-    ++ server-3Dprinting
-  ;
   modules.hosts.rpi41 = [ ]
     ++ zigbee
     ++ [
@@ -60,18 +45,4 @@ in
     })
   ]
   ;
-  modules.hosts.t580 = [ ]
-    ++ waydroid
-    #++ platypush
-  ;
-  #modules.hosts.titan = [ ]
-  #  ++ [{
-  #  networking.hosts = {
-  #    "192.168.1.24" = [ "media.orsin.org" ];
-  #  };
-  #}]
-  #  #++ role-robotnix-ota-server
-  #  ++ platypush
-  #  ++ microvm
-  #;
 }

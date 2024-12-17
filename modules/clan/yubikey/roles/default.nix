@@ -1,9 +1,6 @@
 # https://rzetterberg.github.io/yubikey-gpg-nixos.html
-{ config, lib, pkgs, ... }:
-
-{
-  options.yubikey-gpg-conf.enable = lib.mkEnableOption "yubikey-gpg-conf";
-  config = lib.mkIf config.yubikey-gpg-conf.enable {
+{ config, lib, pkgs, ... }: {
+  config = {
     programs.ssh.startAgent = false;
 
     services.pcscd.enable = true;

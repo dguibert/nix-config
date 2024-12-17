@@ -279,6 +279,7 @@
 
         inventory.machines.titan.tags = [ "desktop" "dguibert" ];
         inventory.machines.t580.tags = [ "desktop" "dguibert" ];
+        inventory.machines.rpi41.tags = [ "desktop64" "dguibert" ];
 
         inventory.modules = self.modules.clan;
 
@@ -298,6 +299,10 @@
           wayland.instance_1.roles.default.tags = [ "desktop" ];
           wayland.instance_2.roles.default.tags = [ "desktop64" ];
           wayland.instance_2.config.enable32bit = false;
+
+          yubikey.instance_1.roles.default.tags = [ "desktop" ];
+
+          _3d_printing.voron02_1.roles.voron02_1.machines = [ "rpi31" ];
         };
 
         # Prerequisite: boot into the installer.
