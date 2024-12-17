@@ -9,12 +9,7 @@ let
     })
   ];
   desktop = [
-    ../nixos/wayland-conf.nix
     ../nixos/yubikey-gpg-conf.nix
-    ({ config, lib, pkgs, inputs, ... }: {
-      wayland-conf.enable = true;
-      yubikey-gpg-conf.enable = true;
-    })
   ];
   # server-3dprinting
   server-3Dprinting = [
@@ -60,15 +55,12 @@ in
   modules.hosts.rpi41 = [ ]
     ++ zigbee
     ++ [
-    ../nixos/wayland-conf.nix
     ({ config, lib, pkgs, inputs, ... }: {
-      wayland-conf.enable = true;
       hardware.graphics.enable32Bit = lib.mkForce false; # Option driSupport32Bit only makes sense on a 64-bit system.
     })
   ]
   ;
   modules.hosts.t580 = [ ]
-    ++ desktop
     ++ waydroid
     #++ platypush
   ;
@@ -79,7 +71,6 @@ in
   #  };
   #}]
   #  #++ role-robotnix-ota-server
-  #  ++ desktop
   #  ++ platypush
   #  ++ microvm
   #;

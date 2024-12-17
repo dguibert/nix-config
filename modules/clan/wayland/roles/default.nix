@@ -1,6 +1,14 @@
-{ config, lib, pkgs, ... }: {
-  options.wayland-conf.enable = lib.mkEnableOption "wayland-conf";
-  config = lib.mkIf config.wayland-conf.enable {
+{ config, lib, pkgs, ... }:
+let
+  cfg = config.clan.wayland;
+in
+{
+  options.clan.wayland.enable32Bit = lib.mkOption {
+    description = "Wether to enable 32bit support";
+    default = true;
+    type = lib.types.bool;
+  };
+  config = {
     nix.settings = {
       # add binary caches
       trusted-public-keys = [
@@ -12,9 +20,12 @@
     };
     services.seatd.enable = true;
     security.polkit.enable = true;
+
     security.pam.services.swaylock = { };
+
     hardware.graphics.enable = lib.mkDefault true;
-    hardware.graphics.enable32Bit = true;
+    hardware.graphics.enable32Bit = cfg.enable32Bit;
+
     fonts.enableDefaultPackages = lib.mkDefault true;
     fonts.fontDir.enable = true;
     fonts.enableGhostscriptFonts = true;
@@ -53,20 +64,6 @@
       };
     };
 
-    environment.sessionVariables.NIXOS_OZONE_WL = "1";
-    #services.greetd.enable = true;
-    #services.greetd.settings = {
-    #  default_session = {
-    #    command = ''${pkgs.greetd.greetd}/bin/agreety --cmd "dwl -s somebar"'';
-    #    #command = "${pkgs.greetd.wlgreet}/bin/wlgreet -e \"dwl -s somebar\"";
-    #  };
-    #};
-
-    environment.systemPackages = with pkgs; [
-      pavucontrol
-      pulseaudio
-    ];
-
     # Enable sound.
     # Remove sound.enable or turn it off if you had it set previously, it seems to cause conflicts with pipewire
     #sound.enable = false;
@@ -76,7 +73,7 @@
     services.pipewire = {
       enable = true;
       alsa.enable = true;
-      alsa.support32Bit = true;
+      alsa.support32Bit = cfg.enable32Bit;
       pulse.enable = true;
       # If you want to use JACK applications, uncomment this
       #jack.enable = true;
@@ -122,8 +119,5 @@
       #  };
       #};
     };
-
-
   };
 }
-

@@ -277,7 +277,11 @@
           pkgsForSystem = system: self.legacyPackages.${system};
         };
 
+        inventory.machines.titan.tags = [ "desktop" "dguibert" ];
+        inventory.machines.t580.tags = [ "desktop" "dguibert" ];
+
         inventory.modules = self.modules.clan;
+
         inventory.services = {
           adb.service.roles.default.machines = [ "t580" "titan" ];
           haproxy.service.roles.default.machines = [ "rpi41" ];
@@ -290,19 +294,17 @@
             roles.client.machines = [ "rpi41" ];
             config.server = "192.168.1.24";
           };
+
+          wayland.instance_1.roles.default.tags = [ "desktop" ];
+          wayland.instance_2.roles.default.tags = [ "desktop64" ];
+          wayland.instance_2.config.enable32bit = false;
         };
-        # All machines in the ./machines will be imported.
 
         # Prerequisite: boot into the installer.
+        # All machines in the ./machines will be imported.
         # See: https://docs.clan.lol/getting-started/installer
         # local> mkdir -p ./machines/machine1
         # local> Edit ./machines/<machine>/configuration.nix to your liking.
-        machines = {
-          # You can also specify additional machines here.
-          # somemachine = {
-          #  imports = [ ./some-machine/configuration.nix ];
-          # }
-        };
       };
 
       perSystem = { config, self', inputs', pkgs, system, ... }: {
