@@ -5,7 +5,7 @@ in
 with lib; {
   options.hyprland.nvidia.enable = lib.mkEnableOption "Hyprland with NVidia GPU";
 
-  config = lib.mkIf config.withGui.enable {
+  config = {
     programs.bash.bashrcExtra = ''
       if [[ -z $WAYLAND_DISPLAY ]] && [[ "$XDG_VTNR" -eq 1 ]] && command -v Hyprland >/dev/null ; then
       dbus-run-session Hyprland

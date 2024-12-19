@@ -1,9 +1,11 @@
-{ lib, config, pkgs, ... }:
-{
+{ lib, config, config', pkgs, ... }:
+let
+  cfg = config.clan.home-manager.dguibert;
+in {
   options.withGpg.enable = (lib.mkEnableOption "Enable GPG config") // { default = true; };
   config = lib.mkIf config.withGpg.enable {
     services.gpg-agent.pinentryPackage =
-      if config.withGui.enable
+      if config'.withGui.enable
       then pkgs.pinentry-gtk2
       else pkgs.pinentry-curses;
 

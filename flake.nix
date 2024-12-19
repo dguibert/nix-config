@@ -306,6 +306,7 @@
 
           wireguard-mesh-vpn.service.roles.orsin-peer.tags = [ "all" ];
 
+          home-manager.dguibert.roles.dguibert.tags = [ "dguibert" ];
         };
 
         # Prerequisite: boot into the installer.
