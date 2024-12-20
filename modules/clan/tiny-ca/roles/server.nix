@@ -228,9 +228,6 @@ in
     ## $ sudo mkdir /etc/systemd/system/dev-yubikey.device.wants
     ## $ sudo ln -s /etc/systemd/system/step-ca.service /etc/systemd/system/dev-yubikey.device.wants/
     services.step-ca.intermediatePasswordFile = config.sops.secrets.orsin-ca-intermediatePassword.path;
-    sops.secrets.orsin-ca-intermediatePassword = {
-      sopsFile = ../../../../secrets/defaults.yaml;
-    };
     networking.firewall.interfaces."bond0".allowedTCPPorts = [
       config.services.step-ca.port
     ];

@@ -112,6 +112,4 @@ rec {
   security.pam.services.su.forwardXAuth = lib.mkForce false;
 
   fonts.fontconfig.enable = false;
-
-  sops.defaultSopsFile = ./secrets/secrets.yaml;
 }

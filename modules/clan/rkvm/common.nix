@@ -10,11 +10,4 @@
     description = "Server port";
     default = 5258;
   };
-
-  config = {
-    sops.secrets.rkvm-certificate.sopsFile = ../../../secrets/defaults.yaml;
-    sops.secrets.rkvm-key.sopsFile = ../../../secrets/defaults.yaml;
-    sops.secrets.rkvm-password.sopsFile = ../../../secrets/defaults.yaml;
-  };
-
 }

@@ -43,8 +43,6 @@ rec {
   #  extraCmdArgs = "-u";
   #};
 
-  sops.defaultSopsFile = ./secrets/secrets.yaml;
-
   services.fwupd.enable = true;
   powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
 

@@ -81,7 +81,6 @@
   };
 
   sops.secrets.id_buildfarm = {
-    sopsFile = ../../../secrets/defaults.yaml;
     owner = "root";
     path = "/etc/nix/id_buildfarm";
   };

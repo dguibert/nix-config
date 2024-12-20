@@ -27,7 +27,6 @@ rec {
   #hardware.pulseaudio.enable = true;
   #hardware.raspberry-pi."4".audio.enable = true;
 
-  sops.defaultSopsFile = ./secrets/secrets.yaml;
   #sdImage.bootSize = 511;
 
   networking.hostName = "rpi41";

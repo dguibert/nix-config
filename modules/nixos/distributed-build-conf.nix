@@ -3,7 +3,6 @@
 {
   options.distributed-build-conf.enable = lib.mkEnableOption "distributed build";
   config = lib.mkIf config.distributed-build-conf.enable {
-    #sops.secrets."id_buildfarm.pub".sopsFile = ../../secrets/defaults.yaml;
     users.extraUsers.nixBuild = {
       name = "nixBuild";
       useDefaultShell = true;

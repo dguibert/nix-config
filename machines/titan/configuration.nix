@@ -16,8 +16,4 @@
   environment.systemPackages = [ pkgs.ipmitool pkgs.ntfs3g ];
 
   networking.firewall.checkReversePath = false;
-
-  nix.extraOptions = ''
-    secret-key-files = ${config.sops.secrets."cache-priv-key.pem".path}
-  '';
 }

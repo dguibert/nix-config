@@ -74,7 +74,6 @@ in
   ];
 
   #echo -n "ss://"`echo -n chacha20-ietf-poly1305:$(sops --extract '["shadowsocks"]' -d hosts/rpi31/secrets/secrets.yaml)@$(curl -4 ifconfig.io):443 | base64` | qrencode -t UTF8
-  sops.secrets.shadowsocks.sopsFile = ../../hosts/rpi41/secrets/secrets.yaml;
   services.shadowsocks = {
     enable = true;
     localAddress = [ haproxy_internal_ip ];

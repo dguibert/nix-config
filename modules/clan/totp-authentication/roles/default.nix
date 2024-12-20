@@ -5,7 +5,6 @@
     security.pam.oath.usersFile = config.sops.secrets."oath-users-file".path;
 
     sops.secrets.oath-users-file = {
-      sopsFile = ../../../../secrets/defaults.yaml;
       owner = "root";
       mode = "600";
       path = "/etc/users.oath";
