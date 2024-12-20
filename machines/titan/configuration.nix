@@ -20,6 +20,4 @@
   nix.extraOptions = ''
     secret-key-files = ${config.sops.secrets."cache-priv-key.pem".path}
   '';
-  sops.defaultSopsFile = ./secrets/secrets.yaml;
-  sops.secrets."cache-priv-key.pem" = { };
 }
