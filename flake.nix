@@ -280,6 +280,13 @@
         inventory.modules = self.modules.clan;
 
         inventory.services = {
+          sshd.service.roles.server.tags = [ "all" ];
+          sshd.service.roles.server.config = {
+            certificate.searchDomains = [
+              "orsin.net"
+            ];
+          };
+
           adb.service.roles.default.machines = [ "t580" "titan" ];
           haproxy.service.roles.default.machines = [ "rpi41" ];
           jellyfin.titan.roles.default.machines = [ "titan" ];
@@ -294,7 +301,7 @@
 
           wayland.instance_1.roles.default.tags = [ "desktop" ];
           wayland.instance_2.roles.default.tags = [ "desktop64" ];
-          wayland.instance_2.config.enable32bit = false;
+          wayland.instance_2.config.enable32Bit = false;
 
           yubikey.instance_1.roles.default.tags = [ "desktop" ];
 
