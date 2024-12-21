@@ -286,6 +286,10 @@
               "orsin.net"
             ];
           };
+          importer.sshd = {
+            roles.default.tags = [ "all" ];
+            roles.default.extraModules = [ "modules/nixos/sshd.nix" ];
+          };
 
           adb.service.roles.default.machines = [ "t580" "titan" ];
           haproxy.service.roles.default.machines = [ "rpi41" ];
