@@ -3,12 +3,10 @@ with lib;
 rec {
   imports =
     [
-      inputs.sops-nix.nixosModules.sops
-      inputs.disko.nixosModules.disko
+      { nixpkgs.system = "x86_64-linux"; }
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ({ ... }: { services.udisks2.enable = true; })
-      inputs.sops-nix.nixosModules.sops
       ../../modules/nixos/defaults
     ];
   disko.devices = import ./disk-config.nix {

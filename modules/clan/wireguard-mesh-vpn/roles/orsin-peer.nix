@@ -63,7 +63,7 @@ in
           #asus-laptop = "fe80::216:3eff:fe06:1aaf/64";
         };
         listenPort = 503;
-        publicKey = readWgPub ../../../../hosts/titan/wg_key.pub;
+        publicKey = readWgPub ../../../../machines/titan/wg_key.pub;
         endpoint = "192.168.1.24:${toString config.networking.wireguard-mesh.peers."${config.networking.hostName}".listenPort}";
       };
       t580 = {
@@ -77,7 +77,7 @@ in
           #asus-laptop = "fe80::216:3eff:fe6a:64a5/64";
         };
         listenPort = 504;
-        publicKey = readWgPub ../../../../hosts/t580/wg_key.pub;
+        publicKey = readWgPub ../../../../machines/t580/wg_key.pub;
         endpoint = "82.64.121.168:${toString config.networking.wireguard-mesh.peers."${config.networking.hostName}".listenPort}";
       };
       rpi41 = {
@@ -91,7 +91,7 @@ in
           #asus-laptop = "fe80::216:3eff:fe48:51ce/64";
         };
         listenPort = 505;
-        publicKey = readWgPub ../../../../hosts/rpi41/wg_key.pub;
+        publicKey = readWgPub ../../../../machines/rpi41/wg_key.pub;
         endpoint = "82.64.121.168:${toString config.networking.wireguard-mesh.peers."${config.networking.hostName}".listenPort}";
         persistentKeepalive = 25;
       };
