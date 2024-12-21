@@ -9,6 +9,7 @@ rec {
   imports = [
     #(import "${inputs.nur_packages.inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix")
     #sdImage.compressImage = false;
+    { nixpkgs.system = "aarch64-linux"; }
     ({ ... }: {
       fileSystems = {
         "/" = {
@@ -19,7 +20,6 @@ rec {
       };
     })
     (import "${inputs.nixos-hardware}/raspberry-pi/4/default.nix")
-    inputs.sops-nix.nixosModules.sops
     ../../modules/nixos/defaults
   ];
   hardware.raspberry-pi."4".fkms-3d.enable = true;

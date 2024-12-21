@@ -7,13 +7,6 @@ let
     })
   ];
 
-  # zigbee
-  zigbee = [
-    ({ config, lib, pkgs, inputs, ... }: {
-      role.zigbee.enable = true;
-    })
-  ];
-
   microvm = [
     inputs.microvm.nixosModules.host
     ({ config, lib, pkgs, inputs, ... }: {
@@ -28,13 +21,4 @@ let
   ];
 
 in
-{
-  modules.hosts.rpi41 = [ ]
-    ++ zigbee
-    ++ [
-    ({ config, lib, pkgs, inputs, ... }: {
-      hardware.graphics.enable32Bit = lib.mkForce false; # Option driSupport32Bit only makes sense on a 64-bit system.
-    })
-  ]
-  ;
-}
+{ }
