@@ -38,6 +38,21 @@ let
   cfg = config.networking.wireguard-mesh;
 
   peerNames = builtins.filter (n: n != config.networking.hostName) (builtins.attrNames cfg.peers);
+
+  generate_wg_keys = name: value: {
+    name = "wg.${name}";
+    value = {
+      files.key = { };
+      files."key.pub".secret = false;
+      runtimeInputs = [
+        pkgs.wireguard-tools
+      ];
+      script = ''
+        wg genkey > $out/key
+        cat $out/key | wg pubkey > $out/key.pub
+      '';
+    };
+  };
 in
 {
   options = {
@@ -60,6 +75,7 @@ in
   };
 
   config = mkIf cfg.enable {
+    clan.core.vars.generators = lib.mapAttrs' generate_wg_keys ({ "${config.networking.hostName}" = { }; });
     # https://www.sweharris.org/post/2016-10-30-ssh-certs/
     # http://www.lorier.net/docs/ssh-ca
     # https://linux-audit.com/granting-temporary-access-to-servers-using-signed-ssh-keys/

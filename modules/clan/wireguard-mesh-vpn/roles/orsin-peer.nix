@@ -35,6 +35,7 @@ in
         };
         listenPort = 500;
         publicKey = readWgPub ../../../../hosts/rpi31/wg_key.pub;
+        #publicKey = readWgPub ../../../../vars/per-machine/rpi31/wg.rpi31/key.pub/value;
         endpoint = "192.168.1.13:${toString config.networking.wireguard-mesh.peers."${config.networking.hostName}".listenPort}";
         persistentKeepalive = 25;
       };
@@ -63,7 +64,7 @@ in
           #asus-laptop = "fe80::216:3eff:fe06:1aaf/64";
         };
         listenPort = 503;
-        publicKey = readWgPub ../../../../machines/titan/wg_key.pub;
+        publicKey = readWgPub ../../../../vars/per-machine/titan/wg.titan/key.pub/value;
         endpoint = "192.168.1.24:${toString config.networking.wireguard-mesh.peers."${config.networking.hostName}".listenPort}";
       };
       t580 = {
@@ -77,7 +78,7 @@ in
           #asus-laptop = "fe80::216:3eff:fe6a:64a5/64";
         };
         listenPort = 504;
-        publicKey = readWgPub ../../../../machines/t580/wg_key.pub;
+        publicKey = readWgPub ../../../../vars/per-machine/t580/wg.t580/key.pub/value;
         endpoint = "82.64.121.168:${toString config.networking.wireguard-mesh.peers."${config.networking.hostName}".listenPort}";
       };
       rpi41 = {
@@ -91,7 +92,7 @@ in
           #asus-laptop = "fe80::216:3eff:fe48:51ce/64";
         };
         listenPort = 505;
-        publicKey = readWgPub ../../../../machines/rpi41/wg_key.pub;
+        publicKey = readWgPub ../../../../vars/per-machine/rpi41/wg.rpi41/key.pub/value;
         endpoint = "82.64.121.168:${toString config.networking.wireguard-mesh.peers."${config.networking.hostName}".listenPort}";
         persistentKeepalive = 25;
       };
@@ -122,9 +123,8 @@ in
       #};
     };
 
-    sops.secrets."wireguard_key"          .path = "/persist/etc/wireguard_key";
-    sops.secrets."wireguard_key"          .owner = "systemd-network";
-    networking.wireguard-mesh.privateKeyFile = "${config.sops.secrets."wireguard_key".path}";
+    #sops.secrets."wireguard_key"          .owner = "systemd-network";
+    networking.wireguard-mesh.privateKeyFile = "${config.clan.core.vars.generators."wg.${config.networking.hostName}".files.key.path}";
 
     networking.firewall.allowedUDPPorts = [
       500
