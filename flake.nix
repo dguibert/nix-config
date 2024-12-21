@@ -309,6 +309,8 @@
 
           yubikey.instance_1.roles.default.tags = [ "desktop" ];
 
+          zigbee.instance_1.roles.default.machines = [ "rpi41" ];
+
           _3d_printing.voron02_1.roles.voron02_1.machines = [ "rpi31" ];
 
           sshguard.service.roles.default.machines = [ "all" ];

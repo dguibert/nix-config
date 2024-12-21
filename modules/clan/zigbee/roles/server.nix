@@ -5,13 +5,7 @@ let
 
 in
 {
-  options.role.zigbee.enable = lib.mkOption {
-    default = false;
-    description = "Whether to enable zigbee";
-    type = lib.types.bool;
-  };
-
-  config = lib.mkIf cfg.enable {
+  config = {
     services.zigbee2mqtt.enable = true;
     systemd.services.zigbee2mqtt.unitConfig.ConditionPathExists = "/dev/ttyACM0";
     services.zigbee2mqtt.settings = {

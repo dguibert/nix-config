@@ -20,7 +20,6 @@
     ../report-changes.nix
 
     ../role-dns.nix
-    ../role-zigbee.nix
     ../role-microvm.nix
     ../conf-kanata.nix
 
