@@ -331,6 +331,11 @@
               OPTUS_ACCB7F = { };
             };
           };
+
+          users.root.roles.default.tags = [ "all" ];
+          users.root.config.passwords.dguibert.prompt = true;
+          users.dguibert.roles.default.tags = [ "dguibert" ];
+          users.dguibert.config.passwords.dguibert.prompt = true;
         };
 
         # Prerequisite: boot into the installer.
