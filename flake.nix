@@ -274,8 +274,9 @@
         };
 
         inventory.machines.titan.tags = [ "desktop" "dguibert" ];
-        inventory.machines.t580.tags = [ "desktop" "dguibert" ];
+        inventory.machines.t580.tags = [ "desktop" "dguibert" "wifi" ];
         inventory.machines.rpi41.tags = [ "desktop64" "dguibert" ];
+        inventory.machines.rpi31.tags = [ "wifi" ];
 
         inventory.modules = self.modules.clan;
 
@@ -320,6 +321,16 @@
           wireguard-mesh-vpn.service.roles.orsin-peer.tags = [ "all" ];
 
           home-manager.dguibert.roles.dguibert.tags = [ "dguibert" ];
+
+          wifi.instance.roles.default.tags = [ "wifi" ];
+          wifi.instance.config = {
+            networks = {
+              Freebox-AD070E = { };
+              Livebox-765e = { };
+              Livebox-D854 = { };
+              OPTUS_ACCB7F = { };
+            };
+          };
         };
 
         # Prerequisite: boot into the installer.
