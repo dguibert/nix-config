@@ -328,6 +328,7 @@
               Freebox-AD070E = { };
               Livebox-765e = { };
               Livebox-D854 = { };
+              Livebox-D540 = { };
               OPTUS_ACCB7F = { };
             };
           };
