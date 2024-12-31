@@ -276,7 +276,7 @@
         inventory.machines.titan.tags = [ "desktop" "dguibert" ];
         inventory.machines.t580.tags = [ "desktop" "dguibert" "wifi" ];
         inventory.machines.rpi41.tags = [ "desktop64" "dguibert" ];
-        #inventory.machines.rpi31.tags = [ "wifi" ];
+        inventory.machines.rpi31.tags = [ "wifi" ];
 
         inventory.modules = self.modules.clan;
 
