@@ -276,7 +276,7 @@
         inventory.machines.titan.tags = [ "desktop" "dguibert" ];
         inventory.machines.t580.tags = [ "desktop" "dguibert" "wifi" ];
         inventory.machines.rpi41.tags = [ "desktop64" "dguibert" ];
-        inventory.machines.rpi31.tags = [ "wifi" ];
+        #inventory.machines.rpi31.tags = [ "wifi" ];
 
         inventory.modules = self.modules.clan;
 
@@ -318,7 +318,18 @@
 
           totp-authentication.service.roles.default.tags = [ "all" ];
 
-          wireguard-mesh-vpn.service.roles.orsin-peer.tags = [ "all" ];
+          wireguard-mesh-vpn.service.roles.peer.tags = [ "all" ];
+          wireguard-mesh-vpn.service.config.peers = {
+            rpi31.listenPort = 500;
+            rpi31.endpoint = "192.168.1.13:500";
+            rpi41.listenPort = 501;
+            rpi41.endpoint = "82.64.121.168:501";
+            rpi41.persistentKeepalive = 25;
+            titan.listenPort = 502;
+            titan.endpoint = "192.168.1.24:502";
+            t580.listenPort = 503;
+            t580.endpoint = "192.168.1.17:503";
+          };
 
           home-manager.dguibert.roles.dguibert.tags = [ "dguibert" ];
 

@@ -72,7 +72,6 @@
 
   programs.gnupg.agent.pinentryPackage = pkgs.pinentry-gtk2;
 
-  role.wireguard-mesh.enable = true;
   # System wide: echo "@cert-authority * $(cat /etc/ssh/ca.pub)" >>/etc/ssh/ssh_known_hosts
   programs.ssh.knownHosts."*" = {
     certAuthority = true;
