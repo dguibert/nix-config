@@ -16,6 +16,8 @@
   inputs.upstream_nixpkgs.url = "github:dguibert/nixpkgs/pu";
   inputs.nur_packages.url = "github:dguibert/nur-packages?refs=master";
   inputs.nur_packages.inputs.nixpkgs.follows = "upstream_nixpkgs";
+  inputs.nur_packages.inputs.git-hooks-nix.follows = "git-hooks-nix";
+  inputs.nur_packages.inputs.nix.inputs.flake-compat.follows = "flake-compat";
   inputs.nixpkgs_with_stdenv.url = "github:dguibert/nix-config?dir=nixpkgs";
   inputs.nixpkgs_with_stdenv.inputs.nixpkgs.follows = "nur_packages";
 
@@ -32,6 +34,7 @@
   inputs.stylix.inputs.home-manager.follows = "home-manager";
   inputs.stylix.inputs.base16.follows = "base16";
   inputs.stylix.inputs.base16-vim.follows = "base16-vim";
+  inputs.stylix.inputs.flake-compat.follows = "flake-compat";
 
   inputs.base16.url = "github:SenchoPens/base16.nix";
   #inputs.base16.inputs.nixpkgs.follows = "nur_packages";
@@ -47,6 +50,7 @@
   # For accessing `deploy-rs`'s utility Nix functions
   inputs.deploy-rs.url = "github:dguibert/deploy-rs/pu";
   inputs.deploy-rs.inputs.nixpkgs.follows = "nur_packages/nixpkgs";
+  inputs.deploy-rs.inputs.flake-compat.follows = "flake-compat";
 
   #inputs.nixpkgs-wayland.url = "github:colemickens/nixpkgs-wayland";
   # only needed if you use as a package set:
@@ -61,11 +65,14 @@
 
   inputs.git-hooks-nix.url = "github:cachix/git-hooks.nix";
   inputs.git-hooks-nix.inputs.nixpkgs.follows = "nur_packages/nixpkgs";
+  inputs.git-hooks-nix.inputs.flake-compat.follows = "flake-compat";
 
   #inputs.hyprland.url = "github:hyprwm/Hyprland";
   #inputs.hyprland.url = "git+https://github.com/dguibert/Hyprland?submodules=1";
   inputs.hyprland.url = "github:dguibert/Hyprland?ref=refs/heads/main&submodules=1";
   inputs.hyprland.inputs.nixpkgs.follows = "nur_packages";
+  inputs.hyprland.inputs.systems.follows = "systems";
+  inputs.hyprland.inputs.pre-commit-hooks.follows = "git-hooks-nix";
   inputs.hyprsplit.url = "github:dguibert/hyprsplit";
   inputs.hyprsplit.inputs.hyprland.follows = "hyprland";
 
@@ -86,10 +93,12 @@
 
   inputs.envfs.url = "github:Mic92/envfs";
   inputs.envfs.inputs.nixpkgs.follows = "nur_packages";
+  inputs.envfs.inputs.treefmt-nix.follows = "treefmt-nix";
 
   inputs.nixos-wsl.url = "github:nix-community/NixOS-WSL";
   inputs.nixos-wsl.inputs.nixpkgs.follows = "nur_packages";
   inputs.nixos-wsl.inputs.flake-utils.follows = "nur_packages/flake-utils";
+  inputs.nixos-wsl.inputs.flake-compat.follows = "flake-compat";
 
   #inputs.impermanence.url = "github:nix-community/impermanence";
   inputs.impermanence.url = "github:dguibert/impermanence";
@@ -103,12 +112,19 @@
   #inputs.flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
 
   inputs.clan-core.url = "git+https://git.clan.lol/clan/clan-core";
+  inputs.clan-core.inputs.sops-nix.follows = "sops-nix";
+  inputs.clan-core.inputs.disko.follows = "disko";
+  inputs.clan-core.inputs.treefmt-nix.follows = "treefmt-nix";
   inputs.clan-core.inputs.nixpkgs.follows = "nur_packages/nixpkgs"; # Needed if your configuration uses nixpkgs unstable.
   # New
   inputs.clan-core.inputs.flake-parts.follows = "flake-parts";
   inputs.nixpkgs.follows = "nur_packages/nixpkgs";
 
   inputs.systems.follows = "clan-core/systems";
+
+  inputs.treefmt-nix.url = "github:numtide/treefmt-nix";
+
+  inputs.flake-compat.url = "github:edolstra/flake-compat";
 
   nixConfig.extra-experimental-features = [ "nix-command" "flakes" ];
 
