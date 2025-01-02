@@ -8,8 +8,6 @@
   services.openssh.startWhenNeeded = true;
   services.openssh.settings.PasswordAuthentication = false;
   services.openssh.extraConfig = ''
-    HostCertificate ${config.sops.secrets."ssh_host_ed25519_key-cert.pub".path}
-
     AcceptEnv COLORTERM
     Ciphers chacha20-poly1305@openssh.com,aes256-cbc,aes256-gcm@openssh.com,aes256-ctr
     KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256
@@ -18,8 +16,8 @@
 
   # don't set ssh_host_rsa_key since userd by sops to decrypt secrets
   #sops.secrets."ssh_host_ed25519_key"          .path = "/persist/etc/ssh/ssh_host_ed25519_key";
-  sops.secrets."ssh_host_ed25519_key.pub"      .path = "/persist/etc/ssh/ssh_host_ed25519_key.pub";
-  sops.secrets."ssh_host_ed25519_key-cert.pub" .path = "/persist/etc/ssh/ssh_host_ed25519_key-cert.pub";
+  #sops.secrets."ssh_host_ed25519_key.pub"      .path = "/persist/etc/ssh/ssh_host_ed25519_key.pub";
+  #sops.secrets."ssh_host_ed25519_key-cert.pub" .path = "/persist/etc/ssh/ssh_host_ed25519_key-cert.pub";
 
   services.openssh.hostKeys = [
     {
