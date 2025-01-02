@@ -57,7 +57,7 @@ in
   config = {
     home-manager.users.dguibert = {
       imports = [
-        #inputs.sops-nix.homeManagerModules.sops
+        inputs.sops-nix.homeManagerModules.sops
         inputs.impermanence.nixosModules.home-manager.impermanence
         ({ config, lib, ... }: {
 
@@ -117,6 +117,16 @@ in
                 };
               };
             };
+        })
+        ({ ... }: {
+          sops.age.sshKeyPaths = [ "/home/dguibert/.ssh/id_ed25519" ];
+          sops.defaultSopsFile = ./dguibert/secrets.yaml;
+
+          sops.secrets.netrc = { };
+          sops.secrets.pass-email1 = { };
+          sops.secrets.pass-email2 = { };
+
+          #home.file.".netrc".source = config.sops.secrets.netrc.path;
         })
         inputs.stylix.homeManagerModules.stylix
         # set system's scheme by setting `config.scheme`
