@@ -4,9 +4,9 @@ with lib;
 
 let
   cfg = config.clan.wireguard-mesh-vpn;
-  clanDir = config.clan.core.clanDir;
+  clanDir = config.clan.core.settings.directory;
   varsDir = clanDir + "/vars/per-machine/";
-  inherit (config.clan.core) machineName;
+  machineName = config.clan.core.settings.machine.name;
 
   # Instances might be empty, if the module is not used via the inventory
   #
