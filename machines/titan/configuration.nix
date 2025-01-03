@@ -18,11 +18,6 @@ in
 {
   imports = [
     { nixpkgs.system = "x86_64-linux"; }
-    { clan.core.networking.targetHost = config.clan.core.settings.machine.name; }
-    {
-      nixpkgs.hostPlatform = pkgsForSystem config.nixpkgs.system;
-      nixpkgs.pkgs = pkgsForSystem config.nixpkgs.system;
-    }
     ../../modules/nixos/defaults
     inputs.microvm.nixosModules.host
     inputs.nix-ld.nixosModules.nix-ld

@@ -11,6 +11,11 @@
         sopsDecrypt_ = pkgs.sopsDecrypt_;
       };
     })
+    ({ config, ... }: { clan.core.networking.targetHost = config.clan.core.settings.machine.name; })
+    ({ config, pkgsForSystem, system, ... }: {
+      nixpkgs.hostPlatform = pkgsForSystem config.nixpkgs.system;
+      nixpkgs.pkgs = pkgsForSystem config.nixpkgs.system;
+    })
     ({ ... }: { programs.fuse.userAllowOther = true; })
 
     ../distributed-build-conf.nix
