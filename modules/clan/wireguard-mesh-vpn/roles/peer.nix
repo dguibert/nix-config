@@ -94,7 +94,7 @@ in
                 "fe80::/64"
                 "ff02::1:6/128"
               ];
-              Endpoint = if (peer ? endpoint) then peer.endpoint else null;
+              Endpoint = if (peer ? endpoint) then "${peer.endpoint}:${toString cfg.peers.${machineName}.listenPort}" else null;
               PersistentKeepalive = peer.persistentKeepalive or 0;
             }
           ];
@@ -103,10 +103,8 @@ in
       (n: nameValuePair "wg${n}" {
         matchConfig.Name = "wg${n}";
         address = [
-          ##peers."${machineName}".ipv4Address
           config.clan.core.vars.generators."wg.${machineName}".files.ipv4.value
           # Assign an IPv6 link local address on the tunnel so multicast works
-          ##peers."${machineName}".ipv6Addresses.${n}
           config.clan.core.vars.generators."wg.${machineName}".files."${n}-ipv6".value
         ];
         DHCP = "no";
@@ -144,7 +142,8 @@ in
       };
     };
 
-    networking.firewall.allowedUDPPorts = [ 6696 ];
+    networking.firewall.allowedUDPPorts = [ 6696 ]
+      ++ (flip map peerNames (n: cfg.peers.${n}.listenPort));
   };
 }
 
