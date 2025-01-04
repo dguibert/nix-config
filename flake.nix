@@ -348,6 +348,10 @@
           };
 
           home-manager.dguibert.roles.dguibert.tags = [ "dguibert" ];
+          home-manager.dguibert.config.dguibert = {
+            withGui.enable = true;
+            withPersistence.enable = true;
+          };
 
           wifi.instance.roles.default.tags = [ "wifi" ];
           wifi.instance.config = {

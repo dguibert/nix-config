@@ -16,7 +16,7 @@ let
         } else { };
 
       files = {
-        user-password-hash = { };
+        user-password-hash.neededFor = "users";
       } // (if !value.prompt then {
         user-password.deploy = false;
       } else { });
@@ -70,7 +70,6 @@ in
       users.mutableUsers = false;
       users.users = lib.mapAttrs' create_user cfg.passwords;
       clan.core.vars.generators = lib.mapAttrs' secret_generator cfg.passwords;
-
     })
   ];
 }
