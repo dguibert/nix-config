@@ -1,8 +1,9 @@
 { lib, config, pkgs, inputs, ... }:
+let
+  cfg = config.clan.home-manager.dguibert;
+in
 {
-  options.withEmacs.enable = lib.mkEnableOption "Enable emacs config";
-
-  config = lib.mkIf config.withEmacs.enable {
+  home-manager.users.dguibert = {
     programs.bash.shellAliases.e = "emacsclient -s server -t -a \"\"";
     programs.bash.shellAliases.eg = "emacsclient -s server -n -c -a \"\"";
     home.sessionVariables.ALTERNATE_EDITOR = "";
@@ -26,5 +27,4 @@
     ];
     #home.file.".emacs.d/private.el".source = pkgs.sopsDecrypt_ "${inputs.nur_dguibert}/emacs/private-sec.el" "data";
   };
-
 }

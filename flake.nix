@@ -348,6 +348,7 @@
           };
 
           home-manager.dguibert.roles.dguibert.tags = [ "dguibert" ];
+          home-manager.dguibert-emacs.roles.dguibert-emacs.tags = [ "dguibert" ];
           home-manager.dguibert.config.dguibert = {
             withGui.enable = true;
             withPersistence.enable = true;
