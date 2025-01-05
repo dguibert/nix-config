@@ -51,7 +51,7 @@ in
   options.clan.home-manager.dguibert = {
     withGui.enable = (mkEnableOption "Host running with X11 or Wayland") // { default = false; };
     withPersistence.enable = mkEnableOption "Use Impermanence";
-    centralMailHost.enable = mkEnableOption "Host running liier/mbsync";
+    centralMailHost.enable = mkEnableOption "Host running liier/mbsync" // { default = false; };
     withBash.enable = (lib.mkEnableOption "Enable bash config") // { default = true; };
     withBash.history-merge = (lib.mkEnableOption "Enable bash history merging") // { default = true; };
     withGpg.enable = (lib.mkEnableOption "Enable GPG config") // { default = true; };

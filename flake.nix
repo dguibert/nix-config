@@ -353,7 +353,10 @@
           home-manager.dguibert.config.dguibert = {
             withGui.enable = true;
             withPersistence.enable = true;
+            #centralMailHost.enable = lib.mkDefault false;
           };
+          home-manager.centralMailHost.roles.dguibert.machines = [ "titan" ];
+          home-manager.centralMailHost.config.dguibert.centralMailHost.enable = true;
 
           wifi.instance.roles.default.tags = [ "wifi" ];
           wifi.instance.config = {
