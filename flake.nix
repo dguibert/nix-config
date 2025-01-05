@@ -333,6 +333,7 @@
           sshguard.service.roles.default.machines = [ "all" ];
 
           totp-authentication.service.roles.default.tags = [ "all" ];
+          totp-authentication.service.config.users.dguibert.prompt = true;
 
           wireguard-mesh-vpn.service.roles.peer.tags = [ "all" ];
           wireguard-mesh-vpn.service.config.peers = {
