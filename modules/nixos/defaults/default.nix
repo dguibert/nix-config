@@ -78,11 +78,6 @@
     publicKey = builtins.readFile ../../../secrets/ssh-ca-home.pub;
   };
 
-  sops.secrets.id_buildfarm = {
-    owner = "root";
-    path = "/etc/nix/id_buildfarm";
-  };
-
   # time.cloudflare.com
   services.timesyncd.extraConfig = "FallbackNTP=162.159.200.1 2606:4700:f1::1";
 

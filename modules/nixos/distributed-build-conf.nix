@@ -49,6 +49,11 @@
       })
     ];
 
+    sops.secrets.id_buildfarm = lib.mkIf (config.networking.hostName != "rpi41") {
+      owner = "root";
+      path = "/etc/nix/id_buildfarm";
+    };
+
     nix.settings.binary-cache-public-keys = [ "titan:dkOH0pvwo9CQMDs/H/Rs4HYEePVmwPf0/uSQi9ZmjxE=" ];
     nix.settings.trusted-binary-caches = [ "ssh-ng://titan" ];
   };
