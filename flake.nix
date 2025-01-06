@@ -98,7 +98,6 @@
 
   inputs.nixos-wsl.url = "github:nix-community/NixOS-WSL";
   inputs.nixos-wsl.inputs.nixpkgs.follows = "nur_packages";
-  inputs.nixos-wsl.inputs.flake-utils.follows = "nur_packages/flake-utils";
   inputs.nixos-wsl.inputs.flake-compat.follows = "flake-compat";
 
   #inputs.impermanence.url = "github:nix-community/impermanence";
