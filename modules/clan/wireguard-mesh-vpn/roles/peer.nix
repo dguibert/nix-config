@@ -28,7 +28,7 @@ let
     name = "wg.${name}";
     value = {
       files = {
-        key = { };
+        key.owner = "systemd-network";
         "key.pub".secret = false;
         "key.pub".share = true;
         ipv4.secret = false;
