@@ -43,6 +43,12 @@ in
           ({ config, pkgs, ... }: {
             home.homeDirectory = "/home/dguibert";
             home.stateVersion = "23.05";
+
+            programs.direnv.enable = true;
+            programs.direnv.nix-direnv.enable = true;
+            home.packages = with pkgs; [
+              pass-git-helper
+            ];
           })
         ];
       };
