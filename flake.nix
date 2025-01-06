@@ -35,6 +35,7 @@
   inputs.stylix.inputs.base16.follows = "base16";
   inputs.stylix.inputs.base16-vim.follows = "base16-vim";
   inputs.stylix.inputs.flake-compat.follows = "flake-compat";
+  inputs.stylix.inputs.git-hooks.follows = "git-hooks-nix";
 
   inputs.base16.url = "github:SenchoPens/base16.nix";
   #inputs.base16.inputs.nixpkgs.follows = "nur_packages";
