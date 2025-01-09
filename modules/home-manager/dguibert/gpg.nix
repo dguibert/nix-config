@@ -1,7 +1,8 @@
 { lib, config, config', pkgs, ... }:
 let
   cfg = config.clan.home-manager.dguibert;
-in {
+in
+{
   options.withGpg.enable = (lib.mkEnableOption "Enable GPG config") // { default = true; };
   config = lib.mkIf config.withGpg.enable {
     services.gpg-agent.pinentryPackage =

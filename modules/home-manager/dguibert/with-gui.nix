@@ -1,6 +1,6 @@
 { config, lib, pkgs, inputs, outputs, ... }:
 {
-  config = {
+  config = lib.mkIf config.withGui.enable {
     programs.browserpass.enable = true;
 
     # https://nixos.wiki/wiki/Firefox

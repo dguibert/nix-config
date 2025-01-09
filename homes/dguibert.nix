@@ -4,86 +4,10 @@ let
 in
 {
   imports = [
-    (genHomeManagerConfiguration "aarch64-linux" "dguibert@rpi31")
-    (genHomeManagerConfiguration "aarch64-linux" "dguibert@rpi41")
-    (genHomeManagerConfiguration "x86_64-linux" "dguibert@t580")
-    (genHomeManagerConfiguration "x86_64-linux" "dguibert@titan")
-
     (genHomeManagerConfiguration "x86_64-linux" "bguibertd@spartan")
     (genHomeManagerConfiguration "x86_64-linux" "bguibertd@spartan-x86_64")
     #(genHomeManagerConfiguration "aarch64-linux" "bguibertd@spartan-aarch64")
     (genHomeManagerConfiguration "x86_64-linux" "bguibertd@spartan-aarch64")
-  ];
-
-  modules.homes."dguibert@rpi31" = [
-    ({ config, pkgs, ... }: {
-      imports = [
-        ../modules/home-manager/dguibert.nix
-      ];
-      withGui.enable = false;
-      home.username = "dguibert";
-      home.homeDirectory = "/home/dguibert";
-      home.stateVersion = "22.11";
-
-      # rpi31 don't have programs.dconf.enable = true => activation error
-      dconf.enable = false;
-    })
-  ];
-
-  modules.homes."dguibert@rpi41" = [
-    ({ config, pkgs, ... }: {
-      imports = [
-        ../modules/home-manager/dguibert.nix
-      ];
-      withGui.enable = true;
-      home.username = "dguibert";
-      home.homeDirectory = "/home/dguibert";
-      home.stateVersion = "22.11";
-    })
-  ];
-
-  modules.homes."dguibert@t580" = [
-    ../modules/home-manager/dguibert.nix
-    ({ config, pkgs, ... }: {
-      #wayland.windowManager.hyprland.enable = true;
-      #wayland.windowManager.hyprland.package = pkgs.hyprland;
-      withGui.enable = true;
-      withPersistence.enable = true;
-      withEmacs.enable = true;
-      withZellij.enable = true;
-      #withVSCode.enable = true;
-      home.username = "dguibert";
-      home.homeDirectory = "/home/dguibert";
-      home.stateVersion = "22.11";
-
-      programs.direnv.enable = true;
-      programs.direnv.nix-direnv.enable = true;
-      home.packages = with pkgs; [
-        pass-git-helper
-      ];
-    })
-  ];
-
-  modules.homes."dguibert@titan" = [
-    ../modules/home-manager/dguibert.nix
-    ({ config, pkgs, ... }: {
-      #wayland.windowManager.hyprland.enable = true;
-      centralMailHost.enable = true;
-      withGui.enable = true;
-      withPersistence.enable = true;
-      hyprland.nvidia.enable = false;
-      withEmacs.enable = true;
-      withZellij.enable = true;
-      home.username = "dguibert";
-      home.homeDirectory = "/home/dguibert";
-      home.stateVersion = "22.11";
-
-      programs.direnv.enable = true;
-      programs.direnv.nix-direnv.enable = true;
-      home.packages = with pkgs; [
-        pass-git-helper
-      ];
-    })
   ];
 
   modules.homes."bguibertd@spartan" = [
