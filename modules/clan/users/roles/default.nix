@@ -39,7 +39,7 @@ let
     inherit name;
     value = {
       hashedPasswordFile = config.clan.core.vars.generators."${name}-password".files.user-password-hash.path;
-      isNormalUser = lib.mkDefault true;
+      #isNormalUser = lib.mkDefault true;
     };
   };
 

@@ -3,7 +3,7 @@ let
   cfg = config.hyprland;
 in
 with lib; {
-  options.hyprland.nvidia.enable = lib.mkEnableOption "Hyprland with NVidia GPU";
+  options.hyprland.nvidia.enable = lib.mkEnableOption "Hyprland with NVidia GPU" // { default = false; };
 
   config = lib.mkIf config.withGui.enable {
     programs.bash.bashrcExtra = ''
