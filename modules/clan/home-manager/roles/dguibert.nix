@@ -51,6 +51,9 @@ in
       imports = [
         ../../../home-manager/dguibert.nix
         {
+          withGui.enable = cfg.withGui.enable;
+          withPersistence.enable = cfg.withPersistence.enable;
+          centralMailHost.enable = cfg.centralMailHost.enable;
           withBash.enable = cfg.withBash.enable;
           withBash.history-merge = cfg.withBash.history-merge;
           withGpg.enable = cfg.withGpg.enable;

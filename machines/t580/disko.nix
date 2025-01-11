@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, config, clan-core, ... }:
 let
 
   disks_rpool_rt580 = [
@@ -110,39 +110,45 @@ let
 
 in
 {
-  disk = (lib.listToAttrs (lib.genList (n: define_disk n disks_rpool_rt580) (lib.length disks_rpool_rt580)));
+  config = {
+    boot.loader.systemd-boot.enable = true;
 
-  zpool = {
-    rpool_rt580 = {
-      type = "zpool";
-      #mode = "raidz2";
-      options = {
-        ashift = "12";
-        autotrim = "on";
-      };
-      rootFsOptions = {
-        acltype = "posixacl";
-        canmount = "off";
-        compression = "zstd";
-        dnodesize = "auto";
-        normalization = "formD";
-        recordsize = "1M";
-        relatime = "on";
-        xattr = "sa";
-      };
-      postCreateHook = "
+    disko.devices = {
+      disk = (lib.listToAttrs (lib.genList (n: define_disk n disks_rpool_rt580) (lib.length disks_rpool_rt580)));
+
+      zpool = {
+        rpool_rt580 = {
+          type = "zpool";
+          #mode = "raidz2";
+          options = {
+            ashift = "12";
+            autotrim = "on";
+          };
+          rootFsOptions = {
+            acltype = "posixacl";
+            canmount = "off";
+            compression = "zstd";
+            dnodesize = "auto";
+            normalization = "formD";
+            recordsize = "1M";
+            relatime = "on";
+            xattr = "sa";
+          };
+          postCreateHook = "
         zfs snapshot local/root@blank
         zfs snapshot local/empty-root@blank
       ";
 
-      datasets = {
-        "local/root" = ds_mount null;
-        "local/empty-root" = ds_mount "/";
-        "local/home" = ds_mount null;
-        "local/nix" = ds_mount "/nix";
-        "safe/home/dguibert" = ds_mount "/persist/home/dguibert";
-        "safe/home/root" = ds_mount "/root";
-        "safe/persist" = ds_mount "/persist";
+          datasets = {
+            "local/root" = ds_mount null;
+            "local/empty-root" = ds_mount "/";
+            "local/home" = ds_mount null;
+            "local/nix" = ds_mount "/nix";
+            "safe/home/dguibert" = ds_mount "/persist/home/dguibert";
+            "safe/home/root" = ds_mount "/root";
+            "safe/persist" = ds_mount "/persist";
+          };
+        };
       };
     };
   };
