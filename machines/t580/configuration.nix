@@ -13,7 +13,7 @@ rec {
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.systemd-boot.configurationLimit = 6;
+  boot.loader.systemd-boot.configurationLimit = 20;
 
   services.fwupd.enable = true;
   powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
@@ -30,6 +30,15 @@ rec {
       linkConfig.MACAddress = "d2:b6:17:1d:b8:97";
       # make routing on this interface a dependency for network-online.target
       linkConfig.RequiredForOnline = "routable";
+    };
+  };
+
+  systemd.network.networks = {
+    "40-enp0s31f6" = {
+      name = "enp0s31f6";
+      DHCP = "yes";
+      # make routing on this interface a dependency for network-online.target
+      linkConfig.RequiredForOnline = "no";
     };
   };
 
