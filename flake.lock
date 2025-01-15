@@ -1030,8 +1030,8 @@
         ]
       },
       "locked": {
-        "lastModified": 1736264311,
-        "narHash": "sha256-2f6+HBo13dBvD7T7AU6IiWdFXt5fvnb1PwLQMgs1QiE=",
+        "lastModified": 1736615189,
+        "narHash": "sha256-v2ra4GGGblZi9Zt6bUAOSS9hZEX2H6x7NrEygrMSK+Y=",
         "path": "/home/dguibert/code/nix-config/nixpkgs",
         "type": "path"
       },
@@ -1579,11 +1579,11 @@
     },
     "upstream_nixpkgs": {
       "locked": {
-        "lastModified": 1736603873,
-        "narHash": "sha256-l6BJr7EIKAQurF04hv3G/ndRydMqDI9a7xjt8guljmo=",
+        "lastModified": 1736949059,
+        "narHash": "sha256-CJ1Ay1U6Jwlw+HGZMhGnyNpcgmNqRtBvF1cpzAkcFLU=",
         "owner": "dguibert",
         "repo": "nixpkgs",
-        "rev": "3945bc7da1fc14c3a4305893a76427216d9d3c65",
+        "rev": "b2a34ceeecb61bab85b1ee045aa9e138a51c96b0",
         "type": "github"
       },
       "original": {
