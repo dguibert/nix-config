@@ -144,6 +144,17 @@
   hardware.trackpoint.enable = lib.mkDefault true;
   hardware.trackpoint.emulateWheel = lib.mkDefault config.hardware.trackpoint.enable;
   hardware.bluetooth.enable = true;
+  # https://nixos.wiki/wiki/Accelerated_Video_Playback
+  hardware.graphics = {
+    # hardware.graphics since NixOS 24.11
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-media-driver # LIBVA_DRIVER_NAME=iHD
+      intel-vaapi-driver # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+      libvdpau-va-gl
+    ];
+  };
+  environment.sessionVariables = { LIBVA_DRIVER_NAME = "iHD"; }; # Force intel-media-driver
 
   # Disable governor set in hardware-configuration.nix,
   # required when services.tlp.enable is true:
