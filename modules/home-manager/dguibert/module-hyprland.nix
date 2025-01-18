@@ -179,7 +179,7 @@ with lib; {
 
     wayland.windowManager.hyprland = {
       enable = true;
-      package = pkgs.hyprland;
+      package = inputs.hyprland.packages.${pkgs.system}.hyprland;
       plugins = [
         #pkgs.hyprlandPlugins.split-monitor-workspaces
         #pkgs.hyprlandPlugins.hyprsplit
