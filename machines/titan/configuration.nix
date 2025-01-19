@@ -148,7 +148,7 @@ in
     #https://lwn.net/Articles/635357/
     "nohugeiomap"
     "systemd.setenv=SYSTEMD_SULOGIN_FORCE=1"
-    #"nvidia.NVreg_PreserveVideoMemoryAllocations=1"
+    "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
 
   ];
   boot.zfs.devNodes = "/dev/disk/by-id";
@@ -249,29 +249,29 @@ in
   ##  inheritParentConfig = true;
   ##  configuration = {
   ## https://nixos.wiki/wiki/Nvidia
-  #services.xserver.videoDrivers = [ "nvidia" ];
-  #hardware.nvidia = {
-  #  # Modesetting is required.
-  #  modesetting.enable = true;
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.nvidia = {
+    # Modesetting is required.
+    modesetting.enable = true;
 
-  #  # Enable the Nvidia settings menu,
-  #  # accessible via `nvidia-settings`.
-  #  nvidiaSettings = true;
+    # Enable the Nvidia settings menu,
+    # accessible via `nvidia-settings`.
+    nvidiaSettings = true;
 
-  #  powerManagement.enable = true;
-  #  open = false;
+    powerManagement.enable = true;
+    open = false;
 
-  #  # Optionally, you may need to select the appropriate driver version for your specific GPU.
-  #  package = config.boot.kernelPackages.nvidiaPackages.beta;
-  #  #package = config.boot.kernelPackages.nvidiaPackages.production;
-  #  forceFullCompositionPipeline = true;
-  #};
+    # Optionally, you may need to select the appropriate driver version for your specific GPU.
+    #package = config.boot.kernelPackages.nvidiaPackages.beta;
+    package = config.boot.kernelPackages.nvidiaPackages.production;
+    forceFullCompositionPipeline = true;
+  };
 
   #specialisation.nouveau = {
   #  inheritParentConfig = true;
   #  configuration = {
   # https://nixos.wiki/wiki/Nvidia
-  services.xserver.videoDrivers = lib.mkForce [ "nouveau" ];
+  # services.xserver.videoDrivers = lib.mkForce [ "nouveau" ];
   #  };
   #};
   #nixpkgs.config.xorg.abiCompat = "1.18";
