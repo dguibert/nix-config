@@ -30,6 +30,7 @@ in
     inputs.envfs.nixosModules.envfs
     #{ home-manager.users.dguibert = { imports = self'.modules.homes."dguibert@titan"; }; }
     #{users.dguibert.with-home-manager = true;}
+    ({ ... }: { services.udisks2.enable = true; })
   ];
   environment.systemPackages = [ pkgs.ipmitool pkgs.ntfs3g ];
 
