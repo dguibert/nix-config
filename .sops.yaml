@@ -72,3 +72,12 @@ creation_rules:
         age:
           - *dguibert_titan_age
           - *dguibert_t580_age
+  - path_regex: sops/secrets/id_buildfarm/secret
+    key_groups:
+      - pgp:
+          - *dguibert
+        age:
+          - *dguibert_titan_age
+          - *rpi41_age
+          - *t580_age
+          - *titan_age
