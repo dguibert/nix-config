@@ -67,7 +67,7 @@ in
         '') userNames}
 
         cat > $out/topt-file <<EOF
-        ${lib.concatMapStrings (n: "HOTP/T30/6 ${n} - $(cat $out/topt-${n})") userNames}
+        ${lib.concatMapStrings (n: "HOTP/T30/6 ${n} - $(cat $out/topt-${n})\n") userNames}
         EOF
       '';
     };
