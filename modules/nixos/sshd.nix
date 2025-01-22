@@ -27,6 +27,12 @@
       round = 100;
     }
   ];
+
+  programs.ssh.knownHosts.ssh-ca-no-domain = {
+    certAuthority = true;
+    extraHostNames = [ "*" ];
+    publicKey = config.clan.core.vars.generators.openssh-ca.files."id_ed25519.pub".value;
+  };
 }
 
 

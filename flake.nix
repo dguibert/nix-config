@@ -302,7 +302,9 @@
           };
           importer.sshd = {
             roles.default.tags = [ "all" ];
-            roles.default.extraModules = [ "modules/nixos/sshd.nix" ];
+            roles.default.extraModules = [
+              "modules/nixos/sshd.nix"
+            ];
           };
 
           adb.service.roles.default.machines = [ "t580" "titan" ];
