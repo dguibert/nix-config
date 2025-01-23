@@ -3,7 +3,7 @@ let
   cfg = config.hyprland;
 in
 with lib; {
-  options.hyprland.nvidia.enable = lib.mkEnableOption "Hyprland with NVidia GPU";
+  options.hyprland.nvidia.enable = lib.mkEnableOption "Hyprland with NVidia GPU" // { default = false; };
 
   config = lib.mkIf config.withGui.enable {
     programs.bash.bashrcExtra = ''
@@ -179,7 +179,7 @@ with lib; {
 
     wayland.windowManager.hyprland = {
       enable = true;
-      package = pkgs.hyprland;
+      package = inputs.hyprland.packages.${pkgs.system}.hyprland;
       plugins = [
         #pkgs.hyprlandPlugins.split-monitor-workspaces
         #pkgs.hyprlandPlugins.hyprsplit

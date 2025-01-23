@@ -1,15 +1,10 @@
 {
   description = "Configurations of my systems";
 
-  inputs.config_json.url = "github:dguibert/nix-config?dir=configs/default";
   # To update all inputs:
   # $ nix flake update --recreate-lock-file
   inputs.home-manager.url = "github:dguibert/home-manager/pu";
-  inputs.home-manager.inputs.nixpkgs.follows = "nur_packages/nixpkgs";
-
-  inputs.hydra.url = "github:dguibert/hydra/pu";
-  inputs.hydra.inputs.nix.follows = "nix";
-  inputs.hydra.inputs.nixpkgs.follows = "nur_packages/nixpkgs";
+  inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs/nixpkgs";
 
   inputs.nix.follows = "nur_packages/nix";
 
@@ -17,64 +12,74 @@
   inputs.sops-nix.url = "github:dguibert/sops-nix/pu"; # for dg/use-with-cross-system
   inputs.sops-nix.inputs.nixpkgs.follows = "nur_packages/nixpkgs";
 
+  #inputs.nixpkgs.url = "path:nixpkgs";
+  inputs.nixpkgs.url = "github:dguibert/nix-config?dir=nixpkgs";
+  inputs.nixpkgs.inputs.nixpkgs.follows = "nur_packages";
   inputs.upstream_nixpkgs.url = "github:dguibert/nixpkgs/pu";
   inputs.nur_packages.url = "github:dguibert/nur-packages?refs=master";
   inputs.nur_packages.inputs.nixpkgs.follows = "upstream_nixpkgs";
-  inputs.nixpkgs_with_stdenv.url = "github:dguibert/nix-config?dir=nixpkgs";
-  inputs.nixpkgs_with_stdenv.inputs.nixpkgs.follows = "nur_packages";
+  inputs.nur_packages.inputs.git-hooks-nix.follows = "git-hooks-nix";
+  inputs.nur_packages.inputs.nix.inputs.flake-compat.follows = "flake-compat";
 
   inputs.disko.url = "github:nix-community/disko";
   #inputs.disko.url = github:dguibert/disko;
-  inputs.disko.inputs.nixpkgs.follows = "nur_packages";
+  inputs.disko.inputs.nixpkgs.follows = "nixpkgs";
 
   inputs.terranix = { url = "github:mrVanDalo/terranix"; flake = false; };
   #inputs."nixos-18.03".url   = "github:nixos/nixpkgs-channels/nixos-18.03";
   #inputs."nixos-18.09".url   = "github:nixos/nixpkgs-channels/nixos-18.09";
   #inputs."nixos-19.03".url   = "github:nixos/nixpkgs-channels/nixos-19.03";
   inputs.stylix.url = "github:danth/stylix";
-  inputs.stylix.inputs.nixpkgs.follows = "nur_packages";
+  inputs.stylix.inputs.nixpkgs.follows = "nixpkgs";
   inputs.stylix.inputs.home-manager.follows = "home-manager";
   inputs.stylix.inputs.base16.follows = "base16";
   inputs.stylix.inputs.base16-vim.follows = "base16-vim";
+  inputs.stylix.inputs.flake-compat.follows = "flake-compat";
+  inputs.stylix.inputs.git-hooks.follows = "git-hooks-nix";
 
   inputs.base16.url = "github:SenchoPens/base16.nix";
-  #inputs.base16.inputs.nixpkgs.follows = "nur_packages";
+  #inputs.base16.inputs.nixpkgs.follows = "nixpkgs";
   inputs.tt-schemes = { url = "github:tinted-theming/schemes"; flake = false; };
   inputs.base16-vim = { url = "github:tinted-theming/base16-vim"; flake = false; };
   inputs.base16-shell = { url = "github:tinted-theming/tinted-shell"; flake = false; };
   inputs.gitignore = { url = "github:hercules-ci/gitignore"; flake = false; };
 
   inputs.nxsession.url = "github:dguibert/nxsession";
-  inputs.nxsession.inputs.nixpkgs.follows = "nur_packages/nixpkgs";
+  inputs.nxsession.inputs.nixpkgs.follows = "nixpkgs/nixpkgs";
   inputs.nxsession.inputs.flake-utils.follows = "nur_packages/flake-utils";
 
   # For accessing `deploy-rs`'s utility Nix functions
   inputs.deploy-rs.url = "github:dguibert/deploy-rs/pu";
-  inputs.deploy-rs.inputs.nixpkgs.follows = "nur_packages/nixpkgs";
+  inputs.deploy-rs.inputs.nixpkgs.follows = "nixpkgs/nixpkgs";
+  inputs.deploy-rs.inputs.flake-compat.follows = "flake-compat";
 
   #inputs.nixpkgs-wayland.url = "github:colemickens/nixpkgs-wayland";
   # only needed if you use as a package set:
-  #inputs.nixpkgs-wayland.inputs.nixpkgs.follows = "nur_packages";
+  #inputs.nixpkgs-wayland.inputs.nixpkgs.follows = "nixpkgs";
   #inputs.nixpkgs-wayland.inputs.master.follows = "master";
   #inputs.emacs-overlay.url = "github:nix-community/emacs-overlay";
   inputs.emacs-overlay.follows = "nur_packages/emacs-overlay";
 
   inputs.flake-parts.follows = "nur_packages/flake-parts";
   inputs.flake-utils.follows = "nur_packages/flake-utils";
+  inputs.flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
 
   inputs.git-hooks-nix.url = "github:cachix/git-hooks.nix";
-  inputs.git-hooks-nix.inputs.nixpkgs.follows = "nur_packages/nixpkgs";
+  inputs.git-hooks-nix.inputs.nixpkgs.follows = "nixpkgs/nixpkgs/nixpkgs";
+  inputs.git-hooks-nix.inputs.flake-compat.follows = "flake-compat";
 
   #inputs.hyprland.url = "github:hyprwm/Hyprland";
   #inputs.hyprland.url = "git+https://github.com/dguibert/Hyprland?submodules=1";
   inputs.hyprland.url = "github:dguibert/Hyprland?ref=refs/heads/main&submodules=1";
-  inputs.hyprland.inputs.nixpkgs.follows = "nur_packages";
+  inputs.hyprland.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.hyprland.inputs.systems.follows = "systems";
+  inputs.hyprland.inputs.pre-commit-hooks.follows = "git-hooks-nix";
   inputs.hyprsplit.url = "github:dguibert/hyprsplit";
   inputs.hyprsplit.inputs.hyprland.follows = "hyprland";
 
   inputs.hyprland-contrib = {
     url = "github:hyprwm/contrib";
-    inputs.nixpkgs.follows = "nur_packages";
+    inputs.nixpkgs.follows = "nixpkgs";
   };
 
 
@@ -85,26 +90,44 @@
   #};
   inputs.nix-ld.url = "github:Mic92/nix-ld";
   # this line assume that you also have nixpkgs as an input
-  inputs.nix-ld.inputs.nixpkgs.follows = "nur_packages";
+  inputs.nix-ld.inputs.nixpkgs.follows = "nixpkgs";
 
   inputs.envfs.url = "github:Mic92/envfs";
-  inputs.envfs.inputs.nixpkgs.follows = "nur_packages";
+  inputs.envfs.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.envfs.inputs.treefmt-nix.follows = "treefmt-nix";
 
   inputs.nixos-wsl.url = "github:nix-community/NixOS-WSL";
-  inputs.nixos-wsl.inputs.nixpkgs.follows = "nur_packages";
-  inputs.nixos-wsl.inputs.flake-utils.follows = "nur_packages/flake-utils";
+  inputs.nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.nixos-wsl.inputs.flake-compat.follows = "flake-compat";
 
   #inputs.impermanence.url = "github:nix-community/impermanence";
   inputs.impermanence.url = "github:dguibert/impermanence";
 
   inputs.microvm.url = "github:astro/microvm.nix";
-  inputs.microvm.inputs.nixpkgs.follows = "nur_packages";
+  inputs.microvm.inputs.nixpkgs.follows = "nixpkgs";
 
   inputs.nixos-hardware.url = "github:NixOS/nixos-hardware";
 
+  #inputs.flake-parts.url = "github:hercules-ci/flake-parts";
+  #inputs.flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
+
+  inputs.clan-core.url = "git+https://git.clan.lol/clan/clan-core";
+  inputs.clan-core.inputs.sops-nix.follows = "sops-nix";
+  inputs.clan-core.inputs.disko.follows = "disko";
+  inputs.clan-core.inputs.treefmt-nix.follows = "treefmt-nix";
+  inputs.clan-core.inputs.nixpkgs.follows = "nixpkgs/nixpkgs"; # Needed if your configuration uses nixpkgs unstable.
+  # New
+  inputs.clan-core.inputs.flake-parts.follows = "flake-parts";
+
+  inputs.systems.follows = "clan-core/systems";
+
+  inputs.treefmt-nix.url = "github:numtide/treefmt-nix";
+
+  inputs.flake-compat.url = "github:edolstra/flake-compat";
+
   nixConfig.extra-experimental-features = [ "nix-command" "flakes" ];
 
-  outputs = { self, flake-parts, ... }@inputs:
+  outputs = { self, flake-parts, systems, ... }@inputs:
     let
       # Memoize nixpkgs for different platforms for efficiency.
       inherit (self) outputs;
@@ -242,7 +265,7 @@
         "aarch64-linux"
       ];
       imports = [
-        inputs.config_json.flakeModule.user_config_settings
+        inputs.clan-core.flakeModules.default
         #./home/profiles
         ./homes
         ./hosts
@@ -251,6 +274,113 @@
         ./checks
         ./shells
       ];
+      # Usage see: https://docs.clan.lol
+      clan = {
+        # Ensure this is unique among all clans you want to use.
+        meta.name = "orsin.homelab";
+
+        pkgsForSystem = system: builtins.trace "pkgsForSystem.${system}" self.legacyPackages.${system};
+
+        specialArgs = {
+          inherit inputs;
+          self' = self;
+          pkgsForSystem = system: builtins.trace "specialArgs.pkgsForSystem.${system}" self.legacyPackages.${system};
+        };
+
+        inventory.machines.titan.tags = [ "desktop" "dguibert" ];
+        inventory.machines.t580.tags = [ "desktop" "dguibert" "wifi" ];
+        inventory.machines.rpi41.tags = [ "desktop64" "dguibert" ];
+        inventory.machines.rpi31.tags = [ "wifi" ];
+
+        inventory.modules = self.modules.clan;
+
+        inventory.services = {
+          sshd.service.roles.server.tags = [ "all" ];
+          sshd.service.roles.server.config = {
+            certificate.searchDomains = [
+              "orsin.net"
+            ];
+          };
+          importer.sshd = {
+            roles.default.tags = [ "all" ];
+            roles.default.extraModules = [
+              "modules/nixos/sshd.nix"
+            ];
+          };
+
+          adb.service.roles.default.machines = [ "t580" "titan" ];
+          haproxy.service.roles.default.machines = [ "rpi41" ];
+          jellyfin.titan.roles.default.machines = [ "titan" ];
+          libvirtd.titan.roles.default.machines = [ "titan" ];
+          tiny-ca.orsin.roles.server.machines = [ "titan" ];
+          #mopidy.titan.roles.default.machines = [ "titan" ];
+          rkvm.desktop = {
+            roles.server.machines = [ "titan" ];
+            roles.client.machines = [ "rpi41" ];
+            config.server = "192.168.1.24";
+          };
+
+          wayland.instance_1.roles.default.tags = [ "desktop" ];
+          wayland.instance_2.roles.default.tags = [ "desktop64" ];
+          wayland.instance_2.config.enable32Bit = false;
+
+          yubikey.instance_1.roles.default.tags = [ "desktop" ];
+
+          zigbee.instance_1.roles.server.machines = [ "rpi41" ];
+
+          _3d_printing.voron02_1.roles.voron02_1.machines = [ "rpi31" ];
+
+          sshguard.service.roles.default.machines = [ "all" ];
+
+          totp-authentication.service.roles.default.tags = [ "all" ];
+          totp-authentication.service.config.users.dguibert.prompt = true;
+
+          wireguard-mesh-vpn.service.roles.peer.tags = [ "all" ];
+          wireguard-mesh-vpn.service.config.peers = {
+            rpi31.listenPort = 500;
+            rpi31.endpoint = "192.168.1.13";
+            rpi41.listenPort = 501;
+            rpi41.endpoint = "82.64.121.168";
+            rpi41.persistentKeepalive = 25;
+            titan.listenPort = 502;
+            titan.endpoint = "192.168.1.24";
+            t580.listenPort = 503;
+            t580.endpoint = "192.168.1.17";
+          };
+
+          home-manager.dguibert.roles.dguibert.tags = [ "dguibert" ];
+          home-manager.dguibert-emacs.roles.dguibert-emacs.tags = [ "dguibert" ];
+          home-manager.dguibert.config.dguibert = {
+            withGui.enable = true;
+            withPersistence.enable = true;
+            #centralMailHost.enable = lib.mkDefault false;
+          };
+          home-manager.centralMailHost.roles.dguibert.machines = [ "titan" ];
+          home-manager.centralMailHost.config.dguibert.centralMailHost.enable = true;
+
+          wifi.instance.roles.default.tags = [ "wifi" ];
+          wifi.instance.config = {
+            networks = {
+              Freebox-AD070E = { };
+              Livebox-765e = { };
+              Livebox-D854 = { };
+              Livebox-D540 = { };
+              OPTUS_ACCB7F = { };
+            };
+          };
+
+          users.root.roles.default.tags = [ "all" ];
+          users.root.config.passwords.root.prompt = true;
+          users.dguibert.roles.default.tags = [ "dguibert" ];
+          users.dguibert.config.passwords.dguibert.prompt = true;
+        };
+
+        # Prerequisite: boot into the installer.
+        # All machines in the ./machines will be imported.
+        # See: https://docs.clan.lol/getting-started/installer
+        # local> mkdir -p ./machines/machine1
+        # local> Edit ./machines/<machine>/configuration.nix to your liking.
+      };
 
       perSystem = { config, self', inputs', pkgs, system, ... }: {
         # This is highly advised, and will prevent many possible mistakes

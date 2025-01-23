@@ -3,7 +3,6 @@
 {
   options.distributed-build-conf.enable = lib.mkEnableOption "distributed build";
   config = lib.mkIf config.distributed-build-conf.enable {
-    #sops.secrets."id_buildfarm.pub".sopsFile = ../../secrets/defaults.yaml;
     users.extraUsers.nixBuild = {
       name = "nixBuild";
       useDefaultShell = true;
@@ -49,6 +48,11 @@
         supportedFeatures = [ "big-parallel" ];
       })
     ];
+
+    sops.secrets.id_buildfarm = lib.mkIf (config.networking.hostName != "rpi41") {
+      owner = "root";
+      path = "/etc/nix/id_buildfarm";
+    };
 
     nix.settings.binary-cache-public-keys = [ "titan:dkOH0pvwo9CQMDs/H/Rs4HYEePVmwPf0/uSQi9ZmjxE=" ];
     nix.settings.trusted-binary-caches = [ "ssh-ng://titan" ];

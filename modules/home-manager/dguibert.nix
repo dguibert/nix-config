@@ -1,16 +1,17 @@
 { config
-, pkgs
 , lib
 , inputs
 , outputs
-, sopsDecrypt_
+, pkgs
 , ...
 }@args:
 with lib;
 let
+  cfg = config;
+
   home-secret =
     let
-      home_sec = sopsDecrypt_ ./dguibert/home-sec.nix "data";
+      home_sec = pkgs.sopsDecrypt_ ./dguibert/home-sec.nix "data";
       loaded = home_sec.success or true;
     in
     if loaded
@@ -30,13 +31,18 @@ let
   };
 in
 {
+  options = {
+    withGui.enable = (mkEnableOption "Host running with X11 or Wayland") // { default = false; };
+    withPersistence.enable = mkEnableOption "Use Impermanence";
+    centralMailHost.enable = mkEnableOption "Host running liier/mbsync" // { default = false; };
+  };
+
   imports = [
     inputs.sops-nix.homeManagerModules.sops
     inputs.impermanence.nixosModules.home-manager.impermanence
     ({ config, lib, ... }: {
-      options.withPersistence.enable = mkEnableOption "Use Impermanence";
 
-      config = lib.mkIf config.withPersistence.enable
+      config = lib.mkIf cfg.withPersistence.enable
         {
           home.persistence = {
             "/persist/home/${config.home.username}" = {
@@ -70,7 +76,7 @@ in
                 #  directory = ".local/share/Steam";
                 #  method = "symlink";
                 #}
-              ] ++ optionals config.centralMailHost.enable [
+              ] ++ optionals cfg.centralMailHost.enable [
                 "Maildir"
               ];
               files = [
@@ -85,7 +91,7 @@ in
                 ".signature"
                 ".signature.work"
                 ".vimrc"
-              ] ++ optionals config.centralMailHost.enable [
+              ] ++ optionals cfg.centralMailHost.enable [
                 ".davmail.properties"
               ];
               allowOther = true;
@@ -155,7 +161,7 @@ in
         programs.bash.initExtra = ''
           source ${config.lib.stylix.colors { templateRepo=inputs.base16-shell; use-ifd="always"; target = "base16"; }}
         '';
-        home.file.".vim/base16.vim".source = config.lib.stylix.colors { templateRepo = inputs.base16-vim; use-ifd = "always"; target = "base16"; };
+        home.file.".vim/base16.vim".source = config.lib.stylix.colors { templateRepo = inputs.base16-vim; use-ifd = "always"; target = "tinted-vim"; };
 
         xresources.properties = with config.lib.stylix.colors.withHashtag; {
           "*.faceSize" = config.stylix.fonts.sizes.terminal;
@@ -165,34 +171,23 @@ in
 
     ./report-changes.nix
     ({ ... }: { home.report-changes.enable = true; })
-    ({ ... }: {
-      options.centralMailHost.enable = mkEnableOption "Host running liier/mbsync";
-      config.centralMailHost.enable = lib.mkDefault false;
-    })
 
     home-secret
 
-    ({ ... }: {
-      options.withGui.enable = mkEnableOption "Host running with X11 or Wayland";
-      config.withGui.enable = lib.mkDefault false;
-    })
     ({ ... }: { manual.manpages.enable = false; })
 
     ./dguibert/bash.nix
-    ./dguibert/emacs.nix
     ./dguibert/git.nix
     ./dguibert/gpg.nix
     ./dguibert/htop.nix
-    ./dguibert/module-dwl.nix
-    ./dguibert/module-hyprland.nix
     ./dguibert/nix.nix
     ./dguibert/ssh.nix
-    ./dguibert/with-gui.nix
     ./dguibert/zellij.nix
     ./dguibert/vscode.nix
+    ./dguibert/with-gui.nix
+    ./dguibert/module-hyprland.nix
+    ./dguibert/module-dwl.nix
   ];
-
-  options = { };
 
   config = {
     programs.home-manager.enable = true;
@@ -371,7 +366,7 @@ in
         type = "Application";
         mimeTypes = [ "x-scheme-handler/org-protocol" ];
       })
-    ] ++ optionals config.centralMailHost.enable [
+    ] ++ optionals cfg.centralMailHost.enable [
       davmail_
     ];
 

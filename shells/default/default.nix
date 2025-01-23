@@ -53,7 +53,7 @@
 
           nix
           nix-output-monitor
-        ];
+        ] ++ lib.optional isNixStore inputs.clan-core.packages.${system}.clan-cli;
         nativeBuildInputs = [
           sops-import-keys-hook
         ];
