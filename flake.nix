@@ -295,6 +295,7 @@
         inventory.modules = self.modules.clan;
 
         inventory.services = {
+          sshd.service.roles.client.tags = [ "all" ];
           sshd.service.roles.server.tags = [ "all" ];
           sshd.service.roles.server.config = {
             certificate.searchDomains = [
