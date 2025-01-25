@@ -289,8 +289,8 @@
 
         inventory.machines.titan.tags = [ "desktop" "dguibert" ];
         inventory.machines.t580.tags = [ "desktop" "dguibert" "wifi" ];
-        inventory.machines.rpi41.tags = [ "desktop64" "dguibert" ];
-        inventory.machines.rpi31.tags = [ "wifi" ];
+        inventory.machines.rpi41.tags = [ "desktop64" "dguibert_rpi" ];
+        inventory.machines.rpi31.tags = [ "wifi" "dguibert_rpi" ];
 
         inventory.modules = self.modules.clan;
 
@@ -352,10 +352,15 @@
           home-manager.dguibert.roles.dguibert.tags = [ "dguibert" ];
           home-manager.dguibert-emacs.roles.dguibert-emacs.tags = [ "dguibert" ];
           home-manager.dguibert.config.dguibert = {
-            withGui.enable = true;
             withPersistence.enable = true;
             #centralMailHost.enable = lib.mkDefault false;
           };
+          home-manager.dguibert_rpi.roles.dguibert.tags = [ "dguibert_rpi" ];
+          home-manager.dguibert_rpi.config.dguibert = {
+            withPersistence.enable = false;
+          };
+          home-manager.desktop.roles.dguibert.machines = [ "desktop" "desktop64" ];
+          home-manager.desktop.config.dguibert.withGui.enable = true;
           home-manager.centralMailHost.roles.dguibert.machines = [ "titan" ];
           home-manager.centralMailHost.config.dguibert.centralMailHost.enable = true;
 
