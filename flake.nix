@@ -353,6 +353,7 @@
           home-manager.dguibert-emacs.roles.dguibert-emacs.tags = [ "dguibert" ];
           home-manager.dguibert.config.dguibert = {
             withPersistence.enable = true;
+            withZellij.enable = true;
             #centralMailHost.enable = lib.mkDefault false;
           };
           home-manager.dguibert_rpi.roles.dguibert.tags = [ "dguibert_rpi" ];
