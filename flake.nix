@@ -331,7 +331,7 @@
 
           _3d_printing.voron02_1.roles.voron02_1.machines = [ "rpi31" ];
 
-          sshguard.service.roles.default.machines = [ "all" ];
+          sshguard.service.roles.default.tags = [ "all" ];
 
           totp-authentication.service.roles.default.tags = [ "all" ];
           totp-authentication.service.config.users.dguibert.prompt = true;
