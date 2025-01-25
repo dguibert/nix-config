@@ -15,12 +15,14 @@
     share = true;
     files.rkvm-certificate = { };
     files.rkvm-key = { };
+    files.rkvm-password = { };
     prompts.rkvm-password = { };
     runtimeInputs = [
       pkgs.rkvm
     ];
     script = ''
       rkvm-certificate-gen -i ${config.clan.rkvm.server} $out/rkvm-certificate $out/rkvm-key
+      cat $prompts/rkvm-password > $out/rkvm-password
     '';
   };
 }
