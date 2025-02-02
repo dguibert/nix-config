@@ -13,4 +13,5 @@
       password = config.sops.secrets."vars/rkvm/rkvm-password".key;
     };
   };
+  networking.firewall.allowedTCPPorts = [ 5258 ];
 }
