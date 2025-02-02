@@ -360,7 +360,7 @@
           home-manager.dguibert_rpi.config.dguibert = {
             withPersistence.enable = false;
           };
-          home-manager.desktop.roles.dguibert.tags = [ "desktop" "desktop64" ];
+          home-manager.desktop.roles.dguibert.tags = [ "desktop" ];
           home-manager.desktop.config.dguibert.withGui.enable = true;
           home-manager.centralMailHost.roles.dguibert.machines = [ "titan" ];
           home-manager.centralMailHost.config.dguibert.centralMailHost.enable = true;
