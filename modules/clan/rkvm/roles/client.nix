@@ -7,7 +7,7 @@
     enable = true;
     settings = {
       server = "${config.clan.rkvm.server}:${toString config.clan.rkvm.port}";
-      key = config.clan.core.vars.generators.rkvm.files.rkvm-key.path;
+      certificate = config.clan.core.vars.generators.rkvm.files."rkvm-certificate.pem".path;
       password = config.sops.secrets."vars/rkvm/rkvm-password".key;
     };
   };
