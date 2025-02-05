@@ -12,7 +12,7 @@ let
       prompts =
         if value.prompt then {
           user-password.type = "hidden";
-          user-password.createFile = true;
+          user-password.persist = true;
         } else { };
 
       files = {

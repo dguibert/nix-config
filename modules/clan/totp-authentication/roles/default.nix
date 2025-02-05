@@ -9,7 +9,7 @@ let
       name = "topt-${n}";
       value = {
         type = "hidden";
-        createFile = true;
+        persist = true;
       };
     } else { };
 
