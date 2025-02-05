@@ -66,6 +66,9 @@
       "/var/lib/iwd"
       #"/var/lib/step-ca"
       "/var/lib/systemd/coredump"
+      # Systemd requires /usr dir to be populated
+      # See: https://github.com/nix-community/impermanence/issues/253
+      "/usr/systemd-placeholder"
     ];
   };
   boot.initrd.systemd.tmpfiles.settings.preservation."/sysroot/persist/etc/machine-id".f = {
