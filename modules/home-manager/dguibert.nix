@@ -177,6 +177,7 @@ in
     ({ ... }: { manual.manpages.enable = false; })
 
     ./dguibert/bash.nix
+    ./dguibert/emacs.nix
     ./dguibert/git.nix
     ./dguibert/gpg.nix
     ./dguibert/htop.nix

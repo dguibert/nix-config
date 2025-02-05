@@ -179,27 +179,6 @@
               t580 = self.homeConfigurations."root@t580";
             }
           )
-          # dguibert profiles
-          (inputs.nur_packages.lib.mapAttrs
-            (host: homeConfig:
-              let
-                system = self.nixosConfigurations.${host}.config.nixpkgs.localSystem.system;
-              in
-              {
-                #profiles.root.path = inputs.deploy-rs.lib.aarch64-linux.activate.custom
-                profiles.dguibert.path = self.legacyPackages.${system}.deploy-rs.lib.activate.custom homeConfig.activationPackage ''
-                  export HOME_MANAGER_BACKUP_EXT=backup
-                  ./activate
-                '';
-                profiles.dguibert.user = "dguibert";
-              })
-            {
-              rpi31 = self.homeConfigurations."dguibert@rpi31";
-              rpi41 = self.homeConfigurations."dguibert@rpi41";
-              titan = self.homeConfigurations."dguibert@titan";
-              t580 = self.homeConfigurations."dguibert@t580";
-            }
-          )
           (
             let
               genProfile = user: name: profile: {
