@@ -6,7 +6,9 @@
   inputs.home-manager.url = "github:dguibert/home-manager/pu";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs/nixpkgs";
 
-  inputs.nix.follows = "nur_packages/nix";
+  #inputs.nix.follows = "nur_packages/nix";
+  inputs.nix.url = "github:dguibert/nix/pu";
+  inputs.nur_packages.inputs.nix.follows = "nix";
 
   inputs.nur.url = "github:nix-community/NUR";
   inputs.sops-nix.url = "github:dguibert/sops-nix/pu"; # for dg/use-with-cross-system
