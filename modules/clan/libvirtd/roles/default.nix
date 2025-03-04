@@ -35,10 +35,10 @@
   # https://nixos.org/nixops/manual/#idm140737318329504
   #virtualisation.anbox.enable = true;
   #services.nfs.server.enable = true;
-  virtualisation.docker.enable = true;
-  virtualisation.docker.enableOnBoot = false; #start by socket activation
-  virtualisation.docker.storageDriver = "zfs";
-  services.dockerRegistry.enable = true;
+  #virtualisation.docker.enable = true;
+  #virtualisation.docker.enableOnBoot = false; #start by socket activation
+  #virtualisation.docker.storageDriver = "zfs";
+  #services.dockerRegistry.enable = true;
 
-  programs.singularity.enable = true;
+  #programs.singularity.enable = true;
 }
