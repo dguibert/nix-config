@@ -56,7 +56,7 @@ creation_rules:
           - *rpi41_age
           - *t580_age
           - *titan_age
-  - path_regex: modules/home-manager/dguibert/[^/]+-sec\.el$
+  - path_regex: modules/home-manager/dguibert/[^/]+-sec\.nix$
     key_groups:
       - pgp:
           - *dguibert

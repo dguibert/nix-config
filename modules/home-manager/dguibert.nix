@@ -41,7 +41,6 @@ in
     inputs.sops-nix.homeManagerModules.sops
     inputs.impermanence.nixosModules.home-manager.impermanence
     ({ config, lib, ... }: {
-
       config = lib.mkIf cfg.withPersistence.enable
         {
           home.persistence = {
