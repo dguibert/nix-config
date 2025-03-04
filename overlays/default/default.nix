@@ -37,10 +37,5 @@ final: prev: with final; {
   nixos-option = prev.nixos-option.override {
     nix = prev.nixStable;
   };
-
-  notmuch = prev.notmuch.overrideAttrs (_: {
-    doCheck = false;
-    doInstallCheck = false;
-  });
 }
 
