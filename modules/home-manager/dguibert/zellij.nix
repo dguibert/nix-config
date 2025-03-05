@@ -6,6 +6,7 @@
     ({
       programs.zellij.enable = true;
 
+      programs.zellij.enableBashIntegration = false;
       programs.zellij.settings = {
         keybinds = {
           unbind = "Ctrl q"; # unbind in all modes
