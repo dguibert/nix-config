@@ -192,11 +192,6 @@ in
   config = {
     programs.home-manager.enable = true;
 
-    nixpkgs.config = {
-      # https://nixos.wiki/wiki/Chromium
-      chromium.commandLineArgs = "--enable-features=UseOzonePlatform --ozone-platform=wayland";
-    };
-
     #home.file.".vim/base16.vim".source = ./base16.vim;
     home.file.".editorconfig".source = ./dguibert/editorconfig;
 

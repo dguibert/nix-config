@@ -39,8 +39,6 @@
   system.nixos.versionSuffix = lib.mkForce
     ".${lib.substring 0 8 (inputs.self.lastModifiedDate or inputs.self.lastModified or "19700101")}.${inputs.self.shortRev or "dirty"}";
   system.nixos.revision = lib.mkIf (inputs.self ? rev) (lib.mkForce inputs.self.rev);
-  #nixpkgs.overlays = inputs.self.legacyPackages.${pkgs.system}.overlays;
-  ### TODO understand why it's necessary instead of default pkgs.nix (nix build: OK, nixops: KO)
   nix.registry = lib.mkForce ((lib.mapAttrs
     (id: flake: {
       inherit flake;
