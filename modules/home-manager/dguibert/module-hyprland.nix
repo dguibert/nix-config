@@ -179,11 +179,11 @@ with lib; {
 
     wayland.windowManager.hyprland = {
       enable = true;
-      package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+      #package = inputs.hyprland.packages.${pkgs.system}.hyprland;
       plugins = [
         #pkgs.hyprlandPlugins.split-monitor-workspaces
-        #pkgs.hyprlandPlugins.hyprsplit
-        inputs.hyprsplit.packages.${pkgs.system}.hyprsplit
+        pkgs.hyprlandPlugins.hyprsplit
+        #inputs.hyprsplit.packages.${pkgs.system}.hyprsplit
       ];
       settings = {
         plugin.hyprsplit.num_workspaces = 10;
