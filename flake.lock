@@ -1308,11 +1308,11 @@
         "systems": "systems_5"
       },
       "locked": {
-        "lastModified": 1741596508,
-        "narHash": "sha256-V/0Zqgpu/ALXJOs928RLuXa05UYIu0Xs8tQWQzUbqTk=",
+        "lastModified": 1741967189,
+        "narHash": "sha256-liPUNJo+E350qwS6jpwefndOrXKgBQnPce/0jiA8o0s=",
         "owner": "dguibert",
         "repo": "nur-packages",
-        "rev": "0aefe729a64e6d9f7422294b61bb229ace5e82c6",
+        "rev": "3c0e10bbab621ab3d1a8d69522d785150f7694a5",
         "type": "github"
       },
       "original": {
