@@ -1022,11 +1022,11 @@
         "nixpkgs-regression": "nixpkgs-regression"
       },
       "locked": {
-        "lastModified": 1740474637,
-        "narHash": "sha256-BoTPfOO/A/iGuOx9USMdzHLvud19/Rh7SM8qDGC2RrI=",
+        "lastModified": 1741123892,
+        "narHash": "sha256-hG7FlIOAunSwoRSnqBCJhuWFcdNtVoyPqBqLNXPn1qI=",
         "owner": "dguibert",
         "repo": "nix",
-        "rev": "b7573154753239d99c528051d8d08d4fb5ae51fb",
+        "rev": "8b879fb1840ed6eba7d884218d089fe840e592b3",
         "type": "github"
       },
       "original": {
