@@ -143,7 +143,7 @@
 
   nix.settings.max-jobs = lib.mkDefault 8;
 
-  services.xserver.libinput.enable = lib.mkDefault true;
+  services.libinput.enable = lib.mkDefault true;
   hardware.trackpoint.enable = lib.mkDefault true;
   hardware.trackpoint.emulateWheel = lib.mkDefault config.hardware.trackpoint.enable;
   hardware.bluetooth.enable = true;
