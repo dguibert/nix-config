@@ -26,68 +26,6 @@
 
   #fileSystems."/tmp".neededForBoot = true;
   fileSystems."/nix".neededForBoot = true;
-  fileSystems."/persist".neededForBoot = true;
-
-  # https://grahamc.com/blog/erase-your-darlings
-  boot.initrd.postDeviceCommands = lib.mkIf (!config.boot.initrd.systemd.enable) (lib.mkAfter ''
-    zpool import rpool_rt580
-    #zfs rollback -r rpool_rt580/local/root@blank
-    zfs rollback -r rpool_rt580/local/empty-root@blank
-  '');
-  boot.initrd.systemd.services.rollback = {
-    description = "Rollback ZFS datasets to a pristine state";
-    wantedBy = [
-      "initrd.target"
-    ];
-    after = [
-      #"zfs-import-rpool_rt580.service"
-      "zfs-import.target"
-    ];
-    before = [
-      "sysroot.mount"
-    ];
-    path = with pkgs; [
-      zfs
-    ];
-    unitConfig.DefaultDependencies = "no";
-    serviceConfig.Type = "oneshot";
-    script = ''
-      zfs rollback -r rpool_rt580/local/empty-root@blank && echo "rollback complete"
-    '';
-  };
-  environment.persistence."/persist" = {
-    hideMounts = true;
-    enableDebugging = true;
-    directories = [
-      "/var/log"
-      "/var/lib/jellyfin"
-      "/var/lib/nixos"
-      "/var/lib/bluetooth"
-      "/var/lib/iwd"
-      #"/var/lib/step-ca"
-      "/var/lib/systemd/coredump"
-      # Systemd requires /usr dir to be populated
-      # See: https://github.com/nix-community/impermanence/issues/253
-      "/usr/systemd-placeholder"
-    ];
-  };
-  boot.initrd.systemd.tmpfiles.settings.preservation."/sysroot/persist/etc/machine-id".f = {
-    user = "root";
-    group = "root";
-    mode = ":0644";
-    argument = "uninitialized\\n";
-  };
-
-  systemd.services.systemd-machine-id-commit = {
-    unitConfig.ConditionPathIsMountPoint = [
-      ""
-      "/persist/etc/machine-id"
-    ];
-    serviceConfig.ExecStart = [
-      ""
-      "systemd-machine-id-setup --commit --root /persist"
-    ];
-  };
 
   #boot.kernelPackages = pkgs.linuxPackages_latest;
   # https://lists.ubuntu.com/archives/kernel-team/2020-November/114986.html

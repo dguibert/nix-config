@@ -1,7 +1,6 @@
 { config, lib, pkgs, resources, inputs, ... }: {
   imports = [
     inputs.nur_packages.inputs.nixpkgs.nixosModules.notDetected
-    inputs.impermanence.nixosModules.impermanence
     inputs.home-manager.nixosModules.home-manager
     ({
       home-manager.useGlobalPkgs = true;
@@ -34,6 +33,7 @@
 
     ({ ... }: { documentation.nixos.enable = false; })
     ({ ... }: { programs.mosh.enable = true; })
+    ../impermanence.nix
   ];
 
   system.nixos.versionSuffix = lib.mkForce

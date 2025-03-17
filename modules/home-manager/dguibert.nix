@@ -39,63 +39,59 @@ in
 
   imports = [
     inputs.sops-nix.homeManagerModules.sops
-    inputs.impermanence.nixosModules.home-manager.impermanence
+    ./impermanence.nix
     ({ config, lib, ... }: {
       config = lib.mkIf cfg.withPersistence.enable
         {
-          home.persistence = {
-            "/persist/home/${config.home.username}" = {
-              directories = [
-                "archives"
-                "bin"
-                "3D_printing"
-                "code"
-                ".config/Beeper"
-                ".config/calibre"
-                ".config/google-chrome"
-                ".config/kvibes"
-                ".config/OrcaSlicer"
-                ".config/sops"
-                "Documents"
-                ".emacs.private"
-                ".gnupg/private-keys-v1.d"
-                ".local/state/nix"
-                ".mgit"
-                ".mozilla/firefox"
-                ".password-store"
-                ".password-store.git"
-                "Pictures"
-                ".ssh"
-                "templates"
-                ".videos"
-                "Videos"
-                ".vim"
-                "work"
-                #{
-                #  directory = ".local/share/Steam";
-                #  method = "symlink";
-                #}
-              ] ++ optionals cfg.centralMailHost.enable [
-                "Maildir"
-              ];
-              files = [
-                ".bash_history"
-                ".bash_history_backup"
-                ".config/pass-git-helper/git-pass-mapping.ini"
-                ".git-credentials"
-                ".gnupg/pubring.kbx"
-                ".gnupg/trustdb.gpg"
-                ".mrconfig"
-                ".mrtrust"
-                ".signature"
-                ".signature.work"
-                ".vimrc"
-              ] ++ optionals cfg.centralMailHost.enable [
-                ".davmail.properties"
-              ];
-              allowOther = true;
-            };
-          };
+          my.persistence.directories = [
+            "archives"
+            "bin"
+            "3D_printing"
+            "code"
+            ".config/Beeper"
+            ".config/calibre"
+            ".config/google-chrome"
+            ".config/kvibes"
+            ".config/OrcaSlicer"
+            ".config/sops"
+            "Documents"
+            ".emacs.private"
+            ".gnupg/private-keys-v1.d"
+            ".local/state/nix"
+            ".mgit"
+            ".mozilla/firefox"
+            ".password-store"
+            ".password-store.git"
+            "Pictures"
+            ".ssh"
+            "templates"
+            ".videos"
+            "Videos"
+            ".vim"
+            "work"
+            #{
+            #  directory = ".local/share/Steam";
+            #  method = "symlink";
+            #}
+          ] ++ optionals cfg.centralMailHost.enable [
+            "Maildir"
+          ];
+          my.persistence.files = [
+            ".bash_history"
+            ".bash_history_backup"
+            ".config/pass-git-helper/git-pass-mapping.ini"
+            ".git-credentials"
+            ".gnupg/pubring.kbx"
+            ".gnupg/trustdb.gpg"
+            ".mailcap"
+            ".mrconfig"
+            ".mrtrust"
+            ".signature"
+            ".signature.work"
+            ".vimrc"
+          ] ++ optionals cfg.centralMailHost.enable [
+            ".davmail.properties"
+          ];
         };
     })
     ({ ... }: {

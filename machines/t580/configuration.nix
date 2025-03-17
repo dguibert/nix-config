@@ -8,6 +8,7 @@ rec {
       ./hardware-configuration.nix
       ({ ... }: { services.udisks2.enable = true; })
       ../../modules/nixos/defaults
+      ({ ... }: { my.persistence.enable = true; })
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -42,6 +43,9 @@ rec {
     };
   };
 
+  my.persistence.rollbackCommands = ''
+    zfs rollback -r rpool_rt580/local/empty-root@blank && echo "rollback complete"
+  '';
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";

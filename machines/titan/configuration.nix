@@ -19,6 +19,7 @@ in
   imports = [
     { nixpkgs.system = "x86_64-linux"; }
     ../../modules/nixos/defaults
+    ({ ... }: { my.persistence.enable = true; })
     inputs.microvm.nixosModules.host
     inputs.nix-ld.nixosModules.nix-ld
 
@@ -51,76 +52,21 @@ in
   '';
 
   # https://grahamc.com/blog/erase-your-darlings
-  boot.initrd.postDeviceCommands = lib.mkIf (!config.boot.initrd.systemd.enable) (lib.mkAfter ''
-    zpool import rpool_vanif0
-    zfs rollback -r rpool_vanif0/local/root@blank
+  my.persistence.rollbackCommands = ''
+    #zpool import rpool_vanif0
+    zfs rollback -r rpool_vanif0/local/root@blank && echo "rollback complete"
     zfs rollback -r rpool_vanif0/local/home/dguibert@blank && echo "rollback complete"
-  '');
-  boot.initrd.systemd.services.rollback = {
-    description = "Rollback ZFS datasets to a pristine state";
-    wantedBy = [
-      "initrd.target"
-    ];
-    after = [
-      #"zfs-import-rpool_rt580.service"
-      "zfs-import.target"
-    ];
-    before = [
-      "sysroot.mount"
-    ];
-    path = with pkgs; [
-      zfs
-    ];
-    unitConfig.DefaultDependencies = "no";
-    serviceConfig.Type = "oneshot";
-    script = ''
-      zfs rollback -r rpool_vanif0/local/root@blank && echo "rollback complete"
-      zfs rollback -r rpool_vanif0/local/home/dguibert@blank && echo "rollback complete"
-    '';
-  };
-
+  '';
 
   fileSystems."/tmp".neededForBoot = true;
   fileSystems."/nix".neededForBoot = true;
-  fileSystems."/persist".neededForBoot = true;
   fileSystems."/persist/home/dguibert".neededForBoot = true;
   fileSystems."/persist/home/dguibert/Videos".neededForBoot = true;
   fileSystems."/persist/home/dguibert/Maildir/.notmuch".neededForBoot = true;
   # https://github.com/nix-community/impermanence
-  environment.persistence."/persist" = {
-    hideMounts = true;
-    enableDebugging = true;
-    directories = [
-      "/var/log"
-      "/var/lib/jellyfin"
-      "/var/lib/nixos"
-      "/var/lib/bluetooth"
-      "/var/lib/private/step-ca"
-      "/var/lib/systemd/coredump"
-
-      # Systemd requires /usr dir to be populated
-      # See: https://github.com/nix-community/impermanence/issues/253
-      "/usr/systemd-placeholder"
-    ];
-  };
-  boot.initrd.systemd.tmpfiles.settings.preservation."/sysroot/persist/etc/machine-id".f = {
-    user = "root";
-    group = "root";
-    mode = ":0644";
-    argument = "uninitialized\\n";
-  };
-
-  systemd.services.systemd-machine-id-commit = {
-    unitConfig.ConditionPathIsMountPoint = [
-      ""
-      "/persist/etc/machine-id"
-    ];
-    serviceConfig.ExecStart = [
-      ""
-      "systemd-machine-id-setup --commit --root /persist"
-    ];
-  };
-
+  my.persistence.directories = [
+    "/var/lib/private/step-ca"
+  ];
 
   #fileSystems."/tmp" = { device = "tmpfs"; fsType = "tmpfs"; options = [ "defaults" "noatime" "mode=1777" "size=140G" ]; neededForBoot = true; };
   # to build robotnix more thant 100G are needed
