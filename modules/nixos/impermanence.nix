@@ -54,23 +54,6 @@ in
       serviceConfig.Type = "oneshot";
       script = cfg.rollbackCommands;
     };
-    boot.initrd.systemd.tmpfiles.settings.preservation."/sysroot/persist/etc/machine-id".f = {
-      user = "root";
-      group = "root";
-      mode = ":0644";
-      argument = "uninitialized\\n";
-    };
-
-    systemd.services.systemd-machine-id-commit = {
-      unitConfig.ConditionPathIsMountPoint = [
-        ""
-        "/persist/etc/machine-id"
-      ];
-      serviceConfig.ExecStart = [
-        ""
-        "systemd-machine-id-setup --commit --root /persist"
-      ];
-    };
 
     # Ensure that all files are properly chowned
     # https://github.com/Misterio77/nix-config/blob/61aa0ab5e26c528eb6be98dee1a8b9061003bf2e/hosts/common/global/optin-persistence.nix#L29-L38
