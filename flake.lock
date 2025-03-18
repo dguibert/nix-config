@@ -960,11 +960,11 @@
     },
     "impermanence": {
       "locked": {
-        "lastModified": 1730232861,
-        "narHash": "sha256-BkP8ppGZyawyykU03dCX2y1EHiCGS2O9dpnSbDmq614=",
+        "lastModified": 1742283489,
+        "narHash": "sha256-2YEcov6Q/SUd+tX1PtAN5I6IY9BWAWfleD2ugIWFFrg=",
         "owner": "dguibert",
         "repo": "impermanence",
-        "rev": "089f7735a679e9e3dd3265e350f3636325a25a11",
+        "rev": "746debbfa685012484814a17da6032ba704a75df",
         "type": "github"
       },
       "original": {
