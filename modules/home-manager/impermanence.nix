@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ config, lib, inputs, ... }:
 {
   # impermanence HM module uses bindfs, which has absurd performance cost
   # instead, we read these options from nixos impermanence module, and apply
@@ -15,4 +15,5 @@
       };
     };
   };
+
 }

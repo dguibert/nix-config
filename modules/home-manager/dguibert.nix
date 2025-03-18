@@ -40,6 +40,7 @@ in
   imports = [
     inputs.sops-nix.homeManagerModules.sops
     ./impermanence.nix
+    inputs.impermanence.nixosModules.home-manager.impermanence
     ({ config, lib, ... }: {
       config = lib.mkIf cfg.withPersistence.enable
         {
@@ -77,7 +78,8 @@ in
             "Maildir"
             "Maildir/.notmuch"
           ];
-          my.persistence.files = [
+          home.persistence."/persist/home/${config.home.username}".files = [
+            #my.persistence.files = [
             ".bash_history"
             ".bash_history_backup"
             ".config/pass-git-helper/git-pass-mapping.ini"
