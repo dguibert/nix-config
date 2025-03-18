@@ -294,6 +294,7 @@
           haproxy.service.roles.default.machines = [ "rpi41" ];
           jellyfin.titan.roles.default.machines = [ "titan" ];
           libvirtd.titan.roles.default.machines = [ "titan" ];
+          ollama.titan.roles.default.machines = [ "titan" ];
           tiny-ca.orsin.roles.server.machines = [ "titan" ];
           #mopidy.titan.roles.default.machines = [ "titan" ];
           rkvm.desktop = {
