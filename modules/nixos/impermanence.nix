@@ -5,6 +5,7 @@
 , ...
 }:
 let
+  l = lib // builtins;
   cfg = config.my.persistence;
   cfgHm = user: config.home-manager.users.${user}.my.persistence;
   hmUsers = builtins.attrNames config.home-manager.users;
@@ -57,18 +58,47 @@ in
 
     # Ensure that all files are properly chowned
     # https://github.com/Misterio77/nix-config/blob/61aa0ab5e26c528eb6be98dee1a8b9061003bf2e/hosts/common/global/optin-persistence.nix#L29-L38
-    system.activationScripts.persistent-dirs.text =
+    systemd.services."persist-home-create-root-paths" =
       let
-        mkHomePersist =
-          user:
-          lib.optionalString user.createHome ''
-            mkdir -p /persist/${user.home}
-            chown ${user.name}:${user.group} /persist/${user.home}
-            chmod ${user.homeMode} /persist/${user.home}
-          '';
-        users = lib.attrValues config.users.users;
+        persistentHomesRoot = "/persist";
+
+        listOfCommands = l.mapAttrsToList
+          (_: user:
+            let
+              userHome = l.escapeShellArg (persistentHomesRoot + user.home);
+
+            in
+            ''
+              if [[ ! -d ${userHome} ]]; then
+                  echo "Persistent home root folder '${userHome}' not found, creating..."
+                  mkdir -p --mode=${user.homeMode} ${userHome}
+                  chown ${user.name}:${user.group} ${userHome}
+              fi
+            ''
+          )
+          (l.filterAttrs (_: user: user.createHome == true) config.users.users);
+
+        stringOfCommands = l.concatLines listOfCommands;
       in
-      lib.concatLines (map mkHomePersist users);
+      {
+        script = stringOfCommands;
+        unitConfig = {
+          Description = "Ensure users' home folders exist in the persistent filesystem";
+          PartOf = [ "local-fs.target" ];
+          # The folder creation should happen after the persistent home path is mounted.
+          After = [ "persist-home.mount" ];
+        };
+
+        serviceConfig = {
+          Type = "oneshot";
+          StandardOutput = "journal";
+          StandardError = "journal";
+        };
+
+        # [Install]
+        wantedBy = [ "local-fs.target" ];
+
+      };
 
     fileSystems."/persist".neededForBoot = true;
     environment.persistence."/persist" = {

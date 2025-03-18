@@ -75,6 +75,7 @@ in
             #}
           ] ++ optionals cfg.centralMailHost.enable [
             "Maildir"
+            "Maildir/.notmuch"
           ];
           my.persistence.files = [
             ".bash_history"
