@@ -1,22 +1,23 @@
 { config, lib, pkgs, inputs, ... }: {
   config = {
     services.jellyfin.enable = true;
+    services.jellyfin.user = "dguibert";
     systemd.services.jellyfin = lib.mkIf config.services.jellyfin.enable {
       serviceConfig.PrivateUsers = lib.mkForce false;
       serviceConfig.PermissionsStartOnly = true;
-      preStart = ''
-        set -x
-        #${pkgs.acl}/bin/setfacl -Rm u:jellyfin:rwX,m:rw-,g:jellyfin:rwX,d:u:jellyfin:rwX,d:g:jellyfin:rwX,o:---,d:o:---,d:m:rwx,m;rwx /home/dguibert/Videos/Series/ /home/dguibert/Videos/Movies/
-        ${pkgs.acl}/bin/setfacl -m user:jellyfin:r-x /home/dguibert
-        ${pkgs.acl}/bin/setfacl -m user:jellyfin:r-x /home/dguibert/Videos
-        ${pkgs.acl}/bin/setfacl -m user:jellyfin:rwx /home/dguibert/Videos/Series
-        ${pkgs.acl}/bin/setfacl -m user:jellyfin:rwx /home/dguibert/Videos/Movies
-        ${pkgs.acl}/bin/setfacl -m group:jellyfin:r-x /home/dguibert
-        ${pkgs.acl}/bin/setfacl -m group:jellyfin:r-x /home/dguibert/Videos
-        ${pkgs.acl}/bin/setfacl -m group:jellyfin:rwx /home/dguibert/Videos/Series
-        ${pkgs.acl}/bin/setfacl -m group:jellyfin:rwx /home/dguibert/Videos/Movies
-        set +x
-      '';
+      #preStart = ''
+      #  set -x
+      #  #${pkgs.acl}/bin/setfacl -Rm u:jellyfin:rwX,m:rw-,g:jellyfin:rwX,d:u:jellyfin:rwX,d:g:jellyfin:rwX,o:---,d:o:---,d:m:rwx,m;rwx /home/dguibert/Videos/Series/ /home/dguibert/Videos/Movies/
+      #  ${pkgs.acl}/bin/setfacl -m user:jellyfin:r-x /home/dguibert
+      #  ${pkgs.acl}/bin/setfacl -m user:jellyfin:r-x /home/dguibert/Videos
+      #  ${pkgs.acl}/bin/setfacl -m user:jellyfin:rwx /home/dguibert/Videos/Series
+      #  ${pkgs.acl}/bin/setfacl -m user:jellyfin:rwx /home/dguibert/Videos/Movies
+      #  ${pkgs.acl}/bin/setfacl -m group:jellyfin:r-x /home/dguibert
+      #  ${pkgs.acl}/bin/setfacl -m group:jellyfin:r-x /home/dguibert/Videos
+      #  ${pkgs.acl}/bin/setfacl -m group:jellyfin:rwx /home/dguibert/Videos/Series
+      #  ${pkgs.acl}/bin/setfacl -m group:jellyfin:rwx /home/dguibert/Videos/Movies
+      #  set +x
+      #'';
       unitConfig.RequiresMountsFor = "/home/dguibert/Videos";
     };
     networking.firewall.interfaces."bond0".allowedTCPPorts = [
