@@ -11,7 +11,7 @@ in
     # verify with: ip -s link show can0
     systemd.network.links."10-can" = {
       matchConfig.Kind = "can";
-      linkConfig.TransmitQueueLength = 128;
+      linkConfig.TransmitQueueLength = 1024;
     };
     systemd.network.networks."10-can" = {
       name = "can*";
