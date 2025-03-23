@@ -228,13 +228,13 @@ in
           #tx_pin = "PA2";
           #uart_address = 3;
           interpolate = true;
-          run_current = 0.6;
+          run_current = 0.5;
           hold_current = 0.100;
           sense_resistor = 0.110;
           driver_TBL = 0;
           driver_HEND = 6;
           driver_HSTRT = 7;
-          driver_TOFF = 0; #4; ##https://github.com/bigtreetech/EBB/issues/28
+          driver_TOFF = 4;
           stealthchop_threshold = 0; # Set to 0 for spreadcycle, avoid using stealthchop on extruder
         };
 
