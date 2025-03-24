@@ -51,6 +51,7 @@ in
             "code"
             ".config/Beeper"
             ".config/calibre"
+            ".config/FreeCAD"
             ".config/google-chrome"
             ".config/kvibes"
             ".config/OrcaSlicer"
