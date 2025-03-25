@@ -228,7 +228,7 @@ in
           #tx_pin = "PA2";
           #uart_address = 3;
           interpolate = true;
-          run_current = 0.5;
+          run_current = 0.8;
           hold_current = 0.100;
           sense_resistor = 0.110;
           driver_TBL = 0;
