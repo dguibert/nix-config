@@ -19,14 +19,14 @@
   #sops.secrets."ssh_host_ed25519_key.pub"      .path = "/persist/etc/ssh/ssh_host_ed25519_key.pub";
   #sops.secrets."ssh_host_ed25519_key-cert.pub" .path = "/persist/etc/ssh/ssh_host_ed25519_key-cert.pub";
 
-  services.openssh.hostKeys = [
-    {
-      #path = config.sops.secrets."ssh_host_ed25519_key".path;
-      path = "/persist/etc/ssh/ssh_host_ed25519_key";
-      type = "ed25519";
-      round = 100;
-    }
-  ];
+  #services.openssh.hostKeys = [
+  #  {
+  #    #path = config.sops.secrets."ssh_host_ed25519_key".path;
+  #    path = "/persist/etc/ssh/ssh_host_ed25519_key";
+  #    type = "ed25519";
+  #    round = 100;
+  #  }
+  #];
 
   programs.ssh.knownHosts.ssh-ca-no-domain = {
     certAuthority = true;
