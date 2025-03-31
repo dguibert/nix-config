@@ -14,26 +14,9 @@
     MACs umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256
   '';
 
-  # don't set ssh_host_rsa_key since userd by sops to decrypt secrets
-  #sops.secrets."ssh_host_ed25519_key"          .path = "/persist/etc/ssh/ssh_host_ed25519_key";
-  #sops.secrets."ssh_host_ed25519_key.pub"      .path = "/persist/etc/ssh/ssh_host_ed25519_key.pub";
-  #sops.secrets."ssh_host_ed25519_key-cert.pub" .path = "/persist/etc/ssh/ssh_host_ed25519_key-cert.pub";
-
-  # https://git.clan.lol/clan/clan-core/issues/2470
-  #clan.core.vars.settings.secretStore = "password-store";
-
   sops.age.sshKeyPaths = [
-    "/persist/etc/ssh/ssh_host_ed25519_key"
+    "/root/.ssh/id_ed25519"
   ];
-
-  #services.openssh.hostKeys = [
-  #  {
-  #    #path = config.sops.secrets."ssh_host_ed25519_key".path;
-  #    path = "/persist/etc/ssh/ssh_host_ed25519_key";
-  #    type = "ed25519";
-  #    round = 100;
-  #  }
-  #];
 
   programs.ssh.knownHosts.ssh-ca-no-domain = {
     certAuthority = true;
