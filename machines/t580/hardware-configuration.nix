@@ -25,6 +25,7 @@
   ];
 
   #fileSystems."/tmp".neededForBoot = true;
+  fileSystems."/root".neededForBoot = true;
   fileSystems."/nix".neededForBoot = true;
 
   #boot.kernelPackages = pkgs.linuxPackages_latest;

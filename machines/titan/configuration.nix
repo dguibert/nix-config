@@ -60,6 +60,7 @@ in
 
   fileSystems."/tmp".neededForBoot = true;
   fileSystems."/nix".neededForBoot = true;
+  fileSystems."/root".neededForBoot = true;
   fileSystems."/home/dguibert".neededForBoot = true;
   fileSystems."/persist/home/dguibert".neededForBoot = true;
   fileSystems."/persist/home/dguibert/Videos".neededForBoot = true;
