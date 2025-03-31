@@ -10,7 +10,7 @@ let
     # for rpi31
     (final: prev: {
       makeModulesClosure = { allowMissing ? false, ... }@args: prev.makeModulesClosure
-        ( args // {
+        (args // {
           allowMissing = true;
         });
     })
