@@ -86,7 +86,7 @@ rec {
     "40-bond0" = {
       name = "bond0";
       DHCP = "yes";
-      networkConfig.BindCarrier = "eth0 wlan0";
+      networkConfig.BindCarrier = "enu1u1 wlan0";
       linkConfig.MACAddress = "b8:27:eb:46:86:14";
     };
   } // listToAttrs (flip map [ "enu1u1" "wlan0" ] (bi:
@@ -97,16 +97,6 @@ rec {
       networkConfig.IPv6PrivacyExtensions = "kernel";
       linkConfig.MACAddress = "b8:27:eb:46:86:14";
     }));
-  networking.supplicant.wlan0 = {
-    configFile.path = "/persist/etc/wpa_supplicant.conf";
-    userControlled.group = "network";
-    extraConf = ''
-      ap_scan=1
-      p2p_disabled=1
-    '';
-    extraCmdArgs = "-u";
-  };
-
 
   programs.ssh.setXAuthLocation = false;
   security.pam.services.su.forwardXAuth = lib.mkForce false;
