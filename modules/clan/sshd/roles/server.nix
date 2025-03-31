@@ -1,13 +1,13 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
+{ config
+, pkgs
+, lib
+, ...
 }:
 let
   stringSet = list: builtins.attrNames (builtins.groupBy lib.id list);
 
   domains = stringSet config.clan.sshd.certificate.searchDomains;
+  realms = stringSet config.clan.sshd.certificate.realms;
 
   cfg = config.clan.sshd;
 in
@@ -21,9 +21,11 @@ in
       enable = true;
       settings.PasswordAuthentication = false;
 
-      settings.HostCertificate = lib.mkIf (
-        cfg.certificate.searchDomains != [ ]
-      ) config.clan.core.vars.generators.openssh-cert.files."ssh.id_ed25519-cert.pub".path;
+      settings.HostCertificate = lib.mkIf
+        (
+          (cfg.certificate.searchDomains != [ ] || cfg.certificate.allowEmptyDomain)
+        )
+        config.clan.core.vars.generators.openssh-cert.files."ssh.id_ed25519-cert.pub".path;
 
       hostKeys =
         [
@@ -90,7 +92,7 @@ in
           -s $in/openssh-ca/id_ed25519 \
           -I ${config.clan.core.settings.machine.name} \
           -h \
-          -n ${lib.concatMapStringsSep "," (d: "${config.clan.core.settings.machine.name}.${d}") domains} \
+          -n ${lib.concatMapStringsSep "," ((lib.map (d: "${config.clan.core.settings.machine.name}.${d}") domains) ++ realms)} \
           $in/openssh/ssh.id_ed25519.pub
         mv $in/openssh/ssh.id_ed25519-cert.pub $out/ssh.id_ed25519-cert.pub
       '';
