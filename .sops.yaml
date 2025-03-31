@@ -3,11 +3,10 @@ keys:
   - &dguibert 3198EB02EB0EEC85FE5BF6AC4E6EE5C219FDD513
   - &dguibert_titan_age age1gthhn69gtgn8gsvv58xqu9vxfnczl68kktm64638xfv5j3qm4grqeuw0h4
   - &dguibert_t580_age age1zpv9vp6rkcttpg8yk5qk8yjh4kxh6pj9d3uvzfekglth6mfc0drqekue6r
-  - &titan_age age1ejsy39scvjujs392lrrx99cs7qx8j746wcasau2z8jp6h27l3dfsrne8w9
-  #rpi41           00064376b1bf4617928161cd5b5318afcd030f01 (20201218)
-  - &rpi41_age age1lml6xd6l7ntypmtmv7rsqxzguln5puynzlv2yf3k99hrr48l3ppq6nw3t3
-  - &rpi31_age age1wv2t950m6rw5a5jl2qfg0ejrlpdxyn8x4nykhpqv00476cd299rqnutzkd
-  - &t580_age age1e6up3vv3av0tlsp9lcmfxqga07r6d3ccahzzdp7een7facm5ps0qztps7l
+  - &titan_age age1d2np6ey39hl6ju270v4gvxta2m0ckvp9jxa53398ynsaf5w4v3tswd5w6r
+  - &rpi41_age age1ncf2lnt6kv4x3d247u06gh0p4u7qs2xpr8yzmxk7c03rn6pwp4fsy9928j
+  - &rpi31_age age1q7tetslupq5nqevldsx2pnc54lvxrwkggynqncvdzhudv8p6zamqvts9qq
+  - &t580_age age14sj2anmfrckcuujl2ea0udsgxcunr2wncvk05q32p5kj8fljzpvq3fuez5
 creation_rules:
   # dguibert
   - path_regex: modules/clan/home-manager/roles/dguibert/[^/]+-sec\.nix$
