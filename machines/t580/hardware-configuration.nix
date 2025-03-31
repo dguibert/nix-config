@@ -27,6 +27,7 @@
   #fileSystems."/tmp".neededForBoot = true;
   fileSystems."/root".neededForBoot = true;
   fileSystems."/nix".neededForBoot = true;
+  fileSystems."/persist/home/dguibert".neededForBoot = true;
 
   #boot.kernelPackages = pkgs.linuxPackages_latest;
   # https://lists.ubuntu.com/archives/kernel-team/2020-November/114986.html
