@@ -49,6 +49,7 @@ in
             "bin"
             "3D_printing"
             "code"
+            ".cache/aria2c"
             ".config/Beeper"
             ".config/calibre"
             ".config/FreeCAD"
