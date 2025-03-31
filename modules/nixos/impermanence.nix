@@ -72,8 +72,8 @@ in
               if [[ ! -d ${userHome} ]]; then
                   echo "Persistent home root folder '${userHome}' not found, creating..."
                   mkdir -p --mode=${user.homeMode} ${userHome}
-                  chown ${user.name}:${user.group} ${userHome}
               fi
+              chown ${user.name}:${user.group} ${userHome}
             ''
           )
           (l.filterAttrs (_: user: user.createHome == true) config.users.users);
