@@ -6,15 +6,15 @@
 let
   stringSet = list: builtins.attrNames (builtins.groupBy lib.id list);
 
-  domains = stringSet config.clan.sshd.certificate.searchDomains;
-  realms = stringSet config.clan.sshd.certificate.realms;
+  domains = stringSet config.clan.my-sshd.certificate.searchDomains;
+  realms = stringSet config.clan.my-sshd.certificate.realms;
 
-  cfg = config.clan.sshd;
+  cfg = config.clan.my-sshd;
 in
 {
   imports = [ ../shared.nix ];
   options = {
-    clan.sshd.hostKeys.rsa.enable = lib.mkEnableOption "Generate RSA host key";
+    clan.my-sshd.hostKeys.rsa.enable = lib.mkEnableOption "Generate RSA host key";
   };
   config = {
     services.openssh = {
@@ -25,22 +25,22 @@ in
         (
           (cfg.certificate.searchDomains != [ ] || cfg.certificate.allowEmptyDomain)
         )
-        config.clan.core.vars.generators.openssh-cert.files."ssh.id_ed25519-cert.pub".path;
+        config.clan.core.vars.generators.my-openssh-cert.files."ssh.id_ed25519-cert.pub".path;
 
       hostKeys =
         [
           {
-            path = config.clan.core.vars.generators.openssh.files."ssh.id_ed25519".path;
+            path = config.clan.core.vars.generators.my-openssh.files."ssh.id_ed25519".path;
             type = "ed25519";
           }
         ]
         ++ lib.optional cfg.hostKeys.rsa.enable {
-          path = config.clan.core.vars.generators.openssh-rsa.files."ssh.id_rsa".path;
+          path = config.clan.core.vars.generators.my-openssh-rsa.files."ssh.id_rsa".path;
           type = "rsa";
         };
     };
 
-    clan.core.vars.generators.openssh = {
+    clan.core.vars.generators.my-openssh = {
       files."ssh.id_ed25519" = { };
       files."ssh.id_ed25519.pub".secret = false;
       migrateFact = "openssh";
@@ -53,15 +53,15 @@ in
       '';
     };
 
-    programs.ssh.knownHosts.clan-sshd-self-ed25519 = {
+    programs.ssh.knownHosts.clan-my-sshd-self-ed25519 = {
       hostNames = [
         "localhost"
         config.networking.hostName
       ] ++ (lib.optional (config.networking.domain != null) config.networking.fqdn);
-      publicKey = config.clan.core.vars.generators.openssh.files."ssh.id_ed25519.pub".value;
+      publicKey = config.clan.core.vars.generators.my-openssh.files."ssh.id_ed25519.pub".value;
     };
 
-    clan.core.vars.generators.openssh-rsa = lib.mkIf config.clan.sshd.hostKeys.rsa.enable {
+    clan.core.vars.generators.my-openssh-rsa = lib.mkIf config.clan.my-sshd.hostKeys.rsa.enable {
       files."ssh.id_rsa" = { };
       files."ssh.id_rsa.pub".secret = false;
       runtimeInputs = [
@@ -73,15 +73,15 @@ in
       '';
     };
 
-    clan.core.vars.generators.openssh-cert = lib.mkIf (cfg.certificate.searchDomains != [ ]) {
+    clan.core.vars.generators.my-openssh-cert = lib.mkIf (cfg.certificate.searchDomains != [ ]) {
       files."ssh.id_ed25519-cert.pub".secret = false;
       dependencies = [
-        "openssh"
-        "openssh-ca"
+        "my-openssh"
+        "my-openssh-ca"
       ];
       validation = {
         name = config.clan.core.settings.machine.name;
-        domains = lib.genAttrs config.clan.sshd.certificate.searchDomains lib.id;
+        domains = lib.genAttrs config.clan.my-sshd.certificate.searchDomains lib.id;
       };
       runtimeInputs = [
         pkgs.openssh
@@ -89,12 +89,12 @@ in
       ];
       script = ''
         ssh-keygen \
-          -s $in/openssh-ca/id_ed25519 \
+          -s $in/my-openssh-ca/id_ed25519 \
           -I ${config.clan.core.settings.machine.name} \
           -h \
-          -n ${lib.concatMapStringsSep "," ((lib.map (d: "${config.clan.core.settings.machine.name}.${d}") domains) ++ realms)} \
-          $in/openssh/ssh.id_ed25519.pub
-        mv $in/openssh/ssh.id_ed25519-cert.pub $out/ssh.id_ed25519-cert.pub
+          -n ${lib.concatStringsSep "," ((lib.map (d: "${config.clan.core.settings.machine.name}.${d}") domains) ++ realms)} \
+          $in/my-openssh/ssh.id_ed25519.pub
+        mv $in/my-openssh/ssh.id_ed25519-cert.pub $out/ssh.id_ed25519-cert.pub
       '';
     };
   };

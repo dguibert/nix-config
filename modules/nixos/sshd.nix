@@ -21,7 +21,7 @@ in
     "/root/.ssh/id_ed25519"
   ];
 
-  clan.sshd.certificate.realms = [ ]
+  clan.my-sshd.certificate.realms = [ ]
     ++ lib.optionals (name == "titan") [ "192.168.1.24" "10.147.27.24" ]
     ++ lib.optionals (name == "t580") [ "192.168.1.17" "10.147.27.17" ]
     ++ lib.optionals (name == "rpi31") [ "192.168.1.13" "10.147.27.13" ]

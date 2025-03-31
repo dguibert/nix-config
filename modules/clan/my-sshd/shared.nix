@@ -5,7 +5,7 @@
 }:
 {
   options = {
-    clan.sshd.certificate = {
+    clan.my-sshd.certificate = {
       allowEmptyDomain = lib.mkEnableOption "Allow * as searched domain";
       # TODO: allow per-server domains that we than collect in the inventory
       #domains = lib.mkOption {
@@ -29,8 +29,8 @@
     };
   };
   config = {
-    clan.core.vars.generators.openssh-ca =
-      lib.mkIf (config.clan.sshd.certificate.searchDomains != [ ])
+    clan.core.vars.generators.my-openssh-ca =
+      lib.mkIf (config.clan.my-sshd.certificate.searchDomains != [ ])
         {
           share = true;
           files.id_ed25519.deploy = false;
@@ -46,11 +46,11 @@
           '';
         };
 
-    programs.ssh.knownHosts.ssh-ca = {
+    programs.ssh.knownHosts.my-ssh-ca = {
       certAuthority = true;
-      extraHostNames = builtins.map (domain: "*.${domain}") config.clan.sshd.certificate.searchDomains
-        ++ lib.optional config.clan.sshd.certificate.allowEmptyDomain "*";
-      publicKey = config.clan.core.vars.generators.openssh-ca.files."id_ed25519.pub".value;
+      extraHostNames = builtins.map (domain: "*.${domain}") config.clan.my-sshd.certificate.searchDomains
+        ++ lib.optional config.clan.my-sshd.certificate.allowEmptyDomain "*";
+      publicKey = config.clan.core.vars.generators.my-openssh-ca.files."id_ed25519.pub".value;
     };
   };
 }

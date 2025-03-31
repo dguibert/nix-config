@@ -7,5 +7,4 @@ features = [ "inventory" ]
 This module will setup the opensshd service.
 It will generate a host key for each machine
 
-
 ## Roles
