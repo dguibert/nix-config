@@ -133,8 +133,6 @@ in
   ##boot.binfmt.registrations."armv7l-linux".preserveArgvZero=true;
   boot.binfmt.registrations."armv7l-linux".fixBinary = true;
 
-  services.openssh.enable = true;
-
   #boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.extraModulePackages = [ pkgs.linuxPackages.perf ];
   # *** ZFS Version: zfs-2.0.4-1

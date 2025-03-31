@@ -19,6 +19,13 @@
   #sops.secrets."ssh_host_ed25519_key.pub"      .path = "/persist/etc/ssh/ssh_host_ed25519_key.pub";
   #sops.secrets."ssh_host_ed25519_key-cert.pub" .path = "/persist/etc/ssh/ssh_host_ed25519_key-cert.pub";
 
+  # https://git.clan.lol/clan/clan-core/issues/2470
+  #clan.core.vars.settings.secretStore = "password-store";
+
+  sops.age.sshKeyPaths = [
+    "/persist/etc/ssh/ssh_host_ed25519_key"
+  ];
+
   #services.openssh.hostKeys = [
   #  {
   #    #path = config.sops.secrets."ssh_host_ed25519_key".path;
