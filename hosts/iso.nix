@@ -21,7 +21,6 @@ in
     ({ config, lib, pkgs, ... }: {
       boot.kernelPackages = pkgs.linuxPackages_6_6;
       boot.supportedFilesystems = [ "zfs" ];
-      users.extraUsers.root.initialPassword = lib.mkForce "OhPha3gu";
       services.openssh.enable = true;
       services.openssh.startWhenNeeded = true;
       users.users.root.openssh.authorizedKeys.keys = [
