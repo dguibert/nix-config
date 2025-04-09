@@ -19,7 +19,6 @@ with lib; {
       swaylock # lockscreen
       swayidle
       wlr-randr
-      mako # notification daemon
       brightnessctl
 
       adwaita-icon-theme # Icons for gnome packages that sometimes use them but don't depend on them
@@ -49,6 +48,21 @@ with lib; {
       };
     };
 
+    # notification daemon
+    services.mako.enable = true;
+    services.mako.maxVisible = 3;
+    services.mako.layer = "overlay";
+    services.mako.extraConfig = ''
+      # == Mode: Away ==
+      [mode=away]
+      default-timeout=0
+      ignore-timeout=1
+
+      # == Mode: Do Not Disturb ==
+      [mode=dnd]
+      invisible=1
+    '';
+
     systemd.user.services.mako = {
       Unit = {
         Description = "Mako notification daemon";
@@ -60,7 +74,7 @@ with lib; {
       Service = {
         Type = "dbus";
         BusName = "org.freedesktop.Notifications";
-        ExecStart = "${pkgs.mako}/bin/mako";
+        ExecStart = "${config.services.mako.package}/bin/mako";
         RestartSec = 5;
         Restart = "always";
       };
@@ -69,12 +83,20 @@ with lib; {
     services.swayidle.enable = true;
     services.swayidle.systemdTarget = "hyprland-session.target";
     services.swayidle.timeouts = [
+      { timeout = 300; command = "${config.services.mako.package}/bin/makoctl mode -s away"; }
       { timeout = 300; command = "${pkgs.swaylock}/bin/swaylock -f -c 000000"; }
       { timeout = 360; command = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl dispatch dpms off"; }
     ];
     services.swayidle.events = [
       { event = "after-resume"; command = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl dispatch dpms on"; }
-      { event = "before-sleep"; command = "${pkgs.swaylock}/bin/swaylock -f -c 000000"; }
+      {
+        event = "after-resume";
+        command = "${config.services.mako.package}/bin/makoctl mode -s default";
+      }
+      {
+        event = "before-sleep";
+        command = "${pkgs.swaylock}/bin/swaylock -f -c 000000";
+      }
     ];
 
     xdg.configFile."waybar/style.css".source = ./waybar-style.css;
@@ -84,7 +106,34 @@ with lib; {
           layer = "top";
           output = mon;
           modules-left = [ "hyprland/workspaces" "hyprland/window" ];
-          modules-right = [ "pulseaudio" "battery" "backlight" "network" "clock" "tray" ];
+          modules-right = [ "pulseaudio" "battery" "backlight" "network" "clock" "tray" "custom/mako" ];
+          "custom/mako" = {
+            exec = pkgs.writeShellScript "mako-mode.sh" ''
+              mode=$(${config.services.mako.package}/bin/makoctl mode)
+              case $mode in
+                dnd)
+                TEXT="dnd"
+                CLASS=activated
+                ;;
+                *)
+                TEXT="$mode"
+                CLASS=deactivated
+                ;;
+              esac
+              printf '{"text": "%s", "class": "%s"}\n' "$TEXT" "$CLASS"
+            '';
+            return-type = "json";
+            interval = 120;
+            on-click = "${config.services.mako.package}/bin/mako -t dnd";
+            # $text\n$tooltip\n$class
+            format = "{} {icon}";
+            format-icons = {
+              activated = " ";
+              deactivated = " ";
+            };
+            tooltip = true;
+            tooltip-format = "Toggle DND on/off";
+          };
           backlight = { };
           battery = {
             format = "{capacity}% {icon}";
