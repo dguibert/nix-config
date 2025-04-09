@@ -5,8 +5,7 @@
       pre-commit-check = inputs.git-hooks-nix.lib.${system}.run {
         src = ./..;
         hooks = {
-          nixpkgs-fmt.enable = true;
-          nixpkgs-fmt.stages = [ "pre-commit" ];
+          nixfmt-rfc-style.enable = true;
           prettier.enable = true;
           prettier.stages = [ "pre-commit" ];
           trailing-whitespace = {
