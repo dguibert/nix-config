@@ -27,7 +27,10 @@
   #inputs.disko.url = github:dguibert/disko;
   inputs.disko.inputs.nixpkgs.follows = "nixpkgs";
 
-  inputs.terranix = { url = "github:mrVanDalo/terranix"; flake = false; };
+  inputs.terranix = {
+    url = "github:mrVanDalo/terranix";
+    flake = false;
+  };
   #inputs."nixos-18.03".url   = "github:nixos/nixpkgs-channels/nixos-18.03";
   #inputs."nixos-18.09".url   = "github:nixos/nixpkgs-channels/nixos-18.09";
   #inputs."nixos-19.03".url   = "github:nixos/nixpkgs-channels/nixos-19.03";
@@ -41,10 +44,22 @@
 
   inputs.base16.url = "github:SenchoPens/base16.nix";
   #inputs.base16.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.tt-schemes = { url = "github:tinted-theming/schemes"; flake = false; };
-  inputs.base16-vim = { url = "github:tinted-theming/base16-vim"; flake = false; };
-  inputs.base16-shell = { url = "github:tinted-theming/tinted-shell"; flake = false; };
-  inputs.gitignore = { url = "github:hercules-ci/gitignore"; flake = false; };
+  inputs.tt-schemes = {
+    url = "github:tinted-theming/schemes";
+    flake = false;
+  };
+  inputs.base16-vim = {
+    url = "github:tinted-theming/base16-vim";
+    flake = false;
+  };
+  inputs.base16-shell = {
+    url = "github:tinted-theming/tinted-shell";
+    flake = false;
+  };
+  inputs.gitignore = {
+    url = "github:hercules-ci/gitignore";
+    flake = false;
+  };
 
   inputs.nxsession.url = "github:dguibert/nxsession";
   inputs.nxsession.inputs.nixpkgs.follows = "nixpkgs/nixpkgs";
@@ -83,7 +98,6 @@
     url = "github:hyprwm/contrib";
     inputs.nixpkgs.follows = "nixpkgs";
   };
-
 
   #inputs.eww = {
   #  url = "github:elkowar/eww";
@@ -127,9 +141,18 @@
 
   inputs.flake-compat.url = "github:edolstra/flake-compat";
 
-  nixConfig.extra-experimental-features = [ "nix-command" "flakes" ];
+  nixConfig.extra-experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
-  outputs = { self, flake-parts, systems, ... }@inputs:
+  outputs =
+    {
+      self,
+      flake-parts,
+      systems,
+      ...
+    }@inputs:
     let
       # Memoize nixpkgs for different platforms for efficiency.
       inherit (self) outputs;
@@ -138,18 +161,28 @@
     in
     flake-parts.lib.mkFlake { inherit inputs; } {
       flake = {
-        overlays = import ./overlays { inherit inputs; lib = inputs.nur_packages.lib; };
+        overlays = import ./overlays {
+          inherit inputs;
+          lib = inputs.nur_packages.lib;
+        };
 
         deploy.nodes = builtins.foldl' inputs.nur_packages.lib.recursiveUpdate { } [
           (inputs.nur_packages.lib.mapAttrs
-            (host: nixosConfig:
+            (
+              host: nixosConfig:
               let
                 system = nixosConfig.config.nixpkgs.localSystem.system;
               in
               {
                 hostname = "${nixosConfig.config.networking.hostName}";
-                sshOpts = [ "-o" "ControlMaster=no" ]; # https://github.com/serokell/deploy-rs/issues/106
-                profilesOrder = [ "system" "dguibert" ];
+                sshOpts = [
+                  "-o"
+                  "ControlMaster=no"
+                ]; # https://github.com/serokell/deploy-rs/issues/106
+                profilesOrder = [
+                  "system"
+                  "dguibert"
+                ];
                 profiles.system.path = self.legacyPackages.${system}.deploy-rs.lib.activate.nixos nixosConfig;
                 profiles.system.user = "root";
                 # Fast connection to the node. If this is true, copy the whole closure instead of letting the node substitute.
@@ -161,19 +194,30 @@
                 # See the earlier section about Magic Rollback for more information.
                 # This defaults to `true`
                 magicRollback = false;
-              })
-            (builtins.removeAttrs self.nixosConfigurations [ "iso" "iso-aarch64" ]))
+              }
+            )
+            (
+              builtins.removeAttrs self.nixosConfigurations [
+                "iso"
+                "iso-aarch64"
+              ]
+            )
+          )
           # root profiles
           (inputs.nur_packages.lib.mapAttrs
-            (host: homeConfig:
+            (
+              host: homeConfig:
               let
                 system = self.nixosConfigurations.${host}.config.nixpkgs.localSystem.system;
               in
               {
                 #profiles.root.path = inputs.deploy-rs.lib.aarch64-linux.activate.custom
-                profiles.dguibert.path = self.legacyPackages.${system}.deploy-rs.lib.activate.custom homeConfig.activationPackage "./activate";
+                profiles.dguibert.path =
+                  self.legacyPackages.${system}.deploy-rs.lib.activate.custom homeConfig.activationPackage
+                    "./activate";
                 profiles.dguibert.user = "root";
-              })
+              }
+            )
             {
               rpi31 = self.homeConfigurations."root@rpi31";
               rpi41 = self.homeConfigurations."root@rpi41";
@@ -184,11 +228,14 @@
           (
             let
               genProfile = user: name: profile: {
-                path = self.legacyPackages.x86_64-linux.deploy-rs.lib.activate.custom self.homeConfigurations."${name}".activationPackage ''
-                  export NIX_STATE_DIR=${self.homeConfigurations."${name}".config.home.sessionVariables.NIX_STATE_DIR}
-                  export NIX_PROFILE=${self.homeConfigurations."${name}".config.home.sessionVariables.NIX_PROFILE}
-                  ./activate
-                '';
+                path =
+                  self.legacyPackages.x86_64-linux.deploy-rs.lib.activate.custom
+                    self.homeConfigurations."${name}".activationPackage
+                    ''
+                      export NIX_STATE_DIR=${self.homeConfigurations."${name}".config.home.sessionVariables.NIX_STATE_DIR}
+                      export NIX_PROFILE=${self.homeConfigurations."${name}".config.home.sessionVariables.NIX_PROFILE}
+                      ./activate
+                    '';
                 sshUser = user;
                 profilePath = "${builtins.dirOf builtins.storeDir}/var/nix/profiles/per-user/${user}/${profile}";
               };
@@ -205,7 +252,10 @@
               #};
               spartan = {
                 hostname = "spartan";
-                sshOpts = [ "-o" "ControlMaster=no" ]; # https://github.com/serokell/deploy-rs/issues/106
+                sshOpts = [
+                  "-o"
+                  "ControlMaster=no"
+                ]; # https://github.com/serokell/deploy-rs/issues/106
                 fastConnection = true;
                 autoRollback = false;
                 magicRollback = false;
@@ -265,13 +315,27 @@
         specialArgs = {
           inherit inputs;
           self' = self;
-          pkgsForSystem = system: builtins.trace "specialArgs.pkgsForSystem.${system}" self.legacyPackages.${system};
+          pkgsForSystem =
+            system: builtins.trace "specialArgs.pkgsForSystem.${system}" self.legacyPackages.${system};
         };
 
-        inventory.machines.titan.tags = [ "desktop" "dguibert" ];
-        inventory.machines.t580.tags = [ "desktop" "dguibert" "wifi" ];
-        inventory.machines.rpi41.tags = [ "desktop64" "dguibert_rpi" ];
-        inventory.machines.rpi31.tags = [ "wifi" "dguibert_rpi" ];
+        inventory.machines.titan.tags = [
+          "desktop"
+          "dguibert"
+        ];
+        inventory.machines.t580.tags = [
+          "desktop"
+          "dguibert"
+          "wifi"
+        ];
+        inventory.machines.rpi41.tags = [
+          "desktop64"
+          "dguibert_rpi"
+        ];
+        inventory.machines.rpi31.tags = [
+          "wifi"
+          "dguibert_rpi"
+        ];
 
         inventory.modules = self.modules.clan;
 
@@ -290,7 +354,10 @@
             ];
           };
 
-          adb.service.roles.default.machines = [ "t580" "titan" ];
+          adb.service.roles.default.machines = [
+            "t580"
+            "titan"
+          ];
           haproxy.service.roles.default.machines = [ "rpi41" ];
           jellyfin.titan.roles.default.machines = [ "titan" ];
           libvirtd.titan.roles.default.machines = [ "titan" ];
@@ -362,6 +429,11 @@
           users.root.config.passwords.root.prompt = true;
           users.dguibert.roles.default.tags = [ "dguibert" ];
           users.dguibert.config.passwords.dguibert.prompt = true;
+
+          printing.instance.roles.client.machines = [
+            "titan"
+            "t580"
+          ];
         };
 
         # Prerequisite: boot into the installer.
@@ -371,12 +443,20 @@
         # local> Edit ./machines/<machine>/configuration.nix to your liking.
       };
 
-      perSystem = { config, self', inputs', pkgs, system, ... }: {
-        # This is highly advised, and will prevent many possible mistakes
-        checks = (self.legacyPackages.${system}.deploy-rs.lib.deployChecks inputs.self.deploy)
-        ;
+      perSystem =
+        {
+          config,
+          self',
+          inputs',
+          pkgs,
+          system,
+          ...
+        }:
+        {
+          # This is highly advised, and will prevent many possible mistakes
+          checks = (self.legacyPackages.${system}.deploy-rs.lib.deployChecks inputs.self.deploy);
 
-      };
+        };
     };
 
 }
