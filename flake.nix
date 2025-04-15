@@ -430,6 +430,7 @@
           users.dguibert.roles.default.tags = [ "dguibert" ];
           users.dguibert.config.passwords.dguibert.prompt = true;
 
+          printing.instance.roles.scan2host.machines = [ "titan" ];
           printing.instance.roles.client.machines = [
             "titan"
             "t580"
