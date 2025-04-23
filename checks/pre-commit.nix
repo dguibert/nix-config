@@ -20,6 +20,9 @@
           src = ./..;
           hooks = {
             nixfmt-rfc-style.enable = true;
+            nixfmt-rfc-style.excludes = [
+              "modules/home-manager/dguibert/home-sec\\.nix"
+            ];
             prettier.enable = true;
             prettier.stages = [ "pre-commit" ];
             trailing-whitespace = {
