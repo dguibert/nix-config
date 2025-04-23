@@ -79,7 +79,7 @@ rec {
   #   pinentryFlavor = "gnome3";
   # };
 
-  programs.bash.enableCompletion = true;
+  programs.bash.completion.enable = true;
   # List services that you want to enable:
 
   # This value determines the NixOS release with which your system is to be
