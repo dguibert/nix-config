@@ -1,4 +1,11 @@
-{ config, lib, inputs, withSystem, self, ... }:
+{
+  config,
+  lib,
+  inputs,
+  withSystem,
+  self,
+  ...
+}:
 let
   genHomeManagerConfiguration = import ../lib/gen-home-manager-configuration.nix { inherit lib; };
 in
@@ -10,8 +17,36 @@ in
     (genHomeManagerConfiguration "x86_64-linux" "root@titan")
   ];
 
-  modules.homes."root@rpi31" = [ ({ ... }: { imports = [ ../modules/home-manager/root.nix ]; }) ];
-  modules.homes."root@rpi41" = [ ({ ... }: { imports = [ ../modules/home-manager/root.nix ]; }) ];
-  modules.homes."root@t580" = [ ({ ... }: { imports = [ ../modules/home-manager/root.nix ]; }) ];
-  modules.homes."root@titan" = [ ({ ... }: { imports = [ ../modules/home-manager/root.nix ]; }) ];
+  modules.homes."root@rpi31" = [
+    (
+      { ... }:
+      {
+        imports = [ ../modules/home-manager/root.nix ];
+      }
+    )
+  ];
+  modules.homes."root@rpi41" = [
+    (
+      { ... }:
+      {
+        imports = [ ../modules/home-manager/root.nix ];
+      }
+    )
+  ];
+  modules.homes."root@t580" = [
+    (
+      { ... }:
+      {
+        imports = [ ../modules/home-manager/root.nix ];
+      }
+    )
+  ];
+  modules.homes."root@titan" = [
+    (
+      { ... }:
+      {
+        imports = [ ../modules/home-manager/root.nix ];
+      }
+    )
+  ];
 }

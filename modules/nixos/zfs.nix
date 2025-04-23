@@ -1,4 +1,10 @@
-{ config, lib, pkgs, utils, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  utils,
+  ...
+}:
 {
   options.zfs-conf.enable = lib.mkEnableOption "zfs-conf";
   config = lib.mkIf config.zfs-conf.enable {
@@ -57,4 +63,3 @@
     #'';
   };
 }
-

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.role.dns;
 in
@@ -18,28 +23,36 @@ in
 
       # services.unbound.forwardAddresses doesn't let us set forward-tls-upstream
       settings = {
-        forward-zone = [{
-          name = ".";
-          forward-tls-upstream = true;
-          forward-addr = [
-            # Cloudflare DNS
-            "2606:4700:4700::1111@853#cloudflare-dns.com"
-            "1.1.1.1@853#cloudflare-dns.com"
-            "2606:4700:4700::1001@853#cloudflare-dns.com"
-            "1.0.0.1@853#cloudflare-dns.com"
-            # Quad9
-            "2620:fe::fe@853#dns.quad9.net"
-            "9.9.9.9@853#dns.quad9.net"
-            "2620:fe::9@853#dns.quad9.net"
-            "149.112.112.112@853#dns.quad9.net"
-            # TOR
-            #"127.0.0.1@853#cloudflare-dns.com"
-          ];
-        }];
+        forward-zone = [
+          {
+            name = ".";
+            forward-tls-upstream = true;
+            forward-addr = [
+              # Cloudflare DNS
+              "2606:4700:4700::1111@853#cloudflare-dns.com"
+              "1.1.1.1@853#cloudflare-dns.com"
+              "2606:4700:4700::1001@853#cloudflare-dns.com"
+              "1.0.0.1@853#cloudflare-dns.com"
+              # Quad9
+              "2620:fe::fe@853#dns.quad9.net"
+              "9.9.9.9@853#dns.quad9.net"
+              "2620:fe::9@853#dns.quad9.net"
+              "149.112.112.112@853#dns.quad9.net"
+              # TOR
+              #"127.0.0.1@853#cloudflare-dns.com"
+            ];
+          }
+        ];
 
         server = {
-          interface = [ "127.0.0.1" "::1" ];
-          access-control = [ "127.0.0.0/8 allow" "::1/128 allow" ];
+          interface = [
+            "127.0.0.1"
+            "::1"
+          ];
+          access-control = [
+            "127.0.0.0/8 allow"
+            "::1/128 allow"
+          ];
           do-not-query-localhost = false;
           edns-tcp-keepalive = true;
         };

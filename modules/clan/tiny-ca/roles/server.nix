@@ -1,4 +1,10 @@
-{ config, lib, inputs, pkgsForSystem, ... }:
+{
+  config,
+  lib,
+  inputs,
+  pkgsForSystem,
+  ...
+}:
 let
   cfg = config.role.tiny-ca;
 
@@ -110,7 +116,6 @@ in
     #### Reload  HAProxy
     ###service haproxy reload
 
-
     services.udev.extraRules = with pkgs; ''
       ATTR{idProduct}=="0407", ATTR{idVendor}=="1050", TAG+="systemd", SYMLINK="yubikey"
     '';
@@ -152,69 +157,70 @@ in
       port = 9443;
       openFirewall = cfg.openFirewall;
       #intermediatePasswordFile = "/etc/nixos/secrets/tiny-ca.passwd";
-      settings = /* builtins.fromJSON config/ca.json*/ {
-        dnsNames = [
-          "pki.orsin.org"
-          "localhost"
-          "192.168.1.24"
-          "10.147.27.24"
-        ];
-        #root = ../../../secrets/root_ca.crt;
-        #crt = ../../../secrets/intermediate_ca.crt;
-        #key = ../../../secrets/intermediate_ca.key;
-        root = ../../../../online-ca-orsin/certs/root_ca.crt;
-        crt = ../../../../online-ca-orsin/certs/intermediate_ca.crt;
-        key = "yubikey:slot-id=9c";
-        kms = {
-          type = "yubikey";
-          pin = "123456";
-        };
-        ssh = {
-          hostKey = "yubikey:slot-id=82";
-          userKey = "yubikey:slot-id=83";
-        };
-        db = {
-          type = "badger";
-          dataSource = "/var/lib/step-ca/db";
-        };
-        logger.format = "text";
-        authority = {
-          provisioners = [
-            {
-              type = "OIDC";
-              name = "Google";
-              clientID = "811353294591-gv6ma78sa72vaiap6qmak2cqgq1sleqb.apps.googleusercontent.com";
-              clientSecret = pkgs.sopsDecrypt_ ../../../../secrets/defaults.yaml "orsin-ca-811353294591-gv6ma78sa72vaiap6qmak2cqgq1sleqb.apps.googleusercontent.com";
-              configurationEndpoint = "https://accounts.google.com/.well-known/openid-configuration";
-              admins = [ "david.guibert@gmail.com" ];
-              domains = [ "gmail.com" ];
-              claims.enableSSHCA = true;
-            }
-            {
-              type = "ACME";
-              name = "acme";
-              claims = {
-                maxTLSCertDuration = "2160h";
-                defaultTLSCertDuration = "2160h";
-              };
-            }
-            {
-              type = "SSHPOP";
-              name = "sshpop";
-              claims.enableSSHCA = true;
-            }
+      settings = # builtins.fromJSON config/ca.json
+        {
+          dnsNames = [
+            "pki.orsin.org"
+            "localhost"
+            "192.168.1.24"
+            "10.147.27.24"
           ];
+          #root = ../../../secrets/root_ca.crt;
+          #crt = ../../../secrets/intermediate_ca.crt;
+          #key = ../../../secrets/intermediate_ca.key;
+          root = ../../../../online-ca-orsin/certs/root_ca.crt;
+          crt = ../../../../online-ca-orsin/certs/intermediate_ca.crt;
+          key = "yubikey:slot-id=9c";
+          kms = {
+            type = "yubikey";
+            pin = "123456";
+          };
+          ssh = {
+            hostKey = "yubikey:slot-id=82";
+            userKey = "yubikey:slot-id=83";
+          };
+          db = {
+            type = "badger";
+            dataSource = "/var/lib/step-ca/db";
+          };
+          logger.format = "text";
+          authority = {
+            provisioners = [
+              {
+                type = "OIDC";
+                name = "Google";
+                clientID = "811353294591-gv6ma78sa72vaiap6qmak2cqgq1sleqb.apps.googleusercontent.com";
+                clientSecret = pkgs.sopsDecrypt_ ../../../../secrets/defaults.yaml "orsin-ca-811353294591-gv6ma78sa72vaiap6qmak2cqgq1sleqb.apps.googleusercontent.com";
+                configurationEndpoint = "https://accounts.google.com/.well-known/openid-configuration";
+                admins = [ "david.guibert@gmail.com" ];
+                domains = [ "gmail.com" ];
+                claims.enableSSHCA = true;
+              }
+              {
+                type = "ACME";
+                name = "acme";
+                claims = {
+                  maxTLSCertDuration = "2160h";
+                  defaultTLSCertDuration = "2160h";
+                };
+              }
+              {
+                type = "SSHPOP";
+                name = "sshpop";
+                claims.enableSSHCA = true;
+              }
+            ];
+          };
+          tls = {
+            cipherSuites = [
+              "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305"
+              "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256"
+            ];
+            minVersion = 1.2;
+            maxVersion = 1.3;
+            renegotiation = false;
+          };
         };
-        tls = {
-          cipherSuites = [
-            "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305"
-            "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256"
-          ];
-          minVersion = 1.2;
-          maxVersion = 1.3;
-          renegotiation = false;
-        };
-      };
     };
 
     systemd.services."step-ca" = {

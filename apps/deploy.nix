@@ -1,6 +1,14 @@
 { config, inputs, ... }:
 {
-  perSystem = { config, self', inputs', pkgs, system, ... }:
+  perSystem =
+    {
+      config,
+      self',
+      inputs',
+      pkgs,
+      system,
+      ...
+    }:
     let
       drv = pkgs.deploy-rs.deploy-rs;
     in

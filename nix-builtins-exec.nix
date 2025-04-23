@@ -2,7 +2,9 @@
 # => ok
 # nix-build nix-builtins-exec.nix --arg ca true  --option allow-unsafe-native-code-during-evaluation true
 # => fails
-{ ca ? false }:
+{
+  ca ? false,
+}:
 with import <nixpkgs> { };
 let
   foo = runCommand "foo" { __contentAddressed = ca; } ''
@@ -11,7 +13,7 @@ let
       echo '"foo"'
     EOF
     chmod +x $out
-  ''; #"echo foo > $out";
+  ''; # "echo foo > $out";
 in
 runCommand "bar" { } ''
   set -x

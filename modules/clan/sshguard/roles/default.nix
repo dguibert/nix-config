@@ -12,7 +12,10 @@ in
   config = {
     services.sshguard = {
       enable = true;
-      services = [ "sshd" "sshd-session" ];
+      services = [
+        "sshd"
+        "sshd-session"
+      ];
       attack_threshold = 10;
       blacklist_threshold = 10;
       detection_time = 30 * 24 * 3600;

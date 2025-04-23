@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   options.nix-conf.enable = lib.mkEnableOption "nix-conf";
   config = lib.mkIf config.nix-conf.enable {
@@ -13,8 +18,8 @@
     zramSwap.enable = true;
     zramSwap.algorithm = "lzo";
 
-    nix.settings.sandbox = true; #"relaxed";
-    nix.settings.auto-optimise-store = true; #lib.mkForce false;
+    nix.settings.sandbox = true; # "relaxed";
+    nix.settings.auto-optimise-store = true; # lib.mkForce false;
     #nix.optimise.automatic=true;
     nix.settings.keep-outputs = true; # Nice for developers
     nix.settings.keep-derivations = true; # Idem

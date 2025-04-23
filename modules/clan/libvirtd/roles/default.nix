@@ -1,4 +1,10 @@
-{ config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 {
   # https://nixos.wiki/wiki/Virt-manager
   # https://nixos.org/nixops/manual/#idm140737318329504
@@ -24,11 +30,14 @@
   };
 
   programs.dconf.enable = true;
-  environment.systemPackages = with pkgs; [
-    virt-manager
-  ] ++ lib.optionals config.virtualisation.libvirtd.qemu.swtpm.enable [
-    config.virtualisation.libvirtd.qemu.swtpm.package
-  ];
+  environment.systemPackages =
+    with pkgs;
+    [
+      virt-manager
+    ]
+    ++ lib.optionals config.virtualisation.libvirtd.qemu.swtpm.enable [
+      config.virtualisation.libvirtd.qemu.swtpm.package
+    ];
 
   systemd.tmpfiles.rules = [ "d /var/lib/libvirt/images 1770 root libvirtd -" ];
 

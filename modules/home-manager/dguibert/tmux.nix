@@ -98,5 +98,4 @@
   home.file.".tmux/tmux.remote.conf".source = ./tmux/tmux.remote.conf;
   home.file.".tmux/status.conf".source = ./tmux/status.conf;
 
-
 }

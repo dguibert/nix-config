@@ -1,8 +1,9 @@
-{ inputs
-, lib
-, config
-, pkgs
-, ...
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  ...
 }:
 let
   l = lib // builtins;
@@ -15,7 +16,9 @@ in
 
   options = {
     my.persistence = {
-      enable = (lib.mkEnableOption "Enable impermanence config") // { default = false; };
+      enable = (lib.mkEnableOption "Enable impermanence config") // {
+        default = false;
+      };
       rollbackCommands = lib.mkOption {
         type = lib.types.str;
         default = "";
@@ -33,10 +36,12 @@ in
 
   config = lib.mkIf (cfg.enable) {
     # https://grahamc.com/blog/erase-your-darlings
-    boot.initrd.postDeviceCommands = lib.mkIf (!config.boot.initrd.systemd.enable) (lib.mkAfter ''
-      zpool import -a
-      ${cfg.rollbackCommands}
-    '');
+    boot.initrd.postDeviceCommands = lib.mkIf (!config.boot.initrd.systemd.enable) (
+      lib.mkAfter ''
+        zpool import -a
+        ${cfg.rollbackCommands}
+      ''
+    );
     boot.initrd.systemd.services.rollback = {
       description = "Rollback ZFS datasets to a pristine state";
       wantedBy = [
@@ -62,21 +67,20 @@ in
       let
         persistentHomesRoot = "/persist";
 
-        listOfCommands = l.mapAttrsToList
-          (_: user:
-            let
-              userHome = l.escapeShellArg (persistentHomesRoot + user.home);
+        listOfCommands = l.mapAttrsToList (
+          _: user:
+          let
+            userHome = l.escapeShellArg (persistentHomesRoot + user.home);
 
-            in
-            ''
-              if [[ ! -d ${userHome} ]]; then
-                  echo "Persistent home root folder '${userHome}' not found, creating..."
-                  mkdir -p --mode=${user.homeMode} ${userHome}
-              fi
-              chown ${user.name}:${user.group} ${userHome}
-            ''
-          )
-          (l.filterAttrs (_: user: user.createHome == true) config.users.users);
+          in
+          ''
+            if [[ ! -d ${userHome} ]]; then
+                echo "Persistent home root folder '${userHome}' not found, creating..."
+                mkdir -p --mode=${user.homeMode} ${userHome}
+            fi
+            chown ${user.name}:${user.group} ${userHome}
+          ''
+        ) (l.filterAttrs (_: user: user.createHome == true) config.users.users);
 
         stringOfCommands = l.concatLines listOfCommands;
       in

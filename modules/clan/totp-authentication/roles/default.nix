@@ -1,24 +1,38 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.clan.totp-authentication;
 
   userNames = builtins.attrNames cfg.users;
 
-  create_topt_prompts = n: v:
-    if v.prompt then {
-      name = "topt-${n}";
-      value = {
-        type = "hidden";
-        persist = true;
-      };
-    } else { };
+  create_topt_prompts =
+    n: v:
+    if v.prompt then
+      {
+        name = "topt-${n}";
+        value = {
+          type = "hidden";
+          persist = true;
+        };
+      }
+    else
+      { };
 
-  create_topt_files = n: v: if !v.prompt then { } else {
-    name = "topt-${n}";
-    value = {
-      neededFor = "users";
-    };
-  };
+  create_topt_files =
+    n: v:
+    if !v.prompt then
+      { }
+    else
+      {
+        name = "topt-${n}";
+        value = {
+          neededFor = "users";
+        };
+      };
 in
 {
   options.clan.totp-authentication = {
@@ -43,7 +57,9 @@ in
 
   config = {
     security.pam.oath.enable = false;
-    security.pam.services.sshd = { oathAuth = true; };
+    security.pam.services.sshd = {
+      oathAuth = true;
+    };
     security.pam.oath.usersFile = config.clan.core.vars.generators.oath-users.files.topt-file.path;
 
     clan.core.vars.generators.oath-users = {
@@ -62,9 +78,15 @@ in
       # Option User Prefix Seed (openssl rand -hex 10)
       # oathtool -v --totp -d 6 12345678909876543210
       script = ''
-        ${lib.concatMapStrings (n: if cfg.users.${n}.prompt then "" else ''
-        openssl rand -hex 10 > $out/topt-${n}
-        '') userNames}
+        ${lib.concatMapStrings (
+          n:
+          if cfg.users.${n}.prompt then
+            ""
+          else
+            ''
+              openssl rand -hex 10 > $out/topt-${n}
+            ''
+        ) userNames}
 
         cat > $out/topt-file <<EOF
         ${lib.concatMapStrings (n: "HOTP/T30/6 ${n} - $(cat $out/topt-${n})\n") userNames}

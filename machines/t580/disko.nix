@@ -1,4 +1,9 @@
-{ lib, config, clan-core, ... }:
+{
+  lib,
+  config,
+  clan-core,
+  ...
+}:
 let
 
   disks_rpool_rt580 = [
@@ -9,7 +14,8 @@ let
   INST_PARTSIZE_SWAP = 36;
   INST_PARTSIZE_RPOOL = 0;
 
-  define_disk = n: disks:
+  define_disk =
+    n: disks:
     let
       disk = lib.elemAt disks n;
       id = if n == 0 then "" else toString (n + 1);
@@ -114,7 +120,9 @@ in
     boot.loader.systemd-boot.enable = true;
 
     disko.devices = {
-      disk = (lib.listToAttrs (lib.genList (n: define_disk n disks_rpool_rt580) (lib.length disks_rpool_rt580)));
+      disk = (
+        lib.listToAttrs (lib.genList (n: define_disk n disks_rpool_rt580) (lib.length disks_rpool_rt580))
+      );
 
       zpool = {
         rpool_rt580 = {

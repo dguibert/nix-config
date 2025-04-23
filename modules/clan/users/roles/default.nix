@@ -1,7 +1,8 @@
-{ pkgs
-, config
-, lib
-, ...
+{
+  pkgs,
+  config,
+  lib,
+  ...
 }:
 let
   cfg = config.clan.users;
@@ -10,35 +11,54 @@ let
     name = "${name}-password";
     value = {
       prompts =
-        if value.prompt then {
-          user-password.type = "hidden";
-          user-password.persist = true;
-        } else { };
+        if value.prompt then
+          {
+            user-password.type = "hidden";
+            user-password.persist = true;
+          }
+        else
+          { };
 
-      files = {
-        user-password-hash.neededFor = "users";
-      } // (if !value.prompt then {
-        user-password.deploy = false;
-      } else { });
+      files =
+        {
+          user-password-hash.neededFor = "users";
+        }
+        // (
+          if !value.prompt then
+            {
+              user-password.deploy = false;
+            }
+          else
+            { }
+        );
       runtimeInputs = [
         pkgs.coreutils
         pkgs.xkcdpass
         pkgs.mkpasswd
       ];
-      script = ''
-        set -x
-      '' + (if (!value.prompt) then ''
-        xkcdpass --numwords 3 --delimiter - --count 1 | tr -d "\n" > $out/user-password
-      '' else "") + ''
-        cat $out/user-password | mkpasswd -s -m sha-512 | tr -d "\n" > $out/user-password-hash
-      '';
+      script =
+        ''
+          set -x
+        ''
+        + (
+          if (!value.prompt) then
+            ''
+              xkcdpass --numwords 3 --delimiter - --count 1 | tr -d "\n" > $out/user-password
+            ''
+          else
+            ""
+        )
+        + ''
+          cat $out/user-password | mkpasswd -s -m sha-512 | tr -d "\n" > $out/user-password-hash
+        '';
     };
   };
 
   create_user = name: value: {
     inherit name;
     value = {
-      hashedPasswordFile = config.clan.core.vars.generators."${name}-password".files.user-password-hash.path;
+      hashedPasswordFile =
+        config.clan.core.vars.generators."${name}-password".files.user-password-hash.path;
       #isNormalUser = lib.mkDefault true;
     };
   };

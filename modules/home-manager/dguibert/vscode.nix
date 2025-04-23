@@ -1,4 +1,10 @@
-{ lib, config, pkgs, inputs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 {
   options.withVSCode.enable = (lib.mkEnableOption "Enable VSCode config"); # // { default = true; };
 
@@ -10,18 +16,21 @@
       #mutableExtensionsDir = false;
 
       # Extensions
-      extensions = (with pkgs.vscode-extensions; [
-        # Stable
-        ms-vscode-remote.remote-ssh
-        mhutchie.git-graph
-        pkief.material-icon-theme
-        oderwat.indent-rainbow
-        bierner.markdown-emoji
-        bierner.emojisense
-        jnoortheen.nix-ide
-        vscodevim.vim
-        seatonjiang.gitmoji-vscode
-      ]);
+      extensions = (
+        with pkgs.vscode-extensions;
+        [
+          # Stable
+          ms-vscode-remote.remote-ssh
+          mhutchie.git-graph
+          pkief.material-icon-theme
+          oderwat.indent-rainbow
+          bierner.markdown-emoji
+          bierner.emojisense
+          jnoortheen.nix-ide
+          vscodevim.vim
+          seatonjiang.gitmoji-vscode
+        ]
+      );
 
       # Settings
       userSettings = {

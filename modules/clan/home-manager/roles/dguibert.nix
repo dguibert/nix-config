@@ -1,9 +1,10 @@
-{ config
-, lib
-, inputs
-, outputs
-, pkgsForSystem
-, ...
+{
+  config,
+  lib,
+  inputs,
+  outputs,
+  pkgsForSystem,
+  ...
 }@args:
 with lib;
 let
@@ -20,28 +21,43 @@ in
       };
       home-manager.users.dguibert = {
         imports = [
-          ({ config, pkgs, ... }: {
-            home.homeDirectory = "/home/dguibert";
-            home.stateVersion = "23.05";
+          (
+            { config, pkgs, ... }:
+            {
+              home.homeDirectory = "/home/dguibert";
+              home.stateVersion = "23.05";
 
-            programs.direnv.enable = true;
-            programs.direnv.nix-direnv.enable = true;
-            home.packages = with pkgs; [
-              pass-git-helper
-            ];
-          })
+              programs.direnv.enable = true;
+              programs.direnv.nix-direnv.enable = true;
+              home.packages = with pkgs; [
+                pass-git-helper
+              ];
+            }
+          )
         ];
       };
     })
   ];
   options.clan.home-manager.dguibert = {
-    withGui.enable = (mkEnableOption "Host running with X11 or Wayland") // { default = false; };
+    withGui.enable = (mkEnableOption "Host running with X11 or Wayland") // {
+      default = false;
+    };
     withPersistence.enable = mkEnableOption "Use Impermanence";
-    centralMailHost.enable = mkEnableOption "Host running liier/mbsync" // { default = false; };
-    withBash.enable = (lib.mkEnableOption "Enable bash config") // { default = true; };
-    withBash.history-merge = (lib.mkEnableOption "Enable bash history merging") // { default = true; };
-    withGpg.enable = (lib.mkEnableOption "Enable GPG config") // { default = true; };
-    withNix.enable = (lib.mkEnableOption "Enable nix config") // { default = true; };
+    centralMailHost.enable = mkEnableOption "Host running liier/mbsync" // {
+      default = false;
+    };
+    withBash.enable = (lib.mkEnableOption "Enable bash config") // {
+      default = true;
+    };
+    withBash.history-merge = (lib.mkEnableOption "Enable bash history merging") // {
+      default = true;
+    };
+    withGpg.enable = (lib.mkEnableOption "Enable GPG config") // {
+      default = true;
+    };
+    withNix.enable = (lib.mkEnableOption "Enable nix config") // {
+      default = true;
+    };
     withZellij.enable = (lib.mkEnableOption "Enable Zellij config"); # // { default = true; };
     withVSCode.enable = (lib.mkEnableOption "Enable VSCode config"); # // { default = true; };
   };

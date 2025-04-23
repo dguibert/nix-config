@@ -1,7 +1,8 @@
-{ config
-, lib
-, pkgs
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  ...
 }:
 {
   options = {
@@ -48,7 +49,8 @@
 
     programs.ssh.knownHosts.my-ssh-ca = {
       certAuthority = true;
-      extraHostNames = builtins.map (domain: "*.${domain}") config.clan.my-sshd.certificate.searchDomains
+      extraHostNames =
+        builtins.map (domain: "*.${domain}") config.clan.my-sshd.certificate.searchDomains
         ++ lib.optional config.clan.my-sshd.certificate.allowEmptyDomain "*";
       publicKey = config.clan.core.vars.generators.my-openssh-ca.files."id_ed25519.pub".value;
     };

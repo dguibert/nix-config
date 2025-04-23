@@ -1,7 +1,8 @@
 { config, pkgs, ... }:
 {
   programs.git.enable = true;
-  programs.git.package = if pkgs.stdenv.buildPlatform == pkgs.stdenv.hostPlatform then pkgs.gitFull else pkgs.gitMinimal;
+  programs.git.package =
+    if pkgs.stdenv.buildPlatform == pkgs.stdenv.hostPlatform then pkgs.gitFull else pkgs.gitMinimal;
   programs.git.userName = "David Guibert";
   programs.git.userEmail = "david.guibert@gmail.com";
   programs.git.aliases.files = "ls-files -v --deleted --modified --others --directory --no-empty-directory --exclude-standard";
@@ -26,7 +27,8 @@
     "store"
     "cache --timeout 86400"
   ];
-  programs.git.iniContent."url \"software.ecmwf.int\"".insteadOf = "ssh://git@software.ecmwf.int:7999";
+  programs.git.iniContent."url \"software.ecmwf.int\"".insteadOf =
+    "ssh://git@software.ecmwf.int:7999";
   programs.git.iniContent.color.branch = "auto";
   programs.git.iniContent.color.diff = "auto";
   programs.git.iniContent.color.interactive = "auto";
@@ -46,6 +48,5 @@
   #  gitAndTools.git-remote-gcrypt
   #  (gitAndTools.git-crypt.override { git = config.programs.git.package; })
   #];
-
 
 }

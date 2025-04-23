@@ -1,4 +1,10 @@
-{ config, pkgs, lib, inputs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 
 with lib;
 #let
@@ -43,7 +49,12 @@ rec {
   #  })
   #];
   #boot.supportedFilesystems = [ "zfs" ];
-  boot.supportedFilesystems = mkForce [ /*"btrfs" "reiserfs"*/ "vfat" "f2fs" /*"xfs" "zfs"*/ "ntfs" /*"cifs"*/ ];
+  boot.supportedFilesystems = mkForce [
+    # "btrfs" "reiserfs"
+    "vfat"
+    "f2fs" # "xfs" "zfs"
+    "ntfs" # "cifs"
+  ];
   boot.postBootCommands = ''
     ${pkgs.nettools}/bin/mii-tool -v -R eth0
   '';
@@ -63,7 +74,12 @@ rec {
   #};
 
   # !!! Adding a swap file is optional, but strongly recommended!
-  swapDevices = [{ device = "/swapfile"; size = 1024; }];
+  swapDevices = [
+    {
+      device = "/swapfile";
+      size = 1024;
+    }
+  ];
 
   environment.systemPackages = [ pkgs.vim ];
 
@@ -82,21 +98,27 @@ rec {
     bondConfig.MIIMonitorSec = "100s";
     bondConfig.PrimaryReselectPolicy = "always";
   };
-  systemd.network.networks = {
-    "40-bond0" = {
-      name = "bond0";
-      DHCP = "yes";
-      networkConfig.BindCarrier = "enu1u1 wlan0";
-      linkConfig.MACAddress = "b8:27:eb:46:86:14";
-    };
-  } // listToAttrs (flip map [ "enu1u1" "wlan0" ] (bi:
-    nameValuePair "40-${bi}" {
-      name = "${bi}";
-      DHCP = "no";
-      networkConfig.Bond = "bond0";
-      networkConfig.IPv6PrivacyExtensions = "kernel";
-      linkConfig.MACAddress = "b8:27:eb:46:86:14";
-    }));
+  systemd.network.networks =
+    {
+      "40-bond0" = {
+        name = "bond0";
+        DHCP = "yes";
+        networkConfig.BindCarrier = "enu1u1 wlan0";
+        linkConfig.MACAddress = "b8:27:eb:46:86:14";
+      };
+    }
+    // listToAttrs (
+      flip map [ "enu1u1" "wlan0" ] (
+        bi:
+        nameValuePair "40-${bi}" {
+          name = "${bi}";
+          DHCP = "no";
+          networkConfig.Bond = "bond0";
+          networkConfig.IPv6PrivacyExtensions = "kernel";
+          linkConfig.MACAddress = "b8:27:eb:46:86:14";
+        }
+      )
+    );
 
   programs.ssh.setXAuthLocation = false;
   security.pam.services.su.forwardXAuth = lib.mkForce false;

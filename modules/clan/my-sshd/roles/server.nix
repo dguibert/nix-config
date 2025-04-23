@@ -1,7 +1,8 @@
-{ config
-, pkgs
-, lib
-, ...
+{
+  config,
+  pkgs,
+  lib,
+  ...
 }:
 let
   stringSet = list: builtins.attrNames (builtins.groupBy lib.id list);
@@ -21,11 +22,9 @@ in
       enable = true;
       settings.PasswordAuthentication = false;
 
-      settings.HostCertificate = lib.mkIf
-        (
-          (cfg.certificate.searchDomains != [ ] || cfg.certificate.allowEmptyDomain)
-        )
-        config.clan.core.vars.generators.my-openssh-cert.files."ssh.id_ed25519-cert.pub".path;
+      settings.HostCertificate = lib.mkIf (
+        (cfg.certificate.searchDomains != [ ] || cfg.certificate.allowEmptyDomain)
+      ) config.clan.core.vars.generators.my-openssh-cert.files."ssh.id_ed25519-cert.pub".path;
 
       hostKeys =
         [
@@ -92,7 +91,11 @@ in
           -s $in/my-openssh-ca/id_ed25519 \
           -I ${config.clan.core.settings.machine.name} \
           -h \
-          -n ${lib.concatStringsSep "," ((lib.map (d: "${config.clan.core.settings.machine.name}.${d}") domains) ++ realms)} \
+          -n ${
+            lib.concatStringsSep "," (
+              (lib.map (d: "${config.clan.core.settings.machine.name}.${d}") domains) ++ realms
+            )
+          } \
           $in/my-openssh/ssh.id_ed25519.pub
         mv $in/my-openssh/ssh.id_ed25519-cert.pub $out/ssh.id_ed25519-cert.pub
       '';

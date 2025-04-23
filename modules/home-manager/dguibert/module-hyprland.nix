@@ -1,9 +1,18 @@
-{ config, pkgs, lib, inputs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 let
   cfg = config.hyprland;
 in
-with lib; {
-  options.hyprland.nvidia.enable = lib.mkEnableOption "Hyprland with NVidia GPU" // { default = false; };
+with lib;
+{
+  options.hyprland.nvidia.enable = lib.mkEnableOption "Hyprland with NVidia GPU" // {
+    default = false;
+  };
 
   config = lib.mkIf config.withGui.enable {
     programs.bash.bashrcExtra = ''
@@ -83,12 +92,24 @@ with lib; {
     services.swayidle.enable = true;
     services.swayidle.systemdTarget = "hyprland-session.target";
     services.swayidle.timeouts = [
-      { timeout = 300; command = "${config.services.mako.package}/bin/makoctl mode -s away"; }
-      { timeout = 300; command = "${pkgs.swaylock}/bin/swaylock -f -c 000000"; }
-      { timeout = 360; command = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl dispatch dpms off"; }
+      {
+        timeout = 300;
+        command = "${config.services.mako.package}/bin/makoctl mode -s away";
+      }
+      {
+        timeout = 300;
+        command = "${pkgs.swaylock}/bin/swaylock -f -c 000000";
+      }
+      {
+        timeout = 360;
+        command = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl dispatch dpms off";
+      }
     ];
     services.swayidle.events = [
-      { event = "after-resume"; command = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl dispatch dpms on"; }
+      {
+        event = "after-resume";
+        command = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl dispatch dpms on";
+      }
       {
         event = "after-resume";
         command = "${config.services.mako.package}/bin/makoctl mode -s default";
@@ -105,8 +126,19 @@ with lib; {
         default_conf = mon: interface: {
           layer = "top";
           output = mon;
-          modules-left = [ "hyprland/workspaces" "hyprland/window" ];
-          modules-right = [ "pulseaudio" "battery" "backlight" "network" "clock" "tray" "custom/mako" ];
+          modules-left = [
+            "hyprland/workspaces"
+            "hyprland/window"
+          ];
+          modules-right = [
+            "pulseaudio"
+            "battery"
+            "backlight"
+            "network"
+            "clock"
+            "tray"
+            "custom/mako"
+          ];
           "custom/mako" = {
             exec = pkgs.writeShellScript "mako-mode.sh" ''
               mode=$(${config.services.mako.package}/bin/makoctl mode)
@@ -137,7 +169,13 @@ with lib; {
           backlight = { };
           battery = {
             format = "{capacity}% {icon}";
-            format-icons = [ "" "" "" "" "" ];
+            format-icons = [
+              ""
+              ""
+              ""
+              ""
+              ""
+            ];
           };
           clock.format-alt = "{:%a, %d. %b  %H:%M}";
           tray = {
@@ -152,7 +190,10 @@ with lib; {
               headphones = "";
               phone = "";
               portable = "";
-              default = [ "" "" ];
+              default = [
+                ""
+                ""
+              ];
             };
             scroll-step = 1;
             on-click = "${pkgs.pavucontrol}/bin/pavucontrol";
@@ -199,12 +240,11 @@ with lib; {
           };
         };
       in
-      builtins.toJSON
-        [
-          (default_conf "HDMI-A-1" "bond0")
-          (default_conf "DVI-D-1" "bond0")
-          (default_conf "eDP-1" "wlan0")
-        ];
+      builtins.toJSON [
+        (default_conf "HDMI-A-1" "bond0")
+        (default_conf "DVI-D-1" "bond0")
+        (default_conf "eDP-1" "wlan0")
+      ];
 
     systemd.user.services.waybar = {
       Unit = {

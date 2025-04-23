@@ -3,16 +3,23 @@
 with lib;
 
 {
-  imports = attrValues
-    (mapAttrs'
+  imports = attrValues (
+    mapAttrs'
       (name: type: {
         name = removeSuffix ".nix" name;
         value = ./. + "/${name}";
       })
-      (filterAttrs
-        (name: type:
-          (type == "directory" && builtins.pathExists "${toString ./.}/${name}/default.nix") ||
-          (type == "regular" && lib.hasSuffix ".nix" name && ! (name == "default.nix") && ! (name == "overlays.nix"))
-        )
-        (builtins.readDir ./.)));
+      (
+        filterAttrs (
+          name: type:
+          (type == "directory" && builtins.pathExists "${toString ./.}/${name}/default.nix")
+          || (
+            type == "regular"
+            && lib.hasSuffix ".nix" name
+            && !(name == "default.nix")
+            && !(name == "overlays.nix")
+          )
+        ) (builtins.readDir ./.)
+      )
+  );
 }

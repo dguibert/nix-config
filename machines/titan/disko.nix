@@ -1,4 +1,9 @@
-{ lib, config, clan-core, ... }:
+{
+  lib,
+  config,
+  clan-core,
+  ...
+}:
 let
 
   disks_rpool_vanif0 = [
@@ -19,7 +24,8 @@ let
   # 4      2149MB  36.5GB  34.4GB                     swap
   # 3      36.5GB  1000GB  964GB
 
-  define_disk = n: disks:
+  define_disk =
+    n: disks:
     let
       disk = lib.elemAt disks n;
       #id = if n == 0 then "" else toString (n + 1);
@@ -56,7 +62,7 @@ let
               device = "/dev/disk/by-id/${disk}-part2";
               type = "8200";
               start = "${toString INST_PARTSIZE_ESP}GiB";
-              end = "${toString (INST_PARTSIZE_ESP+INST_PARTSIZE_SWAP)}GiB";
+              end = "${toString (INST_PARTSIZE_ESP + INST_PARTSIZE_SWAP)}GiB";
               content = {
                 type = "swap";
                 randomEncryption = false;
@@ -65,8 +71,8 @@ let
             zfs = {
               priority = 6;
               # RPOOL
-              name = "zfs"; #-t3:BF00
-              start = "${toString (INST_PARTSIZE_ESP+INST_PARTSIZE_SWAP)}GiB";
+              name = "zfs"; # -t3:BF00
+              start = "${toString (INST_PARTSIZE_ESP + INST_PARTSIZE_SWAP)}GiB";
               end = "100%";
               content = {
                 type = "zfs";
@@ -93,24 +99,28 @@ in
     boot.loader.systemd-boot.enable = true;
 
     disko.devices = {
-      disk = (lib.listToAttrs (lib.genList (n: define_disk n disks_rpool_vanif0) (lib.length disks_rpool_vanif0))) // {
-        # checkout the example folder for how to configure different disko layouts
-        ata-ST4000DM004-2CV104_ZTT5JV3S = {
-          device = "/dev/disk/by-id/ata-ST4000DM004-2CV104_ZTT5JV3S";
-          type = "disk";
-          content = {
-            type = "gpt";
-            partitions.zfs = {
-              start = "128MiB";
-              end = "100%";
-              content = {
-                type = "zfs";
-                pool = "zpoot_kdbimp";
+      disk =
+        (lib.listToAttrs (
+          lib.genList (n: define_disk n disks_rpool_vanif0) (lib.length disks_rpool_vanif0)
+        ))
+        // {
+          # checkout the example folder for how to configure different disko layouts
+          ata-ST4000DM004-2CV104_ZTT5JV3S = {
+            device = "/dev/disk/by-id/ata-ST4000DM004-2CV104_ZTT5JV3S";
+            type = "disk";
+            content = {
+              type = "gpt";
+              partitions.zfs = {
+                start = "128MiB";
+                end = "100%";
+                content = {
+                  type = "zfs";
+                  pool = "zpoot_kdbimp";
+                };
               };
             };
           };
         };
-      };
       nodev = {
         "/tmp" = {
           fsType = "tmpfs";

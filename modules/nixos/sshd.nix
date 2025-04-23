@@ -5,7 +5,10 @@ in
 {
   services.openssh.enable = true;
   services.openssh.listenAddresses = [
-    { addr = "0.0.0.0"; port = 22322; }
+    {
+      addr = "0.0.0.0";
+      port = 22322;
+    }
   ];
   networking.firewall.allowedTCPPorts = [ 22322 ];
   services.openssh.startWhenNeeded = true;
@@ -21,12 +24,23 @@ in
     "/root/.ssh/id_ed25519"
   ];
 
-  clan.my-sshd.certificate.realms = [ ]
-    ++ lib.optionals (name == "titan") [ "192.168.1.24" "10.147.27.24" ]
-    ++ lib.optionals (name == "t580") [ "192.168.1.17" "10.147.27.17" ]
-    ++ lib.optionals (name == "rpi31") [ "192.168.1.13" "10.147.27.13" ]
-    ++ lib.optionals (name == "rpi41") [ "192.168.1.14" "10.147.27.14" "82.64.121.168" ]
-  ;
+  clan.my-sshd.certificate.realms =
+    [ ]
+    ++ lib.optionals (name == "titan") [
+      "192.168.1.24"
+      "10.147.27.24"
+    ]
+    ++ lib.optionals (name == "t580") [
+      "192.168.1.17"
+      "10.147.27.17"
+    ]
+    ++ lib.optionals (name == "rpi31") [
+      "192.168.1.13"
+      "10.147.27.13"
+    ]
+    ++ lib.optionals (name == "rpi41") [
+      "192.168.1.14"
+      "10.147.27.14"
+      "82.64.121.168"
+    ];
 }
-
-

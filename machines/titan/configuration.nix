@@ -1,25 +1,37 @@
-{ config, lib, pkgs, inputs, self', pkgsForSystem, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  self',
+  pkgsForSystem,
+  ...
+}:
 let
   migrate = fs1: fs2: {
     device = "none";
     fsType = "migratefs";
     #neededForBoot = true;
-    options =
-      [
-        # Filesystem options
-        "allow_other,lowerdir=${fs1},upperdir=${fs2}"
-        #"nofail"
-        "X-mount.mkdir"
-        "x-systemd.requires-mounts-for=${fs1}"
-        "x-systemd.requires-mounts-for=${fs2}"
-      ];
+    options = [
+      # Filesystem options
+      "allow_other,lowerdir=${fs1},upperdir=${fs2}"
+      #"nofail"
+      "X-mount.mkdir"
+      "x-systemd.requires-mounts-for=${fs1}"
+      "x-systemd.requires-mounts-for=${fs2}"
+    ];
   };
 in
 {
   imports = [
     { nixpkgs.system = "x86_64-linux"; }
     ../../modules/nixos/defaults
-    ({ ... }: { my.persistence.enable = true; })
+    (
+      { ... }:
+      {
+        my.persistence.enable = true;
+      }
+    )
     inputs.microvm.nixosModules.host
     inputs.nix-ld.nixosModules.nix-ld
 
@@ -31,14 +43,30 @@ in
     inputs.envfs.nixosModules.envfs
     #{ home-manager.users.dguibert = { imports = self'.modules.homes."dguibert@titan"; }; }
     #{users.dguibert.with-home-manager = true;}
-    ({ ... }: { services.udisks2.enable = true; })
+    (
+      { ... }:
+      {
+        services.udisks2.enable = true;
+      }
+    )
   ];
-  environment.systemPackages = [ pkgs.ipmitool pkgs.ntfs3g ];
+  environment.systemPackages = [
+    pkgs.ipmitool
+    pkgs.ntfs3g
+  ];
 
   networking.firewall.checkReversePath = false;
 
   boot.initrd.systemd.enable = true;
-  boot.initrd.availableKernelModules = [ "ehci_pci" "ahci" "isci" "usbhid" "usb_storage" "sd_mod" "nvme" ];
+  boot.initrd.availableKernelModules = [
+    "ehci_pci"
+    "ahci"
+    "isci"
+    "usbhid"
+    "usb_storage"
+    "sd_mod"
+    "nvme"
+  ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModprobeConfig = ''
     # 24G
@@ -79,8 +107,16 @@ in
   # https://www.immae.eu/blog/tag/nixos.html
   systemd.targets.maintenance = {
     description = "Maintenance target with only sshd";
-    after = [ "network-online.target" "network-setup.service" "sshd.service" ];
-    requires = [ "network-online.target" "network-setup.service" "sshd.service" ];
+    after = [
+      "network-online.target"
+      "network-setup.service"
+      "sshd.service"
+    ];
+    requires = [
+      "network-online.target"
+      "network-setup.service"
+      "sshd.service"
+    ];
     unitConfig = {
       AllowIsolate = "yes";
     };
@@ -128,7 +164,10 @@ in
   };
 
   ##qemu-user.aarch64 = true;
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" "armv7l-linux" ];
+  boot.binfmt.emulatedSystems = [
+    "aarch64-linux"
+    "armv7l-linux"
+  ];
   ##boot.binfmt.registrations."aarch64-linux".preserveArgvZero=true;
   boot.binfmt.registrations."aarch64-linux".fixBinary = true;
   ##boot.binfmt.registrations."armv7l-linux".preserveArgvZero=true;
@@ -263,7 +302,7 @@ in
 
   services.sanoid = {
     enable = true;
-    interval = "*:00,15,30,45"; #every 15minutes
+    interval = "*:00,15,30,45"; # every 15minutes
     templates.prod = {
       frequently = 8;
       hourly = 24;
@@ -320,7 +359,11 @@ in
   services.syncoid = {
     enable = true;
     #sshKey = "/root/.ssh/id_ecdsa";
-    commonArgs = [ "--no-sync-snap" "--debug" "--quiet" /*"--create-bookmark"*/ ];
+    commonArgs = [
+      "--no-sync-snap"
+      "--debug"
+      "--quiet" # "--create-bookmark"
+    ];
     #commands."pool/test".target = "root@target:pool/test";
     commands."rpool_vanif0/local/root".target = "st4000dm004-1/backup/rpool_vanif0/local/root";
     commands."rpool_vanif0/safe".target = "st4000dm004-1/backup/rpool_vanif0/safe";

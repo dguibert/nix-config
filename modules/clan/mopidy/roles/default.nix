@@ -1,4 +1,10 @@
-{ config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 let
   cfg = config.role.mopidy-server;
 
@@ -12,7 +18,8 @@ let
     cp -v ${silence_mp3} $out/silence.mp3
   '';
 in
-with lib; {
+with lib;
+{
   options = {
     role.mopidy-server = {
       listenAddress = mkOption {
@@ -71,7 +78,10 @@ with lib; {
       support32Bit = true;
       tcp.enable = true;
       tcp.anonymousClients.allowAll = true;
-      tcp.anonymousClients.allowedIpRanges = [ "127.0.0.1" "192.168.1.0/24" ];
+      tcp.anonymousClients.allowedIpRanges = [
+        "127.0.0.1"
+        "192.168.1.0/24"
+      ];
       systemWide = true;
       extraConfig = ''
         load-module module-pipe-sink file=/run/pulse/snap-mopidy-fifo sink_name=Snapcast format=s16le rate=48000
@@ -89,8 +99,15 @@ with lib; {
       #pactl load-module module-role-ducking trigger_roles=announcement ducking_roles=music
     };
 
-    users.users.root.extraGroups = lib.optionals (config.users.groups ? pulse) [ "pulse" "audio" ];
-    users.users.mopidy.extraGroups = lib.optionals (config.users.groups ? pulse) [ "pulse" "audio" "snapserver" ];
+    users.users.root.extraGroups = lib.optionals (config.users.groups ? pulse) [
+      "pulse"
+      "audio"
+    ];
+    users.users.mopidy.extraGroups = lib.optionals (config.users.groups ? pulse) [
+      "pulse"
+      "audio"
+      "snapserver"
+    ];
 
     programs.dconf.enable = true;
     environment.systemPackages = with pkgs; [
@@ -126,8 +143,8 @@ with lib; {
       1900
       config.role.mopidy-server.configuration.mpd.port
       config.role.mopidy-server.configuration.http.port
-      8000 /* stream */
-      4317 /* module-native-protocol-tcp will use 4317/tcp port to handle connections */
+      8000 # stream
+      4317 # module-native-protocol-tcp will use 4317/tcp port to handle connections
       #config.services.upmpdcli.configuration.upnpport
       #(config.services.upmpdcli.configuration.upnpport + 1)
       #9090
@@ -171,7 +188,10 @@ with lib; {
         workstation = true;
         userServices = true;
       };
-      interfaces = [ "lo" "bond0" ];
+      interfaces = [
+        "lo"
+        "bond0"
+      ];
       #extraServiceFiles = {
       #  ssh = "''${pkgs.avahi}/etc/avahi/services/ssh.service";
       #};

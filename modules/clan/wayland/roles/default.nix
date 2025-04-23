@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.clan.wayland;
 in
@@ -32,13 +37,13 @@ in
     fonts.fontconfig.enable = true;
     fonts.fontconfig.antialias = true;
     fonts.fontconfig.hinting.enable = true;
-    fonts.packages = with pkgs ; [
+    fonts.packages = with pkgs; [
       terminus_font
       powerline-fonts
       nerd-fonts.fira-code
       nerd-fonts.symbols-only
       emacs-all-the-icons-fonts
-      /*corefonts*/
+      # corefonts
       #noto-fonts
       #noto-fonts-cjk
       #noto-fonts-emoji

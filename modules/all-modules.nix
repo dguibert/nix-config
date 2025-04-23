@@ -5,22 +5,19 @@ let
 
   moduleKinds = lib.filterAttrs (_: type: type == "directory") (builtins.readDir modulesDir);
 
-  mapModules = kind:
+  mapModules =
+    kind:
     lib.mapAttrs'
-      (fn: _:
-        lib.nameValuePair
-          (lib.removeSuffix ".nix" fn)
-          (modulesDir + "/${kind}/${fn}"))
-      (lib.filterAttrs
-        (modName: type:
+      (fn: _: lib.nameValuePair (lib.removeSuffix ".nix" fn) (modulesDir + "/${kind}/${fn}"))
+      (
+        lib.filterAttrs (
+          modName: type:
           (type == "regular" && lib.hasSuffix ".nix" modName && modName != "all-modules.nix")
           || (type == "directory" && kind == "clan")
-        )
-        (builtins.readDir (modulesDir + "/${kind}")));
+        ) (builtins.readDir (modulesDir + "/${kind}"))
+      );
 
-  flakePartsModules = lib.attrValues (
-    (mapModules "flake-parts")
-  );
+  flakePartsModules = lib.attrValues ((mapModules "flake-parts"));
 
 in
 {

@@ -1,4 +1,10 @@
-{ config, pkgs, lib, inputs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 
 with lib;
 #let
@@ -10,15 +16,18 @@ rec {
     #(import "${inputs.nur_packages.inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix")
     #sdImage.compressImage = false;
     { nixpkgs.system = "aarch64-linux"; }
-    ({ ... }: {
-      fileSystems = {
-        "/" = {
-          device = "/dev/disk/by-label/NIXOS_SD";
-          fsType = "ext4";
-          options = [ "noatime" ];
+    (
+      { ... }:
+      {
+        fileSystems = {
+          "/" = {
+            device = "/dev/disk/by-label/NIXOS_SD";
+            fsType = "ext4";
+            options = [ "noatime" ];
+          };
         };
-      };
-    })
+      }
+    )
     (import "${inputs.nixos-hardware}/raspberry-pi/4/default.nix")
     ../../modules/nixos/defaults
   ];
@@ -32,7 +41,12 @@ rec {
   networking.hostName = "rpi41";
 
   #boot.kernelPackages = pkgs.linuxPackages_5_10;
-  boot.initrd.availableKernelModules = [ "xhci_pci" "usbhid" "uas" "usb_storage" ];
+  boot.initrd.availableKernelModules = [
+    "xhci_pci"
+    "usbhid"
+    "uas"
+    "usb_storage"
+  ];
   #boot.loader.raspberryPi.firmwareConfig = "dtparam=sd_poll_once=on";
   #fileSystems."/".options = [ "defaults" "discard" ];
   services.fstrim.enable = true;
@@ -93,24 +107,30 @@ rec {
     bondConfig.MIIMonitorSec = "100s";
     bondConfig.PrimaryReselectPolicy = "always";
   };
-  systemd.network.networks = {
-    "40-bond0" = {
-      name = "bond0";
-      DHCP = "yes";
-      networkConfig.BindCarrier = "end0 wlan0";
-      linkConfig.MACAddress = "DC:A6:32:67:DD:9F";
-      # make routing on this interface a dependency for network-online.target
-      linkConfig.RequiredForOnline = "routable";
-    };
-  } // listToAttrs (flip map [ "end0" "wlan0" ] (bi:
-    nameValuePair "40-${bi}" {
-      name = "${bi}";
-      DHCP = "no";
-      networkConfig.Bond = "bond0";
-      networkConfig.IPv6PrivacyExtensions = "kernel";
-      linkConfig.MACAddress = "DC:A6:32:67:DD:9F";
-      linkConfig.RequiredForOnline = "no";
-    }));
+  systemd.network.networks =
+    {
+      "40-bond0" = {
+        name = "bond0";
+        DHCP = "yes";
+        networkConfig.BindCarrier = "end0 wlan0";
+        linkConfig.MACAddress = "DC:A6:32:67:DD:9F";
+        # make routing on this interface a dependency for network-online.target
+        linkConfig.RequiredForOnline = "routable";
+      };
+    }
+    // listToAttrs (
+      flip map [ "end0" "wlan0" ] (
+        bi:
+        nameValuePair "40-${bi}" {
+          name = "${bi}";
+          DHCP = "no";
+          networkConfig.Bond = "bond0";
+          networkConfig.IPv6PrivacyExtensions = "kernel";
+          linkConfig.MACAddress = "DC:A6:32:67:DD:9F";
+          linkConfig.RequiredForOnline = "no";
+        }
+      )
+    );
   networking.supplicant.wlan0 = {
     configFile.path = "/persist/etc/wpa_supplicant.conf";
     userControlled.group = "network";
@@ -120,7 +140,6 @@ rec {
     '';
     extraCmdArgs = "-u";
   };
-
 
   services.getty.autologinUser = lib.mkIf (config.users.dguibert.enable) "dguibert";
 }

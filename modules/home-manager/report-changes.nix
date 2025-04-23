@@ -1,4 +1,10 @@
-{ pkgs, activationPkgs, config, lib, ... }:
+{
+  pkgs,
+  activationPkgs,
+  config,
+  lib,
+  ...
+}:
 with lib;
 {
   options.home.report-changes.enable = mkEnableOption "report-changes";
@@ -11,4 +17,3 @@ with lib;
     '';
   };
 }
-

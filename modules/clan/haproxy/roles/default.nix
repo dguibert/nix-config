@@ -1,4 +1,10 @@
-{ config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 let
   haproxy_internal_ip = "192.168.127.254";
 in
@@ -69,8 +75,14 @@ in
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
   services.openssh.listenAddresses = [
-    { addr = "127.0.0.1"; port = 44322; }
-    { addr = "${haproxy_internal_ip}"; port = 44322; }
+    {
+      addr = "127.0.0.1";
+      port = 44322;
+    }
+    {
+      addr = "${haproxy_internal_ip}";
+      port = 44322;
+    }
   ];
 
   #echo -n "ss://"`echo -n chacha20-ietf-poly1305:$(sops --extract '["shadowsocks"]' -d hosts/rpi31/secrets/secrets.yaml)@$(curl -4 ifconfig.io):443 | base64` | qrencode -t UTF8

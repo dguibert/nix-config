@@ -1,5 +1,10 @@
 # https://nixos.org/nix-dev/2015-September/018255.html
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   options.distributed-build-conf.enable = lib.mkEnableOption "distributed build";
   config = lib.mkIf config.distributed-build-conf.enable {
@@ -25,7 +30,10 @@
         Port 22322
     '';
     nix.settings = {
-      trusted-users = [ "nixBuild" "dguibert" ];
+      trusted-users = [
+        "nixBuild"
+        "dguibert"
+      ];
     };
     # 20181219 titan is now able to build aarch64 (binfmt and qemu-user)
     nix.distributedBuilds = true;

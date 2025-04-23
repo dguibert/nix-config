@@ -1,11 +1,26 @@
 # https://rycee.net/posts/2017-07-02-manage-your-home-with-nix.html
-{ pkgs, lib, outputs, ... }:
+{
+  pkgs,
+  lib,
+  outputs,
+  ...
+}:
 with lib;
 {
   imports = [
     ./report-changes.nix
-    ({ ... }: { home.report-changes.enable = true; })
-    ({ ... }: { manual.manpages.enable = false; })
+    (
+      { ... }:
+      {
+        home.report-changes.enable = true;
+      }
+    )
+    (
+      { ... }:
+      {
+        manual.manpages.enable = false;
+      }
+    )
   ];
   home.username = "root";
   home.homeDirectory = "/root";
@@ -45,8 +60,17 @@ with lib;
 
   programs.bash.enable = true;
   programs.bash.historySize = 50000;
-  programs.bash.historyControl = [ "erasedups" "ignoredups" "ignorespace" ];
-  programs.bash.historyIgnore = [ "ls" "cd" "clear" "[bf]g" ];
+  programs.bash.historyControl = [
+    "erasedups"
+    "ignoredups"
+    "ignorespace"
+  ];
+  programs.bash.historyIgnore = [
+    "ls"
+    "cd"
+    "clear"
+    "[bf]g"
+  ];
 
   home.sessionVariables.PROMPT_COMMAND = "history -a; history -c; history -r";
   home.sessionVariables.EDITOR = "vim";

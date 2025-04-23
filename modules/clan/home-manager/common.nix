@@ -1,4 +1,10 @@
-{ config, inputs, pkgs, ... }: {
+{
+  config,
+  inputs,
+  pkgs,
+  ...
+}:
+{
   imports = [
     inputs.home-manager.nixosModules.home-manager
   ];
@@ -10,4 +16,3 @@
     sopsDecrypt_ = pkgs.sopsDecrypt_;
   };
 }
-

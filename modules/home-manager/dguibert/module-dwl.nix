@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
 
@@ -68,8 +73,11 @@ let
   };
 
 in
-with lib; {
-  options.withDwl.enable = (lib.mkEnableOption "Enable Dwl config") // { default = false; };
+with lib;
+{
+  options.withDwl.enable = (lib.mkEnableOption "Enable Dwl config") // {
+    default = false;
+  };
 
   config = lib.mkIf (config.withDwl.enable) {
     programs.bash.bashrcExtra = ''
@@ -247,73 +255,116 @@ with lib; {
     #};
     xdg.configFile."waybar/config".text =
       let
-        default_conf = mon: {
-          layer = "top";
-          output = mon;
-          modules-left = [ "custom/dwl_tag#0" "custom/dwl_tag#1" "custom/dwl_tag#2" "custom/dwl_tag#3" "custom/dwl_tag#4" "custom/dwl_tag#5" "custom/dwl_tag#6" "custom/dwl_tag#7" "custom/dwl_tag#8" "custom/dwl_layout" "custom/dwl_title" ];
-          modules-right = [ "pulseaudio" "battery" "backlight" "network" "clock" "tray" ];
-          backlight = { };
-          battery = {
-            format = "{capacity}% {icon}";
-            format-icons = [ "" "" "" "" "" ];
-          };
-          clock.format-alt = "{:%a, %d. %b  %H:%M}";
-          tray = {
-            icon-size = 21;
-            spacing = 10;
-          };
-          pulseaudio = {
-            format = "{volume}% {icon}";
-            format-bluetooth = "{volume}% {icon}";
-            format-muted = "";
-            format-icons = {
-              headphones = "";
-              phone = "";
-              portable = "";
-              default = [ "" "" ];
+        default_conf =
+          mon:
+          {
+            layer = "top";
+            output = mon;
+            modules-left = [
+              "custom/dwl_tag#0"
+              "custom/dwl_tag#1"
+              "custom/dwl_tag#2"
+              "custom/dwl_tag#3"
+              "custom/dwl_tag#4"
+              "custom/dwl_tag#5"
+              "custom/dwl_tag#6"
+              "custom/dwl_tag#7"
+              "custom/dwl_tag#8"
+              "custom/dwl_layout"
+              "custom/dwl_title"
+            ];
+            modules-right = [
+              "pulseaudio"
+              "battery"
+              "backlight"
+              "network"
+              "clock"
+              "tray"
+            ];
+            backlight = { };
+            battery = {
+              format = "{capacity}% {icon}";
+              format-icons = [
+                ""
+                ""
+                ""
+                ""
+                ""
+              ];
             };
-            scroll-step = 1;
-            on-click = "${pkgs.pavucontrol}/bin/pavucontrol";
-          };
-          network = {
-            interface = "bond0";
-            format = "{ifname}";
-            format-wifi = "{essid} ({signalStrength}%) ";
-            format-ethernet = "{bandwidthDownBytes} {bandwidthUpBytes} ";
-            format-disconnected = ""; # An empty format will hide the module.
-            tooltip-format = "{ipaddr}/{cidr} {ifname} via {gwaddr} ";
-            tooltip-format-wifi = "{essid} ({signalStrength}%) ";
-            tooltip-format-ethernet = "{ifname} ";
-            tooltip-format-disconnected = "Disconnected";
-            max-length = 50;
-          };
-          "custom/dwl_layout" = {
-            exec = "${waybarDwlScript} '${mon}' layout";
-            format = "{}";
-            escape = true;
-            return-type = "json";
-          };
-          "custom/dwl_title" = {
-            exec = "${waybarDwlScript} '${mon}' title";
-            format = "{}";
-            escape = true;
-            return-type = "json";
-          };
-        } // (builtins.foldl' (x: y: x // y) { } (builtins.map
-          (tag: {
-            "custom/dwl_tag#${tag}" = {
-              exec = "${waybarDwlScript} '${mon}' ${tag}";
+            clock.format-alt = "{:%a, %d. %b  %H:%M}";
+            tray = {
+              icon-size = 21;
+              spacing = 10;
+            };
+            pulseaudio = {
+              format = "{volume}% {icon}";
+              format-bluetooth = "{volume}% {icon}";
+              format-muted = "";
+              format-icons = {
+                headphones = "";
+                phone = "";
+                portable = "";
+                default = [
+                  ""
+                  ""
+                ];
+              };
+              scroll-step = 1;
+              on-click = "${pkgs.pavucontrol}/bin/pavucontrol";
+            };
+            network = {
+              interface = "bond0";
+              format = "{ifname}";
+              format-wifi = "{essid} ({signalStrength}%) ";
+              format-ethernet = "{bandwidthDownBytes} {bandwidthUpBytes} ";
+              format-disconnected = ""; # An empty format will hide the module.
+              tooltip-format = "{ipaddr}/{cidr} {ifname} via {gwaddr} ";
+              tooltip-format-wifi = "{essid} ({signalStrength}%) ";
+              tooltip-format-ethernet = "{ifname} ";
+              tooltip-format-disconnected = "Disconnected";
+              max-length = 50;
+            };
+            "custom/dwl_layout" = {
+              exec = "${waybarDwlScript} '${mon}' layout";
               format = "{}";
+              escape = true;
               return-type = "json";
             };
-          }) [ "0" "1" "2" "3" "4" "5" "6" "7" "8" ]));
+            "custom/dwl_title" = {
+              exec = "${waybarDwlScript} '${mon}' title";
+              format = "{}";
+              escape = true;
+              return-type = "json";
+            };
+          }
+          // (builtins.foldl' (x: y: x // y) { } (
+            builtins.map
+              (tag: {
+                "custom/dwl_tag#${tag}" = {
+                  exec = "${waybarDwlScript} '${mon}' ${tag}";
+                  format = "{}";
+                  return-type = "json";
+                };
+              })
+              [
+                "0"
+                "1"
+                "2"
+                "3"
+                "4"
+                "5"
+                "6"
+                "7"
+                "8"
+              ]
+          ));
       in
-      builtins.toJSON
-        [
-          (default_conf "HDMI-A-1")
-          (default_conf "DVI-D-1")
-          (default_conf "eDP-1")
-        ];
+      builtins.toJSON [
+        (default_conf "HDMI-A-1")
+        (default_conf "DVI-D-1")
+        (default_conf "eDP-1")
+      ];
 
     systemd.user.services.waybar = {
       Unit = {
@@ -337,7 +388,10 @@ with lib; {
         Unit = {
           Description = "Home Manager X session";
           Requires = [ "graphical-session-pre.target" ];
-          BindsTo = [ "graphical-session.target" "tray.target" ];
+          BindsTo = [
+            "graphical-session.target"
+            "tray.target"
+          ];
         };
       };
 

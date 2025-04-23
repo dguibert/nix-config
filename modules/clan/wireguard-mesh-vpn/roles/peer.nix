@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -14,43 +19,45 @@ let
   #   Roles :: { ${role_name} :: { machines :: [string] } }
   instances = config.clan.inventory.services.wireguard-mesh-vpn or { };
 
-  peerNames = lib.foldlAttrs
-    (
-      acc: _instanceName: instanceConfig:
-        acc
-        ++ (
-          builtins.filter (n: n != machineName) (instanceConfig.roles.peer.machines)
-        )
-    ) [ ]
-    instances;
+  peerNames = lib.foldlAttrs (
+    acc: _instanceName: instanceConfig:
+    acc ++ (builtins.filter (n: n != machineName) (instanceConfig.roles.peer.machines))
+  ) [ ] instances;
 
   generate_wg_keys = name: value: {
     name = "wg.${name}";
     value = {
-      files = {
-        key.owner = "systemd-network";
-        "key.pub".secret = false;
-        "key.pub".share = true;
-        ipv4.secret = false;
-      } // (builtins.listToAttrs (lib.map
-        (n:
-          { name = "${n}-ipv6"; value = { secret = false; }; })
-        peerNames));
+      files =
+        {
+          key.owner = "systemd-network";
+          "key.pub".secret = false;
+          "key.pub".share = true;
+          ipv4.secret = false;
+        }
+        // (builtins.listToAttrs (
+          lib.map (n: {
+            name = "${n}-ipv6";
+            value = {
+              secret = false;
+            };
+          }) peerNames
+        ));
       prompts."ipv4" = { };
       runtimeInputs = [
         pkgs.wireguard-tools
       ];
-      script = ''
-        wg genkey > $out/key
-        cat $out/key | wg pubkey | tr -d '\n' > $out/key.pub
-      '' + (lib.concatMapStrings
-        (n:
+      script =
+        ''
+          wg genkey > $out/key
+          cat $out/key | wg pubkey | tr -d '\n' > $out/key.pub
+        ''
+        + (lib.concatMapStrings (
+          n:
           # https://blog.fugoes.xyz/2018/02/03/Run-Babeld-over-Wireguard.html
           #printf "fd%x:%x:%x:%x::/64\n" "$(( $RANDOM/256 ))" "$RANDOM" "$RANDOM" "$RANDOM"
           ''
             printf "fe80::216:3eff:%x:%x/64" "$RANDOM" "$RANDOM" > $out/${n}-ipv6
-          '')
-        peerNames);
+          '') peerNames);
     };
   };
 
@@ -62,8 +69,7 @@ in
         default = { };
         #type = with types; loaOf (submodule peerOpts);
         example = { };
-        description = ''
-        '';
+        description = '''';
       };
     };
   };
@@ -71,8 +77,9 @@ in
   config = {
     clan.core.vars.generators = lib.mapAttrs' generate_wg_keys ({ "${machineName}" = { }; });
     environment.systemPackages = [ pkgs.wireguard-tools ];
-    systemd.network.netdevs = listToAttrs (flip map peerNames
-      (n:
+    systemd.network.netdevs = listToAttrs (
+      flip map peerNames (
+        n:
         let
           peer = builtins.getAttr n cfg.peers;
         in
@@ -81,7 +88,8 @@ in
           netdevConfig.Name = "wg${n}";
           netdevConfig.MTUBytes = "1300";
 
-          wireguardConfig.PrivateKeyFile = config.clan.core.vars.generators."wg.${machineName}".files.key.path;
+          wireguardConfig.PrivateKeyFile =
+            config.clan.core.vars.generators."wg.${machineName}".files.key.path;
           wireguardConfig.ListenPort = peer.listenPort;
 
           wireguardPeers = [
@@ -94,25 +102,35 @@ in
                 "fe80::/64"
                 "ff02::1:6/128"
               ];
-              Endpoint = if (peer ? endpoint) then "${peer.endpoint}:${toString cfg.peers.${machineName}.listenPort}" else null;
+              Endpoint =
+                if (peer ? endpoint) then
+                  "${peer.endpoint}:${toString cfg.peers.${machineName}.listenPort}"
+                else
+                  null;
               PersistentKeepalive = peer.persistentKeepalive or 0;
             }
           ];
-        }));
-    systemd.network.networks = listToAttrs (flip map peerNames
-      (n: nameValuePair "wg${n}" {
-        matchConfig.Name = "wg${n}";
-        address = [
-          config.clan.core.vars.generators."wg.${machineName}".files.ipv4.value
-          # Assign an IPv6 link local address on the tunnel so multicast works
-          config.clan.core.vars.generators."wg.${machineName}".files."${n}-ipv6".value
-        ];
-        DHCP = "no";
-        #networkConfig = {
-        #  #IPMasquerade = "ipv4";
-        #  IPForward = true;
-        #};
-      }));
+        }
+      )
+    );
+    systemd.network.networks = listToAttrs (
+      flip map peerNames (
+        n:
+        nameValuePair "wg${n}" {
+          matchConfig.Name = "wg${n}";
+          address = [
+            config.clan.core.vars.generators."wg.${machineName}".files.ipv4.value
+            # Assign an IPv6 link local address on the tunnel so multicast works
+            config.clan.core.vars.generators."wg.${machineName}".files."${n}-ipv6".value
+          ];
+          DHCP = "no";
+          #networkConfig = {
+          #  #IPMasquerade = "ipv4";
+          #  IPForward = true;
+          #};
+        }
+      )
+    );
 
     services.babeld.enable = true;
     services.babeld.interfaceDefaults = {
@@ -138,13 +156,15 @@ in
       serviceConfig = {
         #IPAddressAllow = [ "fe80::/64" "ff00::/8" "::1/128" "127.0.0.0/8" "10.147.27.0/24" ];
         IPAddressAllow = [ "10.147.27.0/24" ];
-        RestrictAddressFamilies = [ "AF_INET" "AF_UNIX" ];
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_UNIX"
+        ];
       };
     };
 
-    networking.firewall.allowedUDPPorts = [ 6696 ]
-      ++ (flip map peerNames (n: cfg.peers.${n}.listenPort));
+    networking.firewall.allowedUDPPorts = [
+      6696
+    ] ++ (flip map peerNames (n: cfg.peers.${n}.listenPort));
   };
 }
-
-

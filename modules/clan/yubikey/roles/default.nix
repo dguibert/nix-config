@@ -1,5 +1,11 @@
 # https://rzetterberg.github.io/yubikey-gpg-nixos.html
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   config = {
     programs.ssh.startAgent = false;
 

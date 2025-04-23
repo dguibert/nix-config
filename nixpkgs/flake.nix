@@ -3,19 +3,19 @@
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-  outputs = { self, nixpkgs }:
+  outputs =
+    { self, nixpkgs }:
     let
-      nixpkgsFor = system: import (nixpkgs.inputs.nixpkgs or nixpkgs) {
-        inherit system;
-        overlays =
-          (nixpkgs.legacyPackages.${system}.overlays or [ ])
-          ++ [
+      nixpkgsFor =
+        system:
+        import (nixpkgs.inputs.nixpkgs or nixpkgs) {
+          inherit system;
+          overlays = (nixpkgs.legacyPackages.${system}.overlays or [ ]) ++ [
             self.overlays.default
-          ]
-        ;
-        config.allowUnfree = true;
-        config.allowUnsupportedSystem = true;
-      };
+          ];
+          config.allowUnfree = true;
+          config.allowUnsupportedSystem = true;
+        };
     in
     {
       lib = nixpkgs.lib;

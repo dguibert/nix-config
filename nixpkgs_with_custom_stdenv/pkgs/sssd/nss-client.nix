@@ -1,23 +1,24 @@
-{ stdenv
-, fetchurl
-, pkg-config
-, glibc
-, pam
-, openldap
-, krb5
-, dnsutils
-, cyrus_sasl
-, nss
-, popt
-, talloc
-, tdb
-, tevent
-, ldb
-, ding-libs
-, pcre
-, c-ares
-, glib
-, dbus
+{
+  stdenv,
+  fetchurl,
+  pkg-config,
+  glibc,
+  pam,
+  openldap,
+  krb5,
+  dnsutils,
+  cyrus_sasl,
+  nss,
+  popt,
+  talloc,
+  tdb,
+  tevent,
+  ldb,
+  ding-libs,
+  pcre,
+  c-ares,
+  glib,
+  dbus,
 }:
 
 let

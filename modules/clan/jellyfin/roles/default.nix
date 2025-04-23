@@ -1,4 +1,11 @@
-{ config, lib, pkgs, inputs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
+{
   config = {
     services.jellyfin.enable = true;
     services.jellyfin.user = "dguibert";
@@ -21,8 +28,8 @@
       unitConfig.RequiresMountsFor = "/home/dguibert/Videos";
     };
     networking.firewall.interfaces."bond0".allowedTCPPorts = [
-      8096 /*http*/
-      8920 /*https*/
+      8096 # http
+      8920 # https
     ];
     systemd.tmpfiles.rules = [
       "L /var/lib/jellyfin/config - - - - /persist/var/lib/jellyfin/config"

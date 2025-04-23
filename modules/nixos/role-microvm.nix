@@ -1,4 +1,9 @@
-{ config, lib, inputs, ... }:
+{
+  config,
+  lib,
+  inputs,
+  ...
+}:
 
 let
   cfg = config.role.microvm;
@@ -26,15 +31,19 @@ in
           DHCPServer = true;
           IPv6SendRA = true;
         };
-        addresses = [{
-          Address = "10.0.0.1/24";
-        }
+        addresses = [
+          {
+            Address = "10.0.0.1/24";
+          }
           {
             Address = "fd12:3456:789a::1/64";
-          }];
-        ipv6Prefixes = [{
-          Prefix = "fd12:3456:789a::/64";
-        }];
+          }
+        ];
+        ipv6Prefixes = [
+          {
+            Prefix = "fd12:3456:789a::/64";
+          }
+        ];
         linkConfig.RequiredForOnline = "no";
       };
       networks."11-microvm" = {

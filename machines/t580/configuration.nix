@@ -1,15 +1,29 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 with lib;
 rec {
-  imports =
-    [
-      { nixpkgs.system = "x86_64-linux"; }
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ({ ... }: { services.udisks2.enable = true; })
-      ../../modules/nixos/defaults
-      ({ ... }: { my.persistence.enable = true; })
-    ];
+  imports = [
+    { nixpkgs.system = "x86_64-linux"; }
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    (
+      { ... }:
+      {
+        services.udisks2.enable = true;
+      }
+    )
+    ../../modules/nixos/defaults
+    (
+      { ... }:
+      {
+        my.persistence.enable = true;
+      }
+    )
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -82,4 +96,3 @@ rec {
   '';
 
 }
-

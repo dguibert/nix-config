@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 with lib;
 {
   options.report-changes.enable = mkEnableOption "report-changes";
@@ -9,7 +14,3 @@ with lib;
     '';
   };
 }
-
-
-
-

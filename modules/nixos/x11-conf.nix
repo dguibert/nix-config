@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   options.x11-conf.enable = lib.mkEnableOption "x11-conf";
   config = lib.mkIf config.x11-conf.enable {
@@ -23,12 +28,12 @@
     fonts.fontconfig.enable = true;
     fonts.fontconfig.antialias = true;
     fonts.fontconfig.hinting.enable = true;
-    fonts.fonts = with pkgs ; [
+    fonts.fonts = with pkgs; [
       terminus_font
       powerline-fonts
       nerd-fonts.fira-code
       nerd-fonts.symbols-only
-      /*corefonts*/
+      # corefonts
       #noto-fonts
       #noto-fonts-cjk
       #noto-fonts-emoji
@@ -52,4 +57,3 @@
     };
   };
 }
-

@@ -1,4 +1,13 @@
-{ self, config, pkgs, lib, inputs, perSystem, system, ... }:
+{
+  self,
+  config,
+  pkgs,
+  lib,
+  inputs,
+  perSystem,
+  system,
+  ...
+}:
 let
   config' = config;
   overlays = [
@@ -9,10 +18,17 @@ let
     #inputs.hyprland.overlays.default
     # for rpi31
     (final: prev: {
-      makeModulesClosure = { allowMissing ? false, ... }@args: prev.makeModulesClosure
-        (args // {
-          allowMissing = true;
-        });
+      makeModulesClosure =
+        {
+          allowMissing ? false,
+          ...
+        }@args:
+        prev.makeModulesClosure (
+          args
+          // {
+            allowMissing = true;
+          }
+        );
     })
   ];
 
@@ -21,8 +37,17 @@ in
 {
   config._module.args.pkgs = packages config system;
 
-  config.perSystem = { config, self', inputs', pkgs, system, ... }: {
-    _module.args.pkgs = packages config system;
-    legacyPackages = packages config system;
-  };
+  config.perSystem =
+    {
+      config,
+      self',
+      inputs',
+      pkgs,
+      system,
+      ...
+    }:
+    {
+      _module.args.pkgs = packages config system;
+      legacyPackages = packages config system;
+    };
 }
