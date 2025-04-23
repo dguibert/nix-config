@@ -22,15 +22,6 @@ let
         { ... }: { }
       ));
 
-  davmail_ = pkgs.davmail.override {
-    jre = pkgs.openjdk.override {
-      enableJavaFX = true;
-      openjfx17 = pkgs.openjfx17.override { withWebKit = true; };
-      openjfx21 = pkgs.openjfx21.override { withWebKit = true; };
-      openjfx23 = pkgs.openjfx23.override { withWebKit = true; };
-    };
-    preferZulu = false;
-  };
 in
 {
   options = {
@@ -89,25 +80,21 @@ in
               "Maildir"
               "Maildir/.notmuch"
             ];
-          home.persistence."/persist/home/${config.home.username}".files =
-            [
-              #my.persistence.files = [
-              ".bash_history"
-              ".bash_history_backup"
-              ".config/pass-git-helper/git-pass-mapping.ini"
-              ".git-credentials"
-              ".gnupg/pubring.kbx"
-              ".gnupg/trustdb.gpg"
-              ".mailcap"
-              ".mrconfig"
-              ".mrtrust"
-              ".signature"
-              ".signature.work"
-              ".vimrc"
-            ]
-            ++ optionals cfg.centralMailHost.enable [
-              ".davmail.properties"
-            ];
+          home.persistence."/persist/home/${config.home.username}".files = [
+            #my.persistence.files = [
+            ".bash_history"
+            ".bash_history_backup"
+            ".config/pass-git-helper/git-pass-mapping.ini"
+            ".git-credentials"
+            ".gnupg/pubring.kbx"
+            ".gnupg/trustdb.gpg"
+            ".mailcap"
+            ".mrconfig"
+            ".mrtrust"
+            ".signature"
+            ".signature.work"
+            ".vimrc"
+          ];
         };
       }
     )
@@ -413,9 +400,6 @@ in
           type = "Application";
           mimeTypes = [ "x-scheme-handler/org-protocol" ];
         })
-      ]
-      ++ optionals cfg.centralMailHost.enable [
-        davmail_
       ];
 
     # mimeapps.list
