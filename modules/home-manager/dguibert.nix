@@ -79,6 +79,7 @@ in
             ++ optionals cfg.centralMailHost.enable [
               "Maildir"
               "Maildir/.notmuch"
+              ".local/state/davmail-tokens"
             ];
           home.persistence."/persist/home/${config.home.username}".files = [
             #my.persistence.files = [
