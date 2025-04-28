@@ -1766,11 +1766,11 @@
     },
     "upstream_nixpkgs": {
       "locked": {
-        "lastModified": 1745507932,
-        "narHash": "sha256-SEPFU0yJfeShavwKrHG7jQj+C5NWfu2j+64iF937QfM=",
+        "lastModified": 1745828771,
+        "narHash": "sha256-+M0EG8qYes6EnK6YAAiSHn3WMM1L96831kxMXDS/t3A=",
         "owner": "dguibert",
         "repo": "nixpkgs",
-        "rev": "f2b0d8c993ece81e11c0977595d5713896f895a5",
+        "rev": "b9bf6c7db421689ab7bde4d9d0c2e7b2480814b2",
         "type": "github"
       },
       "original": {
