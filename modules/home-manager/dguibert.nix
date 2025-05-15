@@ -44,16 +44,17 @@ in
         config = lib.mkIf cfg.withPersistence.enable {
           my.persistence.directories =
             [
+              "3D_printing"
               "archives"
               "bin"
-              "3D_printing"
-              "code"
               ".cache/aria2"
+              "code"
               ".config/Beeper"
               ".config/calibre"
               ".config/FreeCAD"
               ".config/google-chrome"
               ".config/kvibes"
+              ".config/mr"
               ".config/OrcaSlicer"
               ".config/sops"
               "Documents"
@@ -321,6 +322,7 @@ in
         mercurial
         #previousPkgs_pu.gitAndTools.git-annex
         yt-dlp
+        gitAndTools.git-nomad
         gitAndTools.git-annex
         gitAndTools.git-annex-remote-rclone
         (pkgs.writeScriptBin "git-annex-diff-wrapper" ''
