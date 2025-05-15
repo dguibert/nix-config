@@ -68,7 +68,7 @@ in
       files = {
         topt-file = {
           owner = "root";
-          mode = "600";
+          mode = "0600";
           #path = lib.mkForce "/etc/users.oath";
         };
       } // (lib.mapAttrs' create_topt_files cfg.users);
