@@ -63,6 +63,7 @@ in
               ".local/state/nix"
               ".mgit"
               ".mozilla/firefox"
+              "Music"
               ".password-store"
               ".password-store.git"
               "Pictures"
