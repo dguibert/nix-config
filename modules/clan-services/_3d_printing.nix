@@ -19,9 +19,6 @@
             pkgs,
             ...
           }:
-          let
-            cfg = config.voron02_1;
-          in
           {
             environment.systemPackages = [
               pkgs.dfu-util # for flashing boards (cheetah v2.0, U2C)
@@ -47,20 +44,20 @@
                 mcu = {
                   enable = true;
                   # Run klipper-genconf to generate this
-                  configFile = ./voron02_1/mcu/config;
+                  configFile = ./_3d_printing/voron02_1/mcu/config;
                   # Serial port connected to the microcontroller
                   serial = "/dev/serial/by-id/usb-Klipper_stm32f401xc_2E0028000851383531393138-if00";
                 };
                 "mcu ebb36" = {
                   enable = true;
                   # Run klipper-genconf to generate this
-                  configFile = ./voron02_1/ebb36.config;
+                  configFile = ./_3d_printing/voron02_1/ebb36.config;
                   serial = null;
                 };
                 #"mcu display" = {
                 #  enable = true;
                 #  # Run klipper-genconf to generate this
-                #  configFile = ./voron02_1/display/config;
+                #  configFile = ./_3d_printing/voron02_1/display/config;
                 #  # Serial port connected to the microcontroller
                 #  serial = "/dev/serial/by-id/usb-Klipper_stm32f042x6_05000B000543303848373220-if00";
                 #};

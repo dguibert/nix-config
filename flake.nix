@@ -345,6 +345,17 @@
           roles.voron02_1.machines.rpi31 = { };
         };
 
+        inventory.instances.adb = {
+          module.name = "adb";
+          roles.default.machines.t580 = { };
+          roles.default.machines.titan = { };
+        };
+
+        inventory.instances.haproxy = {
+          module.name = "haproxy";
+          roles.default.machines.rpi41 = { };
+        };
+
         inventory.services = {
           my-sshd.service.roles.client.tags = [ "all" ];
           my-sshd.service.roles.server.tags = [ "all" ];
@@ -360,11 +371,6 @@
             ];
           };
 
-          adb.service.roles.default.machines = [
-            "t580"
-            "titan"
-          ];
-          haproxy.service.roles.default.machines = [ "rpi41" ];
           jellyfin.titan.roles.default.machines = [ "titan" ];
           libvirtd.titan.roles.default.machines = [ "titan" ];
           ollama.titan.roles.default.machines = [ "titan" ];
