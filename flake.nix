@@ -338,6 +338,12 @@
         ];
 
         inventory.modules = self.modules.clan;
+        modules = self.modules.clan-services;
+
+        inventory.instances.voron02_1 = {
+          module.name = "_3d_printing";
+          roles.voron02_1.machines.rpi31 = { };
+        };
 
         inventory.services = {
           my-sshd.service.roles.client.tags = [ "all" ];
@@ -377,8 +383,6 @@
           yubikey.instance_1.roles.default.tags = [ "desktop" ];
 
           zigbee.instance_1.roles.server.machines = [ "rpi41" ];
-
-          _3d_printing.voron02_1.roles.voron02_1.machines = [ "rpi31" ];
 
           sshguard.service.roles.default.tags = [ "all" ];
 
