@@ -60,6 +60,7 @@ in
               "Documents"
               ".emacs.private"
               ".gnupg/private-keys-v1.d"
+              ".localhost-nickname"
               ".local/state/nix"
               ".mgit"
               ".mozilla/firefox"
