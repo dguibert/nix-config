@@ -374,9 +374,11 @@
           module.name = "libvirtd";
           roles.default.machines.titan = { };
         };
-        #inventory.instances.home-manager.dguibert-emacs.roles.dguibert-emacs.tags = [ "dguibert" ];
-        #inventory.instances.home-manager.dguibert.config.dguibert = {
+        #inventory.instances.mopidy = {
+        #  module.name = "mopidy";
+        #  roles.default.machines.titan = { }; # TODO migrate mopidy to pipewire
         #};
+
         #inventory.instances.home-manager.dguibert_rpi.roles.dguibert.tags = [ "dguibert_rpi" ];
         #inventory.instances.home-manager.dguibert_rpi.config.dguibert = {
         #  withPersistence.enable = false;
@@ -403,7 +405,6 @@
 
           ollama.titan.roles.default.machines = [ "titan" ];
           tiny-ca.orsin.roles.server.machines = [ "titan" ];
-          #mopidy.titan.roles.default.machines = [ "titan" ];
           rkvm.desktop = {
             roles.server.machines = [ "titan" ];
             roles.client.machines = [ "rpi41" ];
