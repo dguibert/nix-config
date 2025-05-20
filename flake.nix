@@ -356,6 +356,28 @@
           roles.default.machines.rpi41 = { };
         };
 
+        inventory.instances.home-manager-dguibert = {
+          module.name = "home-manager";
+          roles.dguibert.tags.dguibert = { };
+          roles.dguibert-emacs.tags.dguibert = { };
+          roles.dguibert.settings = {
+            withPersistence.enable = true;
+            withZellij.enable = true;
+            #centralMailHost.enable = lib.mkDefault false;
+          };
+        };
+        #inventory.instances.home-manager.dguibert-emacs.roles.dguibert-emacs.tags = [ "dguibert" ];
+        #inventory.instances.home-manager.dguibert.config.dguibert = {
+        #};
+        #inventory.instances.home-manager.dguibert_rpi.roles.dguibert.tags = [ "dguibert_rpi" ];
+        #inventory.instances.home-manager.dguibert_rpi.config.dguibert = {
+        #  withPersistence.enable = false;
+        #};
+        #inventory.instances.home-manager.desktop.roles.dguibert.tags = [ "desktop" ];
+        #inventory.instances.home-manager.desktop.config.dguibert.withGui.enable = true;
+        #inventory.instances.home-manager.centralMailHost.roles.dguibert.machines = [ "titan" ];
+        #inventory.instances.home-manager.centralMailHost.config.dguibert.centralMailHost.enable = true;
+
         inventory.services = {
           my-sshd.service.roles.client.tags = [ "all" ];
           my-sshd.service.roles.server.tags = [ "all" ];
@@ -407,22 +429,6 @@
             t580.listenPort = 503;
             t580.endpoint = "192.168.1.17";
           };
-
-          home-manager.dguibert.roles.dguibert.tags = [ "dguibert" ];
-          home-manager.dguibert-emacs.roles.dguibert-emacs.tags = [ "dguibert" ];
-          home-manager.dguibert.config.dguibert = {
-            withPersistence.enable = true;
-            withZellij.enable = true;
-            #centralMailHost.enable = lib.mkDefault false;
-          };
-          home-manager.dguibert_rpi.roles.dguibert.tags = [ "dguibert_rpi" ];
-          home-manager.dguibert_rpi.config.dguibert = {
-            withPersistence.enable = false;
-          };
-          home-manager.desktop.roles.dguibert.tags = [ "desktop" ];
-          home-manager.desktop.config.dguibert.withGui.enable = true;
-          home-manager.centralMailHost.roles.dguibert.machines = [ "titan" ];
-          home-manager.centralMailHost.config.dguibert.centralMailHost.enable = true;
 
           wifi.instance.roles.default.tags = [ "wifi" ];
           wifi.instance.config = {
