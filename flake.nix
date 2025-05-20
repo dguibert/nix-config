@@ -370,6 +370,10 @@
           module.name = "jellyfin";
           roles.default.machines.titan = { };
         };
+        inventory.instances.libvirtd = {
+          module.name = "libvirtd";
+          roles.default.machines.titan = { };
+        };
         #inventory.instances.home-manager.dguibert-emacs.roles.dguibert-emacs.tags = [ "dguibert" ];
         #inventory.instances.home-manager.dguibert.config.dguibert = {
         #};
@@ -397,7 +401,6 @@
             ];
           };
 
-          libvirtd.titan.roles.default.machines = [ "titan" ];
           ollama.titan.roles.default.machines = [ "titan" ];
           tiny-ca.orsin.roles.server.machines = [ "titan" ];
           #mopidy.titan.roles.default.machines = [ "titan" ];
