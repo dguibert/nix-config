@@ -366,6 +366,10 @@
             #centralMailHost.enable = lib.mkDefault false;
           };
         };
+        inventory.instances.jellyfin = {
+          module.name = "jellyfin";
+          roles.default.machines.titan = { };
+        };
         #inventory.instances.home-manager.dguibert-emacs.roles.dguibert-emacs.tags = [ "dguibert" ];
         #inventory.instances.home-manager.dguibert.config.dguibert = {
         #};
@@ -393,7 +397,6 @@
             ];
           };
 
-          jellyfin.titan.roles.default.machines = [ "titan" ];
           libvirtd.titan.roles.default.machines = [ "titan" ];
           ollama.titan.roles.default.machines = [ "titan" ];
           tiny-ca.orsin.roles.server.machines = [ "titan" ];
