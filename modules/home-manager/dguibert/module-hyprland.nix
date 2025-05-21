@@ -56,21 +56,20 @@ with lib;
         hide-when-typing = "yes";
       };
     };
-
     # notification daemon
     services.mako.enable = true;
     services.mako.maxVisible = 3;
     services.mako.layer = "overlay";
-    services.mako.settings = ''
+    services.mako.settings = {
       # == Mode: Away ==
-      [mode=away]
-      default-timeout=0
-      ignore-timeout=1
+      "mode=away" = {
+        default-timeout = 0;
+        ignore-timeout = 1;
+      };
 
       # == Mode: Do Not Disturb ==
-      [mode=dnd]
-      invisible=1
-    '';
+      "mode=dnd".invisible = 1;
+    };
 
     systemd.user.services.mako = {
       Unit = {
