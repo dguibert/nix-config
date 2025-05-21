@@ -61,7 +61,7 @@ with lib;
     services.mako.enable = true;
     services.mako.maxVisible = 3;
     services.mako.layer = "overlay";
-    services.mako.extraConfig = ''
+    services.mako.settings = ''
       # == Mode: Away ==
       [mode=away]
       default-timeout=0
