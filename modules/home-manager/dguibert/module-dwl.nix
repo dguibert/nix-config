@@ -63,13 +63,13 @@ let
   '';
 
   # https://codeberg.org/fauxmight/waybar-dwl/raw/branch/main/waybar-dwl.sh
-  waybarDwlScript = pkgs.substituteAll {
+  waybarDwlScript = pkgs.replaceVarsWith {
     src = ./waybar-dwl.sh;
-    inotifyTools = pkgs.inotify-tools;
-    bash = pkgs.bash;
-    postInstall = ''
-      chmod +x $out
-    '';
+    replacements = {
+      inotifyTools = pkgs.inotify-tools;
+      bash = pkgs.bash;
+    };
+    isExecutable = true;
   };
 
 in
