@@ -1357,11 +1357,11 @@
         "systems": "systems_5"
       },
       "locked": {
-        "lastModified": 1745483045,
-        "narHash": "sha256-l14nEbPc8RO94o3GFXVEnpoNbXpaAb/STtA6lxgVJz0=",
+        "lastModified": 1748261539,
+        "narHash": "sha256-7mJgNqHDaey0KUp2RSXsJFnDl3qiIh9v1aK7NqJTmfQ=",
         "owner": "dguibert",
         "repo": "nur-packages",
-        "rev": "b4147d6291e0e57966d7256f4c09bbce72a2fd22",
+        "rev": "f2dd41a5460db5d528c19323b3590316a6757d65",
         "type": "github"
       },
       "original": {
