@@ -1382,11 +1382,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1606742671,
-        "narHash": "sha256-n4OeCfA6AgocFDj7nJagShihBuDYj7Ljx8C5meLEj1Q=",
+        "lastModified": 1748261427,
+        "narHash": "sha256-PxvMcOGjM/dZoppDI3QVbK7NRcc5zkE14ek2SmQzzC4=",
         "owner": "dguibert",
         "repo": "nxsession",
-        "rev": "f41152646473d78a3b47636806fb3de1218da327",
+        "rev": "2b7a7e8d6ca10830b2dd78f41dac35a2834bfdac",
         "type": "github"
       },
       "original": {
