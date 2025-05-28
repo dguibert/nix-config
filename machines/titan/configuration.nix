@@ -370,4 +370,9 @@ in
     commands."rpool_vanif0/safe".target = "st4000dm004-1/backup/rpool_vanif0/safe";
     commands."rpool_vanif0/safe".recursive = true;
   };
+
+  virtualisation.docker.enable = true;
+  virtualisation.docker.enableOnBoot = false; # start by socket activation
+  virtualisation.docker.storageDriver = "zfs";
+  services.dockerRegistry.enable = true;
 }
