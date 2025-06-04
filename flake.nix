@@ -338,6 +338,24 @@
         ];
 
         inventory.modules = self.modules.clan;
+        #modules = self.modules.clan-services;
+        modules = inputs.clan-core.clan.modules;
+
+        inventory.instances = {
+          wifi = {
+            module.name = "wifi";
+            roles.default.tags.wifi = { };
+            roles.default.settings = {
+              networks = {
+                Freebox-AD070E = { };
+                Livebox-765e = { };
+                Livebox-D854 = { };
+                Livebox-D540 = { };
+                OPTUS_ACCB7F = { };
+              };
+            };
+          };
+        };
 
         inventory.services = {
           my-sshd.service.roles.client.tags = [ "all" ];
@@ -413,17 +431,6 @@
           home-manager.desktop.config.dguibert.withGui.enable = true;
           home-manager.centralMailHost.roles.dguibert.machines = [ "titan" ];
           home-manager.centralMailHost.config.dguibert.centralMailHost.enable = true;
-
-          wifi.instance.roles.default.tags = [ "wifi" ];
-          wifi.instance.config = {
-            networks = {
-              Freebox-AD070E = { };
-              Livebox-765e = { };
-              Livebox-D854 = { };
-              Livebox-D540 = { };
-              OPTUS_ACCB7F = { };
-            };
-          };
 
           users.root.roles.default.tags = [ "all" ];
           users.root.config.passwords.root.prompt = true;
