@@ -283,8 +283,13 @@ with lib;
         env = lib.mkIf cfg.nvidia.enable [
           "LIBVA_DRIVER_NAME,nvidia"
           "GBM_BACKEND,nvidia-drm"
-          "__GLX_VENDOR_LIBRARY_NAME,nvidia" # to be removed if problems with discord or screen sharing with zoom
           "WLR_NO_HARDWARE_CURSORS,1"
+          #"__GLX_VENDOR_LIBRARY_NAME,nvidia" # to be removed if problems with discord or screen sharing with zoom
+          "__GLX_VENDOR_LIBRARY_NAME,mesa" # for orca-slicer
+          "__EGL_VENDOR_LIBRARY_FILENAMES,${pkgs.mesa}/share/glvnd/egl_vendor.d/50_mesa.json"
+          "MESA_LOADER_DRIVER_OVERRIDE,zink"
+          "GALLIUM_DRIVER,zink"
+          "WEBKIT_DISABLE_DMABUF_RENDERER,1"
         ];
         bind = [
           ", Print, exec, grimblast copy area"
