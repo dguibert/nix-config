@@ -175,6 +175,7 @@ in
             "local/nix--users-dguibert-nix" = ds_mount "/users/dguibert/nix";
             "local/nix--shared-efs_home-nix" = ds_mount "/shared/efs_home/amorvan/dag/nix";
             "local/nix--scratch_na-users-bguibertd-nix" = ds_mount "/scratch_na/users/bguibertd/nix";
+            "local/nix--home-evid-evid356257-nix" = ds_mount "/home/evid/evid356257/nix";
           };
         };
         zpoot_kdbimp = {
