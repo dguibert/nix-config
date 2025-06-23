@@ -308,7 +308,7 @@
       # Usage see: https://docs.clan.lol
       clan = {
         # Ensure this is unique among all clans you want to use.
-        meta.name = "orsin.homelab";
+        meta.name = "orsin-homelab";
 
         pkgsForSystem = system: builtins.trace "pkgsForSystem.${system}" self.legacyPackages.${system};
 
