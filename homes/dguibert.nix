@@ -11,10 +11,62 @@ let
 in
 {
   imports = [
+    (genHomeManagerConfiguration "x86_64-linux" "evid356257@mn5")
+
     (genHomeManagerConfiguration "x86_64-linux" "bguibertd@spartan")
     (genHomeManagerConfiguration "x86_64-linux" "bguibertd@spartan-x86_64")
     #(genHomeManagerConfiguration "aarch64-linux" "bguibertd@spartan-aarch64")
     (genHomeManagerConfiguration "x86_64-linux" "bguibertd@spartan-aarch64")
+  ];
+
+  modules.homes."evid356257@mn5" = [
+    (
+      { config, pkgs, ... }:
+      {
+        imports = [
+          ../modules/home-manager/dguibert.nix
+          ../modules/home-manager/dguibert/custom-profile.nix
+        ];
+        centralMailHost.enable = false;
+        withGui.enable = false;
+        withZellij.enable = true;
+        withCustomProfile.enable = true;
+        withCustomProfile.suffix = "x86_64";
+        withEmacs.enable = true;
+
+        home.username = "bguibertd";
+        home.homeDirectory = "/home_nfs/bguibertd";
+        home.stateVersion = "22.11";
+
+        home.packages = with pkgs; [
+          nix
+          xpra
+          bashInteractive
+
+          datalad
+          git-annex
+          git-nomad
+          mr
+          subversion
+
+          tig
+          python3
+          python3Packages.pip
+
+          nxsession
+
+          figlet
+          fdupes
+          rdfind
+        ];
+
+        home.sessionVariables.NIX_SSL_CERT_FILE = "/etc/pki/tls/certs/ca-bundle.crt";
+        home.sessionVariables.TMP = "/dev/shm";
+
+        programs.direnv.enable = true;
+        programs.direnv.nix-direnv.enable = true;
+      }
+    )
   ];
 
   modules.homes."bguibertd@spartan" = [
