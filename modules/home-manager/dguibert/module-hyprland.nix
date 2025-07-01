@@ -58,9 +58,9 @@ with lib;
     };
     # notification daemon
     services.mako.enable = true;
-    services.mako.maxVisible = 3;
-    services.mako.layer = "overlay";
     services.mako.settings = {
+      max-visible = 3;
+      layer = "overlay";
       # == Mode: Away ==
       "mode=away" = {
         default-timeout = 0;
