@@ -14,7 +14,7 @@
     ensureDefaultPrinter = "OKI_MC363_C1E8FC";
     ensurePrinters = [
       {
-        deviceUri = "ipp://192.168.1.100/ipp";
+        deviceUri = "ipp://oki-mc363-c1e8fc.local:631/ipp/print";
         location = "home";
         name = "OKI_MC363_C1E8FC";
         model = "everywhere";

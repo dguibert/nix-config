@@ -9,11 +9,11 @@ let
 
   userNames = builtins.attrNames cfg.users;
 
-  create_topt_prompts =
+  create_totp_prompts =
     n: v:
     if v.prompt then
       {
-        name = "topt-${n}";
+        name = "totp-${n}";
         value = {
           type = "hidden";
           persist = true;
@@ -22,13 +22,13 @@ let
     else
       { };
 
-  create_topt_files =
+  create_totp_files =
     n: v:
     if !v.prompt then
       { }
     else
       {
-        name = "topt-${n}";
+        name = "totp-${n}";
         value = {
           neededFor = "users";
         };
@@ -46,7 +46,7 @@ in
                 type = lib.types.bool;
                 default = true;
                 example = false;
-                description = "Whether the topt code should be prompted.";
+                description = "Whether the totp code should be prompted.";
               };
             };
           }
@@ -60,18 +60,18 @@ in
     security.pam.services.sshd = {
       oathAuth = true;
     };
-    security.pam.oath.usersFile = config.clan.core.vars.generators.oath-users.files.topt-file.path;
+    security.pam.oath.usersFile = config.clan.core.vars.generators.oath-users.files.totp-file.path;
 
     clan.core.vars.generators.oath-users = {
       share = true;
-      prompts = lib.mapAttrs' create_topt_prompts cfg.users;
+      prompts = lib.mapAttrs' create_totp_prompts cfg.users;
       files = {
-        topt-file = {
+        totp-file = {
           owner = "root";
           mode = "0600";
           #path = lib.mkForce "/etc/users.oath";
         };
-      } // (lib.mapAttrs' create_topt_files cfg.users);
+      } // (lib.mapAttrs' create_totp_files cfg.users);
       runtimeInputs = [
         pkgs.openssl
       ];
@@ -84,12 +84,12 @@ in
             ""
           else
             ''
-              openssl rand -hex 10 > $out/topt-${n}
+              openssl rand -hex 10 > $out/totp-${n}
             ''
         ) userNames}
 
-        cat > $out/topt-file <<EOF
-        ${lib.concatMapStrings (n: "HOTP/T30/6 ${n} - $(cat $out/topt-${n})\n") userNames}
+        cat > $out/totp-file <<EOF
+        ${lib.concatMapStringsSep "\n" (n: "HOTP/T30/6 ${n} - $(cat $out/totp-${n})") userNames}
         EOF
       '';
     };

@@ -56,21 +56,20 @@ with lib;
         hide-when-typing = "yes";
       };
     };
-
     # notification daemon
     services.mako.enable = true;
-    services.mako.maxVisible = 3;
-    services.mako.layer = "overlay";
-    services.mako.extraConfig = ''
+    services.mako.settings = {
+      max-visible = 3;
+      layer = "overlay";
       # == Mode: Away ==
-      [mode=away]
-      default-timeout=0
-      ignore-timeout=1
+      "mode=away" = {
+        default-timeout = 0;
+        ignore-timeout = 1;
+      };
 
       # == Mode: Do Not Disturb ==
-      [mode=dnd]
-      invisible=1
-    '';
+      "mode=dnd".invisible = 1;
+    };
 
     systemd.user.services.mako = {
       Unit = {
@@ -284,8 +283,13 @@ with lib;
         env = lib.mkIf cfg.nvidia.enable [
           "LIBVA_DRIVER_NAME,nvidia"
           "GBM_BACKEND,nvidia-drm"
-          "__GLX_VENDOR_LIBRARY_NAME,nvidia" # to be removed if problems with discord or screen sharing with zoom
           "WLR_NO_HARDWARE_CURSORS,1"
+          #"__GLX_VENDOR_LIBRARY_NAME,nvidia" # to be removed if problems with discord or screen sharing with zoom
+          "__GLX_VENDOR_LIBRARY_NAME,mesa" # for orca-slicer
+          "__EGL_VENDOR_LIBRARY_FILENAMES,${pkgs.mesa}/share/glvnd/egl_vendor.d/50_mesa.json"
+          "MESA_LOADER_DRIVER_OVERRIDE,zink"
+          "GALLIUM_DRIVER,zink"
+          "WEBKIT_DISABLE_DMABUF_RENDERER,1"
         ];
         bind = [
           ", Print, exec, grimblast copy area"

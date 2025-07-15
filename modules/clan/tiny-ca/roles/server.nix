@@ -189,8 +189,8 @@ in
               {
                 type = "OIDC";
                 name = "Google";
-                clientID = "811353294591-gv6ma78sa72vaiap6qmak2cqgq1sleqb.apps.googleusercontent.com";
-                clientSecret = pkgs.sopsDecrypt_ ../../../../secrets/defaults.yaml "orsin-ca-811353294591-gv6ma78sa72vaiap6qmak2cqgq1sleqb.apps.googleusercontent.com";
+                clientID = "811353294591-2k31p85ic5csh3v18r7ro0aa5clchm38.apps.googleusercontent.com";
+                clientSecret = pkgs.sopsDecrypt_ ../../../../secrets/defaults.yaml "orsin-ca-811353294591-2k31p85ic5csh3v18r7ro0aa5clchm38.apps.googleusercontent.com";
                 configurationEndpoint = "https://accounts.google.com/.well-known/openid-configuration";
                 admins = [ "david.guibert@gmail.com" ];
                 domains = [ "gmail.com" ];

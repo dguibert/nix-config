@@ -12,7 +12,7 @@ in
     default = true;
   };
   config = lib.mkIf config.withGpg.enable {
-    services.gpg-agent.pinentryPackage =
+    services.gpg-agent.pinentry.package =
       if config.withGui.enable then pkgs.pinentry-gtk2 else pkgs.pinentry-curses;
 
     services.gpg-agent.enable = true;
