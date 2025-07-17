@@ -115,7 +115,7 @@ in
         #home.file.".netrc".source = config.sops.secrets.netrc.path;
       }
     )
-    inputs.stylix.homeManagerModules.stylix
+    inputs.stylix.homeModules.stylix
     # set system's scheme by setting `config.scheme`
     (
       { config, ... }:

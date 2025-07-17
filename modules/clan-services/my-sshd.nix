@@ -46,21 +46,21 @@
             };
             config = {
               clan.core.vars.generators.my-openssh-ca =
-                lib.mkIf (config.clan.my-sshd.certificate.searchDomains != [ ])
-                  {
-                    share = true;
-                    files.id_ed25519.deploy = false;
-                    files."id_ed25519.pub" = {
-                      deploy = false;
-                      secret = false;
-                    };
-                    runtimeInputs = [
-                      pkgs.openssh
-                    ];
-                    script = ''
-                      ssh-keygen -t ed25519 -N "" -f $out/id_ed25519
-                    '';
+                #lib.mkIf (config.clan.my-sshd.certificate.searchDomains != [ ])
+                {
+                  share = true;
+                  files.id_ed25519.deploy = false;
+                  files."id_ed25519.pub" = {
+                    deploy = false;
+                    secret = false;
                   };
+                  runtimeInputs = [
+                    pkgs.openssh
+                  ];
+                  script = ''
+                    ssh-keygen -t ed25519 -N "" -f $out/id_ed25519
+                  '';
+                };
 
               programs.ssh.knownHosts.my-ssh-ca = {
                 certAuthority = true;

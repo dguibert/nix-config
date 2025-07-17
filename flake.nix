@@ -374,6 +374,16 @@
           module.name = "libvirtd";
           roles.default.machines.titan = { };
         };
+
+        inventory.instances.my-sshd = {
+          module.name = "my-sshd";
+          roles.default.tags.all = { };
+          roles.default.settings = {
+            certificate.searchDomains = [
+              "orsin.net"
+            ];
+          };
+        };
         #inventory.instances.mopidy = {
         #  module.name = "mopidy";
         #  roles.default.machines.titan = { }; # TODO migrate mopidy to pipewire
@@ -389,13 +399,6 @@
         #inventory.instances.home-manager.centralMailHost.config.dguibert.centralMailHost.enable = true;
 
         inventory.services = {
-          my-sshd.service.roles.client.tags = [ "all" ];
-          my-sshd.service.roles.server.tags = [ "all" ];
-          my-sshd.service.roles.server.config = {
-            certificate.searchDomains = [
-              "orsin.net"
-            ];
-          };
           importer.sshd = {
             roles.default.tags = [ "all" ];
             roles.default.extraModules = [
