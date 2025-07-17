@@ -388,6 +388,12 @@
           module.name = "ollama";
           roles.default.machines.titan = { };
         };
+        inventory.instances.printing = {
+          module.name = "printing";
+          roles.scan2host.machines.titan = { };
+          roles.default.machines.titan = { };
+          roles.default.machines.t580 = { };
+        };
 
         #inventory.instances.mopidy = {
         #  module.name = "mopidy";
@@ -460,11 +466,6 @@
           users.dguibert.roles.default.tags = [ "dguibert" ];
           users.dguibert.config.passwords.dguibert.prompt = true;
 
-          printing.instance.roles.scan2host.machines = [ "titan" ];
-          printing.instance.roles.client.machines = [
-            "titan"
-            "t580"
-          ];
         };
 
         # Prerequisite: boot into the installer.
