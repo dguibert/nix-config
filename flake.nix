@@ -384,6 +384,11 @@
             ];
           };
         };
+        inventory.instances.ollama = {
+          module.name = "ollama";
+          roles.default.machines.titan = { };
+        };
+
         #inventory.instances.mopidy = {
         #  module.name = "mopidy";
         #  roles.default.machines.titan = { }; # TODO migrate mopidy to pipewire
@@ -406,7 +411,6 @@
             ];
           };
 
-          ollama.titan.roles.default.machines = [ "titan" ];
           tiny-ca.orsin.roles.server.machines = [ "titan" ];
           rkvm.desktop = {
             roles.server.machines = [ "titan" ];
