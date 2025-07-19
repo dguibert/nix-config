@@ -433,6 +433,11 @@
           roles.default.settings.enable32Bit = false;
         };
 
+        inventory.instances.yubikey = {
+          module.name = "yubikey";
+          roles.default.tags.desktop = { };
+        };
+
         #inventory.instances.mopidy = {
         #  module.name = "mopidy";
         #  roles.default.machines.titan = { }; # TODO migrate mopidy to pipewire
@@ -454,8 +459,6 @@
               "modules/nixos/sshd.nix"
             ];
           };
-
-          yubikey.instance_1.roles.default.tags = [ "desktop" ];
 
           zigbee.instance_1.roles.server.machines = [ "rpi41" ];
 
