@@ -423,6 +423,16 @@
           roles.default.settings.passwords.dguibert.prompt = true;
         };
 
+        inventory.instances.wayland_1 = {
+          module.name = "wayland";
+          roles.default.tags.desktop = { };
+        };
+        inventory.instances.wayland_2 = {
+          module.name = "wayland";
+          roles.default.tags.desktop64 = { };
+          roles.default.settings.enable32Bit = false;
+        };
+
         #inventory.instances.mopidy = {
         #  module.name = "mopidy";
         #  roles.default.machines.titan = { }; # TODO migrate mopidy to pipewire
@@ -444,10 +454,6 @@
               "modules/nixos/sshd.nix"
             ];
           };
-
-          wayland.instance_1.roles.default.tags = [ "desktop" ];
-          wayland.instance_2.roles.default.tags = [ "desktop64" ];
-          wayland.instance_2.config.enable32Bit = false;
 
           yubikey.instance_1.roles.default.tags = [ "desktop" ];
 
