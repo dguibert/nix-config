@@ -394,6 +394,14 @@
           roles.default.machines.titan = { };
           roles.default.machines.t580 = { };
         };
+        inventory.instances.rkvm = {
+          module.name = "printing";
+          roles.server.machines.titan = { };
+          roles.client.machines.t580 = { };
+          settings = {
+            config.server = "192.168.1.24";
+          };
+        };
 
         #inventory.instances.mopidy = {
         #  module.name = "mopidy";
@@ -418,11 +426,6 @@
           };
 
           tiny-ca.orsin.roles.server.machines = [ "titan" ];
-          rkvm.desktop = {
-            roles.server.machines = [ "titan" ];
-            roles.client.machines = [ "rpi41" ];
-            config.server = "192.168.1.24";
-          };
 
           wayland.instance_1.roles.default.tags = [ "desktop" ];
           wayland.instance_2.roles.default.tags = [ "desktop64" ];
