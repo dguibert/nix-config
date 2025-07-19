@@ -402,6 +402,10 @@
           roles.client.settings.rkvm.server = "192.168.1.24";
         };
 
+        inventory.instances.sshguard = {
+          module.name = "sshguard";
+          roles.default.tags.all = { };
+        };
         #inventory.instances.mopidy = {
         #  module.name = "mopidy";
         #  roles.default.machines.titan = { }; # TODO migrate mopidy to pipewire
@@ -433,8 +437,6 @@
           yubikey.instance_1.roles.default.tags = [ "desktop" ];
 
           zigbee.instance_1.roles.server.machines = [ "rpi41" ];
-
-          sshguard.service.roles.default.tags = [ "all" ];
 
           totp-authentication.service.roles.default.tags = [ "all" ];
           totp-authentication.service.config.users.dguibert.prompt = true;
