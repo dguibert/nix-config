@@ -438,6 +438,11 @@
           roles.default.tags.desktop = { };
         };
 
+        inventory.instances.zigbee = {
+          module.name = "zigbee";
+          roles.server.machines.rpi41 = { };
+        };
+
         #inventory.instances.mopidy = {
         #  module.name = "mopidy";
         #  roles.default.machines.titan = { }; # TODO migrate mopidy to pipewire
@@ -459,8 +464,6 @@
               "modules/nixos/sshd.nix"
             ];
           };
-
-          zigbee.instance_1.roles.server.machines = [ "rpi41" ];
 
           wireguard-mesh-vpn.service.roles.peer.tags = [ "all" ];
           wireguard-mesh-vpn.service.config.peers = {
