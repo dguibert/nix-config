@@ -410,6 +410,12 @@
           module.name = "tiny-ca";
           roles.server.machines.titan = { };
         };
+        inventory.instances.totp-authentication = {
+          module.name = "totp-authentication";
+          roles.default.tags.all = { };
+          roles.default.settings.users.dguibert.prompt = true;
+        };
+
         #inventory.instances.mopidy = {
         #  module.name = "mopidy";
         #  roles.default.machines.titan = { }; # TODO migrate mopidy to pipewire
@@ -439,9 +445,6 @@
           yubikey.instance_1.roles.default.tags = [ "desktop" ];
 
           zigbee.instance_1.roles.server.machines = [ "rpi41" ];
-
-          totp-authentication.service.roles.default.tags = [ "all" ];
-          totp-authentication.service.config.users.dguibert.prompt = true;
 
           wireguard-mesh-vpn.service.roles.peer.tags = [ "all" ];
           wireguard-mesh-vpn.service.config.peers = {
