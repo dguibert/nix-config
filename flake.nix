@@ -406,6 +406,10 @@
           module.name = "sshguard";
           roles.default.tags.all = { };
         };
+        inventory.instances.tiny-ca-orsin = {
+          module.name = "tiny-ca";
+          roles.server.machines.titan = { };
+        };
         #inventory.instances.mopidy = {
         #  module.name = "mopidy";
         #  roles.default.machines.titan = { }; # TODO migrate mopidy to pipewire
@@ -427,8 +431,6 @@
               "modules/nixos/sshd.nix"
             ];
           };
-
-          tiny-ca.orsin.roles.server.machines = [ "titan" ];
 
           wayland.instance_1.roles.default.tags = [ "desktop" ];
           wayland.instance_2.roles.default.tags = [ "desktop64" ];
