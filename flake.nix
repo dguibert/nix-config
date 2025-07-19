@@ -395,12 +395,11 @@
           roles.default.machines.t580 = { };
         };
         inventory.instances.rkvm = {
-          module.name = "printing";
+          module.name = "rkvm";
           roles.server.machines.titan = { };
           roles.client.machines.t580 = { };
-          settings = {
-            config.server = "192.168.1.24";
-          };
+          roles.server.settings.rkvm.server = "192.168.1.24"; # TODO get from server ip
+          roles.client.settings.rkvm.server = "192.168.1.24";
         };
 
         #inventory.instances.mopidy = {

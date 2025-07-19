@@ -2,8 +2,23 @@
   _class = "clan.service";
   manifest.name = "printing";
 
-  roles.default.perInstance =
-    { ... }:
+  roles.client.interface =
+    { lib, ... }:
+    {
+      options.rkvm.server = lib.mkOption {
+        description = "Server address";
+        type = lib.types.str;
+      };
+
+      options.rkvm.port = lib.mkOption {
+        type = lib.types.port;
+        description = "Server port";
+        default = 5258;
+      };
+
+    };
+  roles.client.perInstance =
+    { settings, ... }:
     {
       nixosModule =
         {
@@ -16,15 +31,29 @@
           services.rkvm.client = {
             enable = true;
             settings = {
-              server = "${config.clan.rkvm.server}:${toString config.clan.rkvm.port}";
+              server = "${settings.rkvm.server}:${toString settings.rkvm.port}";
               certificate = config.clan.core.vars.generators.rkvm.files."rkvm-certificate.pem".path;
               password = config.sops.secrets."vars/rkvm/rkvm-password".key;
             };
           };
         };
     };
-  roles.default.perInstance =
-    { ... }:
+
+  roles.server.interface =
+    { lib, ... }:
+    {
+      options.rkvm.server = lib.mkOption {
+        description = "Server address";
+        type = lib.types.str;
+      };
+      options.rkvm.port = lib.mkOption {
+        type = lib.types.port;
+        description = "Server port";
+        default = 5258;
+      };
+    };
+  roles.server.perInstance =
+    { settings, ... }:
     {
       nixosModule =
         {
@@ -37,7 +66,7 @@
           services.rkvm.server = {
             enable = true;
             settings = {
-              listen = "${config.clan.rkvm.server}:${toString config.clan.rkvm.port}";
+              listen = "${settings.rkvm.server}:${toString settings.rkvm.port}";
               switch-keys = [
                 "middle"
                 "left-ctrl"
@@ -61,19 +90,13 @@
     }:
     {
       nixosModule =
-        { config, ... }:
         {
-          options.clan.rkvm.server = lib.mkOption {
-            description = "Server address";
-            type = lib.types.str;
-          };
-
-          options.clan.rkvm.port = lib.mkOption {
-            type = lib.types.port;
-            description = "Server port";
-            default = 5258;
-          };
-
+          config,
+          pkgs,
+          lib,
+          ...
+        }:
+        {
           config.clan.core.vars.generators.rkvm = {
             share = true;
             files."rkvm-certificate.pem" = { };
@@ -84,7 +107,7 @@
               pkgs.rkvm
             ];
             script = ''
-              rkvm-certificate-gen -i ${config.clan.rkvm.server} $out/rkvm-certificate.pem $out/rkvm-key.pem
+              rkvm-certificate-gen -i ${settings.rkvm.server} $out/rkvm-certificate.pem $out/rkvm-key.pem
               cat $prompts/rkvm-password > $out/rkvm-password
             '';
           };
