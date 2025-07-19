@@ -416,6 +416,13 @@
           roles.default.settings.users.dguibert.prompt = true;
         };
 
+        inventory.instances.users = {
+          module.name = "users";
+          roles.default.tags.all = { };
+          roles.default.settings.passwords.root.prompt = true;
+          roles.default.settings.passwords.dguibert.prompt = true;
+        };
+
         #inventory.instances.mopidy = {
         #  module.name = "mopidy";
         #  roles.default.machines.titan = { }; # TODO migrate mopidy to pipewire
@@ -469,11 +476,6 @@
               OPTUS_ACCB7F = { };
             };
           };
-
-          users.root.roles.default.tags = [ "all" ];
-          users.root.config.passwords.root.prompt = true;
-          users.dguibert.roles.default.tags = [ "dguibert" ];
-          users.dguibert.config.passwords.dguibert.prompt = true;
 
         };
 
