@@ -443,6 +443,11 @@
           roles.server.machines.rpi41 = { };
         };
 
+        inventory.instances.navidrome = {
+          module.name = "navidrome";
+          roles.server.machines.titan = { };
+        };
+
         #inventory.instances.mopidy = {
         #  module.name = "mopidy";
         #  roles.default.machines.titan = { }; # TODO migrate mopidy to pipewire
