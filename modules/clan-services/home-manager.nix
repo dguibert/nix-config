@@ -2,82 +2,41 @@
   _class = "clan.service";
   manifest.name = "home-manager";
 
-  roles.dguibert = {
-    interface =
-      { lib, ... }:
-      {
-        options = {
-          withGui.enable = (lib.mkEnableOption "Host running with X11 or Wayland") // {
-            default = false;
+  roles.dguibert.perInstance =
+    {
+      instanceName,
+      settings,
+      machine,
+      roles,
+      ...
+    }:
+    {
+      nixosModule =
+        { config, pkgs, ... }:
+        {
+          home-manager.extraSpecialArgs = {
+            inherit pkgs;
           };
-          withPersistence.enable = lib.mkEnableOption "Use Impermanence";
-          centralMailHost.enable = lib.mkEnableOption "Host running liier/mbsync" // {
-            default = false;
-          };
-          withBash.enable = (lib.mkEnableOption "Enable bash config") // {
-            default = true;
-          };
-          withBash.history-merge = (lib.mkEnableOption "Enable bash history merging") // {
-            default = true;
-          };
-          withGpg.enable = (lib.mkEnableOption "Enable GPG config") // {
-            default = true;
-          };
-          withNix.enable = (lib.mkEnableOption "Enable nix config") // {
-            default = true;
-          };
-          withZellij.enable = (lib.mkEnableOption "Enable Zellij config"); # // { default = true; };
-          withVSCode.enable = (lib.mkEnableOption "Enable VSCode config"); # // { default = true; };
-        };
-      };
-
-    perInstance =
-      {
-        instanceName,
-        settings,
-        machine,
-        roles,
-        ...
-      }:
-      {
-        nixosModule =
-          { config, pkgs, ... }:
-          {
-            home-manager.extraSpecialArgs = {
-              inherit pkgs;
-            };
-            home-manager.users.dguibert = {
-              imports = [
-                (
-                  { config, pkgs, ... }:
-                  {
-                    home.homeDirectory = "/home/dguibert";
-                    home.stateVersion = "23.05";
-
-                    programs.direnv.enable = true;
-                    programs.direnv.nix-direnv.enable = true;
-                    home.packages = with pkgs; [
-                      pass-git-helper
-                    ];
-                  }
-                )
-                ../home-manager/dguibert.nix
+          home-manager.users.dguibert = {
+            imports = [
+              (
+                { config, pkgs, ... }:
                 {
-                  withGui.enable = settings.withGui.enable;
-                  withPersistence.enable = settings.withPersistence.enable;
-                  centralMailHost.enable = settings.centralMailHost.enable;
-                  withBash.enable = settings.withBash.enable;
-                  withBash.history-merge = settings.withBash.history-merge;
-                  withGpg.enable = settings.withGpg.enable;
-                  withNix.enable = settings.withNix.enable;
-                  withZellij.enable = settings.withZellij.enable;
-                  withVSCode.enable = settings.withVSCode.enable;
+                  home.homeDirectory = "/home/dguibert";
+                  home.stateVersion = "23.05";
+
+                  programs.direnv.enable = true;
+                  programs.direnv.nix-direnv.enable = true;
+                  home.packages = with pkgs; [
+                    pass-git-helper
+                  ];
                 }
-              ];
-            };
+              )
+              ../home-manager/dguibert.nix
+            ];
           };
-      };
-  };
+        };
+    };
 
   roles.dguibert-emacs.perInstance =
     { ... }:
@@ -93,6 +52,39 @@
               }
             ];
           };
+        };
+
+    };
+
+  roles.dguibert-persistence.perInstance =
+    { ... }:
+    {
+      nixosModule =
+        { config, pkgs, ... }:
+        {
+          home-manager.users.dguibert.withPersistence.enable = true;
+        };
+
+    };
+
+  roles.dguibert-gui.perInstance =
+    { ... }:
+    {
+      nixosModule =
+        { config, pkgs, ... }:
+        {
+          home-manager.users.dguibert.withGui.enable = true;
+        };
+
+    };
+
+  roles.dguibert-mail.perInstance =
+    { ... }:
+    {
+      nixosModule =
+        { config, pkgs, ... }:
+        {
+          home-manager.users.dguibert.centralMailHost.enable = true;
         };
 
     };

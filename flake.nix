@@ -360,12 +360,18 @@
           module.name = "home-manager";
           roles.dguibert.tags.dguibert = { };
           roles.dguibert-emacs.tags.dguibert = { };
+          roles.dguibert-gui.tags.desktop = { };
+          roles.dguibert-persistence.tags.dguibert = { };
+          roles.dguibert-mail.machines.titan = { };
+        };
+        inventory.instances.dguibert-mail = {
+          module.name = "home-manager";
+          roles.dguibert.machines.titan = { };
           roles.dguibert.settings = {
-            withPersistence.enable = true;
-            withZellij.enable = true;
-            #centralMailHost.enable = lib.mkDefault false;
+            centralMailHost.enable = true;
           };
         };
+
         inventory.instances.jellyfin = {
           module.name = "jellyfin";
           roles.default.machines.titan = { };
@@ -448,19 +454,18 @@
           roles.server.machines.titan = { };
         };
 
+        inventory.instances.dguibert_rpi = {
+          module.name = "home-manager";
+          roles.dguibert.tags.dguibert_rpi = { };
+          roles.dguibert.settings = {
+            withPersistence.enable = false;
+          };
+        };
+
         #inventory.instances.mopidy = {
         #  module.name = "mopidy";
         #  roles.default.machines.titan = { }; # TODO migrate mopidy to pipewire
         #};
-
-        #inventory.instances.home-manager.dguibert_rpi.roles.dguibert.tags = [ "dguibert_rpi" ];
-        #inventory.instances.home-manager.dguibert_rpi.config.dguibert = {
-        #  withPersistence.enable = false;
-        #};
-        #inventory.instances.home-manager.desktop.roles.dguibert.tags = [ "desktop" ];
-        #inventory.instances.home-manager.desktop.config.dguibert.withGui.enable = true;
-        #inventory.instances.home-manager.centralMailHost.roles.dguibert.machines = [ "titan" ];
-        #inventory.instances.home-manager.centralMailHost.config.dguibert.centralMailHost.enable = true;
 
         inventory.services = {
           importer.sshd = {
