@@ -37,6 +37,7 @@
             systemd.services.navidrome = {
               serviceConfig.PrivateUsers = lib.mkForce false;
               serviceConfig.PermissionsStartOnly = true;
+              serviceConfig.ProtectHome = lib.mkForce false;
               unitConfig.RequiresMountsFor = "/home/dguibert/Music";
             };
             services.navidrome.openFirewall = true;
