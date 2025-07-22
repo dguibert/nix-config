@@ -33,6 +33,9 @@
                 }
               )
               ../home-manager/dguibert.nix
+              {
+                withZellij.enable = true;
+              }
             ];
           };
         };
