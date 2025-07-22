@@ -1243,11 +1243,11 @@
       },
       "locked": {
         "dir": "nixpkgs",
-        "lastModified": 1737667155,
-        "narHash": "sha256-rG0q++p5BdB3Ljdu0F4D4qzoRSee3zFJEkIOmfCIGbI=",
+        "lastModified": 1751403473,
+        "narHash": "sha256-EshYxVuK90I2IJv4rub+i4gdec9PEpCmwE1xv+H4lvY=",
         "owner": "dguibert",
         "repo": "nix-config",
-        "rev": "fe399dae0340a7023c0b27534547c611320e5d7c",
+        "rev": "905d219d3e15878fa00f99d73a85af3e44fd2f95",
         "type": "github"
       },
       "original": {
