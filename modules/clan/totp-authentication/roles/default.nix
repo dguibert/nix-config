@@ -71,7 +71,8 @@ in
           mode = "0600";
           #path = lib.mkForce "/etc/users.oath";
         };
-      } // (lib.mapAttrs' create_totp_files cfg.users);
+      }
+      // (lib.mapAttrs' create_totp_files cfg.users);
       runtimeInputs = [
         pkgs.openssl
       ];

@@ -119,7 +119,8 @@ in
         # Systemd requires /usr dir to be populated
         # See: https://github.com/nix-community/impermanence/issues/253
         "/usr/systemd-placeholder"
-      ] ++ cfg.directories;
+      ]
+      ++ cfg.directories;
       files = [ "/etc/machine-id" ] ++ cfg.files;
 
       users = builtins.listToAttrs (

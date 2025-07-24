@@ -27,37 +27,35 @@ let
   generate_wg_keys = name: value: {
     name = "wg.${name}";
     value = {
-      files =
-        {
-          key.owner = "systemd-network";
-          "key.pub".secret = false;
-          "key.pub".share = true;
-          ipv4.secret = false;
-        }
-        // (builtins.listToAttrs (
-          lib.map (n: {
-            name = "${n}-ipv6";
-            value = {
-              secret = false;
-            };
-          }) peerNames
-        ));
+      files = {
+        key.owner = "systemd-network";
+        "key.pub".secret = false;
+        "key.pub".share = true;
+        ipv4.secret = false;
+      }
+      // (builtins.listToAttrs (
+        lib.map (n: {
+          name = "${n}-ipv6";
+          value = {
+            secret = false;
+          };
+        }) peerNames
+      ));
       prompts."ipv4" = { };
       runtimeInputs = [
         pkgs.wireguard-tools
       ];
-      script =
+      script = ''
+        wg genkey > $out/key
+        cat $out/key | wg pubkey | tr -d '\n' > $out/key.pub
+      ''
+      + (lib.concatMapStrings (
+        n:
+        # https://blog.fugoes.xyz/2018/02/03/Run-Babeld-over-Wireguard.html
+        #printf "fd%x:%x:%x:%x::/64\n" "$(( $RANDOM/256 ))" "$RANDOM" "$RANDOM" "$RANDOM"
         ''
-          wg genkey > $out/key
-          cat $out/key | wg pubkey | tr -d '\n' > $out/key.pub
-        ''
-        + (lib.concatMapStrings (
-          n:
-          # https://blog.fugoes.xyz/2018/02/03/Run-Babeld-over-Wireguard.html
-          #printf "fd%x:%x:%x:%x::/64\n" "$(( $RANDOM/256 ))" "$RANDOM" "$RANDOM" "$RANDOM"
-          ''
-            printf "fe80::216:3eff:%x:%x/64" "$RANDOM" "$RANDOM" > $out/${n}-ipv6
-          '') peerNames);
+          printf "fe80::216:3eff:%x:%x/64" "$RANDOM" "$RANDOM" > $out/${n}-ipv6
+        '') peerNames);
     };
   };
 
@@ -165,6 +163,7 @@ in
 
     networking.firewall.allowedUDPPorts = [
       6696
-    ] ++ (flip map peerNames (n: cfg.peers.${n}.listenPort));
+    ]
+    ++ (flip map peerNames (n: cfg.peers.${n}.listenPort));
   };
 }

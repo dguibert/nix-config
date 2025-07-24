@@ -107,30 +107,29 @@ rec {
     bondConfig.MIIMonitorSec = "100s";
     bondConfig.PrimaryReselectPolicy = "always";
   };
-  systemd.network.networks =
-    {
-      "40-bond0" = {
-        name = "bond0";
-        DHCP = "yes";
-        networkConfig.BindCarrier = "end0 wlan0";
+  systemd.network.networks = {
+    "40-bond0" = {
+      name = "bond0";
+      DHCP = "yes";
+      networkConfig.BindCarrier = "end0 wlan0";
+      linkConfig.MACAddress = "DC:A6:32:67:DD:9F";
+      # make routing on this interface a dependency for network-online.target
+      linkConfig.RequiredForOnline = "routable";
+    };
+  }
+  // listToAttrs (
+    flip map [ "end0" "wlan0" ] (
+      bi:
+      nameValuePair "40-${bi}" {
+        name = "${bi}";
+        DHCP = "no";
+        networkConfig.Bond = "bond0";
+        networkConfig.IPv6PrivacyExtensions = "kernel";
         linkConfig.MACAddress = "DC:A6:32:67:DD:9F";
-        # make routing on this interface a dependency for network-online.target
-        linkConfig.RequiredForOnline = "routable";
-      };
-    }
-    // listToAttrs (
-      flip map [ "end0" "wlan0" ] (
-        bi:
-        nameValuePair "40-${bi}" {
-          name = "${bi}";
-          DHCP = "no";
-          networkConfig.Bond = "bond0";
-          networkConfig.IPv6PrivacyExtensions = "kernel";
-          linkConfig.MACAddress = "DC:A6:32:67:DD:9F";
-          linkConfig.RequiredForOnline = "no";
-        }
-      )
-    );
+        linkConfig.RequiredForOnline = "no";
+      }
+    )
+  );
   networking.supplicant.wlan0 = {
     configFile.path = "/persist/etc/wpa_supplicant.conf";
     userControlled.group = "network";

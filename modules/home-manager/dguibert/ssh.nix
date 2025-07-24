@@ -68,24 +68,23 @@
         SendEnv COLORTERM
       '';
 
-      matchBlocks =
-        {
-          "*" = {
-            match = "Host * Exec \"test -e ~/.ssh/extra_config\"";
-            extraOptions.Include = "~/.ssh/extra_config";
-          };
-          "127.0.0.1 | localhost" = {
-            forwardAgent = true;
-            forwardX11 = true;
-            forwardX11Trusted = true;
-            extraOptions.NoHostAuthenticationForLocalhost = "yes";
-          };
+      matchBlocks = {
+        "*" = {
+          match = "Host * Exec \"test -e ~/.ssh/extra_config\"";
+          extraOptions.Include = "~/.ssh/extra_config";
+        };
+        "127.0.0.1 | localhost" = {
+          forwardAgent = true;
+          forwardX11 = true;
+          forwardX11Trusted = true;
+          extraOptions.NoHostAuthenticationForLocalhost = "yes";
+        };
 
-        }
-        // (home_host "rpi31" "192.168.1.13" 22322 "10.147.27.13" "b8:27:eb:46:86:14")
-        // (home_host "rpi41" "192.168.1.14" 22322 "10.147.27.14" "dc:a6:32:67:dd:9f")
-        // (home_host "t580" "192.168.1.17" 22322 "10.147.27.17" "d2:b6:17:1d:b8:97")
-        // (home_host "titan" "192.168.1.24" 22322 "10.147.27.24" "be:f8:2c:e5:1d:4e");
+      }
+      // (home_host "rpi31" "192.168.1.13" 22322 "10.147.27.13" "b8:27:eb:46:86:14")
+      // (home_host "rpi41" "192.168.1.14" 22322 "10.147.27.14" "dc:a6:32:67:dd:9f")
+      // (home_host "t580" "192.168.1.17" 22322 "10.147.27.17" "d2:b6:17:1d:b8:97")
+      // (home_host "titan" "192.168.1.24" 22322 "10.147.27.24" "be:f8:2c:e5:1d:4e");
     };
 
   programs.git.iniContent.annex.ssh-options = "-S /run/user/%i/socket-%C";

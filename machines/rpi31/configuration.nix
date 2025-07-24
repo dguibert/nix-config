@@ -98,27 +98,26 @@ rec {
     bondConfig.MIIMonitorSec = "100s";
     bondConfig.PrimaryReselectPolicy = "always";
   };
-  systemd.network.networks =
-    {
-      "40-bond0" = {
-        name = "bond0";
-        DHCP = "yes";
-        networkConfig.BindCarrier = "enu1u1 wlan0";
+  systemd.network.networks = {
+    "40-bond0" = {
+      name = "bond0";
+      DHCP = "yes";
+      networkConfig.BindCarrier = "enu1u1 wlan0";
+      linkConfig.MACAddress = "b8:27:eb:46:86:14";
+    };
+  }
+  // listToAttrs (
+    flip map [ "enu1u1" "wlan0" ] (
+      bi:
+      nameValuePair "40-${bi}" {
+        name = "${bi}";
+        DHCP = "no";
+        networkConfig.Bond = "bond0";
+        networkConfig.IPv6PrivacyExtensions = "kernel";
         linkConfig.MACAddress = "b8:27:eb:46:86:14";
-      };
-    }
-    // listToAttrs (
-      flip map [ "enu1u1" "wlan0" ] (
-        bi:
-        nameValuePair "40-${bi}" {
-          name = "${bi}";
-          DHCP = "no";
-          networkConfig.Bond = "bond0";
-          networkConfig.IPv6PrivacyExtensions = "kernel";
-          linkConfig.MACAddress = "b8:27:eb:46:86:14";
-        }
-      )
-    );
+      }
+    )
+  );
 
   programs.ssh.setXAuthLocation = false;
   security.pam.services.su.forwardXAuth = lib.mkForce false;

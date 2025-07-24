@@ -42,48 +42,47 @@ in
       { config, lib, ... }:
       {
         config = lib.mkIf cfg.withPersistence.enable {
-          my.persistence.directories =
-            [
-              "3D_printing"
-              "archives"
-              "bin"
-              ".cache/aria2"
-              "code"
-              ".config/Beeper"
-              ".config/calibre"
-              ".config/FreeCAD"
-              ".config/google-chrome"
-              ".config/kvibes"
-              ".config/mr"
-              ".config/OrcaSlicer"
-              ".config/sops"
-              "Documents"
-              ".emacs.private"
-              ".gnupg/private-keys-v1.d"
-              ".localhost-nickname"
-              ".local/state/nix"
-              ".mgit"
-              ".mozilla/firefox"
-              "Music"
-              ".password-store"
-              ".password-store.git"
-              "Pictures"
-              ".ssh"
-              "templates"
-              ".videos"
-              "Videos"
-              ".vim"
-              "work"
-              #{
-              #  directory = ".local/share/Steam";
-              #  method = "symlink";
-              #}
-            ]
-            ++ optionals cfg.centralMailHost.enable [
-              "Maildir"
-              "Maildir/.notmuch"
-              ".local/state/davmail-tokens"
-            ];
+          my.persistence.directories = [
+            "3D_printing"
+            "archives"
+            "bin"
+            ".cache/aria2"
+            "code"
+            ".config/Beeper"
+            ".config/calibre"
+            ".config/FreeCAD"
+            ".config/google-chrome"
+            ".config/kvibes"
+            ".config/mr"
+            ".config/OrcaSlicer"
+            ".config/sops"
+            "Documents"
+            ".emacs.private"
+            ".gnupg/private-keys-v1.d"
+            ".localhost-nickname"
+            ".local/state/nix"
+            ".mgit"
+            ".mozilla/firefox"
+            "Music"
+            ".password-store"
+            ".password-store.git"
+            "Pictures"
+            ".ssh"
+            "templates"
+            ".videos"
+            "Videos"
+            ".vim"
+            "work"
+            #{
+            #  directory = ".local/share/Steam";
+            #  method = "symlink";
+            #}
+          ]
+          ++ optionals cfg.centralMailHost.enable [
+            "Maildir"
+            "Maildir/.notmuch"
+            ".local/state/davmail-tokens"
+          ];
           home.persistence."/persist/home/${config.home.username}".files = [
             #my.persistence.files = [
             ".bash_history"

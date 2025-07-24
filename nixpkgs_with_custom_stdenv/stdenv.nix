@@ -6,17 +6,13 @@
 
 let
   glibc = pkgs.glibc.overrideDerivation (old: {
-    postPatch =
-      (old.postPatch or "")
-      + ''
-        sed -i -e 's@_PATH_VARDB.*@_PATH_VARDB "/var/lib/misc"@' sysdeps/unix/sysv/linux/paths.h
-        sed -i -e 's@_PATH_VARDB.*@_PATH_VARDB "/var/lib/misc"@' sysdeps/generic/paths.h
-      '';
-    postInstall =
-      old.postInstall
-      + ''
-        ln -s ${pkgs.nss_sss}/lib/*.so.* $out/lib
-      '';
+    postPatch = (old.postPatch or "") + ''
+      sed -i -e 's@_PATH_VARDB.*@_PATH_VARDB "/var/lib/misc"@' sysdeps/unix/sysv/linux/paths.h
+      sed -i -e 's@_PATH_VARDB.*@_PATH_VARDB "/var/lib/misc"@' sysdeps/generic/paths.h
+    '';
+    postInstall = old.postInstall + ''
+      ln -s ${pkgs.nss_sss}/lib/*.so.* $out/lib
+    '';
   });
   binutils = pkgs.binutils.override {
     libc = glibc;

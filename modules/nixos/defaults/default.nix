@@ -112,27 +112,28 @@
       };
     }
   );
-  nix.settings.system-features =
-    [ "recursive-nix" ]
-    # default
-    ++ [
-      "nixos-test"
-      "benchmark"
-      "big-parallel"
-      "kvm"
-    ]
-    ++ lib.optionals (config.nixpkgs ? localSystem && config.nixpkgs.localSystem ? system) [
-      "gccarch-${
-        builtins.replaceStrings [ "_" ] [ "-" ] (
-          builtins.head (builtins.split "-" config.nixpkgs.localSystem.system)
-        )
-      }"
-    ]
-    ++ lib.optionals (pkgs.hostPlatform ? gcc.arch) (
-      # a builder can run code for `gcc.arch` and inferior architectures
-      [ "gccarch-${pkgs.hostPlatform.gcc.arch}" ]
-      ++ map (x: "gccarch-${x}") lib.systems.architectures.inferiors.${pkgs.hostPlatform.gcc.arch}
-    );
+  nix.settings.system-features = [
+    "recursive-nix"
+  ]
+  # default
+  ++ [
+    "nixos-test"
+    "benchmark"
+    "big-parallel"
+    "kvm"
+  ]
+  ++ lib.optionals (config.nixpkgs ? localSystem && config.nixpkgs.localSystem ? system) [
+    "gccarch-${
+      builtins.replaceStrings [ "_" ] [ "-" ] (
+        builtins.head (builtins.split "-" config.nixpkgs.localSystem.system)
+      )
+    }"
+  ]
+  ++ lib.optionals (pkgs.hostPlatform ? gcc.arch) (
+    # a builder can run code for `gcc.arch` and inferior architectures
+    [ "gccarch-${pkgs.hostPlatform.gcc.arch}" ]
+    ++ map (x: "gccarch-${x}") lib.systems.architectures.inferiors.${pkgs.hostPlatform.gcc.arch}
+  );
 
   environment.systemPackages = [
     pkgs.vim
