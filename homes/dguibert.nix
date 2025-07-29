@@ -34,9 +34,9 @@ in
         withCustomProfile.suffix = "x86_64";
         withEmacs.enable = true;
 
-        home.username = "bguibertd";
-        home.homeDirectory = "/home_nfs/bguibertd";
-        home.stateVersion = "22.11";
+        home.username = "evid356257";
+        home.homeDirectory = "/home/evid/evid356257";
+        home.stateVersion = "25.11";
 
         home.packages = with pkgs; [
           nix
