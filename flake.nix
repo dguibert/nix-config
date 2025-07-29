@@ -8,9 +8,12 @@
 
   #inputs.nix.follows = "nur_packages/nix";
   inputs.nix.url = "github:dguibert/nix/pu";
+  inputs.nix.inputs.flake-compat.follows = "flake-compat";
+  inputs.nix.inputs.flake-parts.follows = "flake-parts";
+  inputs.nix.inputs.git-hooks-nix.follows = "git-hooks-nix";
+  inputs.nix.inputs.nixpkgs.follows = "nixpkgs";
   inputs.nur_packages.inputs.nix.follows = "nix";
 
-  inputs.nur.url = "github:nix-community/NUR";
   inputs.sops-nix.url = "github:dguibert/sops-nix/pu"; # for dg/use-with-cross-system
   inputs.sops-nix.inputs.nixpkgs.follows = "nur_packages/nixpkgs";
 
@@ -35,12 +38,14 @@
   #inputs."nixos-18.09".url   = "github:nixos/nixpkgs-channels/nixos-18.09";
   #inputs."nixos-19.03".url   = "github:nixos/nixpkgs-channels/nixos-19.03";
   inputs.stylix.url = "github:danth/stylix";
-  inputs.stylix.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.stylix.inputs.home-manager.follows = "home-manager";
   inputs.stylix.inputs.base16.follows = "base16";
   inputs.stylix.inputs.base16-vim.follows = "base16-vim";
   inputs.stylix.inputs.flake-compat.follows = "flake-compat";
+  inputs.stylix.inputs.flake-parts.follows = "flake-parts";
   inputs.stylix.inputs.git-hooks.follows = "git-hooks-nix";
+  inputs.stylix.inputs.home-manager.follows = "home-manager";
+  inputs.stylix.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.stylix.inputs.systems.follows = "systems";
 
   inputs.base16.url = "github:SenchoPens/base16.nix";
   #inputs.base16.inputs.nixpkgs.follows = "nixpkgs";
@@ -69,6 +74,7 @@
   inputs.deploy-rs.url = "github:dguibert/deploy-rs/pu";
   inputs.deploy-rs.inputs.nixpkgs.follows = "nixpkgs/nixpkgs";
   inputs.deploy-rs.inputs.flake-compat.follows = "flake-compat";
+  inputs.deploy-rs.inputs.utils.follows = "nur_packages/flake-utils";
 
   #inputs.nixpkgs-wayland.url = "github:colemickens/nixpkgs-wayland";
   # only needed if you use as a package set:
@@ -110,6 +116,7 @@
 
   inputs.envfs.url = "github:Mic92/envfs";
   inputs.envfs.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.envfs.inputs.flake-parts.follows = "flake-parts";
   inputs.envfs.inputs.treefmt-nix.follows = "treefmt-nix";
 
   inputs.nixos-wsl.url = "github:nix-community/NixOS-WSL";
@@ -121,6 +128,7 @@
 
   inputs.microvm.url = "github:astro/microvm.nix";
   inputs.microvm.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.microvm.inputs.flake-utils.follows = "nur_packages/flake-utils";
 
   inputs.nixos-hardware.url = "github:NixOS/nixos-hardware";
 
@@ -132,12 +140,12 @@
   inputs.clan-core.inputs.disko.follows = "disko";
   inputs.clan-core.inputs.treefmt-nix.follows = "treefmt-nix";
   inputs.clan-core.inputs.nixpkgs.follows = "nixpkgs/nixpkgs"; # Needed if your configuration uses nixpkgs unstable.
-  # New
   inputs.clan-core.inputs.flake-parts.follows = "flake-parts";
 
   inputs.systems.follows = "clan-core/systems";
 
   inputs.treefmt-nix.url = "github:numtide/treefmt-nix";
+  inputs.treefmt-nix.inputs.nixpkgs.follows = "nixpkgs/nixpkgs";
 
   inputs.flake-compat.url = "github:edolstra/flake-compat";
 
