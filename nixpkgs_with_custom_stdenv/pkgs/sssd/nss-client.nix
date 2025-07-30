@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://fedorahosted.org/released/sssd/sssd-${version}.tar.gz";
-    sha256 = "0ngr7cgimyjc6flqkm7psxagp1m4jlzpqkn28pliifbmdg6i5ckb";
+    sha256 = "sha256-Lhp78Da1g/aG01Fk8teb30hXuY9R/osNF6oPp1bk0MA=";
   };
 
   # libnss_sss.so does not in fact use any of these -- they're just needed for configure
