@@ -346,70 +346,142 @@
         ];
 
         inventory.modules = self.modules.clan;
-        #modules = self.modules.clan-services;
-        modules = inputs.clan-core.clan.modules;
+        modules = self.modules.clan-services;
 
-        inventory.instances = {
-          wifi = {
-            module.name = "wifi";
-            roles.default.tags.wifi = { };
-            roles.default.settings = {
-              networks = {
-                Freebox-AD070E = { };
-                Livebox-765e = { };
-                Livebox-D854 = { };
-                Livebox-D540 = { };
-                OPTUS_ACCB7F = { };
-              };
-            };
+        inventory.instances.voron02_1 = {
+          module.name = "_3d_printing";
+          roles.voron02_1.machines.rpi31 = { };
+        };
+
+        inventory.instances.adb = {
+          module.name = "adb";
+          roles.default.machines.t580 = { };
+          roles.default.machines.titan = { };
+        };
+
+        inventory.instances.haproxy = {
+          module.name = "haproxy";
+          roles.default.machines.rpi41 = { };
+        };
+
+        inventory.instances.home-manager-dguibert = {
+          module.name = "home-manager";
+          roles.dguibert.tags.dguibert = { };
+          roles.dguibert-emacs.tags.dguibert = { };
+          roles.dguibert-gui.tags.desktop = { };
+          roles.dguibert-persistence.tags.dguibert = { };
+          roles.dguibert-mail.machines.titan = { };
+        };
+        inventory.instances.dguibert-mail = {
+          module.name = "home-manager";
+          roles.dguibert.machines.titan = { };
+          roles.dguibert.settings = {
+            centralMailHost.enable = true;
           };
         };
 
-        inventory.services = {
-          my-sshd.service.roles.client.tags = [ "all" ];
-          my-sshd.service.roles.server.tags = [ "all" ];
-          my-sshd.service.roles.server.config = {
+        inventory.instances.jellyfin = {
+          module.name = "jellyfin";
+          roles.default.machines.titan = { };
+        };
+        inventory.instances.libvirtd = {
+          module.name = "libvirtd";
+          roles.default.machines.titan = { };
+        };
+
+        inventory.instances.my-sshd = {
+          module.name = "my-sshd";
+          roles.default.tags.all = { };
+          roles.default.settings = {
             certificate.searchDomains = [
               "orsin.net"
             ];
           };
+        };
+        inventory.instances.ollama = {
+          module.name = "ollama";
+          roles.default.machines.titan = { };
+        };
+        inventory.instances.printing = {
+          module.name = "printing";
+          roles.scan2host.machines.titan = { };
+          roles.default.machines.titan = { };
+          roles.default.machines.t580 = { };
+        };
+        inventory.instances.rkvm = {
+          module.name = "rkvm";
+          roles.server.machines.titan = { };
+          roles.client.machines.t580 = { };
+          roles.server.settings.rkvm.server = "192.168.1.24"; # TODO get from server ip
+          roles.client.settings.rkvm.server = "192.168.1.24";
+        };
+
+        inventory.instances.sshguard = {
+          module.name = "sshguard";
+          roles.default.tags.all = { };
+        };
+        inventory.instances.tiny-ca-orsin = {
+          module.name = "tiny-ca";
+          roles.server.machines.titan = { };
+        };
+        inventory.instances.totp-authentication = {
+          module.name = "totp-authentication";
+          roles.default.tags.all = { };
+          roles.default.settings.users.dguibert.prompt = true;
+        };
+
+        inventory.instances.users = {
+          module.name = "users";
+          roles.default.tags.all = { };
+          roles.default.settings.passwords.root.prompt = true;
+          roles.default.settings.passwords.dguibert.prompt = true;
+        };
+
+        inventory.instances.wayland_1 = {
+          module.name = "wayland";
+          roles.default.tags.desktop = { };
+        };
+        inventory.instances.wayland_2 = {
+          module.name = "wayland";
+          roles.default.tags.desktop64 = { };
+          roles.default.settings.enable32Bit = false;
+        };
+
+        inventory.instances.yubikey = {
+          module.name = "yubikey";
+          roles.default.tags.desktop = { };
+        };
+
+        inventory.instances.zigbee = {
+          module.name = "zigbee";
+          roles.server.machines.rpi41 = { };
+        };
+
+        inventory.instances.navidrome = {
+          module.name = "navidrome";
+          roles.server.machines.titan = { };
+        };
+
+        inventory.instances.dguibert_rpi = {
+          module.name = "home-manager";
+          roles.dguibert.tags.dguibert_rpi = { };
+          roles.dguibert.settings = {
+            withPersistence.enable = false;
+          };
+        };
+
+        #inventory.instances.mopidy = {
+        #  module.name = "mopidy";
+        #  roles.default.machines.titan = { }; # TODO migrate mopidy to pipewire
+        #};
+
+        inventory.services = {
           importer.sshd = {
             roles.default.tags = [ "all" ];
             roles.default.extraModules = [
               "modules/nixos/sshd.nix"
             ];
           };
-
-          adb.service.roles.default.machines = [
-            "t580"
-            "titan"
-          ];
-          haproxy.service.roles.default.machines = [ "rpi41" ];
-          jellyfin.titan.roles.default.machines = [ "titan" ];
-          libvirtd.titan.roles.default.machines = [ "titan" ];
-          ollama.titan.roles.default.machines = [ "titan" ];
-          tiny-ca.orsin.roles.server.machines = [ "titan" ];
-          #mopidy.titan.roles.default.machines = [ "titan" ];
-          rkvm.desktop = {
-            roles.server.machines = [ "titan" ];
-            roles.client.machines = [ "rpi41" ];
-            config.server = "192.168.1.24";
-          };
-
-          wayland.instance_1.roles.default.tags = [ "desktop" ];
-          wayland.instance_2.roles.default.tags = [ "desktop64" ];
-          wayland.instance_2.config.enable32Bit = false;
-
-          yubikey.instance_1.roles.default.tags = [ "desktop" ];
-
-          zigbee.instance_1.roles.server.machines = [ "rpi41" ];
-
-          _3d_printing.voron02_1.roles.voron02_1.machines = [ "rpi31" ];
-
-          sshguard.service.roles.default.tags = [ "all" ];
-
-          totp-authentication.service.roles.default.tags = [ "all" ];
-          totp-authentication.service.config.users.dguibert.prompt = true;
 
           wireguard-mesh-vpn.service.roles.peer.tags = [ "all" ];
           wireguard-mesh-vpn.service.config.peers = {
@@ -424,35 +496,17 @@
             t580.endpoint = "192.168.1.17";
           };
 
-          home-manager.dguibert.roles.dguibert.tags = [ "dguibert" ];
-          home-manager.dguibert-emacs.roles.dguibert-emacs.tags = [ "dguibert" ];
-          home-manager.dguibert.config.dguibert = {
-            withPersistence.enable = true;
-            withZellij.enable = true;
-            #centralMailHost.enable = lib.mkDefault false;
+          wifi.instance.roles.default.tags = [ "wifi" ];
+          wifi.instance.config = {
+            networks = {
+              Freebox-AD070E = { };
+              Livebox-765e = { };
+              Livebox-D854 = { };
+              Livebox-D540 = { };
+              OPTUS_ACCB7F = { };
+            };
           };
-          home-manager.dguibert_rpi.roles.dguibert.tags = [ "dguibert_rpi" ];
-          home-manager.dguibert_rpi.config.dguibert = {
-            withPersistence.enable = false;
-          };
-          home-manager.desktop.roles.dguibert.tags = [ "desktop" ];
-          home-manager.desktop.config.dguibert.withGui.enable = true;
-          home-manager.centralMailHost.roles.dguibert.machines = [ "titan" ];
-          home-manager.centralMailHost.config.dguibert.centralMailHost.enable = true;
 
-          users.root.roles.default.tags = [ "all" ];
-          users.root.config.passwords.root.prompt = true;
-          users.dguibert.roles.default.tags = [
-            "dguibert"
-            "dguibert_rpi"
-          ];
-          users.dguibert.config.passwords.dguibert.prompt = true;
-
-          printing.instance.roles.scan2host.machines = [ "titan" ];
-          printing.instance.roles.client.machines = [
-            "titan"
-            "t580"
-          ];
         };
 
         # Prerequisite: boot into the installer.
