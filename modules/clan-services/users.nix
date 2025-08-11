@@ -57,38 +57,36 @@
                   else
                     { };
 
-                files =
-                  {
-                    user-password-hash.neededFor = "users";
-                  }
-                  // (
-                    if !value.prompt then
-                      {
-                        user-password.deploy = false;
-                      }
-                    else
-                      { }
-                  );
+                files = {
+                  user-password-hash.neededFor = "users";
+                }
+                // (
+                  if !value.prompt then
+                    {
+                      user-password.deploy = false;
+                    }
+                  else
+                    { }
+                );
                 runtimeInputs = [
                   pkgs.coreutils
                   pkgs.xkcdpass
                   pkgs.mkpasswd
                 ];
-                script =
-                  ''
-                    set -x
-                  ''
-                  + (
-                    if (!value.prompt) then
-                      ''
-                        xkcdpass --numwords 3 --delimiter - --count 1 | tr -d "\n" > $out/user-password
-                      ''
-                    else
-                      ""
-                  )
-                  + ''
-                    cat $out/user-password | mkpasswd -s -m sha-512 | tr -d "\n" > $out/user-password-hash
-                  '';
+                script = ''
+                  set -x
+                ''
+                + (
+                  if (!value.prompt) then
+                    ''
+                      xkcdpass --numwords 3 --delimiter - --count 1 | tr -d "\n" > $out/user-password
+                    ''
+                  else
+                    ""
+                )
+                + ''
+                  cat $out/user-password | mkpasswd -s -m sha-512 | tr -d "\n" > $out/user-password-hash
+                '';
               };
             };
 
