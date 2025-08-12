@@ -31,7 +31,7 @@ in
         withCustomProfile.suffix = "";
 
         home.username = "bguibertd";
-        home.homeDirectory = "/home_nfs/bguibertd";
+        home.homeDirectory = "/home_nfs/users/bguibertd";
         home.stateVersion = "22.11";
         #home.activation.setNixVariables = lib.hm.dag.entryBefore ["writeBoundary"]
 
@@ -96,7 +96,7 @@ in
         withEmacs.enable = true;
 
         home.username = "bguibertd";
-        home.homeDirectory = "/home_nfs/bguibertd";
+        home.homeDirectory = "/home_nfs/users/bguibertd";
         home.stateVersion = "22.11";
 
         home.packages = with pkgs; [
@@ -155,7 +155,7 @@ in
         stylix.targets.gnome.enable = false;
 
         home.username = "bguibertd";
-        home.homeDirectory = "/home_nfs/bguibertd";
+        home.homeDirectory = "/home_nfs/users/bguibertd";
         home.stateVersion = "22.11";
 
         _module.args.activationPkgs = pkgs.buildPackages;
