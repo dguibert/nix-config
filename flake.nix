@@ -350,22 +350,26 @@
 
         inventory.instances.voron02_1 = {
           module.name = "_3d_printing";
+          module.input = "self";
           roles.voron02_1.machines.rpi31 = { };
         };
 
         inventory.instances.adb = {
           module.name = "adb";
+          module.input = "self";
           roles.default.machines.t580 = { };
           roles.default.machines.titan = { };
         };
 
         inventory.instances.haproxy = {
           module.name = "haproxy";
+          module.input = "self";
           roles.default.machines.rpi41 = { };
         };
 
         inventory.instances.home-manager-dguibert = {
           module.name = "home-manager";
+          module.input = "self";
           roles.dguibert.tags.dguibert = { };
           roles.dguibert-emacs.tags.dguibert = { };
           roles.dguibert-gui.tags.desktop = { };
@@ -374,6 +378,7 @@
         };
         inventory.instances.dguibert-mail = {
           module.name = "home-manager";
+          module.input = "self";
           roles.dguibert.machines.titan = { };
           roles.dguibert.settings = {
             centralMailHost.enable = true;
@@ -382,15 +387,18 @@
 
         inventory.instances.jellyfin = {
           module.name = "jellyfin";
+          module.input = "self";
           roles.default.machines.titan = { };
         };
         inventory.instances.libvirtd = {
           module.name = "libvirtd";
+          module.input = "self";
           roles.default.machines.titan = { };
         };
 
         inventory.instances.my-sshd = {
           module.name = "my-sshd";
+          module.input = "self";
           roles.default.tags.all = { };
           roles.default.settings = {
             certificate.searchDomains = [
@@ -400,16 +408,19 @@
         };
         inventory.instances.ollama = {
           module.name = "ollama";
+          module.input = "self";
           roles.default.machines.titan = { };
         };
         inventory.instances.printing = {
           module.name = "printing";
+          module.input = "self";
           roles.scan2host.machines.titan = { };
           roles.default.machines.titan = { };
           roles.default.machines.t580 = { };
         };
         inventory.instances.rkvm = {
           module.name = "rkvm";
+          module.input = "self";
           roles.server.machines.titan = { };
           roles.client.machines.t580 = { };
           roles.server.settings.rkvm.server = "192.168.1.24"; # TODO get from server ip
@@ -418,20 +429,24 @@
 
         inventory.instances.sshguard = {
           module.name = "sshguard";
+          module.input = "self";
           roles.default.tags.all = { };
         };
         inventory.instances.tiny-ca-orsin = {
           module.name = "tiny-ca";
+          module.input = "self";
           roles.server.machines.titan = { };
         };
         inventory.instances.totp-authentication = {
           module.name = "totp-authentication";
+          module.input = "self";
           roles.default.tags.all = { };
           roles.default.settings.users.dguibert.prompt = true;
         };
 
         inventory.instances.users = {
           module.name = "users";
+          module.input = "self";
           roles.default.tags.all = { };
           roles.default.settings.passwords.root.prompt = true;
           roles.default.settings.passwords.dguibert.prompt = true;
@@ -439,31 +454,37 @@
 
         inventory.instances.wayland_1 = {
           module.name = "wayland";
+          module.input = "self";
           roles.default.tags.desktop = { };
         };
         inventory.instances.wayland_2 = {
           module.name = "wayland";
+          module.input = "self";
           roles.default.tags.desktop64 = { };
           roles.default.settings.enable32Bit = false;
         };
 
         inventory.instances.yubikey = {
           module.name = "yubikey";
+          module.input = "self";
           roles.default.tags.desktop = { };
         };
 
         inventory.instances.zigbee = {
           module.name = "zigbee";
+          module.input = "self";
           roles.server.machines.rpi41 = { };
         };
 
         inventory.instances.navidrome = {
           module.name = "navidrome";
+          module.input = "self";
           roles.server.machines.titan = { };
         };
 
         inventory.instances.dguibert_rpi = {
           module.name = "home-manager";
+          module.input = "self";
           roles.dguibert.tags.dguibert_rpi = { };
           roles.dguibert.settings = {
             withPersistence.enable = false;
