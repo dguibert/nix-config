@@ -44,11 +44,15 @@
                 "auto"
                 "auto"
               ]
+              [
+                "jabra"
+                "pipewire/alsa_output.usb-GN_Netcom_A_S_Jabra_EVOLVE_20_000BB222073E0A-00.analog-stereo"
+              ]
             ];
 
             # Device to use for Jukebox mode, if there are multiple entries above.
             # Using device "auto" if missing
-            #services.navidrome.settings.Jukebox.Default = "auto";
+            services.navidrome.settings.Jukebox.Default = "auto";
 
             services.navidrome.user = "dguibert";
             systemd.services.navidrome = {
