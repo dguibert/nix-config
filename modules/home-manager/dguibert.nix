@@ -52,6 +52,7 @@ in
             ".config/calibre"
             ".config/FreeCAD"
             ".config/google-chrome"
+            ".config/jellyfin-mpv-shim"
             ".config/kvibes"
             ".config/mr"
             ".config/OrcaSlicer"
