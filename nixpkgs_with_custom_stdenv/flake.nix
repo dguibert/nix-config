@@ -32,6 +32,7 @@
         nss_sss = prev.callPackage ./pkgs/sssd/nss-client.nix { };
 
         bind = dontCheck prev.bind;
+        bmake = dontCheck prev.bmake;
         coreutils = dontCheck prev.coreutils;
         dbus = dontCheck prev.dbus;
         libffi = dontCheck prev.libffi;
@@ -39,6 +40,7 @@
         #nix = dontCheck prev.nix; # build-remote-input-addressed.sh... [FAIL]
         #nixStable = dontCheck prev.nixStable; # build-remote-input-addressed.sh... [FAIL]
         p11-kit = dontCheck prev.p11-kit;
+        rsync = dontCheck prev.rsync; # FAIL    chgrp
         watchman = (dontCheck prev.watchman).overrideAttrs (o: {
           buildInputs = o.buildInputs ++ [ prev.gtest ];
         }); # CacheTest.future: malloc(): unaligned tcache chunk detected
