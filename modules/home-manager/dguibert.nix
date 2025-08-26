@@ -229,7 +229,7 @@ in
   ];
 
   config = {
-    programs.home-manager.enable = true;
+    programs.home-manager.enable = false;
 
     #home.file.".vim/base16.vim".source = ./base16.vim;
     home.file.".editorconfig".source = ./dguibert/editorconfig;
