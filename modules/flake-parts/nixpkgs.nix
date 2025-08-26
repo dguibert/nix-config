@@ -12,7 +12,7 @@ let
   config' = config;
   overlays = [
     self.overlays.default
-    inputs.deploy-rs.overlay
+    inputs.deploy-rs.overlays.default
     inputs.nxsession.overlay
     #inputs.nixpkgs-wayland.overlay
     #inputs.hyprland.overlays.default
