@@ -24,6 +24,16 @@
           doCheck = false;
           doInstallCheck = false;
         });
+
+      narHash =
+        lib: pkg: version: hash:
+        builtins.trace "${pkg.name} with new hash: ${hash}" lib.upgradeOverride pkg (_: {
+          inherit version;
+          src = pkg.src.overrideAttrs (_: {
+            outputHash = hash;
+          });
+        });
+
     in
     {
       lib = nixpkgs.lib;
@@ -55,6 +65,20 @@
             })
           ];
         });
+        pythonOverrides = prev.lib.composeOverlays [
+          (prev.pythonOverrides or (_: _: { }))
+          (python-self: python-super: {
+            flasgger =
+              (narHash prev.lib python-super.flasgger "0.9.7.1"
+                "sha256-ULEf9DJiz/S2wKlb/vjGto8VCI0QDcm0pkU5rlOwtiE="
+              ).overrideAttrs
+                (o: {
+                  patches = [ ];
+                });
+          })
+        ];
+
+        python313 = prev.python313.override { packageOverrides = final.pythonOverrides; };
       };
 
       legacyPackages.x86_64-linux = nixpkgsFor "x86_64-linux";
