@@ -497,13 +497,6 @@
         #};
 
         inventory.services = {
-          importer.sshd = {
-            roles.default.tags = [ "all" ];
-            roles.default.extraModules = [
-              "modules/nixos/sshd.nix"
-            ];
-          };
-
           wireguard-mesh-vpn.service.roles.peer.tags = [ "all" ];
           wireguard-mesh-vpn.service.config.peers = {
             rpi31.listenPort = 500;

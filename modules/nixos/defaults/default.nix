@@ -43,6 +43,7 @@
       }
     )
 
+    ../sshd.nix
     ../distributed-build-conf.nix
     (
       { config, ... }:
