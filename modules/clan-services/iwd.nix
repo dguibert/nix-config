@@ -64,6 +64,7 @@
                   secret_name = "iwd.${value.ssid}";
                 in
                 {
+                  share = true;
                   prompts.${secret_name} = {
                     description = "Wifi password for '${value.ssid}'";
                     persist = true;
