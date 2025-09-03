@@ -491,6 +491,22 @@
           };
         };
 
+        inventory.instances.wifi = {
+          module.name = "iwd";
+          module.input = "self";
+          roles.default.tags.wifi = { };
+          roles.default.settings = {
+            networks = {
+              Freebox-AD070E = { };
+              Livebox-765e = { };
+              Livebox-D854 = { };
+              Livebox-D540 = { };
+              OPTUS_ACCB7F = {
+                Hidden = true;
+              };
+            };
+          };
+        };
         #inventory.instances.mopidy = {
         #  module.name = "mopidy";
         #  roles.default.machines.titan = { }; # TODO migrate mopidy to pipewire
@@ -508,17 +524,6 @@
             titan.endpoint = "192.168.1.24";
             t580.listenPort = 503;
             t580.endpoint = "192.168.1.17";
-          };
-
-          wifi.instance.roles.default.tags = [ "wifi" ];
-          wifi.instance.config = {
-            networks = {
-              Freebox-AD070E = { };
-              Livebox-765e = { };
-              Livebox-D854 = { };
-              Livebox-D540 = { };
-              OPTUS_ACCB7F = { };
-            };
           };
 
         };
