@@ -166,16 +166,13 @@ in
             "safe/home/dguibert/notmuch" = ds_mount "/persist/home/dguibert/Maildir/.notmuch";
             "safe/persist" = ds_mount "/persist";
 
-            "local/nix--home_nfs-bguibertd-nix" = ds_mount "/home_nfs/bguibertd/nix";
-            "local/nix--home_nfs_robin_ib-bguibertd-nix" = ds_mount "/home_nfs_robin_ib/bguibertd/nix";
             "local/nix--p-project-prcoe08-guibert1-nix" = ds_mount "/p/project/prcoe08/guibert1/nix";
             "local/nix--cluster-projects-nn9560k-dguibert" = ds_mount "/cluster/projects/nn9560k/dguibert";
             "local/nix--scratch-work-guibertd-nix" = ds_mount "/scratch/work/guibertd/nix";
             "local/nix--home-b-b381115-nix" = ds_mount "/home/b/b381115/nix";
             "local/nix--users-dguibert-nix" = ds_mount "/users/dguibert/nix";
-            "local/nix--shared-efs_home-nix" = ds_mount "/shared/efs_home/amorvan/dag/nix";
-            "local/nix--scratch_na-users-bguibertd-nix" = ds_mount "/scratch_na/users/bguibertd/nix";
             "local/nix--home-evid-evid356257-nix" = ds_mount "/home/evid/evid356257/nix";
+            "local/nix--software-stack-cepp-nix" = ds_mount "/software/stack/cepp/nix";
           };
         };
         zpoot_kdbimp = {
