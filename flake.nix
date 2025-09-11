@@ -40,10 +40,7 @@
   inputs.stylix.url = "github:danth/stylix";
   inputs.stylix.inputs.base16.follows = "base16";
   inputs.stylix.inputs.base16-vim.follows = "base16-vim";
-  inputs.stylix.inputs.flake-compat.follows = "flake-compat";
   inputs.stylix.inputs.flake-parts.follows = "flake-parts";
-  inputs.stylix.inputs.git-hooks.follows = "git-hooks-nix";
-  inputs.stylix.inputs.home-manager.follows = "home-manager";
   inputs.stylix.inputs.nixpkgs.follows = "nixpkgs";
   inputs.stylix.inputs.systems.follows = "systems";
 
