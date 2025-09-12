@@ -759,11 +759,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1738787834,
-        "narHash": "sha256-nyYRniB/EmSgyyhUeZPhsL95O/YCnb9+Y12eHPZCUAA=",
+        "lastModified": 1757692847,
+        "narHash": "sha256-0+ZHA25hGsqSv56f0wB3l8QeEJZE0/3Er+LtYY7OLwA=",
         "owner": "dguibert",
         "repo": "hyprsplit",
-        "rev": "ee10d9f96d1581e8296bc37a6d9d25135900e130",
+        "rev": "5adc3916ec0f4c6ecf7f70227791932d2a5d75dc",
         "type": "github"
       },
       "original": {
