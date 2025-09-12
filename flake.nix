@@ -508,6 +508,11 @@
         #  module.name = "mopidy";
         #  roles.default.machines.titan = { }; # TODO migrate mopidy to pipewire
         #};
+        inventory.instances.microvm = {
+          module.name = "microvm";
+          module.input = "self";
+          roles.default.machines.titan = { };
+        };
 
         inventory.services = {
           wireguard-mesh-vpn.service.roles.peer.tags = [ "all" ];

@@ -61,7 +61,6 @@
     ../report-changes.nix
 
     ../role-dns.nix
-    ../role-microvm.nix
     ../conf-kanata.nix
 
     #../../modules/services.nix

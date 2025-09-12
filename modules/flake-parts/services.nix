@@ -22,22 +22,6 @@ let
     )
   ];
 
-  microvm = [
-    inputs.microvm.nixosModules.host
-    (
-      {
-        config,
-        lib,
-        pkgs,
-        inputs,
-        ...
-      }:
-      {
-        role.microvm.enable = true;
-      }
-    )
-  ];
-
   waydroid = [
     (
       {
