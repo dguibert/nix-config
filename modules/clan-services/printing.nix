@@ -40,7 +40,6 @@
         {
           services.samba = {
             enable = true;
-            securityType = "user";
             settings = {
               global = {
                 "workgroup" = "ORSIN";

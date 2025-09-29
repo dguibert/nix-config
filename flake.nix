@@ -396,12 +396,34 @@
         inventory.instances.my-sshd = {
           module.name = "my-sshd";
           module.input = "self";
-          roles.default.tags.all = { };
-          roles.default.settings = {
+          roles.client.tags.all = { };
+          roles.client.settings = {
+            certificate.allowEmptyDomain = true;
+          };
+          roles.server.tags.all = { };
+          roles.server.settings = {
+            certificate.allowEmptyDomain = true;
             certificate.searchDomains = [
               "orsin.net"
             ];
           };
+          roles.server.machines.titan.settings.certificate.realms = [
+            "192.168.1.24"
+            "10.147.27.24"
+          ];
+          roles.server.machines.t580.settings.certificate.realms = [
+            "192.168.1.17"
+            "10.147.27.17"
+          ];
+          roles.server.machines.rpi31.settings.certificate.realms = [
+            "192.168.1.13"
+            "10.147.27.13"
+          ];
+          roles.server.machines.rpi41.settings.certificate.realms = [
+            "192.168.1.14"
+            "10.147.27.14"
+            "82.64.121.168"
+          ];
         };
         inventory.instances.ollama = {
           module.name = "ollama";

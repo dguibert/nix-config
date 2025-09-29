@@ -52,11 +52,7 @@
     in
     {
       enable = true;
-      compression = true;
-      controlMaster = "auto";
-      controlPath = "/run/user/%i/socket-%C";
-      controlPersist = "4h";
-
+      enableDefaultConfig = false;
       #extraOptionOverrides = ''
       #'';
       extraConfig = ''
@@ -70,6 +66,12 @@
 
       matchBlocks = {
         "*" = {
+          compression = true;
+          controlMaster = "auto";
+          controlPath = "/run/user/%i/socket-%C";
+          controlPersist = "4h";
+        };
+        "extra_config" = {
           match = "Host * Exec \"test -e ~/.ssh/extra_config\"";
           extraOptions.Include = "~/.ssh/extra_config";
         };
