@@ -396,8 +396,13 @@
         inventory.instances.my-sshd = {
           module.name = "my-sshd";
           module.input = "self";
-          roles.default.tags.all = { };
-          roles.default.settings = {
+          roles.client.tags.all = { };
+          roles.client.settings = {
+            certificate.allowEmptyDomain = true;
+          };
+          roles.server.tags.all = { };
+          roles.server.settings = {
+            certificate.allowEmptyDomain = true;
             certificate.searchDomains = [
               "orsin.net"
             ];
