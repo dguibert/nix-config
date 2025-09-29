@@ -140,7 +140,7 @@
                     ];
                     validation = {
                       name = config.clan.core.settings.machine.name;
-                      domains = lib.genAttrs settings.certificate.searchDomains lib.id;
+                      domains = lib.genAttrs (settings.certificate.searchDomains ++ settings.certificate.realms) lib.id;
                     };
                     runtimeInputs = [
                       pkgs.openssh
