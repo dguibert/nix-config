@@ -441,7 +441,7 @@
           module.name = "rkvm";
           module.input = "self";
           roles.server.machines.titan = { };
-          roles.client.machines.t580 = { };
+          roles.client.machines.rpi41 = { };
           roles.server.settings.rkvm.server = "192.168.1.24"; # TODO get from server ip
           roles.client.settings.rkvm.server = "192.168.1.24";
         };
