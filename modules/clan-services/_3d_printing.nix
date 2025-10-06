@@ -53,6 +53,7 @@
                   # Run klipper-genconf to generate this
                   configFile = ./_3d_printing/voron02_1/ebb36.config;
                   serial = null;
+                  enableKlipperFlash = false;
                 };
                 #"mcu display" = {
                 #  enable = true;
