@@ -41,9 +41,20 @@
     #  host.port = 2222;
     #  guest.port = 22;
     #}];
+    ## https://github.com/astro/microvm.nix/issues/123#issuecomment-2227358897
+    # ssh -o "ProxyCommand socat - VSOCK-CONNECT:1337:22" root@localhost
+    vsock.cid = 1337;
   };
   networking.useNetworkd = true;
   users.users.root.password = "";
+  systemd.sockets.sshd = {
+    socketConfig = {
+      ListenStream = [
+        "vsock:1337:22"
+      ];
+    };
+  };
+  services.openssh.ports = [ 22 ];
   services.openssh.settings.PermitRootLogin = "yes";
   users.users.root.openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKcj6Ig0DKYKNgeSlYaDtizs4mNN0hd23bFX1XaI8bzk dguibert@titan"
