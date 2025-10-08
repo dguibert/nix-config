@@ -23,6 +23,11 @@
         source = "/nix/store";
         mountPoint = "/nix/.ro-store";
       }
+      {
+        tag = "aria-dir";
+        source = "/mnt/downloads";
+        mountPoint = "/var/lib/aria2/Downloads";
+      }
     ];
     writableStoreOverlay = "/nix/.rw-store";
     # volumes = [ {
@@ -59,4 +64,25 @@
   users.users.root.openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKcj6Ig0DKYKNgeSlYaDtizs4mNN0hd23bFX1XaI8bzk dguibert@titan"
   ];
+
+  # seedbox
+  services.aria2 = {
+    enable = true;
+    openPorts = true;
+    serviceUMask = "0002";
+    settings = {
+      #dir = "";
+      seed-ratio = "0.0";
+      disk-cache = 0;
+      file-allocation = "none";
+      check-integrity = true;
+      always-resume = true;
+      #continue=true;
+      remote-time = true;
+
+      peer-id-prefix = "-qB0512";
+      peer-agent = "qBittorrent/5.1.2";
+
+    };
+  };
 }
