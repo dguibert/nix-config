@@ -9,7 +9,7 @@ keys:
   - &t580_age age14sj2anmfrckcuujl2ea0udsgxcunr2wncvk05q32p5kj8fljzpvq3fuez5
 creation_rules:
   # dguibert
-  - path_regex: modules/clan/home-manager/roles/dguibert/[^/]+-sec\.nix$
+  - path_regex: modules/home-manager/dguibert/[^/]+\.yaml$
     key_groups:
       - pgp:
           - *dguibert
