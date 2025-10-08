@@ -3,6 +3,7 @@
   config,
   pkgsForSystem,
   inputs,
+  pkgs,
   ...
 }:
 {
@@ -12,6 +13,7 @@
     inputs.microvm.nixosModules.microvm
     ../../modules/nixos/defaults
   ];
+
   nix.optimise.automatic = lib.mkForce false;
   nix.settings.auto-optimise-store = lib.mkForce false;
   distributed-build-conf.enable = lib.mkForce false;
@@ -65,13 +67,21 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKcj6Ig0DKYKNgeSlYaDtizs4mNN0hd23bFX1XaI8bzk dguibert@titan"
   ];
 
-  sops.defaultSopsFile = ../../secrets/defaults.yaml;
+  clan.core.vars.generators.aria2 = {
+    files.rpc-secret-file.deploy = true;
+    runtimeInputs = [
+      pkgs.xkcdpass
+    ];
+    script = ''
+      xkcdpass --numwords 3 --delimiter - --count 1 | tr -d "\n" > $out/rpc-secret-file
+    '';
+  };
   # seedbox
   services.aria2 = {
     enable = true;
     openPorts = true;
     serviceUMask = "0002";
-    rpcSecretFile = config.sops.secrets.aria2-secret.path;
+    rpcSecretFile = config.clan.core.vars.generators.aria2.files.rpc-secret-file.path;
     settings = {
       #dir = "";
       seed-ratio = "0.0";
