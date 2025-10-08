@@ -65,11 +65,13 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKcj6Ig0DKYKNgeSlYaDtizs4mNN0hd23bFX1XaI8bzk dguibert@titan"
   ];
 
+  sops.defaultSopsFile = ../../secrets/defaults.yaml;
   # seedbox
   services.aria2 = {
     enable = true;
     openPorts = true;
     serviceUMask = "0002";
+    rpcSecretFile = config.sops.secrets.aria2-secret.path;
     settings = {
       #dir = "";
       seed-ratio = "0.0";
