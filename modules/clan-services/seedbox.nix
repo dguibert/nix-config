@@ -46,7 +46,7 @@
               #continue=true;
               remote-time = true;
 
-              peer-id-prefix = "-qB0512-";
+              peer-id-prefix = "-qB5120-";
               peer-agent = "qBittorrent/5.1.2";
 
             };
