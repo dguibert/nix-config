@@ -31,8 +31,24 @@
             '';
           };
           # seedbox
-          services.aria2 = {
+          services.deluge = {
             enable = true;
+            openFirewall = true;
+            #declarative = true;
+            config = {
+              download_location = "/mnt/downloads";
+              allow_remote = true;
+              daemon_port = 58846;
+              listen_ports = [
+                6881
+                6889
+              ];
+            };
+            web.enable = true;
+          };
+
+          services.aria2 = {
+            enable = false;
             openPorts = true;
             serviceUMask = "0002";
             rpcSecretFile = config.clan.core.vars.generators.aria2.files.rpc-secret-file.path;
