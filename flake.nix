@@ -430,6 +430,11 @@
           module.input = "self";
           roles.default.machines.titan = { };
         };
+        inventory.instances.seedbox = {
+          module.name = "seedbox";
+          module.input = "self";
+          roles.default.machines.titan = { };
+        };
         inventory.instances.printing = {
           module.name = "printing";
           module.input = "self";
