@@ -32,7 +32,7 @@
           };
           # seedbox
           services.deluge = {
-            enable = true;
+            enable = false;
             openFirewall = true;
             #declarative = true;
             config = {
@@ -67,6 +67,47 @@
 
             };
           };
+
+          services.qbittorrent = {
+            enable = true;
+            webuiPort = 8081;
+            torrentingPort = 20556;
+
+            serverConfig = {
+              BitTorrent.Session = {
+                MaxConnections = -1;
+                MaxUploads = -1;
+                OutgoingPortsMax = 6999;
+                OutgoingPortsMin = 6881;
+                #SSRFMitigation = false;
+                StartPaused = true;
+              };
+              Preferences = {
+                WebUI = {
+                  AlternativeUIEnabled = true;
+                  RootFolder = "''${pkgs.vuetorrent}/share/vuetorrent";
+                  Username = "user";
+                  Password_PBKDF2 = "@ByteArray(nfySz4irUXZu2vDW5lfU6w==:xt/8TgDKcTz8LZ/LOKrBUve8JfLaJy/8LJw7dCJAe5upun9sfzLg6XIS/0nFBD/1lzKt2cfhoqWmQeFjcnxJNQ==)";
+                };
+              };
+            };
+          };
+          networking.firewall.allowedTCPPorts = [
+            config.services.qbittorrent.torrentingPort
+          ];
+
+          networking.firewall.allowedTCPPortRanges = [
+            {
+              from = config.services.qbittorrent.serverConfig.BitTorrent.Session.OutgoingPortsMin;
+              to = config.services.qbittorrent.serverConfig.BitTorrent.Session.OutgoingPortsMax;
+            }
+          ];
+          networking.firewall.allowedUDPPortRanges = [
+            {
+              from = config.services.qbittorrent.serverConfig.BitTorrent.Session.OutgoingPortsMin;
+              to = config.services.qbittorrent.serverConfig.BitTorrent.Session.OutgoingPortsMax;
+            }
+          ];
         };
     };
 }
