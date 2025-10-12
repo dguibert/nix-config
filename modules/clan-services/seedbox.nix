@@ -72,24 +72,31 @@
             enable = true;
             webuiPort = 8081;
             torrentingPort = 20556;
+            extraArgs = [
+              "--confirm-legal-notice"
+            ];
 
             serverConfig = {
               BitTorrent.Session = {
                 BTProtocol = "TCP";
-                Interface = "bond0";
-                InterfaceAddress = "0.0.0.0";
-                InterfaceName = "bond0";
+                DHTEnabled = false;
+                IDNSupportEnabled = true;
                 MaxConnections = -1;
+                MaxConnectionsPerTorrent = -1;
                 MaxUploads = -1;
+                MaxUploadsPerTorrent = -1;
                 OutgoingPortsMax = 6999;
                 OutgoingPortsMin = 6881;
+                PeXEnabled = false;
+                #Port=20556;
                 #SSRFMitigation = false;
-                StartPaused = true;
+                uTPRateLimited = false;
               };
+              Network.PortForwardingEnabled = false;
               Preferences = {
                 WebUI = {
-                  AlternativeUIEnabled = true;
-                  RootFolder = "${pkgs.vuetorrent}/share/vuetorrent";
+                  #    AlternativeUIEnabled = true;
+                  #    RootFolder = "${pkgs.vuetorrent}/share/vuetorrent";
                   Username = "user";
                   Password_PBKDF2 = "@ByteArray(nfySz4irUXZu2vDW5lfU6w==:xt/8TgDKcTz8LZ/LOKrBUve8JfLaJy/8LJw7dCJAe5upun9sfzLg6XIS/0nFBD/1lzKt2cfhoqWmQeFjcnxJNQ==)";
                 };
