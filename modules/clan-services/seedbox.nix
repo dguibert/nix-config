@@ -75,6 +75,10 @@
 
             serverConfig = {
               BitTorrent.Session = {
+                BTProtocol = "TCP";
+                Interface = "bond0";
+                InterfaceAddress = "0.0.0.0";
+                InterfaceName = "bond0";
                 MaxConnections = -1;
                 MaxUploads = -1;
                 OutgoingPortsMax = 6999;
@@ -96,6 +100,10 @@
             "/mnt/downloads2"
           ];
           networking.firewall.allowedTCPPorts = [
+            config.services.qbittorrent.torrentingPort
+          ];
+
+          networking.firewall.allowedUDPPorts = [
             config.services.qbittorrent.torrentingPort
           ];
 
