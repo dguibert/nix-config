@@ -92,6 +92,9 @@
               };
             };
           };
+          systemd.services.qbittorrent.serviceConfig.BindPaths = [
+            "/mnt/downloads2"
+          ];
           networking.firewall.allowedTCPPorts = [
             config.services.qbittorrent.torrentingPort
           ];
