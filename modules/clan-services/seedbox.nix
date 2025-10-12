@@ -85,7 +85,7 @@
               Preferences = {
                 WebUI = {
                   AlternativeUIEnabled = true;
-                  RootFolder = "''${pkgs.vuetorrent}/share/vuetorrent";
+                  RootFolder = "${pkgs.vuetorrent}/share/vuetorrent";
                   Username = "user";
                   Password_PBKDF2 = "@ByteArray(nfySz4irUXZu2vDW5lfU6w==:xt/8TgDKcTz8LZ/LOKrBUve8JfLaJy/8LJw7dCJAe5upun9sfzLg6XIS/0nFBD/1lzKt2cfhoqWmQeFjcnxJNQ==)";
                 };
