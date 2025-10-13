@@ -79,6 +79,7 @@
             serverConfig = {
               BitTorrent.Session = {
                 BTProtocol = "TCP";
+                DefaultSavePath = "/mnt/downloads2";
                 DHTEnabled = false;
                 IDNSupportEnabled = true;
                 MaxConnections = -1;
