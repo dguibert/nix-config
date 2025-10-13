@@ -10,6 +10,7 @@ let
 in
 with lib;
 {
+  options.hyprland.hyprsplit.enable = lib.mkEnableOption "Hyprland with split plugin";
   options.hyprland.nvidia.enable = lib.mkEnableOption "Hyprland with NVidia GPU" // {
     default = false;
   };
@@ -268,7 +269,7 @@ with lib;
     wayland.windowManager.hyprland = {
       enable = true;
       #package = inputs.hyprland.packages.${pkgs.system}.hyprland;
-      plugins = [
+      plugins = lib.optionals cfg.hyprsplit.enable [
         #pkgs.hyprlandPlugins.split-monitor-workspaces
         pkgs.hyprlandPlugins.hyprsplit
         #inputs.hyprsplit.packages.${pkgs.system}.hyprsplit

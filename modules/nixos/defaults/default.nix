@@ -32,7 +32,8 @@
         ...
       }:
       {
-        nixpkgs.hostPlatform = pkgsForSystem config.nixpkgs.system;
+        # ignored when nixpkgs.pkgs set
+        #nixpkgs.hostPlatform = { system=config.nixpkgs.system };
         nixpkgs.pkgs = pkgsForSystem config.nixpkgs.system;
       }
     )

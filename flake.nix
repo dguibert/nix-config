@@ -430,6 +430,11 @@
           module.input = "self";
           roles.default.machines.titan = { };
         };
+        inventory.instances.seedbox = {
+          module.name = "seedbox";
+          module.input = "self";
+          roles.default.machines.titan = { };
+        };
         inventory.instances.printing = {
           module.name = "printing";
           module.input = "self";
@@ -508,6 +513,8 @@
           roles.dguibert.settings = {
             withPersistence.enable = false;
           };
+          roles.dguibert-gui.machines.rpi41 = { };
+          roles.dguibert-gui.settings.hyprland.hyprsplit.enable = false;
         };
 
         inventory.instances.wifi = {
