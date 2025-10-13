@@ -513,6 +513,7 @@
           roles.dguibert.settings = {
             withPersistence.enable = false;
           };
+          roles.dguibert-gui.machines.rpi41 = { };
         };
 
         inventory.instances.wifi = {
