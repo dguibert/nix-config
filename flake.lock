@@ -1025,13 +1025,10 @@
         ]
       },
       "locked": {
-        "dir": "nixpkgs",
-        "lastModified": 1754052942,
-        "narHash": "sha256-sHfwbQSYEbg6sdRSj8IXAbmYhD18YiwNQBEdqZA3qBc=",
-        "owner": "dguibert",
-        "repo": "nix-config",
-        "rev": "c36bf501f15955edb01627641a1d685a9c22572d",
-        "type": "github"
+        "lastModified": 1760371949,
+        "narHash": "sha256-7jHiH/dgDvLlojnJPCmpQdTqaRqz+stLrSfpJxPSGkM=",
+        "path": "/dev/shm/nix-config/nixpkgs",
+        "type": "path"
       },
       "original": {
         "dir": "nixpkgs",
