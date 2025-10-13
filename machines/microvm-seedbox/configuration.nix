@@ -3,6 +3,7 @@
   config,
   pkgsForSystem,
   inputs,
+  pkgs,
   ...
 }:
 {
@@ -12,6 +13,7 @@
     inputs.microvm.nixosModules.microvm
     ../../modules/nixos/defaults
   ];
+
   nix.optimise.automatic = lib.mkForce false;
   nix.settings.auto-optimise-store = lib.mkForce false;
   distributed-build-conf.enable = lib.mkForce false;
@@ -22,6 +24,11 @@
         tag = "ro-store";
         source = "/nix/store";
         mountPoint = "/nix/.ro-store";
+      }
+      {
+        tag = "aria-dir";
+        source = "/mnt/downloads";
+        mountPoint = "/var/lib/aria2/Downloads";
       }
     ];
     writableStoreOverlay = "/nix/.rw-store";
