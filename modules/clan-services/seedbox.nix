@@ -92,6 +92,7 @@
                 #Port=20556;
                 #SSRFMitigation = false;
                 uTPRateLimited = false;
+                QueueingSystemEnabled = false;
               };
               Network.PortForwardingEnabled = false;
               Preferences = {
