@@ -514,6 +514,7 @@
             withPersistence.enable = false;
           };
           roles.dguibert-gui.machines.rpi41 = { };
+          roles.dguibert-gui.settings.hyprland.hyprsplit.enable = false;
         };
 
         inventory.instances.wifi = {

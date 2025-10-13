@@ -70,13 +70,20 @@
 
     };
 
+  roles.dguibert-gui.interface =
+    { lib, ... }:
+    {
+      options.hyprland.hyprsplit.enable = lib.mkEnableOption "Host running with hyprsplit plugin on hyprland";
+    };
+
   roles.dguibert-gui.perInstance =
-    { ... }:
+    { settings, ... }:
     {
       nixosModule =
         { config, pkgs, ... }:
         {
           home-manager.users.dguibert.withGui.enable = true;
+          home-manager.users.dguibert.hyprland.hyprsplit.enable = settings.hyprland.hyprsplit.enable;
         };
 
     };
