@@ -68,6 +68,9 @@
             };
           };
 
+          my.persistence.directories = [
+            "/var/lib/qBittorrent"
+          ];
           services.qbittorrent = {
             enable = true;
             webuiPort = 8081;
