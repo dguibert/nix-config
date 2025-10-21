@@ -55,13 +55,13 @@
                   serial = null;
                   enableKlipperFlash = false;
                 };
-                #"mcu display" = {
-                #  enable = true;
-                #  # Run klipper-genconf to generate this
-                #  configFile = ./_3d_printing/voron02_1/display/config;
-                #  # Serial port connected to the microcontroller
-                #  serial = "/dev/serial/by-id/usb-Klipper_stm32f042x6_05000B000543303848373220-if00";
-                #};
+                "mcu display" = {
+                  enable = true;
+                  # Run klipper-genconf to generate this
+                  configFile = ./_3d_printing/voron02_1/display/config;
+                  # Serial port connected to the microcontroller
+                  serial = "/dev/serial/by-id/usb-Klipper_stm32f042x6_05000B000543303848373220-if00";
+                };
               };
               settings = {
                 "temperature_sensor raspberry_pi" = {
