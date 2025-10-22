@@ -74,6 +74,7 @@ in
             "Videos"
             ".vim"
             "work"
+            "ria-store"
             #{
             #  directory = ".local/share/Steam";
             #  method = "symlink";
