@@ -358,21 +358,22 @@
                   axes = "xyz";
                   set_position_z = 0;
                   gcode = ''
-                    G90
-                    G0 Z5 F600
-                    {% set home_all = 'X' not in params and 'Y' not in params and 'Z' not in params %}
+                    #
+                                      G90
+                                      G0 Z5 F600
+                                      {% set home_all = 'X' not in params and 'Y' not in params and 'Z' not in params %}
 
-                    {% if home_all or 'X' in params %}
-                      _HOME_X
-                    {% endif %}
+                                       {% if home_all or 'X' in params %}
+                                         _HOME_X
+                                       {% endif %}
 
-                    {% if home_all or 'Y' in params %}
-                      _HOME_Y
-                    {% endif %}
+                                       {% if home_all or 'Y' in params %}
+                                         _HOME_Y
+                                       {% endif %}
 
-                    {% if home_all or 'Z' in params %}
-                      _HOME_Z
-                    {% endif %}
+                                       {% if home_all or 'Z' in params %}
+                                         _HOME_Z
+                                       {% endif %}
                   '';
                 };
                 ### Tool to help adjust bed leveling screws. One may define a
@@ -410,34 +411,34 @@
                   variable_extrude = 1.0;
                   gcode = ''
                     ##### read E from pause macro #####
-                    {% set E = printer["gcode_macro PAUSE"].extrude|float %}
-                    ##### set park positon for x and y #####
-                    # default is your max posion from your printer.cfg
-                    {% set x_park = printer.toolhead.axis_maximum.x|float - 5.0 %}
-                    {% set y_park = printer.toolhead.axis_maximum.y|float - 5.0 %}
-                    ##### calculate save lift position #####
-                    {% set max_z = printer.toolhead.axis_maximum.z|float %}
-                    {% set act_z = printer.toolhead.position.z|float %}
-                    {% if act_z < (max_z - 2.0) %}
-                        {% set z_safe = 2.0 %}
-                    {% else %}
-                        {% set z_safe = max_z - act_z %}
-                    {% endif %}
-                    ##### end of definitions #####
-                    PAUSE_BASE
-                    G91
-                    {% if printer.extruder.can_extrude|lower == 'true' %}
-                      G1 E-{E} F2100
-                    {% else %}
-                      {action_respond_info("Extruder not hot enough")}
-                    {% endif %}
-                    {% if "xyz" in printer.toolhead.homed_axes %}
-                      G1 Z{z_safe} F900
-                      G90
-                      G1 X{x_park} Y{y_park} F6000
-                    {% else %}
-                      {action_respond_info("Printer not homed")}
-                    {% endif %}
+                                        {% set E = printer["gcode_macro PAUSE"].extrude|float %}
+                                        ##### set park positon for x and y #####
+                                        # default is your max posion from your printer.cfg
+                                        {% set x_park = printer.toolhead.axis_maximum.x|float - 5.0 %}
+                                        {% set y_park = printer.toolhead.axis_maximum.y|float - 5.0 %}
+                                        ##### calculate save lift position #####
+                                        {% set max_z = printer.toolhead.axis_maximum.z|float %}
+                                        {% set act_z = printer.toolhead.position.z|float %}
+                                        {% if act_z < (max_z - 2.0) %}
+                                            {% set z_safe = 2.0 %}
+                                        {% else %}
+                                            {% set z_safe = max_z - act_z %}
+                                        {% endif %}
+                                        ##### end of definitions #####
+                                        PAUSE_BASE
+                                        G91
+                                        {% if printer.extruder.can_extrude|lower == 'true' %}
+                                          G1 E-{E} F2100
+                                        {% else %}
+                                          {action_respond_info("Extruder not hot enough")}
+                                        {% endif %}
+                                        {% if "xyz" in printer.toolhead.homed_axes %}
+                                          G1 Z{z_safe} F900
+                                          G90
+                                          G1 X{x_park} Y{y_park} F6000
+                                        {% else %}
+                                          {action_respond_info("Printer not homed")}
+                                        {% endif %}
                   '';
                 };
                 "gcode_macro RESUME" = {
@@ -445,21 +446,21 @@
                   rename_existing = "RESUME_BASE";
                   gcode = ''
                     ##### read E from pause macro #####
-                    {% set E = printer["gcode_macro PAUSE"].extrude|float %}
-                    #### get VELOCITY parameter if specified ####
-                    {% if 'VELOCITY' in params|upper %}
-                      {% set get_params = ('VELOCITY=' + params.VELOCITY)  %}
-                    {%else %}
-                      {% set get_params = "" %}
-                    {% endif %}
-                    ##### end of definitions #####
-                    {% if printer.extruder.can_extrude|lower == 'true' %}
-                      G91
-                      G1 E{E} F2100
-                    {% else %}
-                      {action_respond_info("Extruder not hot enough")}
-                    {% endif %}
-                    RESUME_BASE {get_params}
+                                        {% set E = printer["gcode_macro PAUSE"].extrude|float %}
+                                        #### get VELOCITY parameter if specified ####
+                                        {% if 'VELOCITY' in params|upper %}
+                                          {% set get_params = ('VELOCITY=' + params.VELOCITY)  %}
+                                        {%else %}
+                                          {% set get_params = "" %}
+                                        {% endif %}
+                                        ##### end of definitions #####
+                                        {% if printer.extruder.can_extrude|lower == 'true' %}
+                                          G91
+                                          G1 E{E} F2100
+                                        {% else %}
+                                          {action_respond_info("Extruder not hot enough")}
+                                        {% endif %}
+                                        RESUME_BASE {get_params}
                   '';
                 };
 
@@ -467,152 +468,157 @@
                   description = "Cancel the actual running print";
                   rename_existing = "CANCEL_PRINT_BASE";
                   gcode = ''
-                    TURN_OFF_HEATERS
-                    CANCEL_PRINT_BASE
+                    #
+                                      TURN_OFF_HEATERS
+                                      CANCEL_PRINT_BASE
                   '';
                 };
 
                 ###   Use PRINT_START for the slicer starting script - please customize for your slicer of choice
                 # https://github.com/Klipper3d/klipper/blob/master/config/sample-macros.cfg
                 "gcode_macro PRINT_START".gcode = ''
-                  # Parameters
-                  {% set BED_TEMP = params.BED|float %}
-                  {% set EXTRUDER_TEMP = params.EXTRUDER|float %}
-                  # Reset the G-Code Z offset (adjust Z offset if needed)
-                  # https://www.klipper3d.org/Bed_Level.html
-                  SET_GCODE_OFFSET Z=+.2
-                  M140 S{BED_TEMP}       ; set for bed to reach temp
-                  M104 S{EXTRUDER_TEMP}  ; set for hot end to reach temp
-                  # Home the printer
-                  G28
-                  # Use absolute coordinates
-                  G90
-                  M190 S{BED_TEMP}            ; set and wait for bed to reach temp
-                  M109 S{EXTRUDER_TEMP}       ; set and wait for hot end to reach temp
-                  ; start exhaust fan
-                  SET_FAN_SPEED FAN=exhaust_fan SPEED=0.5
+                  #
+                                  # Parameters
+                                  {% set BED_TEMP = params.BED|float %}
+                                  {% set EXTRUDER_TEMP = params.EXTRUDER|float %}
+                                  # Reset the G-Code Z offset (adjust Z offset if needed)
+                                  # https://www.klipper3d.org/Bed_Level.html
+                                  SET_GCODE_OFFSET Z=+.2
+                                  M140 S{BED_TEMP}       ; set for bed to reach temp
+                                  M104 S{EXTRUDER_TEMP}  ; set for hot end to reach temp
+                                  # Home the printer
+                                  G28
+                                  # Use absolute coordinates
+                                  G90
+                                  M190 S{BED_TEMP}            ; set and wait for bed to reach temp
+                                  M109 S{EXTRUDER_TEMP}       ; set and wait for hot end to reach temp
+                                  ; start exhaust fan
+                                  SET_FAN_SPEED FAN=exhaust_fan SPEED=0.5
 
-                  G0 Y5 X5             ;
-                  G1 Z0.2 F500.0       ; move bed to nozzle
-                  G92 E0.0             ; reset extruder
-                  G1 E4.0 F500.0       ; pre-purge prime LENGTH SHOULD MATCH YOUR PRINT_END RETRACT
-                  G1 Z2 E10.0 F500.0     ;
-                  G1 Z5 E20.0 F500.0     ;
-                  G92 E0.0             ; reset extruder
-                  G1 Z2.0              ; move nozzle to prevent scratch
-                  ### Move the nozzle near the bed
-                  G1 Z20 F3000
-                  ### Move the nozzle very close to the bed
-                  ##G1 Z0.15 F300
+                                  G0 Y5 X5             ;
+                                  G1 Z0.2 F500.0       ; move bed to nozzle
+                                  G92 E0.0             ; reset extruder
+                                  G1 E4.0 F500.0       ; pre-purge prime LENGTH SHOULD MATCH YOUR PRINT_END RETRACT
+                                  G1 Z2 E10.0 F500.0     ;
+                                  G1 Z5 E20.0 F500.0     ;
+                                  G92 E0.0             ; reset extruder
+                                  G1 Z2.0              ; move nozzle to prevent scratch
+                                  ### Move the nozzle near the bed
+                                  G1 Z20 F3000
+                                  ### Move the nozzle very close to the bed
+                                  ##G1 Z0.15 F300
                 '';
                 ###   Use PRINT_END for the slicer ending script - please customize for your slicer of choice
                 "gcode_macro PRINT_END".gcode = ''
-                  M400                           ; wait for buffer to clear
-                  G92 E0                         ; zero the extruder
-                  G1 E-4.0 F3600                 ; retract filament
-                  G91                            ; relative positioning
+                  #
+                                  M400                           ; wait for buffer to clear
+                                  G92 E0                         ; zero the extruder
+                                  G1 E-4.0 F3600                 ; retract filament
+                                  G91                            ; relative positioning
 
-                  #   Get Boundaries
-                  {% set max_x = printer.configfile.config["stepper_x"]["position_max"]|float %}
-                  {% set max_y = printer.configfile.config["stepper_y"]["position_max"]|float %}
-                  {% set max_z = printer.configfile.config["stepper_z"]["position_max"]|float %}
+                                  #   Get Boundaries
+                                  {% set max_x = printer.configfile.config["stepper_x"]["position_max"]|float %}
+                                  {% set max_y = printer.configfile.config["stepper_y"]["position_max"]|float %}
+                                  {% set max_z = printer.configfile.config["stepper_z"]["position_max"]|float %}
 
-                  #   Check end position to determine safe direction to move
-                  {% if printer.toolhead.position.x < (max_x - 20) %}
-                      {% set x_safe = 20.0 %}
-                  {% else %}
-                      {% set x_safe = -20.0 %}
-                  {% endif %}
+                                  #   Check end position to determine safe direction to move
+                                  {% if printer.toolhead.position.x < (max_x - 20) %}
+                                      {% set x_safe = 20.0 %}
+                                  {% else %}
+                                      {% set x_safe = -20.0 %}
+                                  {% endif %}
 
-                  {% if printer.toolhead.position.y < (max_y - 20) %}
-                      {% set y_safe = 20.0 %}
-                  {% else %}
-                      {% set y_safe = -20.0 %}
-                  {% endif %}
+                                  {% if printer.toolhead.position.y < (max_y - 20) %}
+                                      {% set y_safe = 20.0 %}
+                                  {% else %}
+                                      {% set y_safe = -20.0 %}
+                                  {% endif %}
 
-                  {% if printer.toolhead.position.z < (max_z - 2) %}
-                      {% set z_safe = 2.0 %}
-                  {% else %}
-                      {% set z_safe = max_z - printer.toolhead.position.z %}
-                  {% endif %}
+                                  {% if printer.toolhead.position.z < (max_z - 2) %}
+                                      {% set z_safe = 2.0 %}
+                                  {% else %}
+                                      {% set z_safe = max_z - printer.toolhead.position.z %}
+                                  {% endif %}
 
-                  G0 Z{z_safe} F3600    ; move nozzle up
-                  G0 X{x_safe} Y{y_safe} F20000    ; move nozzle to remove stringing
-                  TURN_OFF_HEATERS
-                  # Turn off bed, extruder, and fan
-                  M140 S0
-                  M104 S0
-                  M106 S0
-                  M107                           ; turn off fan
-                  G90                            ; absolute positioning
-                  G0 X60 Y{max_y-10} F3600          ; park nozzle at rear
-                  ; runs the exhaust fan for 3 minutes on full speed
-                  SET_FAN_SPEED FAN=exhaust_fan SPEED=1.0
-                  G4 P180000 ; wait 3 minutes (milliseconds)
-                  SET_FAN_SPEED FAN=exhaust_fan SPEED=0.0
+                                  G0 Z{z_safe} F3600    ; move nozzle up
+                                  G0 X{x_safe} Y{y_safe} F20000    ; move nozzle to remove stringing
+                                  TURN_OFF_HEATERS
+                                  # Turn off bed, extruder, and fan
+                                  M140 S0
+                                  M104 S0
+                                  M106 S0
+                                  M107                           ; turn off fan
+                                  G90                            ; absolute positioning
+                                  G0 X60 Y{max_y-10} F3600          ; park nozzle at rear
+                                  ; runs the exhaust fan for 3 minutes on full speed
+                                  SET_FAN_SPEED FAN=exhaust_fan SPEED=1.0
+                                  G4 P180000 ; wait 3 minutes (milliseconds)
+                                  SET_FAN_SPEED FAN=exhaust_fan SPEED=0.0
                 '';
 
                 "gcode_macro LOAD_FILAMENT".gcode = ''
                   M83                            ; set extruder to relative
-                  G1 E30 F300                    ; load
-                  G1 E15 F150                    ; prime nozzle with filament
-                  M82                            ; set extruder to absolute
+                                  G1 E30 F300                    ; load
+                                  G1 E15 F150                    ; prime nozzle with filament
+                                  M82                            ; set extruder to absolute
                 '';
 
-                "gcode_macro UNLOAD_FILAMENT".gcode =
-                  "    M83                            ; set extruder to relative
-             G1 E10 F300                    ; extrude a little to soften tip
-             G1 E-40 F1800                  ; retract some, but not too much or it will jam
-             M82                            ; set extruder to absolute
-        ";
-                "gcode_macro _HOME_X".gcode =
-                  "    # Always use consistent run_current on A/B steppers during sensorless homing
-             {% set RUN_CURRENT_X = printer.configfile.settings['tmc2209 stepper_x'].run_current|float %}
-             {% set RUN_CURRENT_Y = printer.configfile.settings['tmc2209 stepper_y'].run_current|float %}
-             {% set HOME_CURRENT_RATIO = 0.7 %} # by default we are dropping the motor current during homing. you can adjust this value if you are having trouble with skipping while homing
-             SET_TMC_CURRENT STEPPER=stepper_x CURRENT={HOME_CURRENT_RATIO * RUN_CURRENT_X}
-             SET_TMC_CURRENT STEPPER=stepper_y CURRENT={HOME_CURRENT_RATIO * RUN_CURRENT_Y}
+                "gcode_macro UNLOAD_FILAMENT".gcode = ''
+                  #
+                                  M83                            ; set extruder to relative
+                                  G1 E10 F300                    ; extrude a little to soften tip
+                                  G1 E-40 F1800                  ; retract some, but not too much or it will jam
+                                  M82                            ; set extruder to absolute
+                '';
+                "gcode_macro _HOME_X".gcode = ''
+                  # Always use consistent run_current on A/B steppers during sensorless homing
+                                  {% set RUN_CURRENT_X = printer.configfile.settings['tmc2209 stepper_x'].run_current|float %}
+                                  {% set RUN_CURRENT_Y = printer.configfile.settings['tmc2209 stepper_y'].run_current|float %}
+                                  {% set HOME_CURRENT_RATIO = 0.7 %} # by default we are dropping the motor current during homing. you can adjust this value if you are having trouble with skipping while homing
+                                  SET_TMC_CURRENT STEPPER=stepper_x CURRENT={HOME_CURRENT_RATIO * RUN_CURRENT_X}
+                                  SET_TMC_CURRENT STEPPER=stepper_y CURRENT={HOME_CURRENT_RATIO * RUN_CURRENT_Y}
 
-             # Home
-             G28 X
-             # Move away
-             G91
-             G1 X-10 F1200
+                                  # Home
+                                  G28 X
+                                  # Move away
+                                  G91
+                                  G1 X-10 F1200
 
-             # Wait just a second… (give StallGuard registers time to clear)
-             G4 P1000
-             G90
-             # Set current during print
-             SET_TMC_CURRENT STEPPER=stepper_x CURRENT={RUN_CURRENT_X}
-             SET_TMC_CURRENT STEPPER=stepper_y CURRENT={RUN_CURRENT_Y}
-        ";
+                                  # Wait just a second… (give StallGuard registers time to clear)
+                                  G4 P1000
+                                  G90
+                                  # Set current during print
+                                  SET_TMC_CURRENT STEPPER=stepper_x CURRENT={RUN_CURRENT_X}
+                                  SET_TMC_CURRENT STEPPER=stepper_y CURRENT={RUN_CURRENT_Y}
+                '';
 
-                "gcode_macro _HOME_Y".gcode =
-                  "     # Set current for sensorless homing
-             {% set RUN_CURRENT_X = printer.configfile.settings['tmc2209 stepper_x'].run_current|float %}
-             {% set RUN_CURRENT_Y = printer.configfile.settings['tmc2209 stepper_y'].run_current|float %}
-             {% set HOME_CURRENT_RATIO = 0.7 %} # by default we are dropping the motor current during homing. you can adjust this value if you are having trouble with skipping while homing
-             SET_TMC_CURRENT STEPPER=stepper_x CURRENT={HOME_CURRENT_RATIO * RUN_CURRENT_X}
-             SET_TMC_CURRENT STEPPER=stepper_y CURRENT={HOME_CURRENT_RATIO * RUN_CURRENT_Y}
+                "gcode_macro _HOME_Y".gcode = ''
+                  # Set current for sensorless homing
+                                  {% set RUN_CURRENT_X = printer.configfile.settings['tmc2209 stepper_x'].run_current|float %}
+                                  {% set RUN_CURRENT_Y = printer.configfile.settings['tmc2209 stepper_y'].run_current|float %}
+                                  {% set HOME_CURRENT_RATIO = 0.7 %} # by default we are dropping the motor current during homing. you can adjust this value if you are having trouble with skipping while homing
+                                  SET_TMC_CURRENT STEPPER=stepper_x CURRENT={HOME_CURRENT_RATIO * RUN_CURRENT_X}
+                                  SET_TMC_CURRENT STEPPER=stepper_y CURRENT={HOME_CURRENT_RATIO * RUN_CURRENT_Y}
 
-             # Home
-             G28 Y
-             # Move away
-             G91
-             G1 Y-10 F1200
+                                  # Home
+                                  G28 Y
+                                  # Move away
+                                  G91
+                                  G1 Y-10 F1200
 
-             # Wait just a second… (give StallGuard registers time to clear)
-             G4 P1000
-             G90
-             # Set current during print
-             SET_TMC_CURRENT STEPPER=stepper_x CURRENT={RUN_CURRENT_X}
-             SET_TMC_CURRENT STEPPER=stepper_y CURRENT={RUN_CURRENT_Y}
-        ";
+                                  # Wait just a second… (give StallGuard registers time to clear)
+                                  G4 P1000
+                                  G90
+                                  # Set current during print
+                                  SET_TMC_CURRENT STEPPER=stepper_x CURRENT={RUN_CURRENT_X}
+                                  SET_TMC_CURRENT STEPPER=stepper_y CURRENT={RUN_CURRENT_Y}
+                '';
 
-                "gcode_macro _HOME_Z".gcode = "    G90
-             G28 Z
-             G1 Z30
-        ";
+                "gcode_macro _HOME_Z".gcode = ''
+                  G90
+                                  G28 Z
+                                  G1 Z30
+                '';
                 ##
                 ###[include v0_display.cfg]
                 ###[include bedScrewMenu.cfg]
