@@ -543,6 +543,12 @@
           roles.default.machines.titan = { };
         };
 
+        inventory.instances.openvpn-cdac = {
+          module.name = "openvpn-cdac";
+          module.input = "self";
+          roles.default.machines.titan = { };
+        };
+
         inventory.services = {
           wireguard-mesh-vpn.service.roles.peer.tags = [ "all" ];
           wireguard-mesh-vpn.service.config.peers = {
