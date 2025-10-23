@@ -32,8 +32,8 @@
               };
             };
 
+            systemd.services.openvpn-cdac.bindsTo = [ "netns@cdac.service" ];
             #systemd.services. ....bindsTo = [ "netns@cdac.service" ];
-            # {iproute}/bin/ip link set wg0 netns openvpn
             clan.core.vars.generators.openvpn-cdac = {
               prompts.config.persist = true;
               prompts.config.type = "multiline";
@@ -42,7 +42,12 @@
             };
 
             services.openvpn.servers = {
-              cdac-vpn = {
+              cdac = {
+                #up = ''
+                # ${pkgs.iproute2}/bin/ip link set tun0 netns cdac
+                #'';
+                #down = ''
+                #'';
                 config = ''
                   config ${config.clan.core.vars.generators.openvpn-cdac.files.config.path}
                   auth-user-pass ${config.clan.core.vars.generators.openvpn-cdac.files.credentails.path}
