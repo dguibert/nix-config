@@ -37,6 +37,13 @@ creation_rules:
           - *dguibert
         age:
           - *rpi31_age
+  - path_regex: sops/secrets/rpi31-.+/secret
+    key_groups:
+      - pgp:
+          - *dguibert
+        age:
+          - *dguibert_titan_age
+          - *rpi31_age
   # dguibert
   # t580
   - path_regex: hosts/t580/secrets/[^/]+\.yaml$
