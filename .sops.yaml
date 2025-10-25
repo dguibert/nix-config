@@ -78,5 +78,6 @@ creation_rules:
         age:
           - *dguibert_titan_age
           - *rpi41_age
+          - *rpi31_age
           - *t580_age
           - *titan_age
