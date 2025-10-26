@@ -84,7 +84,7 @@
                 mcu.serial = firmwares.mcu.serial;
                 mcu.restart_method = "command";
 
-                "mcu ebb36".canbus_uuid = "c114d5f98943";
+                "mcu ebb36".canbus_uuid = "38ada9eac8e8";
 
                 # https://docs.fluidd.xyz/configuration/initial_setup
                 virtual_sdcard.path = "/gcodes";
