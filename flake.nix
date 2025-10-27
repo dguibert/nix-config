@@ -269,6 +269,15 @@
                 profiles.bguibertd-x86_64 = genProfile "bguibertd" "bguibertd@spartan-x86_64" "hm-x86_64";
                 profiles.bguibertd-aarch64 = genProfile "bguibertd" "bguibertd@spartan-aarch64" "hm-aarch64";
               };
+
+              mn5 = {
+                hostname = "mn5-nix";
+                fastConnection = true;
+                autoRollback = false;
+                magicRollback = false;
+
+                profiles.user = genProfile "evid356257" "evid356257@mn5" "hm";
+              };
               #levante = {
               #  hostname = "levante";
               #  sshOpts = [ "-o" "ControlMaster=no" ]; # https://github.com/serokell/deploy-rs/issues/106
