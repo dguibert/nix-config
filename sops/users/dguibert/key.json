@@ -1,4 +1,10 @@
-{
-  "publickey": "age1gthhn69gtgn8gsvv58xqu9vxfnczl68kktm64638xfv5j3qm4grqeuw0h4",
-  "type": "age"
-}
+[
+  {
+    "publickey": "age1gthhn69gtgn8gsvv58xqu9vxfnczl68kktm64638xfv5j3qm4grqeuw0h4",
+    "type": "age"
+  },
+  {
+    "publickey": "age1zpv9vp6rkcttpg8yk5qk8yjh4kxh6pj9d3uvzfekglth6mfc0drqekue6r",
+    "type": "age"
+  }
+]
