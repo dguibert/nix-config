@@ -244,14 +244,14 @@
                   uart_pin = "ebb36:EXT_UART"; # "PA3";
                   #tx_pin = "PA2";
                   #uart_address = 3;
-                  interpolate = false;
-                  run_current = 0.650;
-                  #hold_current = 0.100;
+                  interpolate = true;
+                  run_current = 0.8;
+                  hold_current = 0.100;
                   sense_resistor = 0.110;
-                  #driver_TBL = 0;
-                  #driver_HEND = 6;
-                  #driver_HSTRT = 7;
-                  #driver_TOFF = 4;
+                  driver_TBL = 0;
+                  driver_HEND = 6;
+                  driver_HSTRT = 7;
+                  driver_TOFF = 4;
                   stealthchop_threshold = 0; # Set to 0 for spreadcycle, avoid using stealthchop on extruder
                 };
 
