@@ -142,8 +142,8 @@
                   tx_pin = "PA2";
                   uart_address = 0;
                   interpolate = false;
-                  run_current = 0.85;
-                  sense_resistor = 0.110;
+                  run_current = 0.7;
+                  sense_resistor = 0.220;
                   stealthchop_threshold = 0;
                   diag_pin = "^PB4";
                   driver_SGTHRS = 90;
@@ -169,8 +169,8 @@
                   tx_pin = "PA2";
                   uart_address = 2;
                   interpolate = false;
-                  run_current = 0.85;
-                  sense_resistor = 0.110;
+                  run_current = 0.7;
+                  sense_resistor = 0.220;
                   stealthchop_threshold = 0;
                   diag_pin = "^PC8";
                   driver_SGTHRS = 90;
