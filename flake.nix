@@ -381,13 +381,13 @@
           roles.dguibert-gui.tags.desktop = { };
           roles.dguibert-persistence.tags.dguibert = { };
           roles.dguibert-mail.machines.titan = { };
-          roles.dguibert.machines.titani.settings = {
+          roles.dguibert.machines.titan.settings = {
             centralMailHost.enable = true;
           };
 
-          roles.dguibert.tags.dguibert_rpi.settings = {
-            withPersistence.enable = false;
-          };
+          #roles.dguibert.tags.dguibert_rpi.settings = {
+          roles.dguibert.machines.rpi41.settings.withPersistence.enable = false;
+          roles.dguibert.machines.rpi31.settings.withPersistence.enable = false;
           roles.dguibert-gui.machines.rpi41.settings = {
             hyprland.hyprsplit.enable = false;
           };
@@ -491,7 +491,8 @@
           module.name = "wayland";
           module.input = "self";
           roles.default.tags.desktop = { };
-          roles.default.tags.desktop64.settings = {
+          #roles.default.tags.desktop64.settings = {
+          roles.default.machines.rpi41.settings = {
             enable32Bit = false;
           };
         };
