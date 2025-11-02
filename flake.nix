@@ -381,13 +381,15 @@
           roles.dguibert-gui.tags.desktop = { };
           roles.dguibert-persistence.tags.dguibert = { };
           roles.dguibert-mail.machines.titan = { };
-        };
-        inventory.instances.dguibert-mail = {
-          module.name = "home-manager";
-          module.input = "self";
-          roles.dguibert.machines.titan = { };
-          roles.dguibert.settings = {
+          roles.dguibert.machines.titani.settings = {
             centralMailHost.enable = true;
+          };
+
+          roles.dguibert.tags.dguibert_rpi.settings = {
+            withPersistence.enable = false;
+          };
+          roles.dguibert-gui.machines.rpi41.settings = {
+            hyprland.hyprsplit.enable = false;
           };
         };
 
@@ -437,7 +439,7 @@
         inventory.instances.ollama = {
           module.name = "ollama";
           module.input = "self";
-          roles.default.machines.titan = { };
+          #roles.default.machines.titan = { };
         };
         inventory.instances.seedbox = {
           module.name = "seedbox";
@@ -489,12 +491,9 @@
           module.name = "wayland";
           module.input = "self";
           roles.default.tags.desktop = { };
-        };
-        inventory.instances.wayland_2 = {
-          module.name = "wayland";
-          module.input = "self";
-          roles.default.tags.desktop64 = { };
-          roles.default.settings.enable32Bit = false;
+          roles.default.tags.desktop64.settings = {
+            enable32Bit = false;
+          };
         };
 
         inventory.instances.yubikey = {
@@ -507,23 +506,6 @@
           module.name = "zigbee";
           module.input = "self";
           roles.server.machines.rpi41 = { };
-        };
-
-        inventory.instances.navidrome = {
-          module.name = "navidrome";
-          module.input = "self";
-          roles.server.machines.titan = { };
-        };
-
-        inventory.instances.dguibert_rpi = {
-          module.name = "home-manager";
-          module.input = "self";
-          roles.dguibert.tags.dguibert_rpi = { };
-          roles.dguibert.settings = {
-            withPersistence.enable = false;
-          };
-          roles.dguibert-gui.machines.rpi41 = { };
-          roles.dguibert-gui.settings.hyprland.hyprsplit.enable = false;
         };
 
         inventory.instances.wifi = {
