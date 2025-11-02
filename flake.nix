@@ -540,6 +540,19 @@
           roles.default.machines.titan = { };
         };
 
+        inventory.instances.home-vpn = {
+          module.name = "wireguard";
+          module.input = "clan-core";
+          roles.controller.machines.rpi41.settings = {
+            endpoint = "82.64.121.168";
+            port = 51820; # default UDP port
+          };
+          roles.peer.machines = {
+            titan.settings.controller = "rpi41";
+            t580 = { };
+            rpi31 = { };
+          };
+        };
         inventory.services = {
           wireguard-mesh-vpn.service.roles.peer.tags = [ "all" ];
           wireguard-mesh-vpn.service.config.peers = {
