@@ -143,7 +143,7 @@
                   uart_address = 0;
                   interpolate = false;
                   run_current = 0.7;
-                  sense_resistor = 0.220;
+                  sense_resistor = 0.110;
                   stealthchop_threshold = 0;
                   diag_pin = "^PB4";
                   driver_SGTHRS = 90;
@@ -170,7 +170,7 @@
                   uart_address = 2;
                   interpolate = false;
                   run_current = 0.7;
-                  sense_resistor = 0.220;
+                  sense_resistor = 0.110;
                   stealthchop_threshold = 0;
                   diag_pin = "^PC8";
                   driver_SGTHRS = 90;
