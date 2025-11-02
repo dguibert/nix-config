@@ -38,7 +38,7 @@ with lib;
       slurp
       wayvnc
 
-      inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
+      inputs.hyprland-contrib.packages.${pkgs.localSystem.system}.grimblast
     ];
 
     programs.foot.enable = true;
