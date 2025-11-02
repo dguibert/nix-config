@@ -73,6 +73,10 @@
                   sensor_type = "temperature_mcu";
                   sensor_mcu = "ebb36";
                 };
+                "temperature_sensor mcu" = {
+                  sensor_type = "temperature_mcu";
+                  sensor_mcu = "mcu";
+                };
                 printer = {
                   kinematics = "corexy";
                   max_velocity = 300;
