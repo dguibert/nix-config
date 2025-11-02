@@ -244,8 +244,9 @@
                   uart_pin = "ebb36:EXT_UART"; # "PA3";
                   #tx_pin = "PA2";
                   #uart_address = 3;
-                  interpolate = false;
+                  interpolate = true;
                   run_current = 0.35;
+                  hold_current = 0.1;
                   sense_resistor = 0.110;
                   driver_TBL = 0;
                   driver_HEND = 6;
