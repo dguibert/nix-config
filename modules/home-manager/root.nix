@@ -77,7 +77,7 @@ with lib;
   home.sessionVariables.GIT_PS1_SHOWDIRTYSTATE = 1;
 
   home.packages = with pkgs; [
-    (vim_configurable.override {
+    (vim-full.override {
       guiSupport = "no";
       libX11 = null;
       libXext = null;
