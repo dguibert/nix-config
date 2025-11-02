@@ -45,8 +45,8 @@
   programs.git.iniContent.notes.rewriteRefs = "refs/notes/commits";
 
   #home.packages = with pkgs; [
-  #  gitAndTools.git-remote-gcrypt
-  #  (gitAndTools.git-crypt.override { git = config.programs.git.package; })
+  #  git-remote-gcrypt
+  #  (git-crypt.override { git = config.programs.git.package; })
   #];
 
 }

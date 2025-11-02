@@ -313,10 +313,10 @@ in
             }))
           ]
         ))
-        gitAndTools.git-credential-password-store
+        git-credential-password-store
 
-        gitAndTools.git-remote-gcrypt
-        gitAndTools.git-crypt
+        git-remote-gcrypt
+        git-crypt
         tig
 
         perlPackages.GitAutofixup
@@ -326,11 +326,11 @@ in
 
         mr
         mercurial
-        #previousPkgs_pu.gitAndTools.git-annex
+        #previousPkgs_pu.git-annex
         yt-dlp
-        gitAndTools.git-nomad
-        gitAndTools.git-annex
-        gitAndTools.git-annex-remote-rclone
+        git-nomad
+        git-annex
+        git-annex-remote-rclone
         (pkgs.writeScriptBin "git-annex-diff-wrapper" ''
           #!${pkgs.runtimeShell}
           LANG=C ${pkgs.diffutils}/bin/diff -u "$1" "$2"
@@ -345,7 +345,7 @@ in
         imagemagick
         exiftool
         udftools
-        gitAndTools.hub # command-line wrapper for git that makes you better at GitHub
+        hub # command-line wrapper for git that makes you better at GitHub
 
         dwm
         dmenu
