@@ -142,6 +142,7 @@ in
           size = 16;
         };
 
+        home.packages = [ pkgs.dconf ];
         gtk = {
           enable = true;
 
