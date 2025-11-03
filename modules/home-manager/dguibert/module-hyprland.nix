@@ -10,8 +10,10 @@ let
 in
 with lib;
 {
-  options.hyprland.hyprsplit.enable = lib.mkEnableOption "Hyprland with split plugin";
-  options.hyprland.nvidia.enable = lib.mkEnableOption "Hyprland with NVidia GPU" // {
+  options.hyprland.hyprsplit.enable = (lib.mkEnableOption "Hyprland with split plugin") // {
+    default = true;
+  };
+  options.hyprland.nvidia.enable = (lib.mkEnableOption "Hyprland with NVidia GPU") // {
     default = false;
   };
 
