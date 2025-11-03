@@ -34,6 +34,7 @@
             systemd.network.networks."40-haproxy" = {
               name = "haproxy";
               networkConfig.Address = "${haproxy_internal_ip}/32";
+              linkConfig.RequiredForOnline = "routable";
               routingPolicyRules = [
                 {
                   From = "${haproxy_internal_ip}";
