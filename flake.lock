@@ -1027,11 +1027,11 @@
       },
       "locked": {
         "dir": "nixpkgs",
-        "lastModified": 1754052942,
-        "narHash": "sha256-sHfwbQSYEbg6sdRSj8IXAbmYhD18YiwNQBEdqZA3qBc=",
+        "lastModified": 1762165449,
+        "narHash": "sha256-EWq4JbFOgpa2QgoZaw5/8gMIqZ72JiSMNv1sONzdLBI=",
         "owner": "dguibert",
         "repo": "nix-config",
-        "rev": "c36bf501f15955edb01627641a1d685a9c22572d",
+        "rev": "7781de9612b40ca775257294a96aee302d917e81",
         "type": "github"
       },
       "original": {
