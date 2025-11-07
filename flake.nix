@@ -554,6 +554,12 @@
             rpi31 = { };
           };
         };
+
+        inventory.instances.distributed-build = {
+          module.input = "self";
+          roles.server.machines.rpi41 = { };
+          roles.client.tags.all = { };
+        };
         inventory.services = {
           wireguard-mesh-vpn.service.roles.peer.tags = [ "all" ];
           wireguard-mesh-vpn.service.config.peers = {

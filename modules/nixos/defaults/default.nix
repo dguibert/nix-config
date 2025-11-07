@@ -45,13 +45,6 @@
     )
 
     ../sshd.nix
-    ../distributed-build-conf.nix
-    (
-      { config, ... }:
-      {
-        distributed-build-conf.enable = true;
-      }
-    )
     ../nix-conf.nix
     (
       { config, ... }:
