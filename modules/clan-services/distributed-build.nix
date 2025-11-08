@@ -10,8 +10,12 @@
         settings,
         machine,
         roles,
+        lib,
         ...
       }:
+      let
+        allClients = lib.attrNames roles.client.machines;
+      in
       {
         nixosModule =
           {
@@ -21,22 +25,18 @@
             ...
           }:
           {
-            clan.core.vars.generators.distributed-build = {
-              files.ssh_ed25519 = { };
-              files."ssh_ed25519.pub" = {
-                deploy = false;
-                secret = false;
-              };
-              script = ''ssh-keygen -t ed25519 -N " " -C " " -f $out/ssh_ed25519'';
-              runtimeInputs = [ pkgs.openssh ];
-            };
-
             users.extraUsers.nixBuild = {
               name = "nixBuild";
               useDefaultShell = true;
-              openssh.authorizedKeys.keys = [
-                config.clan.core.vars.generators."distributed-build".files."ssh_ed25519.pub".value
-              ];
+              openssh.authorizedKeys.keys = lib.map (
+                n:
+                builtins.replaceStrings [ "\n" ] [ "" ] (
+                  builtins.readFile (
+                    config.clan.core.settings.directory
+                    + "/vars/per-machine/${n}/distributed-build/ssh_ed25519.pub/value"
+                  )
+                )
+              ) allClients;
               isSystemUser = true;
             };
             users.users.nixBuild.group = "nixBuild";
@@ -77,6 +77,16 @@
             ...
           }:
           {
+            clan.core.vars.generators.distributed-build = {
+              files.id_buildfarm = { };
+              files."id_buildfarm.pub" = {
+                deploy = false;
+                secret = false;
+              };
+              script = ''ssh-keygen -t ed25519 -N " " -C "id_buildfarm key on ${config.networking.hostName} " -f $out/id_buildfarm'';
+              runtimeInputs = [ pkgs.openssh ];
+            };
+
             # on the client machine
             programs.ssh.extraConfig = ''
               Host rpi31
@@ -94,12 +104,7 @@
                 hostName = n;
                 maxJobs = 1;
                 #speedFactor = 2;
-                sshKey = builtins.replaceStrings [ "\n" ] [ "" ] (
-                  builtins.readFile (
-                    config.clan.core.settings.directory
-                    + "/vars/per-machine/${n}/distributed-build/ssh_ed25519.pub/value"
-                  )
-                );
+                sshKey = config.clan.core.generators.distributed-build.files.id_buildfarm.path;
                 sshUser = "nixBuild";
                 system = "aarch64-linux"; # FIXME assuming here that all are aarch64-linux
                 supportedFeatures = [ "big-parallel" ];
