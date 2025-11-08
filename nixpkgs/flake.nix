@@ -24,30 +24,32 @@
       lib = nixpkgs.lib;
 
       overlays.default = final: prev: {
-        shadowsocks-libev = prev.shadowsocks-libev.overrideAttrs (o: with prev; {
-          buildInputs = [
-            libsodium
-            mbedtls
-            libev
-            c-ares
-            pcre
-          ];
-          nativeBuildInputs = with prev; [
-            cmake
-            asciidoc
-            xmlto
-            docbook_xml_dtd_45
-            docbook_xsl
-            libxslt
-          ];
+        shadowsocks-libev = prev.shadowsocks-libev.overrideAttrs (
+          o: with prev; {
+            buildInputs = [
+              libsodium
+              mbedtls
+              libev
+              c-ares
+              pcre
+            ];
+            nativeBuildInputs = with prev; [
+              cmake
+              asciidoc
+              xmlto
+              docbook_xml_dtd_45
+              docbook_xsl
+              libxslt
+            ];
 
-          patches = (o.patches or []) ++ [
-            (prev.fetchpatch {
-              url = "https://github.com/shadowsocks/shadowsocks-libev/commit/9afa3cacf947f910be46b69fc5a7a1fdd02fd5e6.patch";
-              hash = "sha256-rpWXe8f95UU1DjQpbKMVMwA6r5yGVaDHwH/iWxW7wcw=";
-            })
-          ];
-        });
+            patches = (o.patches or [ ]) ++ [
+              (prev.fetchpatch {
+                url = "https://github.com/shadowsocks/shadowsocks-libev/commit/9afa3cacf947f910be46b69fc5a7a1fdd02fd5e6.patch";
+                hash = "sha256-rpWXe8f95UU1DjQpbKMVMwA6r5yGVaDHwH/iWxW7wcw=";
+              })
+            ];
+          }
+        );
       };
 
       legacyPackages.x86_64-linux = nixpkgsFor "x86_64-linux";
