@@ -104,7 +104,7 @@
                 hostName = n;
                 maxJobs = 1;
                 #speedFactor = 2;
-                sshKey = config.clan.core.generators.distributed-build.files.id_buildfarm.path;
+                sshKey = config.clan.core.vars.generators.distributed-build.files.id_buildfarm.path;
                 sshUser = "nixBuild";
                 system = "aarch64-linux"; # FIXME assuming here that all are aarch64-linux
                 supportedFeatures = [ "big-parallel" ];
