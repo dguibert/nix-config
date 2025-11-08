@@ -352,228 +352,197 @@
         ];
 
         inventory.modules = self.modules.clan;
+
         modules = self.modules.clan-services;
 
-        inventory.instances.voron02_1 = {
-          module.name = "_3d_printing";
-          module.input = "self";
-          roles.voron02_1.machines.rpi31 = { };
-        };
-
-        inventory.instances.adb = {
-          module.name = "adb";
-          module.input = "self";
-          roles.default.machines.t580 = { };
-          roles.default.machines.titan = { };
-        };
-
-        inventory.instances.haproxy = {
-          module.name = "haproxy";
-          module.input = "self";
-          roles.default.machines.rpi41 = { };
-        };
-
-        inventory.instances.home-manager-dguibert = {
-          module.name = "home-manager";
-          module.input = "self";
-          roles.dguibert.tags.dguibert = { };
-          roles.dguibert-emacs.tags.dguibert = { };
-          roles.dguibert-gui.tags.desktop = { };
-          roles.dguibert-persistence.tags.dguibert = { };
-          roles.dguibert-mail.machines.titan = { };
-          roles.dguibert.machines.titan.settings = {
-            centralMailHost.enable = true;
+        inventory.instances = {
+          _3d_printing = {
+            module.input = "self";
+            roles.voron02_1.machines.rpi31 = { };
           };
 
-          #roles.dguibert.tags.dguibert_rpi.settings = {
-          roles.dguibert.machines.rpi41.settings.withPersistence.enable = false;
-          roles.dguibert.machines.rpi31.settings.withPersistence.enable = false;
-          roles.dguibert-gui.machines.rpi41.settings = {
-            hyprland.hyprsplit.enable = false;
+          adb = {
+            module.input = "self";
+            roles.default.machines.t580 = { };
+            roles.default.machines.titan = { };
           };
-        };
 
-        inventory.instances.jellyfin = {
-          module.name = "jellyfin";
-          module.input = "self";
-          roles.default.machines.titan = { };
-        };
-        inventory.instances.libvirtd = {
-          module.name = "libvirtd";
-          module.input = "self";
-          roles.default.machines.titan = { };
-        };
-
-        inventory.instances.my-sshd = {
-          module.name = "my-sshd";
-          module.input = "self";
-          roles.client.tags.all = { };
-          roles.client.settings = {
-            certificate.allowEmptyDomain = true;
+          haproxy = {
+            module.input = "self";
+            roles.default.machines.rpi41 = { };
           };
-          roles.server.tags.all = { };
-          roles.server.settings = {
-            certificate.allowEmptyDomain = true;
-            certificate.searchDomains = [
-              "orsin.net"
+
+          inventory.instances.home-manager = {
+            module.input = "self";
+
+            roles.dguibert.tags.dguibert = { };
+            roles.dguibert-emacs.tags.dguibert = { };
+            roles.dguibert-gui.tags.desktop = { };
+            roles.dguibert-persistence.tags.dguibert = { };
+            roles.dguibert-mail.machines.titan = { };
+            roles.dguibert.machines.titan.settings = {
+              centralMailHost.enable = true;
+            };
+
+            #roles.dguibert.tags.dguibert_rpi.settings = {
+            roles.dguibert.machines.rpi41.settings.withPersistence.enable = false;
+            roles.dguibert.machines.rpi31.settings.withPersistence.enable = false;
+            roles.dguibert-gui.machines.rpi41.settings = {
+              hyprland.hyprsplit.enable = false;
+            };
+          };
+
+          jellyfin = {
+            module.input = "self";
+            roles.default.machines.titan = { };
+          };
+          libvirtd = {
+            module.input = "self";
+            roles.default.machines.titan = { };
+          };
+
+          my-sshd = {
+            module.input = "self";
+            roles.client.tags.all = { };
+            roles.client.settings = {
+              certificate.allowEmptyDomain = true;
+            };
+            roles.server.tags.all = { };
+            roles.server.settings = {
+              certificate.allowEmptyDomain = true;
+              certificate.searchDomains = [
+                "orsin.net"
+              ];
+            };
+            roles.server.machines.titan.settings.certificate.realms = [
+              "192.168.1.24"
+              "10.147.27.24"
+            ];
+            roles.server.machines.t580.settings.certificate.realms = [
+              "192.168.1.17"
+              "10.147.27.17"
+            ];
+            roles.server.machines.rpi31.settings.certificate.realms = [
+              "192.168.1.13"
+              "10.147.27.13"
+            ];
+            roles.server.machines.rpi41.settings.certificate.realms = [
+              "192.168.1.14"
+              "10.147.27.14"
+              "82.64.121.168"
             ];
           };
-          roles.server.machines.titan.settings.certificate.realms = [
-            "192.168.1.24"
-            "10.147.27.24"
-          ];
-          roles.server.machines.t580.settings.certificate.realms = [
-            "192.168.1.17"
-            "10.147.27.17"
-          ];
-          roles.server.machines.rpi31.settings.certificate.realms = [
-            "192.168.1.13"
-            "10.147.27.13"
-          ];
-          roles.server.machines.rpi41.settings.certificate.realms = [
-            "192.168.1.14"
-            "10.147.27.14"
-            "82.64.121.168"
-          ];
-        };
-        inventory.instances.ollama = {
-          module.name = "ollama";
-          module.input = "self";
-          #roles.default.machines.titan = { };
-        };
-        inventory.instances.seedbox = {
-          module.name = "seedbox";
-          module.input = "self";
-          roles.default.machines.titan = { };
-        };
-        inventory.instances.printing = {
-          module.name = "printing";
-          module.input = "self";
-          roles.scan2host.machines.titan = { };
-          roles.default.machines.titan = { };
-          roles.default.machines.t580 = { };
-        };
-        inventory.instances.rkvm = {
-          module.name = "rkvm";
-          module.input = "self";
-          roles.server.machines.titan = { };
-          roles.client.machines.rpi41 = { };
-          roles.server.settings.rkvm.server = "192.168.1.24"; # TODO get from server ip
-          roles.client.settings.rkvm.server = "192.168.1.24";
-        };
-
-        inventory.instances.sshguard = {
-          module.name = "sshguard";
-          module.input = "self";
-          roles.default.tags.all = { };
-        };
-        inventory.instances.tiny-ca-orsin = {
-          module.name = "tiny-ca";
-          module.input = "self";
-          roles.server.machines.titan = { };
-        };
-        inventory.instances.totp-authentication = {
-          module.name = "totp-authentication";
-          module.input = "self";
-          roles.default.tags.all = { };
-          roles.default.settings.users.dguibert.prompt = true;
-        };
-
-        inventory.instances.users = {
-          module.name = "users";
-          module.input = "self";
-          roles.default.tags.all = { };
-          roles.default.settings.passwords.root.prompt = true;
-          roles.default.settings.passwords.dguibert.prompt = true;
-        };
-
-        inventory.instances.wayland_1 = {
-          module.name = "wayland";
-          module.input = "self";
-          roles.default.tags.desktop = { };
-          #roles.default.tags.desktop64.settings = {
-          roles.default.machines.rpi41.settings = {
-            enable32Bit = false;
+          ollama = {
+            module.input = "self";
+            #roles.default.machines.titan = { };
           };
-        };
+          seedbox = {
+            module.input = "self";
+            roles.default.machines.titan = { };
+          };
+          printing = {
+            module.input = "self";
+            roles.scan2host.machines.titan = { };
+            roles.default.machines.titan = { };
+            roles.default.machines.t580 = { };
+          };
+          rkvm = {
+            module.input = "self";
+            roles.server.machines.titan = { };
+            roles.client.machines.rpi41 = { };
+            roles.server.settings.rkvm.server = "192.168.1.24"; # TODO get from server ip
+            roles.client.settings.rkvm.server = "192.168.1.24";
+          };
 
-        inventory.instances.yubikey = {
-          module.name = "yubikey";
-          module.input = "self";
-          roles.default.tags.desktop = { };
-        };
+          sshguard = {
+            module.input = "self";
+            roles.default.tags.all = { };
+          };
+          tiny-ca = {
+            module.input = "self";
+            roles.server.machines.titan = { };
+          };
+          totp-authentication = {
+            module.input = "self";
+            roles.default.tags.all = { };
+            roles.default.settings.users.dguibert.prompt = true;
+          };
 
-        inventory.instances.zigbee = {
-          module.name = "zigbee";
-          module.input = "self";
-          roles.server.machines.rpi41 = { };
-        };
+          users = {
+            module.input = "self";
+            roles.default.tags.all = { };
+            roles.default.settings.passwords.root.prompt = true;
+            roles.default.settings.passwords.dguibert.prompt = true;
+          };
 
-        inventory.instances.wifi = {
-          module.name = "iwd";
-          module.input = "self";
-          roles.default.tags.wifi = { };
-          roles.default.settings = {
-            networks = {
-              Freebox-AD070E = { };
-              Livebox-765e = { };
-              Livebox-D854 = { };
-              Livebox-D540 = { };
-              OPTUS_ACCB7F = {
-                Hidden = true;
+          wayland = {
+            module.input = "self";
+            roles.default.tags.desktop = { };
+            #roles.default.tags.desktop64.settings = {
+            roles.default.machines.rpi41.settings = {
+              enable32Bit = false;
+            };
+          };
+
+          yubikey = {
+            module.input = "self";
+            roles.default.tags.desktop = { };
+          };
+
+          zigbee = {
+            module.name = "zigbee";
+            module.input = "self";
+            roles.server.machines.rpi41 = { };
+          };
+
+          iwd = {
+            module.input = "self";
+            roles.default.tags.wifi = { };
+            roles.default.settings = {
+              networks = {
+                Freebox-AD070E = { };
+                Livebox-765e = { };
+                Livebox-D854 = { };
+                Livebox-D540 = { };
+                OPTUS_ACCB7F = {
+                  Hidden = true;
+                };
               };
             };
           };
-        };
-        #inventory.instances.mopidy = {
-        #  module.name = "mopidy";
-        #  roles.default.machines.titan = { }; # TODO migrate mopidy to pipewire
-        #};
-        inventory.instances.microvm = {
-          module.name = "microvm";
-          module.input = "self";
-          roles.default.machines.titan = { };
-        };
-
-        inventory.instances.openvpn-cdac = {
-          module.name = "openvpn-cdac";
-          module.input = "self";
-          roles.default.machines.titan = { };
-        };
-
-        inventory.instances.home-vpn = {
-          module.name = "wireguard";
-          module.input = "clan-core";
-          roles.controller.machines.rpi41.settings = {
-            endpoint = "82.64.121.168";
-            port = 51820; # default UDP port
-          };
-          roles.peer.machines = {
-            titan.settings.controller = "rpi41";
-            t580 = { };
-            rpi31 = { };
-          };
-        };
-
-        inventory.instances.distributed-build = {
-          module.input = "self";
-          roles.server.machines.rpi41 = { };
-          roles.client.tags.all = { };
-        };
-        inventory.services = {
-          wireguard-mesh-vpn.service.roles.peer.tags = [ "all" ];
-          wireguard-mesh-vpn.service.config.peers = {
-            rpi31.listenPort = 500;
-            rpi31.endpoint = "192.168.1.13";
-            rpi41.listenPort = 501;
-            rpi41.endpoint = "82.64.121.168";
-            rpi41.persistentKeepalive = 25;
-            titan.listenPort = 502;
-            titan.endpoint = "192.168.1.24";
-            t580.listenPort = 503;
-            t580.endpoint = "192.168.1.17";
+          #  mopidy = {
+          #  module.name = "mopidy";
+          #  roles.default.machines.titan = { }; # TODO migrate mopidy to pipewire
+          #};
+          microvm = {
+            module.input = "self";
+            roles.default.machines.titan = { };
           };
 
+          openvpn-cdac = {
+            module.input = "self";
+            roles.default.machines.titan = { };
+          };
+
+          home-vpn = {
+            module.name = "wireguard";
+            module.input = "clan-core";
+            roles.controller.machines.rpi41.settings = {
+              endpoint = "82.64.121.168";
+              port = 51820; # default UDP port
+            };
+            roles.peer.machines = {
+              titan.settings.controller = "rpi41";
+              t580 = { };
+              rpi31 = { };
+            };
+          };
+
+          distributed-build = {
+            module.input = "self";
+            roles.server.machines.rpi41 = { };
+            roles.client.tags.all = { };
+          };
         };
 
         # Prerequisite: boot into the installer.
