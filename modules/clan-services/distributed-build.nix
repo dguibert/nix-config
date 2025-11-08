@@ -49,7 +49,7 @@
               ];
             };
 
-            #nix.settings.binary-cache-public-keys = [ "titan:dkOH0pvwo9CQMDs/H/Rs4HYEePVmwPf0/uSQi9ZmjxE=" ];
+            nix.settings.binary-cache-public-keys = [ "titan:dkOH0pvwo9CQMDs/H/Rs4HYEePVmwPf0/uSQi9ZmjxE=" ];
             nix.settings.trusted-binary-caches = [ "ssh-ng://titan?trusted=1" ];
           };
       };
@@ -94,9 +94,11 @@
                 hostName = n;
                 maxJobs = 1;
                 #speedFactor = 2;
-                sshKey = builtins.readFile (
-                  config.clan.core.settings.directory
-                  + "/vars/per-machine/${n}/distributed-build/ssh_ed25519.pub/value"
+                sshKey = builtins.replaceStrings [ "\n" ] [ "" ] (
+                  builtins.readFile (
+                    config.clan.core.settings.directory
+                    + "/vars/per-machine/${n}/distributed-build/ssh_ed25519.pub/value"
+                  )
                 );
                 sshUser = "nixBuild";
                 system = "aarch64-linux"; # FIXME assuming here that all are aarch64-linux
@@ -104,7 +106,7 @@
               })
             ) allServers;
 
-            #nix.settings.binary-cache-public-keys = [ "titan:dkOH0pvwo9CQMDs/H/Rs4HYEePVmwPf0/uSQi9ZmjxE=" ];
+            nix.settings.binary-cache-public-keys = [ "titan:dkOH0pvwo9CQMDs/H/Rs4HYEePVmwPf0/uSQi9ZmjxE=" ];
             nix.settings.trusted-binary-caches = [ "ssh-ng://titan?trusted=1" ];
           };
       };
