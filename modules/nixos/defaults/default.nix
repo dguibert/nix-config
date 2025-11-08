@@ -146,14 +146,5 @@
 
   programs.gnupg.agent.pinentryPackage = pkgs.pinentry-gtk2;
 
-  # System wide: echo "@cert-authority * $(cat /etc/ssh/ca.pub)" >>/etc/ssh/ssh_known_hosts
-  programs.ssh.knownHosts."*" = {
-    certAuthority = true;
-    publicKey = builtins.readFile ../../../secrets/ssh-ca-home.pub;
-  };
-
-  # time.cloudflare.com
-  services.timesyncd.extraConfig = "FallbackNTP=162.159.200.1 2606:4700:f1::1";
-
   report-changes.enable = true;
 }
