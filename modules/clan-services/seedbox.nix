@@ -79,9 +79,10 @@
             files.password-hash.secret = false;
             runtimeInputs = [
               pkgs.python3
+              pkgs.coreutils
             ];
             script = ''
-              python3 ${./qbittorrent.Userpass.py} $(echo $prompts/password) > $out/password-hash
+              python3 ${./qbittorrent.Userpass.py} $(cat $prompts/password | tr -d \\n) > $out/password-hash
             '';
           };
 
