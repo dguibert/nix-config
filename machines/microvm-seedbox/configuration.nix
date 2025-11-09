@@ -16,7 +16,6 @@
 
   nix.optimise.automatic = lib.mkForce false;
   nix.settings.auto-optimise-store = lib.mkForce false;
-  distributed-build-conf.enable = lib.mkForce false;
 
   microvm = {
     shares = [

@@ -158,7 +158,9 @@
                           -h \
                           -n ${
                             lib.concatStringsSep "," (
-                              (map (d: "${config.clan.core.settings.machine.name}.${d}") domains) ++ settings.certificate.realms
+                              [ config.clan.core.settings.machine.name ]
+                              ++ (map (d: "${config.clan.core.settings.machine.name}.${d}") domains)
+                              ++ settings.certificate.realms
                             )
                           } \
                           $in/openssh/ssh.id_ed25519.pub

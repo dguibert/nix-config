@@ -101,12 +101,22 @@
               }
             ];
 
+            clan.core.vars.generators.shadowsocks = {
+              files.password = { };
+              runtimeInputs = [
+                pkgs.coreutils
+                pkgs.xkcdpass
+              ];
+              script = ''
+                xkcdpass --numwords 3 --delimiter - --count 1 | tr -d "\n" > $out/password
+              '';
+            };
             #echo -n "ss://"`echo -n chacha20-ietf-poly1305:$(sops --extract '["shadowsocks"]' -d hosts/rpi31/secrets/secrets.yaml)@$(curl -4 ifconfig.io):443 | base64` | qrencode -t UTF8
             services.shadowsocks = {
               enable = true;
               localAddress = [ haproxy_internal_ip ];
               port = 8388;
-              passwordFile = config.sops.secrets.shadowsocks.path;
+              passwordFile = config.clan.core.vars.generators.shadowsocks.files.password.path;
             };
           };
       };
