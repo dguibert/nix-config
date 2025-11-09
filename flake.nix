@@ -372,7 +372,7 @@
             roles.default.machines.rpi41 = { };
           };
 
-          inventory.instances.home-manager = {
+          home-manager = {
             module.input = "self";
 
             roles.dguibert.tags.dguibert = { };
