@@ -73,7 +73,11 @@
   roles.dguibert-gui.interface =
     { lib, ... }:
     {
-      options.hyprland.hyprsplit.enable = lib.mkEnableOption "Host running with hyprsplit plugin on hyprland";
+      options.hyprland.hyprsplit.enable =
+        (lib.mkEnableOption "Host running with hyprsplit plugin on hyprland")
+        // {
+          default = true;
+        };
     };
 
   roles.dguibert-gui.perInstance =

@@ -23,6 +23,10 @@
             imports = [
               inputs.microvm.nixosModules.host
             ];
+            my.persistence.directories = [
+              "/var/lib/microvms"
+            ];
+
             # https://astro.github.io/microvm.nix/advanced-network.html
             networking.useNetworkd = true;
             systemd.network.enable = true;

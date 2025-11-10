@@ -71,6 +71,21 @@
           my.persistence.directories = [
             "/var/lib/qBittorrent"
           ];
+
+          clan.core.vars.generators.qbittorrent = {
+            prompts.user.persist = true;
+            files.user.secret = false;
+            prompts.password.type = "hidden";
+            files.password-hash.secret = false;
+            runtimeInputs = [
+              pkgs.python3
+              pkgs.coreutils
+            ];
+            script = ''
+              python3 ${./qbittorrent.Userpass.py} $(cat $prompts/password | tr -d \\n) > $out/password-hash
+            '';
+          };
+
           services.qbittorrent = {
             enable = true;
             webuiPort = 8081;
@@ -102,8 +117,10 @@
                 WebUI = {
                   #    AlternativeUIEnabled = true;
                   #    RootFolder = "${pkgs.vuetorrent}/share/vuetorrent";
-                  Username = "user";
-                  Password_PBKDF2 = "@ByteArray(nfySz4irUXZu2vDW5lfU6w==:xt/8TgDKcTz8LZ/LOKrBUve8JfLaJy/8LJw7dCJAe5upun9sfzLg6XIS/0nFBD/1lzKt2cfhoqWmQeFjcnxJNQ==)";
+                  Username = config.clan.core.vars.generators.qbittorrent.files.user.value;
+                  Password_PBKDF2 = "@ByteArray(${
+                    config.clan.core.vars.generators.qbittorrent.files."password-hash".value
+                  })";
                 };
               };
             };

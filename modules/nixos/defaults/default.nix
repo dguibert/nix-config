@@ -45,13 +45,6 @@
     )
 
     ../sshd.nix
-    ../distributed-build-conf.nix
-    (
-      { config, ... }:
-      {
-        distributed-build-conf.enable = true;
-      }
-    )
     ../nix-conf.nix
     (
       { config, ... }:
@@ -130,11 +123,14 @@
       )
     }"
   ]
-  ++ lib.optionals (pkgs.hostPlatform ? gcc.arch) (
-    # a builder can run code for `gcc.arch` and inferior architectures
-    [ "gccarch-${pkgs.hostPlatform.gcc.arch}" ]
-    ++ map (x: "gccarch-${x}") lib.systems.architectures.inferiors.${pkgs.hostPlatform.gcc.arch}
-  );
+  /*
+    ++ lib.optionals (pkgs.hostPlatform ? gcc.arch) (
+      # a builder can run code for `gcc.arch` and inferior architectures
+      [ "gccarch-${pkgs.hostPlatform.gcc.arch}" ]
+      ++ map (x: "gccarch-${x}") lib.systems.architectures.inferiors.${pkgs.hostPlatform.gcc.arch}
+    )
+  */
+  ;
 
   environment.systemPackages = [
     pkgs.vim
@@ -149,15 +145,6 @@
   time.timeZone = "Europe/Paris";
 
   programs.gnupg.agent.pinentryPackage = pkgs.pinentry-gtk2;
-
-  # System wide: echo "@cert-authority * $(cat /etc/ssh/ca.pub)" >>/etc/ssh/ssh_known_hosts
-  programs.ssh.knownHosts."*" = {
-    certAuthority = true;
-    publicKey = builtins.readFile ../../../secrets/ssh-ca-home.pub;
-  };
-
-  # time.cloudflare.com
-  services.timesyncd.extraConfig = "FallbackNTP=162.159.200.1 2606:4700:f1::1";
 
   report-changes.enable = true;
 }

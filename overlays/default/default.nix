@@ -39,6 +39,6 @@ final: prev: with final; {
       };
   };
   nixos-option = prev.nixos-option.override {
-    nix = prev.nixStable;
+    nix = prev.nixVersions.stable;
   };
 }

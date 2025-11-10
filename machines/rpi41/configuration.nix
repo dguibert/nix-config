@@ -100,9 +100,14 @@ rec {
   systemd.network.enable = lib.mkForce true;
   networking.dhcpcd.enable = false;
 
+  systemd.network.links."40-bond0" = {
+    matchConfig.Name = "bond0";
+    linkConfig.MACAddressPolicy = "none";
+  };
   systemd.network.netdevs."40-bond0" = {
     netdevConfig.Name = "bond0";
     netdevConfig.Kind = "bond";
+    netdevConfig.MACAddress = "DC:A6:32:67:DD:9F";
     bondConfig.Mode = "active-backup";
     bondConfig.MIIMonitorSec = "100s";
     bondConfig.PrimaryReselectPolicy = "always";
@@ -112,7 +117,6 @@ rec {
       name = "bond0";
       DHCP = "yes";
       networkConfig.BindCarrier = "end0 wlan0";
-      linkConfig.MACAddress = "DC:A6:32:67:DD:9F";
       # make routing on this interface a dependency for network-online.target
       linkConfig.RequiredForOnline = "routable";
     };
@@ -125,7 +129,6 @@ rec {
         DHCP = "no";
         networkConfig.Bond = "bond0";
         networkConfig.IPv6PrivacyExtensions = "kernel";
-        linkConfig.MACAddress = "DC:A6:32:67:DD:9F";
         linkConfig.RequiredForOnline = "no";
       }
     )

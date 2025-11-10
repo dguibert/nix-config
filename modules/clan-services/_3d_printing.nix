@@ -73,6 +73,10 @@
                   sensor_type = "temperature_mcu";
                   sensor_mcu = "ebb36";
                 };
+                "temperature_sensor mcu" = {
+                  sensor_type = "temperature_mcu";
+                  sensor_mcu = "mcu";
+                };
                 printer = {
                   kinematics = "corexy";
                   max_velocity = 300;
@@ -142,7 +146,7 @@
                   tx_pin = "PA2";
                   uart_address = 0;
                   interpolate = false;
-                  run_current = 0.85;
+                  run_current = 0.7;
                   sense_resistor = 0.110;
                   stealthchop_threshold = 0;
                   diag_pin = "^PB4";
@@ -169,7 +173,7 @@
                   tx_pin = "PA2";
                   uart_address = 2;
                   interpolate = false;
-                  run_current = 0.85;
+                  run_current = 0.7;
                   sense_resistor = 0.110;
                   stealthchop_threshold = 0;
                   diag_pin = "^PC8";
@@ -244,14 +248,14 @@
                   uart_pin = "ebb36:EXT_UART"; # "PA3";
                   #tx_pin = "PA2";
                   #uart_address = 3;
-                  interpolate = false;
-                  run_current = 0.650;
-                  #hold_current = 0.100;
+                  interpolate = true;
+                  run_current = 0.35;
+                  hold_current = 0.1;
                   sense_resistor = 0.110;
-                  #driver_TBL = 0;
-                  #driver_HEND = 6;
-                  #driver_HSTRT = 7;
-                  #driver_TOFF = 4;
+                  driver_TBL = 0;
+                  driver_HEND = 6;
+                  driver_HSTRT = 7;
+                  driver_TOFF = 4;
                   stealthchop_threshold = 0; # Set to 0 for spreadcycle, avoid using stealthchop on extruder
                 };
 
@@ -483,7 +487,7 @@
                                   {% set EXTRUDER_TEMP = params.EXTRUDER|float %}
                                   # Reset the G-Code Z offset (adjust Z offset if needed)
                                   # https://www.klipper3d.org/Bed_Level.html
-                                  SET_GCODE_OFFSET Z=+.2
+                                  SET_GCODE_OFFSET Z=+.1
                                   M140 S{BED_TEMP}       ; set for bed to reach temp
                                   M104 S{EXTRUDER_TEMP}  ; set for hot end to reach temp
                                   # Home the printer

@@ -10,8 +10,10 @@ let
 in
 with lib;
 {
-  options.hyprland.hyprsplit.enable = lib.mkEnableOption "Hyprland with split plugin";
-  options.hyprland.nvidia.enable = lib.mkEnableOption "Hyprland with NVidia GPU" // {
+  options.hyprland.hyprsplit.enable = (lib.mkEnableOption "Hyprland with split plugin") // {
+    default = true;
+  };
+  options.hyprland.nvidia.enable = (lib.mkEnableOption "Hyprland with NVidia GPU") // {
     default = false;
   };
 
@@ -38,7 +40,7 @@ with lib;
       slurp
       wayvnc
 
-      inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
+      inputs.hyprland-contrib.packages.${toString pkgs.system}.grimblast
     ];
 
     programs.foot.enable = true;
