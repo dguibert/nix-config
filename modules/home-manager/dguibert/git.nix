@@ -3,18 +3,21 @@
   programs.git.enable = true;
   programs.git.package =
     if pkgs.stdenv.buildPlatform == pkgs.stdenv.hostPlatform then pkgs.gitFull else pkgs.gitMinimal;
-  programs.git.userName = "David Guibert";
-  programs.git.userEmail = "david.guibert@gmail.com";
-  programs.git.aliases.files = "ls-files -v --deleted --modified --others --directory --no-empty-directory --exclude-standard";
-  programs.git.aliases.wdiff = "diff --word-diff=color --unified=1";
-  programs.git.aliases.bd = "!git for-each-ref --sort='-committerdate:iso8601' --format='%(committerdate:iso8601)%09%(refname)'";
-  programs.git.aliases.bdr = "!git for-each-ref --sort='-committerdate:iso8601' --format='%(committerdate:iso8601)%09%(refname)' refs/remotes/$1";
-  programs.git.aliases.bs = "branch -v -v";
-  programs.git.aliases.df = "diff";
-  programs.git.aliases.dn = "diff --name-only";
-  programs.git.aliases.dp = "diff --no-ext-diff";
-  programs.git.aliases.ds = "diff --stat -w";
-  programs.git.aliases.dt = "difftool";
+  programs.git.settings.user.name = "David Guibert";
+  programs.git.settings.user.email = "david.guibert@gmail.com";
+  programs.git.settings.alias.files =
+    "ls-files -v --deleted --modified --others --directory --no-empty-directory --exclude-standard";
+  programs.git.settings.alias.wdiff = "diff --word-diff=color --unified=1";
+  programs.git.settings.alias.bd =
+    "!git for-each-ref --sort='-committerdate:iso8601' --format='%(committerdate:iso8601)%09%(refname)'";
+  programs.git.settings.alias.bdr =
+    "!git for-each-ref --sort='-committerdate:iso8601' --format='%(committerdate:iso8601)%09%(refname)' refs/remotes/$1";
+  programs.git.settings.alias.bs = "branch -v -v";
+  programs.git.settings.alias.df = "diff";
+  programs.git.settings.alias.dn = "diff --name-only";
+  programs.git.settings.alias.dp = "diff --no-ext-diff";
+  programs.git.settings.alias.ds = "diff --stat -w";
+  programs.git.settings.alias.dt = "difftool";
   #programs.git.ignores
   programs.git.iniContent.clean.requireForce = true;
   programs.git.iniContent.rerere.enabled = true;
