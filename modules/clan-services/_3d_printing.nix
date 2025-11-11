@@ -145,10 +145,11 @@
                   uart_pin = "PA3";
                   tx_pin = "PA2";
                   uart_address = 0;
-                  interpolate = false;
-                  run_current = 0.7;
+                  interpolate = true;
+                  run_current = 0.85;
+                  hold_current = 0.5;
                   sense_resistor = 0.110;
-                  stealthchop_threshold = 0;
+                  stealthchop_threshold = 999999;
                   diag_pin = "^PB4";
                   driver_SGTHRS = 90;
                 };
@@ -172,10 +173,11 @@
                   uart_pin = "PA3";
                   tx_pin = "PA2";
                   uart_address = 2;
-                  interpolate = false;
-                  run_current = 0.7;
+                  interpolate = true;
+                  run_current = 0.85;
+                  hold_current = 0.5;
                   sense_resistor = 0.110;
-                  stealthchop_threshold = 0;
+                  stealthchop_threshold = 999999;
                   diag_pin = "^PC8";
                   driver_SGTHRS = 90;
                 };
@@ -249,7 +251,7 @@
                   #tx_pin = "PA2";
                   #uart_address = 3;
                   interpolate = true;
-                  run_current = 0.35;
+                  run_current = 0.55;
                   hold_current = 0.1;
                   sense_resistor = 0.110;
                   driver_TBL = 0;
