@@ -33,7 +33,7 @@
                 builtins.replaceStrings [ "\n" ] [ "" ] (
                   builtins.readFile (
                     config.clan.core.settings.directory
-                    + "/vars/per-machine/${n}/distributed-build/ssh_ed25519.pub/value"
+                    + "/vars/per-machine/${n}/distributed-build/id_buildfarm.pub/value"
                   )
                 )
               ) allClients;
