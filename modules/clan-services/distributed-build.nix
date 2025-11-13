@@ -83,7 +83,7 @@
                 deploy = false;
                 secret = false;
               };
-              script = ''ssh-keygen -t ed25519 -N "" -C "id_buildfarm key on ${config.networking.hostName} " -f $out/id_buildfarm'';
+              script = ''ssh-keygen -t ed25519 -N "" -C "id_buildfarm key on ${config.networking.hostName}" -f $out/id_buildfarm'';
               runtimeInputs = [ pkgs.openssh ];
             };
 
