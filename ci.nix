@@ -4,5 +4,10 @@
 }:
 let
   flake = builtins.getFlake (toString ./.);
+  hosts = builtins.getAttrs flake.nixosConfigurations;
 in
-flake.checks.${system}
+flake.checks
+// builtins.mapAttrs (n: v: v.config.system.build.toplevel) flake.nixosConfigurations
+// {
+
+}
