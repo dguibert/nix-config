@@ -417,19 +417,23 @@
             roles.server.machines.titan.settings.certificate.realms = [
               "192.168.1.24"
               "10.147.27.24"
+              "titan.home-vpn"
             ];
             roles.server.machines.t580.settings.certificate.realms = [
               "192.168.1.17"
               "10.147.27.17"
+              "t580.home-vpn"
             ];
             roles.server.machines.rpi31.settings.certificate.realms = [
               "192.168.1.13"
               "10.147.27.13"
+              "rpi31.home-vpn"
             ];
             roles.server.machines.rpi41.settings.certificate.realms = [
               "192.168.1.14"
               "10.147.27.14"
               "82.64.121.168"
+              "rpi41.home-vpn"
             ];
           };
           ollama = {
