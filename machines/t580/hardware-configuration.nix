@@ -27,7 +27,7 @@
   ];
   boot.extraModulePackages = with config.boot.kernelPackages; [
     acpi_call
-    pkgs.linuxPackages.perf
+    pkgs.perf
   ];
   networking.hostId = "8425e349"; # - ZFS requires networking.hostId to be set
   boot.kernelParams = [

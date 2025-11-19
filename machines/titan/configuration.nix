@@ -175,7 +175,7 @@ in
   boot.binfmt.registrations."armv7l-linux".fixBinary = true;
 
   #boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.extraModulePackages = [ pkgs.linuxPackages.perf ];
+  boot.extraModulePackages = [ pkgs.perf ];
   # *** ZFS Version: zfs-2.0.4-1
   # *** Compatible Kernels: 3.10 - 5.11
   #boot.zfs.package = pkgs.zfs_unstable;
