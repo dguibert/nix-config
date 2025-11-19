@@ -46,14 +46,18 @@ process_jsonline() {
             log "** ☑️  $attr ($drvPath)"
         elif [[ "$cacheStatus" == "cached" ]]; then
             log "** ☑️  $attr cached ($drvPath)"
-        elif ! nix build --out-link results/$attr -L $drvPath^* 2>&1 | tee results/log-$attr.log; then
-            log "** ❌ $attr ($drvPath)"
-            log
-            log "*** Build error: last 50 lines"
-            log "$(tail -n 50 results/log-$attr.log)"
-            error=1
         else
-            log "** ✅ $attr ($drvPath)"
+            mkdir -p results
+            rm -rf results/$attr results/log-$attr.log
+            if ! nix build --out-link results/$attr -L $drvPath^* 2>&1 | tee results/log-$attr.log; then
+                log "** ❌ $attr ($drvPath)"
+                log
+                log "*** Build error: last 50 lines"
+                log "$(tail -n 50 results/log-$attr.log)"
+                error=1
+            else
+                log "** ✅ $attr ($drvPath)"
+            fi
         fi
         log
     fi
