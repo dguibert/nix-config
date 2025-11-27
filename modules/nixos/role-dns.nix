@@ -28,18 +28,21 @@ in
             name = ".";
             forward-tls-upstream = true;
             forward-addr = [
-              # Cloudflare DNS
-              "2606:4700:4700::1111@853#cloudflare-dns.com"
-              "1.1.1.1@853#cloudflare-dns.com"
-              "2606:4700:4700::1001@853#cloudflare-dns.com"
-              "1.0.0.1@853#cloudflare-dns.com"
-              # Quad9
-              "2620:fe::fe@853#dns.quad9.net"
-              "9.9.9.9@853#dns.quad9.net"
-              "2620:fe::9@853#dns.quad9.net"
-              "149.112.112.112@853#dns.quad9.net"
-              # TOR
-              #"127.0.0.1@853#cloudflare-dns.com"
+              # dns.mullvad.net
+              "194.242.2.2#dns.mullvad.net"
+              "2a07:e340::2#dns.mullvad.net"
+              # # Cloudflare DNS
+              # "2606:4700:4700::1111@853#cloudflare-dns.com"
+              # "1.1.1.1@853#cloudflare-dns.com"
+              # "2606:4700:4700::1001@853#cloudflare-dns.com"
+              # "1.0.0.1@853#cloudflare-dns.com"
+              # # Quad9
+              # "2620:fe::fe@853#dns.quad9.net"
+              # "9.9.9.9@853#dns.quad9.net"
+              # "2620:fe::9@853#dns.quad9.net"
+              # "149.112.112.112@853#dns.quad9.net"
+              # # TOR
+              # #"127.0.0.1@853#cloudflare-dns.com"
             ];
           }
         ];
@@ -55,7 +58,20 @@ in
           ];
           do-not-query-localhost = false;
           edns-tcp-keepalive = true;
+
+          # Based on recommended settings in https://docs.pi-hole.net/guides/dns/unbound/#configure-unbound
+          harden-glue = true;
+          harden-dnssec-stripped = true;
+          use-caps-for-id = false;
+          prefetch = true;
+          edns-buffer-size = 1232;
+
+          # Custom settings
+          hide-identity = true;
+          hide-version = true;
         };
+        # enable remote-control
+        remote-control.control-enable = true;
       };
     };
 

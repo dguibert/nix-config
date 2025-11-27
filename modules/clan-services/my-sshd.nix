@@ -214,8 +214,6 @@
               };
             };
 
-            programs.ssh.package = pkgs.openssh_10_2; # openssh 10.1 has issue with control master
-
             programs.ssh.knownHosts.ssh-ca =
               lib.mkIf (settings.certificate.searchDomains != [ ] || settings.certificate.allowEmptyDomain)
                 {

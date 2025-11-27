@@ -32,6 +32,7 @@
             systemd.network.networks."10-can" = {
               name = "can*";
               canConfig.BitRate = "1M";
+              canConfig.RestartSec = "0";
             };
 
             # https://klipper.discourse.group/t/mcu-mcu-shutdown-timer-too-close-on-voron-2-4/8758/6

@@ -32,6 +32,9 @@ in
     centralMailHost.enable = mkEnableOption "Host running liier/mbsync" // {
       default = false;
     };
+    ssh-teleport.enable = mkEnableOption "Enable connect to ssh client with teleport" // {
+      default = false;
+    };
   };
 
   imports = [

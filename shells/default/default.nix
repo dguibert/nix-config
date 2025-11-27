@@ -33,6 +33,8 @@
             ${nixConfOrig}
             store = local?store=${builtins.storeDir}&state=${builtins.dirOf builtins.storeDir}/state&log=${builtins.dirOf builtins.storeDir}/log'
             secret-key-files =
+            extra-sandbox-paths =
+            extra-platforms =
           '';
         in
         "${nixConf}/opt";

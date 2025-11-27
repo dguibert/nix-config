@@ -103,6 +103,17 @@
 
     };
 
+  roles.dguibert-ssh-teleport.perInstance =
+    { ... }:
+    {
+      nixosModule =
+        { config, pkgs, ... }:
+        {
+          home-manager.users.dguibert.ssh-teleport.enable = true;
+        };
+
+    };
+
   perMachine =
     {
       instances,
