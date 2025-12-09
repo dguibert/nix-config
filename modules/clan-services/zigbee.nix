@@ -34,7 +34,7 @@
                 xkcdpass --numwords 3 --delimiter - --count 1 | tr -d "\n" > $out/user-password
                 echo "password: $(cat $out/user-password)" > $out/user-password.yaml
 
-                mosquitto --command mosquitto_passwd -c $out/user-password zigbee > $out/user-password-hash
+                mosquitto_passwd -c $out/user-password zigbee > $out/user-password-hash
                 # 16 decimals betwween 0-15
                 echo "network_key: [$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16))]" > $out/network_key.yaml
               '';
