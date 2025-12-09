@@ -21,6 +21,14 @@
           }:
 
           {
+            clan.core.vars.generators.zigbee2mqtt = {
+              files."network_key.yaml" = { };
+              script = ''
+                # 16 decimals betwween 0-15
+                echo "network_key: [$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16))]" > $out/network_key.yaml
+              '';
+            };
+
             services.zigbee2mqtt.enable = true;
             systemd.services.zigbee2mqtt.unitConfig.ConditionPathExists = "/dev/ttyACM0";
             services.zigbee2mqtt.settings = {
@@ -29,7 +37,10 @@
               frontend = true;
               mqtt.user = "zigbee";
               mqtt.password = "password";
-              network_key = "GENERATE";
+              # 01030507090000002040608000 (hex DA37E6BABE70A2363500)
+              network_key = "'!${
+                clan.core.vars.generators.zigbee2mqtt.files."network_key.yaml".path
+              } network_key'";
               #includes = [
               #  config.secrets.zigbee2mqtt.secretFile
               #];
