@@ -23,7 +23,18 @@
           {
             clan.core.vars.generators.zigbee2mqtt = {
               files."network_key.yaml" = { };
+              files.user-password.deploy = false;
+              files."user-password.yaml" = { };
+              files."user-password-hash".secret = false;
+              runtimeInputs = [
+                pkgs.xkcdpass
+                pkgs.mosquitto
+              ];
               script = ''
+                xkcdpass --numwords 3 --delimiter - --count 1 | tr -d "\n" > $out/user-password
+                echo "password: $(cat $out/user-password)" > $out/user-password.yaml
+
+                mosquitto --command mosquitto_passwd -c $out/user-password zigbee > $out/user-password-hash
                 # 16 decimals betwween 0-15
                 echo "network_key: [$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16))]" > $out/network_key.yaml
               '';
@@ -36,10 +47,12 @@
               serial.port = "/dev/ttyACM0";
               frontend = true;
               mqtt.user = "zigbee";
-              mqtt.password = "password";
+              mqtt.password = "'!${
+                config.clan.core.vars.generators.zigbee2mqtt.files."user-password.yaml".path
+              } password'";
               # 01030507090000002040608000 (hex DA37E6BABE70A2363500)
               network_key = "'!${
-                clan.core.vars.generators.zigbee2mqtt.files."network_key.yaml".path
+                config.clan.core.vars.generators.zigbee2mqtt.files."network_key.yaml".path
               } network_key'";
               #includes = [
               #  config.secrets.zigbee2mqtt.secretFile
@@ -58,15 +71,7 @@
                   acl = [
                     "readwrite #"
                   ];
-                  # nix shell nixpkgs#mosquitto --command mosquitto_passwd -c /tmp/password zigbee
-                  hashedPassword = "$7$101$hjkpxbnBRKvg9ZdL$wlF214j+mWx17ccKDapsnBzcfsZiDGkM9f/ugKOw7GAwYttG+mdtWVpkakB6mee0i7lJl102lnmu48BoVKpfmg==";
-                };
-                users.root = {
-                  acl = [
-                    "readwrite #"
-                  ];
-                  # nix shell nixpkgs#mosquitto --command mosquitto_passwd -c /tmp/password root
-                  hashedPassword = "$7$101$hjkpxbnBRKvg9ZdL$wlF214j+mWx17ccKDapsnBzcfsZiDGkM9f/ugKOw7GAwYttG+mdtWVpkakB6mee0i7lJl102lnmu48BoVKpfmg==";
+                  hashedPassword = config.clan.core.vars.generators.zigbee2mqtt.files."user-password-hash".value;
                 };
               }
             ];
