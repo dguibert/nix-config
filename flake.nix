@@ -530,6 +530,7 @@
           };
 
           home-vpn = {
+            # TODO add networking.wireguard.useNetworkd = true; # (defined in default.nix)
             module.name = "wireguard";
             module.input = "clan-core";
             roles.controller.machines.rpi41.settings = {
