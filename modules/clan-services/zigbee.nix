@@ -36,7 +36,9 @@
 
                 touch $out/user-password-hash
                 chmod 700 $out/user-password-hash
-                mosquitto_passwd -b $out/user-password-hash zigbee $(cat $out/user-password)
+                mosquitto_passwd -b user-password-hash zigbee $(cat $out/user-password)
+                cat user-password-hash | tr -d "\n" > $out/user-password-hash
+
                 # 16 decimals betwween 0-15
                 echo "network_key: [$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16))]" > $out/network_key.yaml
               '';
