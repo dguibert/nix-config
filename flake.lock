@@ -1026,10 +1026,13 @@
         ]
       },
       "locked": {
-        "lastModified": 1765376207,
-        "narHash": "sha256-vrCCV8z463EFcCydyI1ob2MPHSYERYe69GVl/TfhnxI=",
-        "path": "/dev/shm/nix-config-update/nixpkgs",
-        "type": "path"
+        "dir": "nixpkgs",
+        "lastModified": 1765529977,
+        "narHash": "sha256-Q9HZIig6p9yQ3lDl2atYBMHTh31X1KMgAfom+DzelVQ=",
+        "owner": "dguibert",
+        "repo": "nix-config",
+        "rev": "4aada7ca169457f91bf567fff2623ab2652d9481",
+        "type": "github"
       },
       "original": {
         "dir": "nixpkgs",
