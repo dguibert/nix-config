@@ -231,6 +231,8 @@ in
     ./dguibert/zellij.nix
     ./dguibert/vscode.nix
     ./dguibert/with-gui.nix
+    ./dguibert/custom-foot.nix
+    ./dguibert/custom-mako.nix
     ./dguibert/module-hyprland.nix
     ./dguibert/module-dwl.nix
   ];
