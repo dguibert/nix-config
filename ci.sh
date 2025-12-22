@@ -68,6 +68,7 @@ log "* Testing on $(git describe --always --tags)"
 # --flake .#checks.x86_64-linux
 rm -rf gc-root results
 nix-eval-jobs "${args[@]}" > jobs.json
+test -f ~/.parallel/will-cite || (mkdir ~/.parallel; touch ~/.parallel/will-cite)
 cat jobs.json | jq -r '. | @base64' | parallel process_jsonline {}
 
 # TODO: improve the reporting
