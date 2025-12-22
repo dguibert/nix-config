@@ -132,6 +132,8 @@
   */
   ;
 
+  networking.wireguard.useNetworkd = true;
+
   environment.systemPackages = [
     pkgs.vim
     pkgs.git
