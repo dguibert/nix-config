@@ -58,10 +58,8 @@ rec {
 
   documentation.nixos.enable = false;
 
-  hardware.graphics = {
-    enable = true;
-    package = pkgs.mesa.drivers;
-  };
+  hardware.graphics.enable = true;
+
   programs.gnupg.agent.pinentryPackage = lib.mkForce pkgs.pinentry-curses;
 
   # !!! This is only for ARMv6 / ARMv7. Don't enable this on AArch64, cache.nixos.org works there.
