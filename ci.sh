@@ -67,9 +67,11 @@ export -f process_jsonline log
 log "* Testing on $(git describe --always --tags)"
 # --flake .#checks.x86_64-linux
 rm -rf gc-root results
-nix-eval-jobs "${args[@]}" > jobs.json
+#nix-eval-jobs "${args[@]}" > jobs.json
 test -f ~/.parallel/will-cite || (mkdir ~/.parallel; touch ~/.parallel/will-cite)
-cat jobs.json | jq -r '. | @base64' | parallel process_jsonline {}
+#cat jobs.json | jq -r '. | @base64' > jobs.base64
+#parallel process_jsonline {} :::: jobs.base64
+cat jobs.base64 | xargs --verbose -P $(nproc) -I{} bash -c 'process_jsonline "{}"'
 
 # TODO: improve the reporting
 # exit "$error"
