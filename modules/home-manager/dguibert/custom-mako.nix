@@ -13,7 +13,7 @@ with lib;
   options.custom-mako.enable = (lib.mkEnableOption "Enable custom mako config") // {
     default = false;
   };
-  option.custom-mako.systemdTarget = lib.mkOption {
+  options.custom-mako.systemdTarget = lib.mkOption {
     description = "define the session target";
     example = "hyprland-session.target";
   };
