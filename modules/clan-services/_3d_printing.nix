@@ -406,7 +406,7 @@
 
                 #////////////////////////////////////////Filament Unload macros/////////////////////////////////////////////////
                 "gcode_button filament_unload" = {
-                  switch_pin = "ebb36:PROBE_2";
+                  pin = "ebb36:PROBE_2";
                   press_gcode = ''
                     # filament unload procedure
                       M118 Debug Unload press
