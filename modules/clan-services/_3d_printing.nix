@@ -393,19 +393,273 @@
                   screw3_name = "back right";
                 };
 
-                "filament_switch_sensor filament_sensor" = {
-                  switch_pin = "PB5";
-                  ## https://docs.vorondesign.com/community/electronics/120decibell/filament_runout_sensor.html
-                  ## There is no current standard for the process for how to handle parking / changing filament / resuming printing, so that is not documented here
-                  #runout_gcode:
-                  #    PARK_MACRO
-                  #    M117 Out of Filament
-                  #insert_gcode:
-                  #    M117 Resuming
-                  #    RESUME_MACRO
-                  #event_delay: 3.0
-                  #pause_delay: 0.5
+                "filament_switch_sensor O2_sensor" = {
+                  switch_pin = "ebb36:PROBE_1";
+                  runout_gcode = "runout_init";
+                  insert_gcode = "filament_load_init";
+                  pause_on_runout = false;
+                  event_delay = 0.1; # may be changed to 0 for user with mmu
+                  pause_delay = 0.1;
                 };
+
+                #********************************************************************************************************
+
+                #////////////////////////////////////////Filament Unload macros/////////////////////////////////////////////////
+                "gcode_button filament_unload" = {
+                  switch_pin = "ebb36:PROBE_2";
+                  press_gcode = ''
+                    # filament unload procedure
+                    M118 Debug Unload press
+                    unload_tangle_init
+                  '';
+                  release_gcode = ''
+                    # do not add any macro call here
+                                       M118 Debug Unload release
+                  '';
+                };
+
+                repsond = { }; # .default_type = "echo";
+                #################################################################################################################
+                ################################# CHANGE HERE MACRO CONFIGURABLES################################################
+                #################################################################################################################
+
+                "gcode_macro _SENSOR_VARIABLES" = {
+                  # change here macro configurables, enable/disablee functions!
+                  variable_filament_load_temp = 230; # temperature to heat up hotend for filament loading, default is 235
+                  variable_filament_unload_temp = 185; # temperature to heat up hotend for filament unloading, default is 185
+                  variable_filament_load_min_temp = 190; # minimum hotend set temperature allowed in filament load macro, default is 190
+                  variable_nozzle_purge_length = 100; # filament extrude amount during load sequence, hotend purge from old filament, default is 200
+                  variable_nozzle_purge_speed = 450; # filament extrude speed in mm/min adjust this value lower if flow is too high and extruder skips during loading, default is 300
+                  variable_unload_distance = 65; # filament retract distance for unload procedure. this length shall be long enough to extract the filament above the drive gears
+                  variable_disable_autoload = false; # disable filament autoload feature by setting this variable True
+                  variable_disable_autounload = false; # disable filamen unload by unload button
+                  variable_disable_runout = false; # disable runout by setting this variable True
+                  variable_disable_autochange = true; # disable filament auto change after runout detection
+                  variable_disable_tangle = false; # disable tangle by setting this variable True
+                  variable_pause_timeout = 3600; # printer timeout setting in seconds, avoids disabling of steppers and heaters after klipper default timeout of 600s
+                  variable_enable_beep = true; # uses M300 sound feature, set it True to enable
+                  variable_park_position_x = 20; # edit your X parking position here for pause macro triggered by runout
+                  variable_park_position_y = 0; # edit your Y parking position here for pause macro triggered by runout
+                  variable_park_lift_z = 20; # edit your Z-Lift amount for parking position here, default is 10
+                  Variable_park_retraction = 1; # edit your retraction amount for parking, default is 1
+                  gcode = "";
+                };
+
+                "gcode_macro runout_init" = {
+                  gcode = ''
+                                      #
+                    {% set sensor = printer['gcode_macro _SENSOR_VARIABLES'] %}
+                    {% if(sensor.disable_runout|lower == 'false') %}
+                        filament_change_state1
+                    {% else %}
+                      M118 O2S: Filament runout is disabled in the sensor config file!
+                    {% endif %}
+                  '';
+                };
+
+                "gcode_macro filament_change_state1" = {
+                  variable_changebusy = 0;
+                  variable_temp_target = 0;
+                  gcode = ''
+                                      #
+                    {% set sensor = printer['gcode_macro _SENSOR_VARIABLES'] %}
+                    {% if changebusy == 0 %}
+                      M118 O2S: Printer paused due to filament runout!
+                      PAUSE # call printer pause macro
+                      {% if (sensor.disable_autochange|lower == 'false') %}
+                        SET_GCODE_VARIABLE MACRO=filament_change_state1 VARIABLE=changebusy VALUE=1
+                        filament_change_state2
+                      {% endif %}
+                    {% endif %}
+                  '';
+                };
+
+                "gcode_macro filament_change_state2" = {
+                  gcode = ''
+                                      #
+                    {% set sensor = printer['gcode_macro _SENSOR_VARIABLES'] %}
+                    SET_GCODE_VARIABLE MACRO=unload_tangle_init VARIABLE=loadbusy VALUE=1
+                    {% if (sensor.enable_beep|lower == 'true') %}
+                      M300 # beep sound
+                    {% endif %}
+                    M118 O2S: Unloading filament...
+                    M83
+                    G92 E0
+                    # {% if printer[printer.toolhead.extruder].temperature < 185 %} # hardcoded threshold
+                    {% if (printer.extruder.can_extrude|lower != 'true')%} # Checking for minimum extrusion temperature
+                          # Check if temperature is over the minimum extrusion temperature. min_extrude_temp must be defined in the extruder config (to about 185)
+                        M118 O2S: Heating hotend!
+                        SET_HEATER_TEMPERATURE HEATER=extruder TARGET={sensor.filament_unload_temp} # restore user temp if it was set before loading
+                        TEMPERATURE_WAIT SENSOR=extruder MINIMUM={sensor.filament_unload_temp-1} #wait for reaching filament unload temperature
+                    {% endif %}
+                    {% if(printer.extruder.target == 0) %} # Checking for set temperature if is zero, than heat hotend
+                        SET_HEATER_TEMPERATURE HEATER=extruder TARGET={sensor.filament_unload_temp} # restore user temp if it was set before loading
+                        TEMPERATURE_WAIT SENSOR=extruder MINIMUM={sensor.filament_unload_temp-1} #wait for reaching filament unload temperature
+                    {% endif %}
+                    G0 E-5 F3600 	#extract filament to cold end
+                    G4 P2000 # wait for two seconds
+                    G0 E5 F3600 # push the filament back
+                    G0 E-5 F3600 	#extract filament to cold end
+                    G0 E-{sensor.unload_distance} F300	# continue extraction slow allow filament to be cooled enough before reaches the gears
+                    M400
+                    M118 O2S: Load new filament! Wait until it is loaded, then resume printing.
+                    #SET_HEATER_TEMPERATURE HEATER=extruder TARGET=0 # switch off heater
+                    UPDATE_DELAYED_GCODE ID=clear_loadbusy DURATION=0.5
+                    UPDATE_DELAYED_GCODE ID=clear_changebusy DURATION=0.5
+                  '';
+                };
+
+                "gcode_macro filament_load_init" = {
+                  gcode = ''
+                                      #
+                    {% set sensor = printer['gcode_macro _SENSOR_VARIABLES'] %}
+                    {% if (printer.print_stats.state != "printing") %}
+                      {% if(sensor.disable_autoload|lower == 'false') %}
+                        SET_GCODE_VARIABLE MACRO=unload_tangle_init VARIABLE=loadbusy VALUE=1
+                        filament_load
+                      {% else %}
+                      M118 O2S: Filament auto-load is disabled in the sensor config file!
+                      {% endif %}
+                    {% else %}
+                      M118 O2S: Printing! Can't load filament right now!
+                    {% endif %}
+                  '';
+                };
+
+                "gcode_macro filament_load" = {
+                  variable_USER_TEMP = 0;
+                  variable_LOAD_TEMP = 0;
+                  gcode = ''
+                                    #
+                    {% set sensor = printer['gcode_macro _SENSOR_VARIABLES'] %}
+                      {% set USER_TEMP = printer.extruder.target %} # save user set temperature before loading
+                      {% set LOAD_TEMP = 0 %}
+                      M118 O2S: Loading filament...
+                        {% if (printer.extruder.can_extrude|lower != 'true') or (printer.extruder.target < sensor.filament_load_min_temp) %} # checking for minimum extrusion temperature
+                        # check if temperature is over the minimum extrusion temp. min_extrude_temp must be defined in the extruder config (to about 185)
+                          SET_HEATER_TEMPERATURE HEATER=extruder TARGET={sensor.filament_load_temp}
+                         {% set LOAD_TEMP = sensor.filament_load_temp %} # save user set temperature before loading
+                         M118 O2S: Heating hotend!
+                        {% endif %}
+                    {% if (sensor.enable_beep|lower == 'true') %}
+                      M300 # beep sound
+                    {% endif %}
+                    M82           #set extruder to absolute mode
+                    G92 E0
+                    G4 P1500        # wait for 1.5 seconds
+                    FORCE_MOVE STEPPER=extruder DISTANCE=15 VELOCITY=10 ACCEL=1000  # load filament inside the gears force move needs to be enabled
+                    TEMPERATURE_WAIT SENSOR=extruder MINIMUM={LOAD_TEMP-1} # wait for reaching set temperature
+                    TEMPERATURE_WAIT SENSOR=extruder MINIMUM={USER_TEMP-1} # wait for reaching set temperature
+                    G1 E{sensor.nozzle_purge_length} F{sensor.nozzle_purge_speed} # extrude preconfigured purge length
+                    M400 # wait to complete nozzle purge
+                    {% if ((printer.print_stats.state == "printing")  or (printer.print_stats.state == "paused"))%} #if the printer is not printing or paused the nozzle temp will not be restored but set to 0.
+                      SET_HEATER_TEMPERATURE HEATER=extruder TARGET={USER_TEMP} # restore user temp if it was set before loading
+                      TEMPERATURE_WAIT SENSOR=extruder MINIMUM={USER_TEMP-1}
+                    {% else %}
+                      SET_HEATER_TEMPERATURE HEATER=extruder TARGET=0
+                    {% endif %}
+                    {% if printer["filament_switch_sensor O2_sensor"].filament_detected==true %}
+                      M118 O2S: Filament load complete!
+                      {% if (sensor.enable_beep|lower == 'true') %}
+                        M300 # beep sound
+                      {% endif %}
+                    {% else %}
+                      M118 O2S: Filament load failed!
+                    {% endif %}
+                    UPDATE_DELAYED_GCODE ID=clear_loadbusy DURATION=2
+                  '';
+                };
+
+                #############################################END filament auto load macro section END***********************************************************
+                #############################################filament auto unload and Tangle macro section *****************************************************************
+                "gcode_macro unload_tangle_init" = {
+                  variable_loadbusy = 0;
+                  gcode = ''
+                                      #
+                    {% set sensor = printer['gcode_macro _SENSOR_VARIABLES'] %}
+                    {% if (printer.print_stats.state == "printing") %} # filament tangle detection during printing
+                      {% if(sensor.disable_tangle|lower == 'false') %} # run tangle detection macro if enabled
+                        filament_tangle
+                      {% else %} #filament tangle disabled send message to console
+                        M118 O2S: Filament tangle detected, action disabled!
+                      {% endif %}
+                    {% else %} #filament unload button pressed
+                        #{% if (printer.print_stats.state == "paused" and loadbusy == 0) %} #enable unload if not printing and not paused
+                        {% if (loadbusy == 0) %} #enable unload if not already loading
+                          {% if(sensor.disable_autounload|lower == 'false') %} # run unload macro if enabled
+                            filament_unload
+                            M118 filament unload called
+                          {% endif %}
+                        {% endif %}
+                    {% endif %}
+                  '';
+                };
+
+                "gcode_macro filament_unload" = {
+                  gcode = ''
+                                    #
+                    {% set sensor = printer['gcode_macro _SENSOR_VARIABLES'] %}
+                      {% if (sensor.enable_beep|lower == 'true') %}
+                        M300 # beep sound
+                      {% endif %}
+                      M118 O2S: Unloading filament...
+                      M83
+                      G92 E0
+                      {% if (printer.extruder.can_extrude|lower != 'true')%} # Checking for minimum extrusion temperature
+                        # check if temperature is over the minimum extrusion temperature. min_extrude_temp must be defined in the extruder config (to about 185)
+                        SET_HEATER_TEMPERATURE HEATER=extruder TARGET={sensor.filament_unload_temp} # restore user temp if it was set before loading
+                        TEMPERATURE_WAIT SENSOR=extruder MINIMUM={sensor.filament_unload_temp-1}
+                      {% endif %}
+                      {% if(printer.extruder.target == 0) %} # Checking for set temperature if is zero than set to 185 / hotend hot but cooling due to set target temp 0
+                        SET_HEATER_TEMPERATURE HEATER=extruder TARGET={sensor.filament_unload_temp} # restore user temp if it was set before loading
+                        TEMPERATURE_WAIT SENSOR=extruder MINIMUM={sensor.filament_unload_temp-1}
+                      {% endif %}
+                      G0 E10 F500 # extruder 20mm of filament before extracting
+                      G0 E-5 F3600 	#extract filament to cold end
+                      G4 P2000 # wait for two seconds
+                      G0 E6 F3600 # push the filament back
+                      G0 E-10 F3600 	#extract filament to cold end
+                      G0 E-{sensor.unload_distance} F300	# continue extraction slowly and allow filament to be cooled enough before reaches the gears
+                      M400 # wait to complete unload
+                      M118 O2S: Filament unload complete!
+                      {% if (sensor.enable_beep|lower == 'true') %}
+                        M300 # beep sound
+                      {% endif %}
+                  '';
+                };
+
+                "gcode_macro filament_tangle" = {
+                  gcode = ''
+                                      #
+                    {% set sensor = printer['gcode_macro _SENSOR_VARIABLES'] %}
+                    M118 O2S: Filament tangle detected, print paused!
+                    {% if (sensor.enable_beep|lower == 'true') %}
+                      M300 # beep sound
+                    {% endif %}
+                    PAUSE
+                  '';
+                };
+
+                #############################################END filament auto-unload macro section END***********************************************************
+
+                "delayed_gcode clear_unloadbusy".gcode = ''
+                                    #
+                  SET_GCODE_VARIABLE MACRO=filament_unload VARIABLE=unloadbusy VALUE=0
+                  #M118 O2S: Clear Unload busy!
+                '';
+
+                "delayed_gcode clear_changebusy".gcode = ''
+                                    #
+                  SET_GCODE_VARIABLE MACRO=filament_change_state1 VARIABLE=changebusy VALUE=0
+                  #M118 O2S: Clear Load busy!
+                '';
+
+                "delayed_gcode clear_loadbusy".gcode = ''
+                                    #
+                  SET_GCODE_VARIABLE MACRO=unload_tangle_init VARIABLE=loadbusy VALUE=0
+                  #M118 O2S: Clear Load busy!
+                '';
+
                 #######################################################################
                 ###	Macros
                 #######################################################################
@@ -416,6 +670,7 @@
                   variable_extrude = 1.0;
                   gcode = ''
                     ##### read E from pause macro #####
+                                        {% set sensor = printer['gcode_macro _SENSOR_VARIABLES'] %}
                                         {% set E = printer["gcode_macro PAUSE"].extrude|float %}
                                         ##### set park positon for x and y #####
                                         # default is your max posion from your printer.cfg
@@ -429,7 +684,11 @@
                                         {% else %}
                                             {% set z_safe = max_z - act_z %}
                                         {% endif %}
+                                        SET_GCODE_VARIABLE MACRO=RESUME VARIABLE=bed_restore_temp VALUE={printer.heater_bed.target}
+                                        SET_GCODE_VARIABLE MACRO=RESUME VARIABLE=extruder_restore_temp VALUE={printer.extruder.target}
                                         ##### end of definitions #####
+                                        SAVE_GCODE_STATE NAME=PAUSE_state
+                                        SET_IDLE_TIMEOUT TIMEOUT={(sensor.pause_timeout)|float} # increase printer timeout
                                         PAUSE_BASE
                                         G91
                                         {% if printer.extruder.can_extrude|lower == 'true' %}
@@ -449,6 +708,8 @@
                 "gcode_macro RESUME" = {
                   description = "Resume the actual running print";
                   rename_existing = "RESUME_BASE";
+                  variable_bed_restore_temp = 0;
+                  variable_extruder_restore_temp = 0;
                   gcode = ''
                     ##### read E from pause macro #####
                                         {% set E = printer["gcode_macro PAUSE"].extrude|float %}
@@ -458,6 +719,15 @@
                                         {%else %}
                                           {% set get_params = "" %}
                                         {% endif %}
+                                        {% set sensor = printer['gcode_macro _SENSOR_VARIABLES'] %}
+                                        M118 O2S: Restoring heaters temperature, it might take a while!
+                                        M118 O2S: Restoring bed temperature...
+                                        M140 S{bed_restore_temp}
+                                        TEMPERATURE_WAIT SENSOR=heater_bed MINIMUM={bed_restore_temp-1}
+                                        M104 S{extruder_restore_temp}
+                                        M118 O2S: Restoring extruder temperature...
+                                        TEMPERATURE_WAIT SENSOR=extruder MINIMUM={extruder_restore_temp-1}
+                                        M118 O2S: Extruder temperature restored!
                                         ##### end of definitions #####
                                         {% if printer.extruder.can_extrude|lower == 'true' %}
                                           G91
@@ -465,6 +735,10 @@
                                         {% else %}
                                           {action_respond_info("Extruder not hot enough")}
                                         {% endif %}
+                                        G90
+                                        M118 O2S: Temperatures restored, resmume printing!
+                                        SET_IDLE_TIMEOUT TIMEOUT=600 # restor klipper default printer timeout to 10 min
+                                        RESTORE_GCODE_STATE NAME=PAUSE_state MOVE=1
                                         RESUME_BASE {get_params}
                   '';
                 };
@@ -476,6 +750,7 @@
                     #
                                       TURN_OFF_HEATERS
                                       CANCEL_PRINT_BASE
+                                      SET_IDLE_TIMEOUT TIMEOUT=600 # restor klipper default printer timeout to 10 min
                   '';
                 };
 
