@@ -419,6 +419,7 @@
                 };
 
                 respond = { }; # .default_type = "echo";
+                force_move.enable_force_move = true;
                 #################################################################################################################
                 ################################# CHANGE HERE MACRO CONFIGURABLES################################################
                 #################################################################################################################
@@ -437,7 +438,7 @@
                   variable_disable_autochange = "True"; # disable filament auto change after runout detection
                   variable_disable_tangle = "False"; # disable tangle by setting this variable True
                   variable_pause_timeout = 3600; # printer timeout setting in seconds, avoids disabling of steppers and heaters after klipper default timeout of 600s
-                  variable_enable_beep = "True"; # uses M300 sound feature, set it True to enable
+                  variable_enable_beep = "False"; # uses M300 sound feature, set it True to enable
                   variable_park_position_x = 20; # edit your X parking position here for pause macro triggered by runout
                   variable_park_position_y = 0; # edit your Y parking position here for pause macro triggered by runout
                   variable_park_lift_z = 20; # edit your Z-Lift amount for parking position here, default is 10
