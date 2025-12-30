@@ -431,18 +431,18 @@
                   variable_nozzle_purge_length = 100; # filament extrude amount during load sequence, hotend purge from old filament, default is 200
                   variable_nozzle_purge_speed = 450; # filament extrude speed in mm/min adjust this value lower if flow is too high and extruder skips during loading, default is 300
                   variable_unload_distance = 65; # filament retract distance for unload procedure. this length shall be long enough to extract the filament above the drive gears
-                  variable_disable_autoload = false; # disable filament autoload feature by setting this variable True
-                  variable_disable_autounload = false; # disable filamen unload by unload button
-                  variable_disable_runout = false; # disable runout by setting this variable True
-                  variable_disable_autochange = true; # disable filament auto change after runout detection
-                  variable_disable_tangle = false; # disable tangle by setting this variable True
+                  variable_disable_autoload = "False"; # disable filament autoload feature by setting this variable True
+                  variable_disable_autounload = "False"; # disable filamen unload by unload button
+                  variable_disable_runout = "False"; # disable runout by setting this variable True
+                  variable_disable_autochange = "True"; # disable filament auto change after runout detection
+                  variable_disable_tangle = "False"; # disable tangle by setting this variable True
                   variable_pause_timeout = 3600; # printer timeout setting in seconds, avoids disabling of steppers and heaters after klipper default timeout of 600s
-                  variable_enable_beep = true; # uses M300 sound feature, set it True to enable
+                  variable_enable_beep = "True"; # uses M300 sound feature, set it True to enable
                   variable_park_position_x = 20; # edit your X parking position here for pause macro triggered by runout
                   variable_park_position_y = 0; # edit your Y parking position here for pause macro triggered by runout
                   variable_park_lift_z = 20; # edit your Z-Lift amount for parking position here, default is 10
                   Variable_park_retraction = 1; # edit your retraction amount for parking, default is 1
-                  gcode = "";
+                  gcode = "#";
                 };
 
                 "gcode_macro runout_init".gcode = ''
