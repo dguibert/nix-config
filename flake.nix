@@ -443,7 +443,8 @@
           };
           seedbox = {
             module.input = "self";
-            roles.default.machines.titan = { };
+            roles.qbittorrent.machines.titan = { };
+            roles.rtorrent.machines.titan = { };
           };
           printing = {
             module.input = "self";

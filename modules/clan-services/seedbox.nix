@@ -2,9 +2,57 @@
   _class = "clan.service";
   manifest.name = "seedbox";
 
-  roles.default = { };
+  roles.aria2.perInstance =
+    {
+      instances,
+      settings,
+      machine,
+      roles,
+      ...
+    }:
+    {
+      nixosModule =
+        {
+          config,
+          lib,
+          pkgs,
+          ...
+        }:
+        {
+          clan.core.vars.generators.aria2 = {
+            files.rpc-secret-file.deploy = true;
+            runtimeInputs = [
+              pkgs.xkcdpass
+            ];
+            script = ''
+              xkcdpass --numwords 3 --delimiter - --count 1 | tr -d "\n" > $out/rpc-secret-file
+            '';
+          };
 
-  perMachine =
+          services.aria2 = {
+            enable = true;
+            openPorts = true;
+            serviceUMask = "0002";
+            rpcSecretFile = config.clan.core.vars.generators.aria2.files.rpc-secret-file.path;
+            settings = {
+              #dir = "";
+              seed-ratio = "0.0";
+              disk-cache = 0;
+              file-allocation = "none";
+              check-integrity = true;
+              always-resume = true;
+              #continue=true;
+              remote-time = true;
+
+              peer-id-prefix = "-qB5120-";
+              peer-agent = "qBittorrent/5.1.2";
+
+            };
+          };
+        };
+    };
+
+  roles.qbittorrent.perInstance =
     {
       instances,
       settings,
@@ -128,26 +176,106 @@
           systemd.services.qbittorrent.serviceConfig.BindPaths = [
             "/mnt/downloads2"
           ];
-          networking.firewall.allowedTCPPorts = [
+          networking.firewall.allowedTCPPorts = lib.mkIf (config.services.qbittorrent.enable) [
             config.services.qbittorrent.torrentingPort
           ];
 
-          networking.firewall.allowedUDPPorts = [
+          networking.firewall.allowedUDPPorts = lib.mkIf (config.services.qbittorrent.enable) [
             config.services.qbittorrent.torrentingPort
           ];
 
-          networking.firewall.allowedTCPPortRanges = [
+          networking.firewall.allowedTCPPortRanges = lib.mkIf (config.services.qbittorrent.enable) [
             {
               from = config.services.qbittorrent.serverConfig.BitTorrent.Session.OutgoingPortsMin;
               to = config.services.qbittorrent.serverConfig.BitTorrent.Session.OutgoingPortsMax;
             }
           ];
-          networking.firewall.allowedUDPPortRanges = [
+          networking.firewall.allowedUDPPortRanges = lib.mkIf (config.services.qbittorrent.enable) [
             {
               from = config.services.qbittorrent.serverConfig.BitTorrent.Session.OutgoingPortsMin;
               to = config.services.qbittorrent.serverConfig.BitTorrent.Session.OutgoingPortsMax;
             }
           ];
+        };
+    };
+
+  roles.deluge.perInstance =
+    {
+      instances,
+      settings,
+      machine,
+      roles,
+      ...
+    }:
+    {
+      nixosModule =
+        {
+          config,
+          lib,
+          pkgs,
+          ...
+        }:
+        {
+          # seedbox
+          services.deluge = {
+            enable = false;
+            openFirewall = true;
+            #declarative = true;
+            config = {
+              download_location = "/mnt/downloads";
+              allow_remote = true;
+              daemon_port = 58846;
+              listen_ports = [
+                6881
+                6889
+              ];
+            };
+            web.enable = true;
+          };
+        };
+    };
+
+  roles.rtorrent.perInstance =
+    {
+      instances,
+      settings,
+      machine,
+      roles,
+      ...
+    }:
+    {
+      nixosModule =
+        {
+          config,
+          lib,
+          pkgs,
+          ...
+        }:
+        let
+          peer-port = 51412;
+          web-port = 8112;
+        in
+        {
+          # seedbox
+          services.rtorrent = {
+            enable = true;
+            openFirewall = true;
+            #declarative = true;
+            dataPermissions = "0755";
+            downloadDir = "/mnt/downloads2/rtorrent";
+            port = peer-port;
+            configText = '''';
+          };
+          services.flood = {
+            enable = true;
+            port = web-port;
+            openFirewall = true;
+            extraArgs = [ "--rtsocket=${config.services.rtorrent.rpcSocket}" ];
+          };
+          # allow access to the socket by putting it in the same group as rtorrent service
+          # the socket will have g+w permissions
+          systemd.services.flood.serviceConfig.SupplementaryGroups = [ config.services.rtorrent.group ];
+
         };
     };
 }
