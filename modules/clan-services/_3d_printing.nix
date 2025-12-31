@@ -11,6 +11,9 @@
         roles,
         ...
       }:
+      let
+        timeout = 600;
+      in
       {
         nixosModule =
           {
@@ -352,7 +355,7 @@
                   #off_below = "0.4";
                   cycle_time = 0.010;
                 };
-                idle_timeout.timeout = 1800;
+                idle_timeout.timeout = timeout;
 
                 input_shaper.shaper_type_x = "2hump_ei";
                 input_shaper.shaper_freq_x = "75.0"; # Hz
@@ -729,7 +732,7 @@
                       {% endif %}
                       G90
                       M118 O2S: Temperatures restored, resmume printing!
-                      SET_IDLE_TIMEOUT TIMEOUT=600 # restor klipper default printer timeout to 10 min
+                      SET_IDLE_TIMEOUT TIMEOUT=${timeout} # restor klipper default printer timeout
                       RESTORE_GCODE_STATE NAME=PAUSE_state MOVE=1
                       RESUME_BASE
                   '';
@@ -744,7 +747,7 @@
                       SDCARD_RESET_FILE
                       TURN_OFF_HEATERS
                       CANCEL_PRINT_BASE
-                      SET_IDLE_TIMEOUT TIMEOUT=600 # restor klipper default printer timeout to 10 min
+                      SET_IDLE_TIMEOUT TIMEOUT=${timeout} # restor klipper default printer timeout
                   '';
                 };
 
@@ -916,52 +919,52 @@
                 # https://www.klipper3d.org/Exclude_Object.html
                 exclude_object = { };
                 # https://github.com/Klipper3d/klipper/blob/master/config/sample-macros.cfg
-                "gcode_macro M486".gcode =
-                  "      # Parameters known to M486 are as follows:
-               #   [C<flag>] Cancel the current object
-               #   [P<index>] Cancel the object with the given index
-               #   [S<index>] Set the index of the current object.
-               #       If the object with the given index has been canceled, this will cause
-               #       the firmware to skip to the next object. The value -1 is used to
-               #       indicate something that isn’t an object and shouldn’t be skipped.
-               #   [T<count>] Reset the state and set the number of objects
-               #   [U<index>] Un-cancel the object with the given index. This command will be
-               #       ignored if the object has already been skipped
+                "gcode_macro M486".gcode = ''
+                  # Parameters known to M486 are as follows:
+                    #   [C<flag>] Cancel the current object
+                    #   [P<index>] Cancel the object with the given index
+                    #   [S<index>] Set the index of the current object.
+                    #       If the object with the given index has been canceled, this will cause
+                    #       the firmware to skip to the next object. The value -1 is used to
+                    #       indicate something that isn’t an object and shouldn’t be skipped.
+                    #   [T<count>] Reset the state and set the number of objects
+                    #   [U<index>] Un-cancel the object with the given index. This command will be
+                    #       ignored if the object has already been skipped
 
-               {% if 'exclude_object' not in printer %}
-                 {action_raise_error(\"[exclude_object] is not enabled\")}
-               {% endif %}
+                    {% if 'exclude_object' not in printer %}
+                      {action_raise_error(\"[exclude_object] is not enabled\")}
+                    {% endif %}
 
-               {% if 'T' in params %}
-                 EXCLUDE_OBJECT RESET=1
+                    {% if 'T' in params %}
+                      EXCLUDE_OBJECT RESET=1
 
-                 {% for i in range(params.T | int) %}
-                   EXCLUDE_OBJECT_DEFINE NAME={i}
-                 {% endfor %}
-               {% endif %}
+                      {% for i in range(params.T | int) %}
+                        EXCLUDE_OBJECT_DEFINE NAME={i}
+                      {% endfor %}
+                    {% endif %}
 
-               {% if 'C' in params %}
-                 EXCLUDE_OBJECT CURRENT=1
-               {% endif %}
+                    {% if 'C' in params %}
+                      EXCLUDE_OBJECT CURRENT=1
+                    {% endif %}
 
-               {% if 'P' in params %}
-                 EXCLUDE_OBJECT NAME={params.P}
-               {% endif %}
+                    {% if 'P' in params %}
+                      EXCLUDE_OBJECT NAME={params.P}
+                    {% endif %}
 
-               {% if 'S' in params %}
-                 {% if params.S == '-1' %}
-                   {% if printer.exclude_object.current_object %}
-                     EXCLUDE_OBJECT_END NAME={printer.exclude_object.current_object}
-                   {% endif %}
-                 {% else %}
-                   EXCLUDE_OBJECT_START NAME={params.S}
-                 {% endif %}
-               {% endif %}
+                    {% if 'S' in params %}
+                      {% if params.S == '-1' %}
+                        {% if printer.exclude_object.current_object %}
+                          EXCLUDE_OBJECT_END NAME={printer.exclude_object.current_object}
+                        {% endif %}
+                      {% else %}
+                        EXCLUDE_OBJECT_START NAME={params.S}
+                      {% endif %}
+                    {% endif %}
 
-               {% if 'U' in params %}
-                 EXCLUDE_OBJECT RESET=1 NAME={params.U}
-               {% endif %}
-        ";
+                    {% if 'U' in params %}
+                      EXCLUDE_OBJECT RESET=1 NAME={params.U}
+                    {% endif %}
+                '';
               };
 
             };
