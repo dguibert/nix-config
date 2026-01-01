@@ -37,10 +37,10 @@ with lib;
     systemd.user.services.mako = {
       Unit = {
         Description = "Mako notification daemon";
-        PartOf = [ cfg.custom-mako.session ];
+        PartOf = [ cfg.systemdTarget ];
       };
       Install = {
-        WantedBy = [ cfg.custom-mako.session ];
+        WantedBy = [ cfg.systemdTarget ];
       };
       Service = {
         Type = "dbus";
