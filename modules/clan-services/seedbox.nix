@@ -69,53 +69,6 @@
           ...
         }:
         {
-          clan.core.vars.generators.aria2 = {
-            files.rpc-secret-file.deploy = true;
-            runtimeInputs = [
-              pkgs.xkcdpass
-            ];
-            script = ''
-              xkcdpass --numwords 3 --delimiter - --count 1 | tr -d "\n" > $out/rpc-secret-file
-            '';
-          };
-          # seedbox
-          services.deluge = {
-            enable = false;
-            openFirewall = true;
-            #declarative = true;
-            config = {
-              download_location = "/mnt/downloads";
-              allow_remote = true;
-              daemon_port = 58846;
-              listen_ports = [
-                6881
-                6889
-              ];
-            };
-            web.enable = true;
-          };
-
-          services.aria2 = {
-            enable = false;
-            openPorts = true;
-            serviceUMask = "0002";
-            rpcSecretFile = config.clan.core.vars.generators.aria2.files.rpc-secret-file.path;
-            settings = {
-              #dir = "";
-              seed-ratio = "0.0";
-              disk-cache = 0;
-              file-allocation = "none";
-              check-integrity = true;
-              always-resume = true;
-              #continue=true;
-              remote-time = true;
-
-              peer-id-prefix = "-qB5120-";
-              peer-agent = "qBittorrent/5.1.2";
-
-            };
-          };
-
           my.persistence.directories = [
             "/var/lib/qBittorrent"
           ];
