@@ -217,7 +217,11 @@
             downloadDir = "/mnt/downloads2/rtorrent";
             port = peer-port;
             configText = ''
-              log.xmlrpc = (cat, (cfg.logs), "xmlrpc.log")
+              #log.xmlrpc = (cat, (cfg.logs), "xmlrpc.log")
+              network.bind_address.ipv4.set = "0.0.0.0"
+              #network.bind_address.ipv6.set = "::"
+              #network.local_address.ipv4.set =
+              #network.local_address.ipv6.set =
             '';
           };
           services.flood = {
