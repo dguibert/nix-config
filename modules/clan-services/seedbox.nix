@@ -269,8 +269,27 @@
           };
           services.flood = {
             enable = true;
+            package = pkgs.flood.overrideAttrs (o: rec {
+              version = "2025-12-25-unstable";
+
+              src = pkgs.fetchFromGitHub {
+                owner = "jesec";
+                repo = "flood";
+                rev = "eeecb8e42a1cb6d6a736fc2078e673132d3849ff";
+                hash = "sha256-zpeNFVq0Mn0RxmChGLgt3eIKBbvUd6Iw+kL7d4sfLQ0=";
+              };
+              pnpmDeps = pkgs.fetchPnpmDeps {
+                inherit (o)
+                  pname
+                  ;
+                inherit version src;
+                pnpm = pkgs.pnpm_9;
+                fetcherVersion = 1;
+                hash = "sha256-4W0TT+HEuEGAgx9+IkCC78xjJqbqA4BX/SkZBfoZJoQ=";
+              };
+            });
             port = web-port;
-            openFirewall = true;
+            #            openFirewall = true;
             extraArgs = [ "--rtsocket=${config.services.rtorrent.rpcSocket}" ];
           };
           # allow access to the socket by putting it in the same group as rtorrent service
