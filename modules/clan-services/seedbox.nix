@@ -260,11 +260,12 @@
           services.rtorrent = {
             enable = true;
             openFirewall = true;
-            #declarative = true;
             dataPermissions = "0755";
             downloadDir = "/mnt/downloads2/rtorrent";
             port = peer-port;
-            configText = '''';
+            configText = ''
+              log.xmlrpc = (cat, (cfg.logs), "xmlrpc.log")
+            '';
           };
           services.flood = {
             enable = true;
