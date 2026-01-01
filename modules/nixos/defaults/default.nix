@@ -9,15 +9,6 @@
 {
   imports = [
     inputs.nur_packages.inputs.nixpkgs.nixosModules.notDetected
-    inputs.home-manager.nixosModules.home-manager
-    ({
-      home-manager.useGlobalPkgs = true;
-      home-manager.useUserPackages = true;
-      home-manager.extraSpecialArgs = {
-        inherit inputs pkgs;
-        sopsDecrypt_ = pkgs.sopsDecrypt_;
-      };
-    })
     (
       { config, ... }:
       {

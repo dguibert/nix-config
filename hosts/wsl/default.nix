@@ -32,6 +32,12 @@
       {
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
+        #- dguibert profile: xdg.portal: since you installed Home Manager via its NixOS module and
+        #'home-manager.useUserPackages' is enabled, you need to add
+        environment.pathsToLink = [
+          "/share/applications"
+          "/share/xdg-desktop-portal"
+        ];
         home-manager.backupFileExtension = "hm-backup";
         home-manager.extraSpecialArgs = {
           inherit inputs pkgs;
