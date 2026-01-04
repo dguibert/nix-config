@@ -751,6 +751,8 @@
                   '';
                 };
 
+                "gcode_macro T0".gcode = "ACTIVATE_EXTRUDER EXTRUDER=extruder";
+
                 ###   Use PRINT_START for the slicer starting script - please customize for your slicer of choice
                 # https://github.com/Klipper3d/klipper/blob/master/config/sample-macros.cfg
                 "gcode_macro PRINT_START".gcode = ''
