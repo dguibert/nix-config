@@ -248,10 +248,6 @@ in
     home.sessionVariables.SQUEUE_FORMAT = "%.18i %.25P %35j %.8u %.2t %.10M %.6D %.6C %.6z %.15E %20R %W";
     #home.sessionVariables.SINFO_FORMAT="%30N  %.6D %.6c %15F %10t %20f %P"; # with state
     home.sessionVariables.SINFO_FORMAT = "%30N  %.6D %.6c %15F %20f %P";
-    # ✗ 1    dguibert@vbox-57nvj72 ~ $ systemctl --user status
-    # Failed to read server status: Process org.freedesktop.systemd1 exited with status 1
-    # ✗ 130    dguibert@vbox-57nvj72 ~ $ export XDG_RUNTIME_DIR=/run/user/$(id -u)
-    home.sessionVariables.XDG_RUNTIME_DIR = "/run/user/$(id -u)";
     home.sessionVariables.MOZ_ENABLE_WAYLAND = 1;
 
     # Fix stupid java applications like android studio
