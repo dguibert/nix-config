@@ -211,6 +211,7 @@
         {
           my.persistence.directories = [
             "/var/lib/rtorrent/session"
+            "/var/lib/flood"
           ];
 
           # seedbox
