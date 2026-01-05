@@ -898,11 +898,11 @@
         "nixpkgs-regression": "nixpkgs-regression"
       },
       "locked": {
-        "lastModified": 1765375818,
-        "narHash": "sha256-q6R+jefaYxNASvzvge+YQP4gpC0elOC7Dbn7VNx+ifI=",
+        "lastModified": 1767620042,
+        "narHash": "sha256-uTVzm2RDwidAXCzKGw2WG2kw0XZvFZsTuuNvO+m5kQw=",
         "owner": "dguibert",
         "repo": "nix",
-        "rev": "122d94b09d063a09bd9b7b06c86e6ba3a6beaa8a",
+        "rev": "5085dd3327fa20e9c509613309428d8f3c6c0fcc",
         "type": "github"
       },
       "original": {
