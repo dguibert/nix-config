@@ -209,6 +209,10 @@
           web-port = 8112;
         in
         {
+          my.persistence.directories = [
+            "/var/lib/rtorrent/session"
+          ];
+
           # seedbox
           services.rtorrent = {
             enable = true;
