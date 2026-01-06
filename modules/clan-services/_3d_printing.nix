@@ -367,21 +367,21 @@
                   set_position_z = 0;
                   gcode = ''
                     #
-                                      G90
-                                      G0 Z5 F600
-                                      {% set home_all = 'X' not in params and 'Y' not in params and 'Z' not in params %}
+                      G90
+                      G0 Z5 F600
+                      {% set home_all = 'X' not in params and 'Y' not in params and 'Z' not in params %}
 
-                                       {% if home_all or 'X' in params %}
-                                         _HOME_X
-                                       {% endif %}
+                      {% if home_all or 'X' in params %}
+                        _HOME_X
+                      {% endif %}
 
-                                       {% if home_all or 'Y' in params %}
-                                         _HOME_Y
-                                       {% endif %}
+                      {% if home_all or 'Y' in params %}
+                        _HOME_Y
+                      {% endif %}
 
-                                       {% if home_all or 'Z' in params %}
-                                         _HOME_Z
-                                       {% endif %}
+                      {% if home_all or 'Z' in params %}
+                        _HOME_Z
+                      {% endif %}
                   '';
                 };
                 ### Tool to help adjust bed leveling screws. One may define a
@@ -760,9 +760,6 @@
                     # Parameters
                     {% set BED_TEMP = params.BED|float %}
                     {% set EXTRUDER_TEMP = params.EXTRUDER|float %}
-                    # Reset the G-Code Z offset (adjust Z offset if needed)
-                    # https://www.klipper3d.org/Bed_Level.html
-                    SET_GCODE_OFFSET Z=+.0
                     M140 S{BED_TEMP}       ; set for bed to reach temp
                     M104 S{EXTRUDER_TEMP}  ; set for hot end to reach temp
                     # Home the printer
@@ -774,18 +771,18 @@
                     ; start exhaust fan
                     SET_FAN_SPEED FAN=exhaust_fan SPEED=0.5
 
-                    G0 Y5 X5             ;
-                    G1 Z0.2 F500.0       ; move bed to nozzle
-                    G92 E0.0             ; reset extruder
-                    G1 E4.0 F500.0       ; pre-purge prime LENGTH SHOULD MATCH YOUR PRINT_END RETRACT
-                    G1 Z2 E10.0 F500.0     ;
-                    G1 Z5 E20.0 F500.0     ;
-                    G92 E0.0             ; reset extruder
-                    G1 Z2.0              ; move nozzle to prevent scratch
-                    ### Move the nozzle near the bed
-                    G1 Z20 F3000
-                    ### Move the nozzle very close to the bed
-                    ##G1 Z0.15 F300
+                    #G0 Y5 X5             ;
+                    #G1 Z0.2 F500.0       ; move bed to nozzle
+                    #G92 E0.0             ; reset extruder
+                    #G1 E4.0 F500.0       ; pre-purge prime LENGTH SHOULD MATCH YOUR PRINT_END RETRACT
+                    #G1 Z2 E10.0 F500.0     ;
+                    #G1 Z5 E20.0 F500.0     ;
+                    #G92 E0.0             ; reset extruder
+                    #G1 Z2.0              ; move nozzle to prevent scratch
+                    #### Move the nozzle near the bed
+                    #G1 Z20 F3000
+                    #### Move the nozzle very close to the bed
+                    ###G1 Z0.15 F300
                 '';
                 ###   Use PRINT_END for the slicer ending script - please customize for your slicer of choice
                 "gcode_macro PRINT_END".gcode = ''
@@ -920,6 +917,9 @@
 
                 # https://www.klipper3d.org/Exclude_Object.html
                 exclude_object = { };
+                # Enable arcs support
+                gcode_arcs.resolution = 0.1;
+
                 # https://github.com/Klipper3d/klipper/blob/master/config/sample-macros.cfg
                 "gcode_macro M486".gcode = ''
                   # Parameters known to M486 are as follows:
