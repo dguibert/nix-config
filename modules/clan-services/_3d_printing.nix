@@ -732,7 +732,7 @@
                       {% endif %}
                       G90
                       M118 O2S: Temperatures restored, resmume printing!
-                      SET_IDLE_TIMEOUT TIMEOUT=${timeout} # restor klipper default printer timeout
+                      SET_IDLE_TIMEOUT TIMEOUT=${toString timeout} # restor klipper default printer timeout
                       RESTORE_GCODE_STATE NAME=PAUSE_state MOVE=1
                       RESUME_BASE
                   '';
@@ -747,7 +747,7 @@
                       SDCARD_RESET_FILE
                       TURN_OFF_HEATERS
                       CANCEL_PRINT_BASE
-                      SET_IDLE_TIMEOUT TIMEOUT=${timeout} # restor klipper default printer timeout
+                      SET_IDLE_TIMEOUT TIMEOUT=${toString timeout} # restor klipper default printer timeout
                   '';
                 };
 
