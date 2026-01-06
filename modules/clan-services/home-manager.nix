@@ -73,6 +73,9 @@
   roles.dguibert-gui.interface =
     { lib, ... }:
     {
+      options.hyprland.enable = (lib.mkEnableOption "Host running with hyprland") // {
+        default = true;
+      };
       options.hyprland.hyprsplit.enable =
         (lib.mkEnableOption "Host running with hyprsplit plugin on hyprland")
         // {
@@ -87,6 +90,7 @@
         { config, pkgs, ... }:
         {
           home-manager.users.dguibert.withGui.enable = true;
+          home-manager.users.dguibert.hyprland.enable = settings.hyprland.enable;
           home-manager.users.dguibert.hyprland.hyprsplit.enable = settings.hyprland.hyprsplit.enable;
         };
 

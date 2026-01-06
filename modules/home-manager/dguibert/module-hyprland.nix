@@ -11,7 +11,7 @@ in
 with lib;
 {
   options.hyprland.enable = (lib.mkEnableOption "Enable hyprland config") // {
-    default = true;
+    default = false;
   };
   options.hyprland.hyprsplit.enable = (lib.mkEnableOption "Hyprland with split plugin") // {
     default = true;
