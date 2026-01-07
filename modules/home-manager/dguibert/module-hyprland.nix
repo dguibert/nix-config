@@ -22,8 +22,8 @@ with lib;
 
   config = lib.mkIf cfg.enable {
     programs.bash.bashrcExtra = ''
-      if [[ -z $WAYLAND_DISPLAY ]] && [[ "$XDG_VTNR" -eq 1 ]] && command -v Hyprland >/dev/null ; then
-      dbus-run-session Hyprland
+      if [[ -z $WAYLAND_DISPLAY ]] && [[ "$XDG_VTNR" -eq 1 ]] && command -v start-hyprland >/dev/null ; then
+      dbus-run-session start-hyprland
       fi
     '';
 
