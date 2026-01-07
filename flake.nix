@@ -361,12 +361,6 @@
             roles.voron02_1.machines.rpi31 = { };
           };
 
-          adb = {
-            module.input = "self";
-            roles.default.machines.t580 = { };
-            roles.default.machines.titan = { };
-          };
-
           haproxy = {
             module.input = "self";
             roles.default.machines.rpi41 = { };
