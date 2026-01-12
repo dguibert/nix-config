@@ -3,7 +3,6 @@
   lib,
   pkgs,
   inputs,
-  self',
   pkgsForSystem,
   ...
 }:
@@ -32,7 +31,6 @@ in
         my.persistence.enable = true;
       }
     )
-    inputs.microvm.nixosModules.host
     inputs.nix-ld.nixosModules.nix-ld
 
     # The module in this repository defines a new module under (programs.nix-ld.dev) instead of (programs.nix-ld)
@@ -41,8 +39,6 @@ in
     { environment.stub-ld.enable = false; } # conflict with nix-ld
 
     inputs.envfs.nixosModules.envfs
-    #{ home-manager.users.dguibert = { imports = self'.modules.homes."dguibert@titan"; }; }
-    #{users.dguibert.with-home-manager = true;}
     (
       { ... }:
       {

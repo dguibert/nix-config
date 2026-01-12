@@ -65,6 +65,7 @@
       }
     )
     ../impermanence.nix
+    ../cacerts.nix
   ];
 
   system.nixos.versionSuffix = lib.mkForce ".${
