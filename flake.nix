@@ -374,6 +374,7 @@
             roles.dguibert-gui.tags.desktop = { };
             roles.dguibert-persistence.tags.dguibert = { };
             roles.dguibert-mail.machines.titan = { };
+            roles.dguibert-3d-tools.machines.titan = { };
             roles.dguibert-ssh-teleport.machines.titan = { };
             roles.dguibert.machines.titan.settings = {
               centralMailHost.enable = true;

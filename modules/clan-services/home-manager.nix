@@ -118,6 +118,17 @@
 
     };
 
+  roles.dguibert-3d-tools.perInstance =
+    { settings, ... }:
+    {
+      nixosModule =
+        { config, pkgs, ... }:
+        {
+          home-manager.users.dguibert.with-3d-tools.enable = true;
+        };
+
+    };
+
   perMachine =
     {
       instances,

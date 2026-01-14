@@ -35,6 +35,9 @@ in
     ssh-teleport.enable = mkEnableOption "Enable connect to ssh client with teleport" // {
       default = false;
     };
+    with-3d-tools.enable = mkEnableOption "Install orca-slicer/freecad/..." // {
+      default = false;
+    };
   };
 
   imports = [
@@ -411,6 +414,8 @@ in
           mimeTypes = [ "x-scheme-handler/org-protocol" ];
         })
 
+      ]
+      ++ optionals config.with-3d-tools.enable [
         (pkgs.symlinkJoin {
           name = "orca-slicer";
           paths = [ orca-slicer ];
