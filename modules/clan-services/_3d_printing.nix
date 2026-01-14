@@ -1010,7 +1010,7 @@
               description = "uStreamer for video0";
               serviceConfig = {
                 Type = "simple";
-                ExecStart = ''${pkgs.ustreamer}/bin/ustreamer --encoder=HW --persistent --drop-same-frames=30'';
+                ExecStart = "${pkgs.ustreamer}/bin/ustreamer --encoder=HW --persistent --drop-same-frames=30";
               };
             };
           };
