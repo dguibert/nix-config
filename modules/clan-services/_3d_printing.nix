@@ -934,7 +934,7 @@
                     #       ignored if the object has already been skipped
 
                     {% if 'exclude_object' not in printer %}
-                      {action_raise_error(\"[exclude_object] is not enabled\")}
+                      {action_raise_error("[exclude_object] is not enabled")}
                     {% endif %}
 
                     {% if 'T' in params %}
