@@ -967,6 +967,85 @@
                       EXCLUDE_OBJECT RESET=1 NAME={params.U}
                     {% endif %}
                 '';
+
+                probe = {
+                  pin = "^PB6";
+                  x_offset = 0;
+                  y_offset = 0;
+                  z_offset = 0;
+
+                  speed = 3;
+                  lift_speed = 7;
+
+                  samples = 5;
+                  samples_result = "median";
+                  sample_retract_dist = 2;
+                  samples_tolerance = 0.01;
+                  samples_tolerance_retries = 10;
+                  #drop_first_result = true;
+                };
+
+                #[bed_mesh]
+                #mesh_min: 15,15
+                #mesh_min: 15,17
+                #mesh_max: 105,105
+                #mesh_max: 100,105
+                #speed: 100
+                #horizontal_move_z: 20
+                #
+                #probe_count: 3,3					#if you would like more detail, use 5,5 here
+                #relative_reference_index: 4			 #if you use 5,5 above, place 12 here
+                ##zero_reference_position: 80,50
+                #move_check_distance: 3
+                #
+                #algorithm: lagrange
+                #fade_start: 1
+                #fade_end: 10
+                #fade_target: 0
+                #split_delta_z: 0.0125
+                #mesh_pps: 2,2
+                ##bicubic_tension: 0.2
+                #
+                #[screws_tilt_adjust]
+                #screw1: 100,115          #For Long probe
+                #screw1_name: back right
+                #screw2: 0,115            #For Long probe
+                #screw2_name: back left
+                #screw3: 60,5             #For Long probe
+                #screw3_name: front screw
+                #horizontal_move_z: 20
+
+                "gcode_macro ATTACH_PROBE".gcode = ''
+                  #
+                    {% set F = 4000 %}
+                    SAVE_GCODE_STATE NAME=attach_probe_state
+                    T1
+                    G90
+                    G0 Z14
+                    G0 Y60 F{F}
+                    G0 X60 Y60 F{F}
+                    G0 X-36 Y100 F{F}
+                    G0 Y118.5 F{F}
+                    G0 X-16 F{F}
+                    G0 X60 Y60 F{F}
+                    RESTORE_GCODE_STATE NAME=attach_probe_state
+                '';
+
+                "gcode_macro DETACH_PROBE".gcode = ''
+                  #
+                    {% set F = 4000 %}
+                    SAVE_GCODE_STATE NAME=detach_probe_state
+                    T1
+                    G90
+                    G0 Z14
+                    G0 Y60 F{F}
+                    G0 X60 Y60 F{F}
+                    G0 X-16 Y118.5 F{F}
+                    G0 X-36 F{F}
+                    G0 Y100 F{F} F{F}
+                    G0 X60 Y60 F{F}
+                    RESTORE_GCODE_STATE NAME=detach_probe_state
+                '';
               };
 
             };
