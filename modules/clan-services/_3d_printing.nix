@@ -970,11 +970,11 @@
 
                 probe = {
                   pin = "^ebb36:LIMIT_3";
-                  # probe: gcode: X:60.000000 Y:60.000000 Z:8.078750
+                  # probe: gcode: X:60.000000 Y:60.000000 Z:11.221250
                   #nozzle: gcode: X:40.000000 Y:74.000000 Z:3.078750
                   x_offset = -20;
                   y_offset = 14;
-                  z_offset = 0;
+                  z_offset = 8.130; # PROBE_CALIBRATE
 
                   speed = 3;
                   lift_speed = 7;
