@@ -1019,14 +1019,14 @@
                   #
                     {% set F = 4000 %}
                     SAVE_GCODE_STATE NAME=attach_probe_state
-                    T1
                     G90
                     G0 Z14
-                    G0 Y60 F{F}
-                    G0 X60 Y60 F{F}
-                    G0 X-36 Y100 F{F}
-                    G0 Y118.5 F{F}
-                    G0 X-16 F{F}
+                    # probe entry location
+                    G0 X24 Y120 F{F}
+                    # attach probe
+                    G0 X0 Y120 F{F}
+                    G0 X24 Y120 F{F}
+                    # probe exit location
                     G0 X60 Y60 F{F}
                     RESTORE_GCODE_STATE NAME=attach_probe_state
                 '';
@@ -1035,14 +1035,14 @@
                   #
                     {% set F = 4000 %}
                     SAVE_GCODE_STATE NAME=detach_probe_state
-                    T1
                     G90
                     G0 Z14
-                    G0 Y60 F{F}
-                    G0 X60 Y60 F{F}
-                    G0 X-16 Y118.5 F{F}
-                    G0 X-36 F{F}
-                    G0 Y100 F{F} F{F}
+                    # probe entry location
+                    G0 X24 Y120 F{F}
+                    # drop rpobe
+                    G0 X0 Y120 F{F}
+                    # probe decoupling
+                    G0 Y100 F{F}
                     G0 X60 Y60 F{F}
                     RESTORE_GCODE_STATE NAME=detach_probe_state
                 '';
