@@ -969,7 +969,7 @@
                 '';
 
                 probe = {
-                  pin = "^PB6";
+                  pin = "^ebb36:LIMIT_3";
                   x_offset = 0;
                   y_offset = 0;
                   z_offset = 0;
