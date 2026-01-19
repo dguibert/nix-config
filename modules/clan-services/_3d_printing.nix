@@ -192,9 +192,9 @@
                   #rotation_distance = 2; # for T8x2 lead screan
                   microsteps = 32;
                   endstop_pin = "^PB1";
-                  position_endstop = 120;
+                  position_endstop = 117.060;
                   position_max = 120;
-                  position_min = 1.300;
+                  position_min = -0.5;
                   homing_speed = 20; # max 100
                   second_homing_speed = 3.0; # max 100
                   homing_retract_dist = 3.0;
@@ -763,7 +763,11 @@
                     M140 S{BED_TEMP}       ; set for bed to reach temp
                     M104 S{EXTRUDER_TEMP}  ; set for hot end to reach temp
                     # Home the printer
-                    G28
+                    G32
+                    ATTACH_PROBE
+                    BED_MESH_CALIBRATE ADAPTIVE=1
+                    DETACH_PROBE
+                    # or BED_MESH_LOAD
                     # Use absolute coordinates
                     G90
                     M190 S{BED_TEMP}            ; set and wait for bed to reach temp
@@ -974,12 +978,12 @@
                   #nozzle: gcode: X:40.000000 Y:74.000000 Z:3.078750
                   x_offset = -20;
                   y_offset = 14;
-                  z_offset = 8.130; # PROBE_CALIBRATE
+                  z_offset = 8.105; # PROBE_CALIBRATE
 
                   speed = 3;
                   lift_speed = 7;
 
-                  samples = 5;
+                  samples = 3;
                   samples_result = "median";
                   sample_retract_dist = 2;
                   samples_tolerance = 0.01;
@@ -1016,6 +1020,50 @@
                 #screw3_name: front screw
                 #horizontal_move_z: 20
 
+                # https://forum.vorondesign.com/threads/home-z-to-high-z-endstops-then-reset-position-z0-to-exact-bed-location-just-before-print-using-a-probe.391/
+                # This is what I had to do to get everything to work correctly with BED_MESH_CALIBRATE, QUAD_GANTRY_LEVEL and whatnot.
+                # Home, with G28. Must be done before each PROBE or the probed correction value will keep adding to the set Z position.
+                #    Then PROBE
+                #    Now move away from the bed to a known Z location
+                #    SET_KINEMATIC_POSITION Z to (the known location) - (the probe result) + (the calibrated z_offset found in printer.cfg)
+                #
+                #G32 will be called from the [gcode_macro PRINT_START] section, before any BED_MESH_PROFILE LOAD command.
+                #G32 must also be called before any BED_MESH_CALIBRATE and BED_MESH_PROFILE commands, not just before BED_MESH_PROFILE_LOAD.
+                #This to ensure that they start with the probed Z0 bed position and not with the less accurate position obtained from the high Z endstop.
+
+                "gcode_macro G32".gcode = ''
+                  #
+                    SAVE_GCODE_STATE NAME=STATE_G32
+                    {% set _adjust_z_location_var = printer['gcode_macro _adjust_z_location'] %}
+                    G28                  #*** Home all
+                    G90                  #*** Absolute positioning
+                    # we want to run in pure kinematics space
+                    SET_GCODE_OFFSET X=0 Y=0 Z=0
+                    ATTACH_PROBE
+                    #G1 X60 Y60 F3000     #*** X and Y, go to bed center
+                    #G1 Z1{_adjust_z_location.safe_z_pos}0 F1200         #*** Move to a safe Z position not too close to the bed
+                    PROBE                #*** Find the bed
+                    G1 Z10 F1200         #*** Move away to a known Z position
+                    _adjust_z_location   #*** Had to move the rest of the commands to a separate macro, or status
+                                         #*** printer.probe.last_z_result would read '0' every time. No idea why.
+
+                    #QUAD_GANTRY_LEVEL    #*** Level the gantry. Maybe not crucial now that we have Z endstops, but still.
+                    DETACH_PROBE
+                    G90                  #*** Absolute positioning, just in case...
+                    G1 Z{_adjust_z_location_var.safe_z_pos} F1200         #*** Lift z a bit
+                    G1 X60 Y60 F3600     #*** Move to bed center
+                    RESTORE_GCODE_STATE NAME=STATE_G32
+                '';
+
+                "gcode_macro _adjust_z_location" = {
+                  variable_safe_z_pos = 10;
+                  gcode = ''
+                    #*** Set current location to (the known location - the probe result + the calibrated z_offset found in printer.cfg)
+                      {% set probed_z = safe_z_pos - printer.probe.last_z_result|float + printer.configfile.settings['probe'].z_offset|float %}
+                      SET_KINEMATIC_POSITION Z={probed_z}
+                  '';
+                };
+
                 "gcode_macro ATTACH_PROBE".gcode = ''
                   #
                     {% set F = 4000 %}
@@ -1028,7 +1076,10 @@
                     G0 X0 Y120 F{F}
                     G0 X24 Y120 F{F}
                     # probe exit location
-                    G0 X60 Y60 F{F}
+                    {% set x_center_probe = 60 - printer.configfile.settings['probe'].x_offset|float %}
+                    {% set y_center_probe = 60 - printer.configfile.settings['probe'].y_offset|float %}
+
+                    G0 X{x_center_probe} Y{y_center_probe} F{F}
                     RESTORE_GCODE_STATE NAME=attach_probe_state
                 '';
 
@@ -1044,7 +1095,10 @@
                     G0 X0 Y120 F{F}
                     # probe decoupling
                     G0 Y100 F{F}
-                    G0 X60 Y60 F{F}
+                    {% set x_center_probe = 60 - printer.configfile.settings['probe'].x_offset|float %}
+                    {% set y_center_probe = 60 - printer.configfile.settings['probe'].y_offset|float %}
+
+                    G0 X{x_center_probe} Y{y_center_probe} F{F}
                     RESTORE_GCODE_STATE NAME=detach_probe_state
                 '';
               };
