@@ -192,9 +192,9 @@
                   #rotation_distance = 2; # for T8x2 lead screan
                   microsteps = 32;
                   endstop_pin = "^PB1";
-                  position_endstop = 116.800;
-                  position_max = 116.800;
-                  #position_min = 1.300;
+                  position_endstop = 120;
+                  position_max = 120;
+                  position_min = 1.300;
                   homing_speed = 20; # max 100
                   second_homing_speed = 3.0; # max 100
                   homing_retract_dist = 3.0;
@@ -969,10 +969,12 @@
                 '';
 
                 probe = {
-                  pin = "^PB6";
-                  x_offset = 0;
-                  y_offset = 0;
-                  z_offset = 0;
+                  pin = "^ebb36:LIMIT_3";
+                  # probe: gcode: X:60.000000 Y:60.000000 Z:11.221250
+                  #nozzle: gcode: X:40.000000 Y:74.000000 Z:3.078750
+                  x_offset = -20;
+                  y_offset = 14;
+                  z_offset = 8.130; # PROBE_CALIBRATE
 
                   speed = 3;
                   lift_speed = 7;
@@ -985,26 +987,25 @@
                   #drop_first_result = true;
                 };
 
-                #[bed_mesh]
-                #mesh_min: 15,15
-                #mesh_min: 15,17
-                #mesh_max: 105,105
-                #mesh_max: 100,105
-                #speed: 100
-                #horizontal_move_z: 20
-                #
-                #probe_count: 3,3					#if you would like more detail, use 5,5 here
-                #relative_reference_index: 4			 #if you use 5,5 above, place 12 here
-                ##zero_reference_position: 80,50
-                #move_check_distance: 3
-                #
-                #algorithm: lagrange
-                #fade_start: 1
-                #fade_end: 10
-                #fade_target: 0
-                #split_delta_z: 0.0125
-                #mesh_pps: 2,2
-                ##bicubic_tension: 0.2
+                bed_mesh = {
+                  mesh_min = "15,15";
+                  mesh_max = "100,105";
+
+                  speed = 100;
+                  zero_reference_position = "60,60";
+                  horizontal_move_z = 20;
+
+                  probe_count = "5,5";
+                  move_check_distance = 3;
+                  #algorithm: lagrange
+                  fade_start = 1;
+                  fade_end = 10;
+                  fade_target = 0;
+                  split_delta_z = 0.0125;
+                  #mesh_pps: 2,2
+                  ##bicubic_tension: 0.2
+                  adaptive_margin = 5;
+                };
                 #
                 #[screws_tilt_adjust]
                 #screw1: 100,115          #For Long probe
@@ -1019,14 +1020,14 @@
                   #
                     {% set F = 4000 %}
                     SAVE_GCODE_STATE NAME=attach_probe_state
-                    T1
                     G90
                     G0 Z14
-                    G0 Y60 F{F}
-                    G0 X60 Y60 F{F}
-                    G0 X-36 Y100 F{F}
-                    G0 Y118.5 F{F}
-                    G0 X-16 F{F}
+                    # probe entry location
+                    G0 X24 Y120 F{F}
+                    # attach probe
+                    G0 X0 Y120 F{F}
+                    G0 X24 Y120 F{F}
+                    # probe exit location
                     G0 X60 Y60 F{F}
                     RESTORE_GCODE_STATE NAME=attach_probe_state
                 '';
@@ -1035,14 +1036,14 @@
                   #
                     {% set F = 4000 %}
                     SAVE_GCODE_STATE NAME=detach_probe_state
-                    T1
                     G90
                     G0 Z14
-                    G0 Y60 F{F}
-                    G0 X60 Y60 F{F}
-                    G0 X-16 Y118.5 F{F}
-                    G0 X-36 F{F}
-                    G0 Y100 F{F} F{F}
+                    # probe entry location
+                    G0 X24 Y120 F{F}
+                    # drop rpobe
+                    G0 X0 Y120 F{F}
+                    # probe decoupling
+                    G0 Y100 F{F}
                     G0 X60 Y60 F{F}
                     RESTORE_GCODE_STATE NAME=detach_probe_state
                 '';
