@@ -192,7 +192,7 @@
                   #rotation_distance = 2; # for T8x2 lead screan
                   microsteps = 32;
                   endstop_pin = "^PB1";
-                  position_endstop = 117.060;
+                  position_endstop = 116.270;
                   position_max = 120;
                   position_min = -0.5;
                   homing_speed = 20; # max 100
@@ -770,6 +770,9 @@
                     # or BED_MESH_LOAD
                     # Use absolute coordinates
                     G90
+                    # Reset the G-Code Z offset (adjust Z offset if needed)
+                    # https://www.klipper3d.org/Bed_Level.html
+                    SET_GCODE_OFFSET Z=+.3
                     M190 S{BED_TEMP}            ; set and wait for bed to reach temp
                     M109 S{EXTRUDER_TEMP}       ; set and wait for hot end to reach temp
                     ; start exhaust fan
@@ -978,7 +981,7 @@
                   #nozzle: gcode: X:40.000000 Y:74.000000 Z:3.078750
                   x_offset = -20;
                   y_offset = 14;
-                  z_offset = 8.105; # PROBE_CALIBRATE
+                  z_offset = 7.660; # PROBE_CALIBRATE
 
                   speed = 3;
                   lift_speed = 7;
@@ -1095,10 +1098,8 @@
                     G0 X0 Y120 F{F}
                     # probe decoupling
                     G0 Y100 F{F}
-                    {% set x_center_probe = 60 - printer.configfile.settings['probe'].x_offset|float %}
-                    {% set y_center_probe = 60 - printer.configfile.settings['probe'].y_offset|float %}
 
-                    G0 X{x_center_probe} Y{y_center_probe} F{F}
+                    G0 X0 Y120 F{F}
                     RESTORE_GCODE_STATE NAME=detach_probe_state
                 '';
               };
