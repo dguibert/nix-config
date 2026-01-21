@@ -153,6 +153,7 @@ in
 
         home.packages = with pkgs; [
           nix
+          nix-output-monitor
           xpra
           bashInteractive
 
