@@ -5,7 +5,9 @@
   ...
 }:
 {
-  options.x11-conf.enable = lib.mkEnableOption "x11-conf";
+  options.x11-conf.enable = (lib.mkEnableOption "x11-conf") // {
+    default = false;
+  };
   config = lib.mkIf config.x11-conf.enable {
     # Enable the X11 windowing system.
     services.xserver.enable = true;

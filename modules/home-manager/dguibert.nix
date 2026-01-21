@@ -32,6 +32,12 @@ in
     centralMailHost.enable = mkEnableOption "Host running liier/mbsync" // {
       default = false;
     };
+    ssh-teleport.enable = mkEnableOption "Enable connect to ssh client with teleport" // {
+      default = false;
+    };
+    with-3d-tools.enable = mkEnableOption "Install orca-slicer/freecad/..." // {
+      default = false;
+    };
   };
 
   imports = [
@@ -74,6 +80,7 @@ in
             "Videos"
             ".vim"
             "work"
+            "ria-store"
             #{
             #  directory = ".local/share/Steam";
             #  method = "symlink";
@@ -82,7 +89,6 @@ in
           ++ optionals cfg.centralMailHost.enable [
             "Maildir"
             "Maildir/.notmuch"
-            ".local/state/davmail-tokens"
           ];
           home.persistence."/persist/home/${config.home.username}".files = [
             #my.persistence.files = [
@@ -98,6 +104,9 @@ in
             ".signature"
             ".signature.work"
             ".vimrc"
+          ]
+          ++ optionals cfg.centralMailHost.enable [
+            ".local/state/davmail-tokens"
           ];
         };
       }
@@ -139,6 +148,7 @@ in
           size = 16;
         };
 
+        home.packages = [ pkgs.dconf ];
         gtk = {
           enable = true;
 
@@ -224,6 +234,8 @@ in
     ./dguibert/zellij.nix
     ./dguibert/vscode.nix
     ./dguibert/with-gui.nix
+    ./dguibert/custom-foot.nix
+    ./dguibert/custom-mako.nix
     ./dguibert/module-hyprland.nix
     ./dguibert/module-dwl.nix
   ];
@@ -239,10 +251,6 @@ in
     home.sessionVariables.SQUEUE_FORMAT = "%.18i %.25P %35j %.8u %.2t %.10M %.6D %.6C %.6z %.15E %20R %W";
     #home.sessionVariables.SINFO_FORMAT="%30N  %.6D %.6c %15F %10t %20f %P"; # with state
     home.sessionVariables.SINFO_FORMAT = "%30N  %.6D %.6c %15F %20f %P";
-    # ✗ 1    dguibert@vbox-57nvj72 ~ $ systemctl --user status
-    # Failed to read server status: Process org.freedesktop.systemd1 exited with status 1
-    # ✗ 130    dguibert@vbox-57nvj72 ~ $ export XDG_RUNTIME_DIR=/run/user/$(id -u)
-    home.sessionVariables.XDG_RUNTIME_DIR = "/run/user/$(id -u)";
     home.sessionVariables.MOZ_ENABLE_WAYLAND = 1;
 
     # Fix stupid java applications like android studio
@@ -309,10 +317,10 @@ in
             }))
           ]
         ))
-        gitAndTools.git-credential-password-store
+        git-credential-password-store
 
-        gitAndTools.git-remote-gcrypt
-        gitAndTools.git-crypt
+        git-remote-gcrypt
+        git-crypt
         tig
 
         perlPackages.GitAutofixup
@@ -322,11 +330,11 @@ in
 
         mr
         mercurial
-        #previousPkgs_pu.gitAndTools.git-annex
+        #previousPkgs_pu.git-annex
         yt-dlp
-        gitAndTools.git-nomad
-        gitAndTools.git-annex
-        gitAndTools.git-annex-remote-rclone
+        git-nomad
+        git-annex
+        git-annex-remote-rclone
         (pkgs.writeScriptBin "git-annex-diff-wrapper" ''
           #!${pkgs.runtimeShell}
           LANG=C ${pkgs.diffutils}/bin/diff -u "$1" "$2"
@@ -341,7 +349,7 @@ in
         imagemagick
         exiftool
         udftools
-        gitAndTools.hub # command-line wrapper for git that makes you better at GitHub
+        hub # command-line wrapper for git that makes you better at GitHub
 
         dwm
         dmenu
@@ -405,6 +413,23 @@ in
           type = "Application";
           mimeTypes = [ "x-scheme-handler/org-protocol" ];
         })
+
+      ]
+      ++ optionals config.with-3d-tools.enable [
+        (pkgs.symlinkJoin {
+          name = "orca-slicer";
+          paths = [ orca-slicer ];
+          buildInputs = [ makeWrapper ];
+          postBuild = ''
+            wrapProgram $out/bin/orca-slicer \
+              --prefix LC_ALL : C \
+              --prefix MESA_LOADER_DRIVER_OVERRIDE : zink \
+              --prefix WEBKIT_DISABLE_DMABUF_RENDERER : 1 \
+              --prefix __EGL_VENDOR_LIBRARY_FILENAMES : ${mesa}/share/glvnd/egl_vendor.d/50_mesa.json \
+              --prefix GALLIUM_DRIVER : zink
+          '';
+        })
+        freecad-wayland
       ];
 
     # mimeapps.list

@@ -18,17 +18,18 @@
           };
 
           services.printing.enable = true;
-          hardware.printers = {
-            ensureDefaultPrinter = "OKI_MC363_C1E8FC";
-            ensurePrinters = [
-              {
-                deviceUri = "ipp://192.168.1.100:631/ipp/print";
-                location = "home";
-                name = "OKI_MC363_C1E8FC";
-                model = "everywhere";
-              }
-            ];
-          };
+          # deactivate as if the printer is not running the service (systemd.services.ensure-printers) fails
+          #hardware.printers = {
+          #  ensureDefaultPrinter = "OKI_MC363_C1E8FC";
+          #  ensurePrinters = [
+          #    {
+          #      deviceUri = "ipp://192.168.1.100:631/ipp/print";
+          #      location = "home";
+          #      name = "OKI_MC363_C1E8FC";
+          #      model = "everywhere";
+          #    }
+          #  ];
+          #};
         };
     };
 

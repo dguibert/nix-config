@@ -4,12 +4,19 @@ let
 in
 {
   services.openssh.enable = true;
+
   services.openssh.listenAddresses = [
     {
       addr = "0.0.0.0";
       port = 22322;
     }
+    {
+      addr = "[::]";
+      port = 22322;
+    }
   ];
+  systemd.sockets.sshd.socketConfig.BindIPv6Only = "ipv6-only";
+
   networking.firewall.allowedTCPPorts = [ 22322 ];
   services.openssh.startWhenNeeded = true;
   services.openssh.settings.PasswordAuthentication = false;

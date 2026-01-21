@@ -10,14 +10,20 @@ let
 in
 with lib;
 {
-  options.hyprland.nvidia.enable = lib.mkEnableOption "Hyprland with NVidia GPU" // {
+  options.hyprland.enable = (lib.mkEnableOption "Enable hyprland config") // {
+    default = false;
+  };
+  options.hyprland.hyprsplit.enable = (lib.mkEnableOption "Hyprland with split plugin") // {
+    default = true;
+  };
+  options.hyprland.nvidia.enable = (lib.mkEnableOption "Hyprland with NVidia GPU") // {
     default = false;
   };
 
-  config = lib.mkIf config.withGui.enable {
+  config = lib.mkIf cfg.enable {
     programs.bash.bashrcExtra = ''
-      if [[ -z $WAYLAND_DISPLAY ]] && [[ "$XDG_VTNR" -eq 1 ]] && command -v Hyprland >/dev/null ; then
-      dbus-run-session Hyprland
+      if [[ -z $WAYLAND_DISPLAY ]] && [[ "$XDG_VTNR" -eq 1 ]] && command -v start-hyprland >/dev/null ; then
+      dbus-run-session start-hyprland
       fi
     '';
 
@@ -37,56 +43,12 @@ with lib;
       slurp
       wayvnc
 
-      inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
+      inputs.hyprland-contrib.packages.${toString pkgs.system}.grimblast
     ];
 
-    programs.foot.enable = true;
-    programs.foot.server.enable = true;
-    programs.foot.settings = {
-      main = {
-        term = "xterm";
-
-        dpi-aware = "yes";
-      };
-      scrollback = {
-        lines = "100000";
-      };
-
-      mouse = {
-        hide-when-typing = "yes";
-      };
-    };
-    # notification daemon
-    services.mako.enable = true;
-    services.mako.settings = {
-      max-visible = 3;
-      layer = "overlay";
-      # == Mode: Away ==
-      "mode=away" = {
-        default-timeout = 0;
-        ignore-timeout = 1;
-      };
-
-      # == Mode: Do Not Disturb ==
-      "mode=dnd".invisible = 1;
-    };
-
-    systemd.user.services.mako = {
-      Unit = {
-        Description = "Mako notification daemon";
-        PartOf = [ "hyprland-session.target" ];
-      };
-      Install = {
-        WantedBy = [ "hyprland-session.target" ];
-      };
-      Service = {
-        Type = "dbus";
-        BusName = "org.freedesktop.Notifications";
-        ExecStart = "${config.services.mako.package}/bin/mako";
-        RestartSec = 5;
-        Restart = "always";
-      };
-    };
+    custom-foot.enable = true;
+    custom-mako.enable = true;
+    custom-mako.systemdTarget = "hyprland-session.target";
 
     services.swayidle.enable = true;
     services.swayidle.systemdTarget = "hyprland-session.target";
@@ -268,7 +230,7 @@ with lib;
     wayland.windowManager.hyprland = {
       enable = true;
       #package = inputs.hyprland.packages.${pkgs.system}.hyprland;
-      plugins = [
+      plugins = lib.optionals cfg.hyprsplit.enable [
         #pkgs.hyprlandPlugins.split-monitor-workspaces
         pkgs.hyprlandPlugins.hyprsplit
         #inputs.hyprsplit.packages.${pkgs.system}.hyprsplit

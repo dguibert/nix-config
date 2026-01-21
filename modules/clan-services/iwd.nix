@@ -65,19 +65,20 @@
                 in
                 {
                   share = true;
-                  prompts.${secret_name} = {
+                  prompts.pass = {
                     description = "Wifi password for '${value.ssid}'";
                     persist = true;
                   };
-                  migrateFact = secret_name;
+                  files."${secret_name}" = { };
                   # ref. man iwd.network
                   script = ''
+                    set -x
                     config="
                     [Settings]
                       AutoConnect=${if value.AutoConnect then "true" else "false"}
                       ${if value.Hidden then "Hidden=true" else ""}
                     [Security]
-                      Passphrase=$(echo -e "$out/${secret_name}" | ${lib.getExe pkgs.gnused} "s=\\\=\\\\\\\=g;s=\t=\\\t=g;s=\r=\\\r=g;s=^ =\\\s=")
+                      Passphrase=$(cat "$prompts/pass" | tr -d \\n | ${lib.getExe pkgs.gnused} "s=\\\=\\\\\\\=g;s=\t=\\\t=g;s=\r=\\\r=g;s=^ =\\\s=")
                     "
                     echo "$config" > "$out/${secret_name}"
                   '';

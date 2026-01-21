@@ -3,7 +3,6 @@
   lib,
   pkgs,
   inputs,
-  self',
   pkgsForSystem,
   ...
 }:
@@ -32,7 +31,6 @@ in
         my.persistence.enable = true;
       }
     )
-    inputs.microvm.nixosModules.host
     inputs.nix-ld.nixosModules.nix-ld
 
     # The module in this repository defines a new module under (programs.nix-ld.dev) instead of (programs.nix-ld)
@@ -41,8 +39,6 @@ in
     { environment.stub-ld.enable = false; } # conflict with nix-ld
 
     inputs.envfs.nixosModules.envfs
-    #{ home-manager.users.dguibert = { imports = self'.modules.homes."dguibert@titan"; }; }
-    #{users.dguibert.with-home-manager = true;}
     (
       { ... }:
       {
@@ -175,7 +171,7 @@ in
   boot.binfmt.registrations."armv7l-linux".fixBinary = true;
 
   #boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.extraModulePackages = [ pkgs.linuxPackages.perf ];
+  boot.extraModulePackages = [ pkgs.perf ];
   # *** ZFS Version: zfs-2.0.4-1
   # *** Compatible Kernels: 3.10 - 5.11
   #boot.zfs.package = pkgs.zfs_unstable;
@@ -256,6 +252,29 @@ in
     #package = config.boot.kernelPackages.nvidiaPackages.beta;
     package = config.boot.kernelPackages.nvidiaPackages.production;
     forceFullCompositionPipeline = true;
+  };
+
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      vdpauinfo # sudo vainfo
+      libva-utils # sudo vainfo
+      # https://discourse.nixos.org/t/nvidia-open-breaks-hardware-acceleration/58770/2
+      nvidia-vaapi-driver
+      libva-vdpau-driver
+    ];
+  };
+
+  environment.variables = {
+    GBM_BACKEND = "nvidia-drm";
+    #__GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    MOZ_DISABLE_RDD_SANDBOX = "1";
+    LIBVA_DRIVER_NAME = "nvidia";
+    #NIXOS_OZONE_WL= "1";
+    WLR_NO_HARDWARE_CURSORS = "1";
+    #MOZ_ENABLE_WAYLAND = "1";
+    NVD_BACKEND = "direct";
+    #XDG_SESSION_TYPE = "wayland";
   };
 
   #specialisation.nouveau = {

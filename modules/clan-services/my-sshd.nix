@@ -158,7 +158,9 @@
                           -h \
                           -n ${
                             lib.concatStringsSep "," (
-                              (map (d: "${config.clan.core.settings.machine.name}.${d}") domains) ++ settings.certificate.realms
+                              [ config.clan.core.settings.machine.name ]
+                              ++ (map (d: "${config.clan.core.settings.machine.name}.${d}") domains)
+                              ++ settings.certificate.realms
                             )
                           } \
                           $in/openssh/ssh.id_ed25519.pub
@@ -192,16 +194,6 @@
               };
             };
 
-            programs.ssh.knownHosts.ssh-ca =
-              lib.mkIf (settings.certificate.searchDomains != [ ] || settings.certificate.allowEmptyDomain)
-                {
-                  certAuthority = true;
-                  extraHostNames =
-                    builtins.map (domain: "*.${domain}") settings.certificate.searchDomains
-                    ++ lib.optional settings.certificate.allowEmptyDomain "*";
-                  publicKey = config.clan.core.vars.generators.openssh-ca.files."id_ed25519.pub".value;
-                };
-
             services.openssh = {
               enable = true;
               settings.PasswordAuthentication = false;
@@ -221,6 +213,16 @@
                 type = "rsa";
               };
             };
+
+            programs.ssh.knownHosts.ssh-ca =
+              lib.mkIf (settings.certificate.searchDomains != [ ] || settings.certificate.allowEmptyDomain)
+                {
+                  certAuthority = true;
+                  extraHostNames =
+                    builtins.map (domain: "*.${domain}") settings.certificate.searchDomains
+                    ++ lib.optional settings.certificate.allowEmptyDomain "*";
+                  publicKey = config.clan.core.vars.generators.openssh-ca.files."id_ed25519.pub".value;
+                };
 
             programs.ssh.knownHosts.clan-sshd-self-ed25519 = {
               hostNames = [

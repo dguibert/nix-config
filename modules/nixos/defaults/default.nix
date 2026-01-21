@@ -9,15 +9,6 @@
 {
   imports = [
     inputs.nur_packages.inputs.nixpkgs.nixosModules.notDetected
-    inputs.home-manager.nixosModules.home-manager
-    ({
-      home-manager.useGlobalPkgs = true;
-      home-manager.useUserPackages = true;
-      home-manager.extraSpecialArgs = {
-        inherit inputs pkgs;
-        sopsDecrypt_ = pkgs.sopsDecrypt_;
-      };
-    })
     (
       { config, ... }:
       {
@@ -32,7 +23,8 @@
         ...
       }:
       {
-        nixpkgs.hostPlatform = pkgsForSystem config.nixpkgs.system;
+        # ignored when nixpkgs.pkgs set
+        #nixpkgs.hostPlatform = { system=config.nixpkgs.system };
         nixpkgs.pkgs = pkgsForSystem config.nixpkgs.system;
       }
     )
@@ -44,13 +36,6 @@
     )
 
     ../sshd.nix
-    ../distributed-build-conf.nix
-    (
-      { config, ... }:
-      {
-        distributed-build-conf.enable = true;
-      }
-    )
     ../nix-conf.nix
     (
       { config, ... }:
@@ -80,6 +65,7 @@
       }
     )
     ../impermanence.nix
+    ../cacerts.nix
   ];
 
   system.nixos.versionSuffix = lib.mkForce ".${
@@ -129,11 +115,16 @@
       )
     }"
   ]
-  ++ lib.optionals (pkgs.hostPlatform ? gcc.arch) (
-    # a builder can run code for `gcc.arch` and inferior architectures
-    [ "gccarch-${pkgs.hostPlatform.gcc.arch}" ]
-    ++ map (x: "gccarch-${x}") lib.systems.architectures.inferiors.${pkgs.hostPlatform.gcc.arch}
-  );
+  /*
+    ++ lib.optionals (pkgs.hostPlatform ? gcc.arch) (
+      # a builder can run code for `gcc.arch` and inferior architectures
+      [ "gccarch-${pkgs.hostPlatform.gcc.arch}" ]
+      ++ map (x: "gccarch-${x}") lib.systems.architectures.inferiors.${pkgs.hostPlatform.gcc.arch}
+    )
+  */
+  ;
+
+  networking.wireguard.useNetworkd = true;
 
   environment.systemPackages = [
     pkgs.vim
@@ -148,15 +139,6 @@
   time.timeZone = "Europe/Paris";
 
   programs.gnupg.agent.pinentryPackage = pkgs.pinentry-gtk2;
-
-  # System wide: echo "@cert-authority * $(cat /etc/ssh/ca.pub)" >>/etc/ssh/ssh_known_hosts
-  programs.ssh.knownHosts."*" = {
-    certAuthority = true;
-    publicKey = builtins.readFile ../../../secrets/ssh-ca-home.pub;
-  };
-
-  # time.cloudflare.com
-  services.timesyncd.extraConfig = "FallbackNTP=162.159.200.1 2606:4700:f1::1";
 
   report-changes.enable = true;
 }

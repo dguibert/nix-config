@@ -198,6 +198,7 @@ in
               type = "zfs_fs";
               options.mountpoint = "none";
             };
+            "downloads" = ds_mount "/mnt/downloads2";
             "backup2/ria" = {
               type = "zfs_fs";
               mountpoint = "/backup2/ria";

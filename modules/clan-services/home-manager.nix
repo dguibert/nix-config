@@ -70,13 +70,28 @@
 
     };
 
+  roles.dguibert-gui.interface =
+    { lib, ... }:
+    {
+      options.hyprland.enable = (lib.mkEnableOption "Host running with hyprland") // {
+        default = true;
+      };
+      options.hyprland.hyprsplit.enable =
+        (lib.mkEnableOption "Host running with hyprsplit plugin on hyprland")
+        // {
+          default = true;
+        };
+    };
+
   roles.dguibert-gui.perInstance =
-    { ... }:
+    { settings, ... }:
     {
       nixosModule =
         { config, pkgs, ... }:
         {
           home-manager.users.dguibert.withGui.enable = true;
+          home-manager.users.dguibert.hyprland.enable = settings.hyprland.enable;
+          home-manager.users.dguibert.hyprland.hyprsplit.enable = settings.hyprland.hyprsplit.enable;
         };
 
     };
@@ -88,6 +103,28 @@
         { config, pkgs, ... }:
         {
           home-manager.users.dguibert.centralMailHost.enable = true;
+        };
+
+    };
+
+  roles.dguibert-ssh-teleport.perInstance =
+    { ... }:
+    {
+      nixosModule =
+        { config, pkgs, ... }:
+        {
+          home-manager.users.dguibert.ssh-teleport.enable = true;
+        };
+
+    };
+
+  roles.dguibert-3d-tools.perInstance =
+    { settings, ... }:
+    {
+      nixosModule =
+        { config, pkgs, ... }:
+        {
+          home-manager.users.dguibert.with-3d-tools.enable = true;
         };
 
     };
@@ -115,6 +152,13 @@
           ];
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
+          #- dguibert profile: xdg.portal: since you installed Home Manager via its NixOS module and
+          #'home-manager.useUserPackages' is enabled, you need to add
+          environment.pathsToLink = [
+            "/share/applications"
+            "/share/xdg-desktop-portal"
+          ];
+
           home-manager.backupFileExtension = "hm-backup";
           home-manager.extraSpecialArgs = {
             inherit inputs pkgs;

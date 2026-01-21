@@ -25,10 +25,7 @@
             # https://nixos.org/nixops/manual/#idm140737318329504
             virtualisation.libvirtd.enable = true;
             virtualisation.libvirtd.qemu = {
-              #ovmf.package = pkgs.OVMF.override { secureBoot=true; tpmSupport=true; };
               package = pkgs.qemu_kvm;
-              ovmf.enable = true;
-              ovmf.packages = [ pkgs.OVMFFull.fd ];
               swtpm.enable = true;
               verbatimConfig = ''
                 memory_backing_dir = "/dev/shm"

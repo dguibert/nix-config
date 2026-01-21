@@ -34,6 +34,10 @@ rec {
   #  gpu_mem=256
   #'';
   boot.kernelModules = [ "bcm2835-v4l2" ];
+  boot.kernelParams = [
+    "dwc_otg.fiq_enable=0"
+    "dwc_otg.fiq_fsm_enable=0"
+  ];
 
   # !!! If your board is a Raspberry Pi 1, select this:
   #boot.kernelPackages = pkgs.linuxPackages_rpi;

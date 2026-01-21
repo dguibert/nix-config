@@ -1,4 +1,18 @@
-{
-  "publickey": "age1gthhn69gtgn8gsvv58xqu9vxfnczl68kktm64638xfv5j3qm4grqeuw0h4",
-  "type": "age"
-}
+[
+  {
+    "publickey": "3198EB02EB0EEC85FE5BF6AC4E6EE5C219FDD513",
+    "type": "pgp"
+  },
+  {
+    "publickey": "age12pnl6s508nqkeh370nvdxkwq0vz0sn0fa8mmukrd8cf6wzmrqdysw55epr",
+    "type": "age"
+  },
+  {
+    "publickey": "age1gthhn69gtgn8gsvv58xqu9vxfnczl68kktm64638xfv5j3qm4grqeuw0h4",
+    "type": "age"
+  },
+  {
+    "publickey": "age1zpv9vp6rkcttpg8yk5qk8yjh4kxh6pj9d3uvzfekglth6mfc0drqekue6r",
+    "type": "age"
+  }
+]
