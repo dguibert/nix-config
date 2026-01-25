@@ -57,14 +57,6 @@
 
         libseat = prev.seatd;
 
-        svt-av1 = prev.svt-av1.overrideAttrs (o: {
-          patches = [
-            (prev.fetchpatch2 {
-              url = "https://gitlab.com/AOMediaCodec/SVT-AV1/-/commit/ec699561b51f3204e2df6d4c2578eea1f7bd52be.patch?full_index=1";
-              hash = "sha256-Y3DpWXfdEsXSzz9yhtvKUpvkwAsY1lYIP8daEgho5Gs=";
-            })
-          ];
-        });
         pythonOverrides = prev.lib.composeOverlays [
           (prev.pythonOverrides or (_: _: { }))
           (python-self: python-super: {
