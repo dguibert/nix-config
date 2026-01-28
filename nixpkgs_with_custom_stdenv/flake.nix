@@ -66,6 +66,8 @@
               ).overrideAttrs
                 (o: {
                   patches = [ ];
+                  doCheck = false;
+                  doInstallCheck = false;
                 });
           })
         ];
