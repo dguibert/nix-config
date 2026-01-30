@@ -96,6 +96,17 @@
 
     };
 
+  roles.dguibert-vscode.perInstance =
+    { settings, ... }:
+    {
+      nixosModule =
+        { config, pkgs, ... }:
+        {
+          home-manager.users.dguibert.withVSCode.enable = true;
+        };
+
+    };
+
   roles.dguibert-mail.perInstance =
     { ... }:
     {

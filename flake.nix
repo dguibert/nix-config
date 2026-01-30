@@ -379,6 +379,7 @@
             roles.dguibert.machines.titan.settings = {
               centralMailHost.enable = true;
             };
+            roles.dguibert-vscode.machines.titan = { };
 
             #roles.dguibert.tags.dguibert_rpi.settings = {
             roles.dguibert.machines.rpi41.settings.withPersistence.enable = false;
