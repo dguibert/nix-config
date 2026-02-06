@@ -179,8 +179,6 @@ in
 
         home.sessionVariables.NIX_SSL_CERT_FILE = "/etc/ssl/tls/certs/ca-bundle.crt";
         home.sessionVariables.COLORTERM = "truecolor";
-        home.sessionVariables.GIT_PS1_SHOWDIRTYSTATE="1";
-        home.sessionVariables.GIT_PS1_SHOWCOLORHINTS="true";
         home.sessionVariables.TMP = "/dev/shm";
 
         programs.direnv.enable = true;

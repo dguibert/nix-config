@@ -44,7 +44,7 @@
     home.sessionVariables.MANPATH = "$HOME/man:$MANPATH:/share/man:/usr/share/man";
     home.sessionVariables.PAGER = "less -R";
     home.sessionVariables.LESS = "RFX";
-    home.sessionVariables.GIT_PS1_SHOWDIRTYSTATE = 1;
+    home.sessionVariables.GIT_PS1_SHOWDIRTYSTATE = "1";
 
     programs.bash.initExtra = ''
       # pruge previously defined PROMPT_COMMAND
