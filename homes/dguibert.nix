@@ -128,6 +128,7 @@ in
         home.packages = with pkgs; [
           dtach
         ];
+        dconf.enable = false; # dbus: Failed to start message bus: Configuration file needs one or more <listen> elements giving addresses
       }
     )
   ];
@@ -183,6 +184,8 @@ in
 
         programs.direnv.enable = true;
         programs.direnv.nix-direnv.enable = true;
+
+        dconf.enable = false; # dbus: Failed to start message bus: Configuration file needs one or more <listen> elements giving addresses
       }
     )
   ];
@@ -220,6 +223,8 @@ in
           bashInteractive
           nix
         ];
+
+        dconf.enable = false; # dbus: Failed to start message bus: Configuration file needs one or more <listen> elements giving addresses
       }
     )
   ];
