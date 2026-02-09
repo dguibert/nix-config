@@ -79,15 +79,17 @@ with lib;
   home.packages = with pkgs; [
     (vim-full.override {
       guiSupport = "no";
-      libX11 = null;
-      libXext = null;
-      libSM = null;
-      libXpm = null;
-      libXt = null;
-      libXaw = null;
-      libXau = null;
-      libXmu = null;
-      libICE = null;
+      libsm = false;
+      libice = false;
+      libx11 = false;
+      libxext = false;
+      libxpm = false;
+      libxt = false;
+      libxaw = false;
+      libxau = false;
+      libxmu = false;
+      gtk2-x11 = false;
+      gtk3-x11 = false;
     })
     editorconfig-core-c
   ];
