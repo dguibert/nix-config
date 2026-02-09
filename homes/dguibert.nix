@@ -128,6 +128,7 @@ in
         home.packages = with pkgs; [
           dtach
         ];
+        dconf.enable = false; # dbus: Failed to start message bus: Configuration file needs one or more <listen> elements giving addresses
       }
     )
   ];
@@ -172,13 +173,19 @@ in
           figlet
           fdupes
           rdfind
+
+          waypipe
+          xwayland-satellite
         ];
 
-        home.sessionVariables.NIX_SSL_CERT_FILE = "/etc/pki/tls/certs/ca-bundle.crt";
+        home.sessionVariables.NIX_SSL_CERT_FILE = "/etc/ssl/tls/certs/ca-bundle.crt";
+        home.sessionVariables.COLORTERM = "truecolor";
         home.sessionVariables.TMP = "/dev/shm";
 
         programs.direnv.enable = true;
         programs.direnv.nix-direnv.enable = true;
+
+        dconf.enable = false; # dbus: Failed to start message bus: Configuration file needs one or more <listen> elements giving addresses
       }
     )
   ];
@@ -216,6 +223,8 @@ in
           bashInteractive
           nix
         ];
+
+        dconf.enable = false; # dbus: Failed to start message bus: Configuration file needs one or more <listen> elements giving addresses
       }
     )
   ];

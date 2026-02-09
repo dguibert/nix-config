@@ -1161,6 +1161,7 @@
       },
       "original": {
         "owner": "dguibert",
+        "ref": "master",
         "repo": "nur-packages",
         "type": "github"
       }

@@ -21,7 +21,7 @@
   inputs.nixpkgs.url = "github:dguibert/nix-config?dir=nixpkgs";
   inputs.nixpkgs.inputs.nixpkgs.follows = "nur_packages";
   inputs.upstream_nixpkgs.url = "github:dguibert/nixpkgs/pu";
-  inputs.nur_packages.url = "github:dguibert/nur-packages?refs=master";
+  inputs.nur_packages.url = "github:dguibert/nur-packages?ref=master";
   inputs.nur_packages.inputs.nixpkgs.follows = "upstream_nixpkgs";
   inputs.nur_packages.inputs.git-hooks-nix.follows = "git-hooks-nix";
   inputs.nur_packages.inputs.nix.inputs.flake-compat.follows = "flake-compat";
