@@ -259,7 +259,6 @@ in
     home.packages =
       with pkgs;
       [
-        nix-output-monitor
         (vim-full.override {
           guiSupport = "no";
           rubySupport = false;
