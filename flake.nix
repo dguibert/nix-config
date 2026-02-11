@@ -278,6 +278,14 @@
 
                 profiles.user = genProfile "evid356257" "evid356257@mn5" "hm";
               };
+              param = {
+                hostname = "param";
+                fastConnection = true;
+                autoRollback = false;
+                magicRollback = false;
+
+                profiles.user = genProfile "gdavid" "gdavid@param" "hm";
+              };
               #levante = {
               #  hostname = "levante";
               #  sshOpts = [ "-o" "ControlMaster=no" ]; # https://github.com/serokell/deploy-rs/issues/106

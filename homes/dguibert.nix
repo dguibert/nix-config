@@ -12,6 +12,7 @@ in
 {
   imports = [
     (genHomeManagerConfiguration "x86_64-linux" "evid356257@mn5")
+    (genHomeManagerConfiguration "x86_64-linux" "gdavid@param")
 
     (genHomeManagerConfiguration "x86_64-linux" "bguibertd@spartan")
     (genHomeManagerConfiguration "x86_64-linux" "bguibertd@spartan-x86_64")
@@ -30,13 +31,133 @@ in
         centralMailHost.enable = false;
         withGui.enable = false;
         withZellij.enable = true;
-        withCustomProfile.enable = true;
-        withCustomProfile.suffix = "x86_64";
         withEmacs.enable = true;
 
         home.username = "evid356257";
         home.homeDirectory = "/home/evid/evid356257";
         home.stateVersion = "25.11";
+
+        withCustomProfile.enable = true;
+        withCustomProfile.suffix = "";
+        withEmacs.enable = true;
+        programs.bash.enable = true;
+        programs.bash.historySize = -1; # no truncation
+        programs.bash.historyFile = "$HOME/.bash_history";
+        programs.bash.historyFileSize = -1; # no truncation
+        programs.bash.historyControl = [
+          "erasedups"
+          "ignoredups"
+          "ignorespace"
+        ];
+        programs.bash.historyIgnore = [
+          "ls"
+          "cd"
+          "clear"
+          "[bf]g"
+          " *"
+          "cd -"
+          "history"
+          "history -*"
+          "pwd"
+          "exit"
+          "date"
+        ];
+
+        programs.bash.bashrcExtra = # (homes.withoutX11 args).programs.bash.initExtra +
+          ''
+            # support for x86_64/aarch64
+            # include .bashrc if it exists
+            [[ -f ~/.bashrc.$(uname -m) ]] && . ~/.bashrc.$(uname -m)
+          '';
+        programs.bash.profileExtra = ''
+          # support for x86_64/aarch64
+          # include .profile if it exists
+          [[ -f ~/.profile.$(uname -m) ]] && . ~/.profile.$(uname -m)
+        '';
+
+        home.packages = with pkgs; [
+          nix
+          xpra
+          bashInteractive
+
+          datalad
+          git-annex
+          git-nomad
+          mr
+          subversion
+
+          tig
+          python3
+          python3Packages.pip
+
+          nxsession
+
+          figlet
+          fdupes
+          rdfind
+        ];
+
+        home.sessionVariables.NIX_SSL_CERT_FILE = "/etc/pki/tls/certs/ca-bundle.crt";
+        home.sessionVariables.TMP = "/dev/shm";
+
+        programs.direnv.enable = true;
+        programs.direnv.nix-direnv.enable = true;
+      }
+    )
+  ];
+
+  modules.homes."gdavid@param" = [
+    (
+      { config, pkgs, ... }:
+      {
+        imports = [
+          ../modules/home-manager/dguibert.nix
+          ../modules/home-manager/dguibert/custom-profile.nix
+        ];
+        home.username = "gdavid";
+        home.homeDirectory = "/home/gdavid";
+        home.stateVersion = "25.11";
+
+        centralMailHost.enable = false;
+        withGui.enable = false;
+        withZellij.enable = true;
+        withCustomProfile.enable = true;
+        withCustomProfile.suffix = "";
+        withEmacs.enable = true;
+        programs.bash.enable = true;
+        programs.bash.historySize = -1; # no truncation
+        programs.bash.historyFile = "$HOME/.bash_history";
+        programs.bash.historyFileSize = -1; # no truncation
+        programs.bash.historyControl = [
+          "erasedups"
+          "ignoredups"
+          "ignorespace"
+        ];
+        programs.bash.historyIgnore = [
+          "ls"
+          "cd"
+          "clear"
+          "[bf]g"
+          " *"
+          "cd -"
+          "history"
+          "history -*"
+          "pwd"
+          "exit"
+          "date"
+        ];
+
+        programs.bash.bashrcExtra = # (homes.withoutX11 args).programs.bash.initExtra +
+          ''
+            # support for x86_64/aarch64
+            # include .bashrc if it exists
+            [[ -f ~/.bashrc.$(uname -m) ]] && . ~/.bashrc.$(uname -m)
+          '';
+        programs.bash.profileExtra = ''
+          # support for x86_64/aarch64
+          # include .profile if it exists
+          [[ -f ~/.profile.$(uname -m) ]] && . ~/.profile.$(uname -m)
+        '';
 
         home.packages = with pkgs; [
           nix
