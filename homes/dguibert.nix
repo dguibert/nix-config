@@ -28,17 +28,15 @@ in
           ../modules/home-manager/dguibert.nix
           ../modules/home-manager/dguibert/custom-profile.nix
         ];
-        centralMailHost.enable = false;
-        withGui.enable = false;
-        withZellij.enable = true;
-        withEmacs.enable = true;
-
         home.username = "evid356257";
         home.homeDirectory = "/home/evid/evid356257";
         home.stateVersion = "25.11";
 
         withCustomProfile.enable = true;
         withCustomProfile.suffix = "";
+        centralMailHost.enable = false;
+        withGui.enable = false;
+        withZellij.enable = true;
         withEmacs.enable = true;
         programs.bash.enable = true;
         programs.bash.historySize = -1; # no truncation
@@ -299,7 +297,7 @@ in
           xwayland-satellite
         ];
 
-        home.sessionVariables.NIX_SSL_CERT_FILE = "/etc/ssl/tls/certs/ca-bundle.crt";
+        home.sessionVariables.NIX_SSL_CERT_FILE = "/etc/ssl/certs/ca-bundle.crt";
         home.sessionVariables.COLORTERM = "truecolor";
         home.sessionVariables.TMP = "/dev/shm";
 
