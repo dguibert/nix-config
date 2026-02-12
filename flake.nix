@@ -7,7 +7,7 @@
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs/nixpkgs";
 
   #inputs.nix.follows = "nur_packages/nix";
-  inputs.nix.url = "github:dguibert/nix?ref=dg/sws";
+  inputs.nix.url = "github:dguibert/nix/pu";
   inputs.nix.inputs.flake-compat.follows = "flake-compat";
   inputs.nix.inputs.flake-parts.follows = "flake-parts";
   inputs.nix.inputs.git-hooks-nix.follows = "git-hooks-nix";
@@ -387,6 +387,7 @@
             roles.dguibert.machines.titan.settings = {
               centralMailHost.enable = true;
             };
+            roles.dguibert-vscode.machines.titan = { };
 
             #roles.dguibert.tags.dguibert_rpi.settings = {
             roles.dguibert.machines.rpi41.settings.withPersistence.enable = false;

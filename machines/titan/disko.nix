@@ -173,6 +173,7 @@ in
             "local/nix--users-dguibert-nix" = ds_mount "/users/dguibert/nix";
             "local/nix--home-evid-evid356257-nix" = ds_mount "/home/evid/evid356257/nix";
             "local/nix--software-stack-cepp-nix" = ds_mount "/software/stack/cepp/nix";
+            "local/nix--home-gdavid-nix" = ds_mount "/home/gdavid/nix";
           };
         };
         zpoot_kdbimp = {
