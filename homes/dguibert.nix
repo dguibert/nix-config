@@ -159,20 +159,14 @@ in
 
         home.packages = with pkgs; [
           nix
-          xpra
           bashInteractive
 
           datalad
           git-annex
           git-nomad
           mr
-          subversion
 
           tig
-          python3
-          python3Packages.pip
-
-          nxsession
 
           figlet
           fdupes
