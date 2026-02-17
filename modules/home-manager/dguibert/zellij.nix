@@ -29,7 +29,7 @@
 
           # default_layout "compact"
           default_mode = "locked";
-          copy_command = "wl-copy";
+          #copy_command = "wl-copy";
           pane_frames = false;
           # copy_clipboard "primary"
 
