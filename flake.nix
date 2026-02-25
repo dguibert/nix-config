@@ -224,6 +224,7 @@
               }
             )
             {
+              rpi02 = self.homeConfigurations."root@rpi02";
               rpi31 = self.homeConfigurations."root@rpi31";
               rpi41 = self.homeConfigurations."root@rpi41";
               titan = self.homeConfigurations."root@titan";
@@ -358,6 +359,10 @@
           "wifi"
           "dguibert_rpi"
         ];
+        inventory.machines.rpi01.tags = [
+          "wifi"
+          "dguibert_rpi"
+        ];
 
         inventory.modules = self.modules.clan;
 
@@ -366,7 +371,7 @@
         inventory.instances = {
           _3d_printing = {
             module.input = "self";
-            roles.voron02_1.machines.rpi31 = { };
+            roles.voron02_1.machines.rpi02 = { };
           };
 
           haproxy = {
@@ -392,6 +397,7 @@
             #roles.dguibert.tags.dguibert_rpi.settings = {
             roles.dguibert.machines.rpi41.settings.withPersistence.enable = false;
             roles.dguibert.machines.rpi31.settings.withPersistence.enable = false;
+            roles.dguibert.machines.rpi02.settings.withPersistence.enable = false;
             roles.dguibert-gui.machines.rpi41.settings = {
               hyprland.hyprsplit.enable = false;
             };
@@ -428,6 +434,11 @@
               "192.168.1.17"
               "10.147.27.17"
               "t580.home-vpn"
+            ];
+            roles.server.machines.rpi02.settings.certificate.realms = [
+              "192.168.1.12"
+              "10.147.27.12"
+              "rpi02.home-vpn"
             ];
             roles.server.machines.rpi31.settings.certificate.realms = [
               "192.168.1.13"
@@ -545,6 +556,7 @@
             roles.peer.machines = {
               titan.settings.controller = "rpi41";
               t580 = { };
+              rpi02 = { };
               rpi31 = { };
             };
           };
