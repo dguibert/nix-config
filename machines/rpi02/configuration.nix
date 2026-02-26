@@ -107,7 +107,7 @@ rec {
       name = "bond0";
       DHCP = "yes";
       networkConfig.BindCarrier = "enu1u1 wlan0";
-      linkConfig.MACAddress = "b8:27:eb:46:86:14";
+      linkConfig.MACAddress = "b8:27:eb:46:86:12";
     };
   }
   // listToAttrs (
@@ -118,7 +118,7 @@ rec {
         DHCP = "no";
         networkConfig.Bond = "bond0";
         networkConfig.IPv6PrivacyExtensions = "kernel";
-        linkConfig.MACAddress = "b8:27:eb:46:86:14";
+        linkConfig.MACAddress = "b8:27:eb:46:86:12";
       }
     )
   );
