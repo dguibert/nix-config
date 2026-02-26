@@ -1152,4 +1152,100 @@
 
       };
   };
+  roles.voron24_1 = {
+    perInstance =
+      {
+        instanceName,
+        settings,
+        machine,
+        roles,
+        ...
+      }:
+      let
+        timeout = 600;
+      in
+      {
+        nixosModule =
+          {
+            config,
+            lib,
+            pkgs,
+            ...
+          }:
+          {
+            environment.systemPackages = [
+              pkgs.dfu-util # for flashing boards (cheetah v2.0, U2C)
+              pkgs.python3
+            ];
+            # verify with: ip -s link show can0
+            systemd.network.links."10-can" = {
+              matchConfig.Kind = "can";
+              linkConfig.TransmitQueueLength = 1024;
+            };
+            systemd.network.networks."10-can" = {
+              name = "can*";
+              canConfig.BitRate = "1M";
+              canConfig.RestartSec = "0";
+            };
+
+            # https://klipper.discourse.group/t/mcu-mcu-shutdown-timer-too-close-on-voron-2-4/8758/6
+            systemd.services.klipper.serviceConfig.Nice = -18;
+            systemd.services.klipper.serviceConfig.IOSchedulingPriority = lib.mkForce 1;
+
+            services.klipper = rec {
+              enable = true;
+              firmwares = {
+              };
+              settings = {
+              };
+            };
+
+            services.moonraker = {
+              user = "root";
+              enable = true;
+              #address = "0.0.0.0";
+              settings = {
+                file_manager.enable_object_processing = true;
+                octoprint_compat = { };
+                history = { };
+                authorization = {
+                  force_logins = true;
+                  cors_domains = [
+                    "*.local"
+                    "*.lan"
+                    "*://app.fluidd.xyz"
+                    "*://my.mainsail.xyz"
+                  ];
+                  trusted_clients = [
+                    "10.147.27.0/24"
+                    "127.0.0.0/8"
+                    "192.168.1.0/24"
+                    "FE80::/10"
+                    "::1/128"
+                  ];
+                };
+              };
+            };
+            networking.firewall.allowedTCPPorts = [ 80 ];
+            ### Increase max upload size for uploading .gcode files from PrusaSlicer
+            services.nginx.clientMaxBodySize = "1000m";
+            #services.fluidd.enable = true;
+            services.mainsail.enable = true;
+            security.polkit.enable = true;
+
+            #services.mainsail.nginx.locations."/stream".proxyPass = "http://127.0.0.1:8080/stream";
+            #services.mainsail.nginx.locations."/snapshot".proxyPass = "http://127.0.0.1:8080/snapshot";
+
+            #systemd.services.ustreamer = {
+            #  wantedBy = [ "multi-user.target" ];
+            #  description = "uStreamer for video0";
+            #  serviceConfig = {
+            #    Type = "simple";
+            #    ExecStart = "${pkgs.ustreamer}/bin/ustreamer --encoder=HW --persistent --drop-same-frames=30";
+            #  };
+            #};
+          };
+
+      };
+  };
 }
