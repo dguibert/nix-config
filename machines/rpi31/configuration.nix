@@ -102,6 +102,7 @@ rec {
     bondConfig.MIIMonitorSec = "100s";
     bondConfig.PrimaryReselectPolicy = "always";
   };
+  systemd.network.config.dhcpV4Config.DUIDType = "vendor";
   systemd.network.networks = {
     "40-bond0" = {
       name = "bond0";
