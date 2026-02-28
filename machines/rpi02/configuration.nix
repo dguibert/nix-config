@@ -62,7 +62,7 @@ rec {
   boot.postBootCommands = ''
     ${pkgs.nettools}/bin/mii-tool -v -R eth0
   '';
-  networking.hostId = "8425e349";
+  networking.hostId = "8425e312";
   networking.hostName = "rpi02";
 
   ## File systems configuration for using the installer's partition layout
