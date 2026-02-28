@@ -359,7 +359,7 @@
           "wifi"
           "dguibert_rpi"
         ];
-        inventory.machines.rpi01.tags = [
+        inventory.machines.rpi02.tags = [
           "wifi"
           "dguibert_rpi"
         ];
