@@ -357,11 +357,11 @@ in
         dmenu
         xlockmore
         xautolock
-        xorg.xset
-        xorg.xinput
-        xorg.xsetroot
-        xorg.setxkbmap
-        xorg.xmodmap
+        xset
+        xinput
+        xsetroot
+        setxkbmap
+        xmodmap
         rxvt-unicode-unwrapped
         st
         dvtm
