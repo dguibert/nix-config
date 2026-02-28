@@ -127,4 +127,7 @@ rec {
   security.pam.services.su.forwardXAuth = lib.mkForce false;
 
   fonts.fontconfig.enable = false;
+
+  #services.getty.autologinUser = lib.mkIf (config.users.dguibert.enable) "dguibert";
+  services.getty.autologinUser = "root";
 }
