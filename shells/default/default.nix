@@ -18,7 +18,7 @@
       inherit inputs;
       inherit (inputs.sops-nix.packages.${system}) sops-import-keys-hook ssh-to-pgp;
       deploy-rs = pkgs.deploy-rs.deploy-rs;
-      pre-commit-check-shellHook = inputs.self.checks.${system}.pre-commit-check.shellHook;
+      inherit (inputs.self.checks.${system}.pre-commit-check) shellHook enabledPackages;
 
       isNixStore = builtins.storeDir == "/nix/store";
       name =
@@ -63,6 +63,7 @@
             jq
             nix
           ]
+          ++ enabledPackages
           ++ lib.optionals isNixStore [
             inputs.clan-core.packages.${system}.clan-cli
             ssh-to-pgp
@@ -81,7 +82,7 @@
         #SOPS_PGP_FP = "";
         sopsCreateGPGHome = "";
         shellHook = ''
-          ${pre-commit-check-shellHook}
+          ${shellHook}
 
           unset NIX_INDENT_MAKE
           unset IN_NIX_SHELL NIX_REMOTE
