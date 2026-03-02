@@ -19,6 +19,7 @@ rec {
     ../../modules/nixos/defaults
   ];
   #sdImage.bootSize = 512;
+  sdImage.compressImage = false;
 
   # Enables the generation of /boot/extlinux/extlinux.conf
   boot.loader.grub.enable = false;
