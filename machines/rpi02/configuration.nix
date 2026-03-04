@@ -40,8 +40,6 @@ rec {
     (import "${inputs.nixos-hardware}/raspberry-pi/3/default.nix")
     ../../modules/nixos/defaults
   ];
-  #sdImage.bootSize = 512;
-  sdImage.compressImage = false;
 
   # Enables the generation of /boot/extlinux/extlinux.conf
   boot.loader.grub.enable = false;
