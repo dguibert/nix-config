@@ -127,7 +127,6 @@
         ],
         "nix-darwin": "nix-darwin",
         "nix-select": "nix-select",
-        "nixos-facter-modules": "nixos-facter-modules",
         "nixpkgs": [
           "nixpkgs",
           "nixpkgs"
@@ -141,11 +140,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1767330289,
-        "narHash": "sha256-a21KIanER2pGpDY9X53HKJUPaf4uuT1Qg817kflL8cE=",
+        "lastModified": 1772705823,
+        "narHash": "sha256-G81R+Tb3TRz4SI+TUNLVmSFX7dZDRY4f1KV9fd73sHU=",
         "ref": "refs/heads/main",
-        "rev": "315e14f019d271243bb415aae45d1f0b211c5c70",
-        "revCount": 11792,
+        "rev": "0f15c7c3e778070332588cef1eea6900100bad29",
+        "revCount": 13271,
         "type": "git",
         "url": "https://git.clan.lol/clan/clan-core"
       },
@@ -170,11 +169,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1766977667,
-        "narHash": "sha256-LUALgG4ZpsA0k7pGYzMDto/r6T8aIPlYTok3lGlojjA=",
-        "rev": "3f852546b5d8bd2e9659a81c6b2cc14922e63a94",
+        "lastModified": 1772687872,
+        "narHash": "sha256-87eJcRERXEu23GvP9WPuYs38lp6SWcQDZjiGH2COt/A=",
+        "rev": "e2408d18da5bf5df92ad10b77e8fc11402972ec5",
         "type": "tarball",
-        "url": "https://git.clan.lol/api/v1/repos/clan/data-mesher/archive/3f852546b5d8bd2e9659a81c6b2cc14922e63a94.tar.gz"
+        "url": "https://git.clan.lol/api/v1/repos/clan/data-mesher/archive/e2408d18da5bf5df92ad10b77e8fc11402972ec5.tar.gz"
       },
       "original": {
         "type": "tarball",
@@ -920,11 +919,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1767028240,
-        "narHash": "sha256-0/fLUqwJ4Z774muguUyn5t8AQ6wyxlNbHexpje+5hRo=",
+        "lastModified": 1772379624,
+        "narHash": "sha256-NG9LLTWlz4YiaTAiRGChbrzbVxBfX+Auq4Ab/SWmk4A=",
         "owner": "nix-darwin",
         "repo": "nix-darwin",
-        "rev": "c31afa6e76da9bbc7c9295e39c7de9fca1071ea1",
+        "rev": "52d061516108769656a8bd9c6e811c677ec5b462",
         "type": "github"
       },
       "original": {
@@ -964,21 +963,6 @@
       "original": {
         "type": "tarball",
         "url": "https://git.clan.lol/clan/nix-select/archive/main.tar.gz"
-      }
-    },
-    "nixos-facter-modules": {
-      "locked": {
-        "lastModified": 1766558141,
-        "narHash": "sha256-Ud9v49ZPsoDBFuyJSQ2Mpw1ZgAH/aMwUwwzrVoetNus=",
-        "owner": "nix-community",
-        "repo": "nixos-facter-modules",
-        "rev": "e796d536e3d83de74267069e179dc620a608ed7d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "nixos-facter-modules",
-        "type": "github"
       }
     },
     "nixos-hardware": {
@@ -1085,22 +1069,6 @@
       "original": {
         "owner": "NixOS",
         "ref": "nixos-25.05",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs-stable_2": {
-      "locked": {
-        "lastModified": 1725762081,
-        "narHash": "sha256-vNv+aJUW5/YurRy1ocfvs4q/48yVESwlC/yHzjkZSP8=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "dc454045f5b5d814e5862a6d057e7bb5c29edc05",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "release-24.05",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -1245,20 +1213,18 @@
         "nixpkgs": [
           "nur_packages",
           "nixpkgs"
-        ],
-        "nixpkgs-stable": "nixpkgs-stable_2"
+        ]
       },
       "locked": {
-        "lastModified": 1728160354,
-        "narHash": "sha256-U0eDAHzQme7h178M9ApGfiULEw4NQw/dIzIODO/dmwY=",
-        "owner": "dguibert",
+        "lastModified": 1772495394,
+        "narHash": "sha256-hmIvE/slLKEFKNEJz27IZ8BKlAaZDcjIHmkZ7GCEjfw=",
+        "owner": "Mic92",
         "repo": "sops-nix",
-        "rev": "123930ff56614696aa20fe424b4ea4ce6ef215e2",
+        "rev": "1d9b98a29a45abe9c4d3174bd36de9f28755e3ff",
         "type": "github"
       },
       "original": {
-        "owner": "dguibert",
-        "ref": "pu",
+        "owner": "Mic92",
         "repo": "sops-nix",
         "type": "github"
       }
