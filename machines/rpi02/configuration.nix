@@ -119,11 +119,16 @@ rec {
   networking.dhcpcd.enable = false;
   systemd.network.wait-online.anyInterface = true;
 
+  systemd.network.links."40-bond0" = {
+    matchConfig.Name = "bond0";
+    linkConfig.MACAddressPolicy = "none";
+  };
   systemd.network.netdevs."40-bond0" = {
     netdevConfig.Name = "bond0";
     netdevConfig.Kind = "bond";
+    netdevConfig.MACAddress = "b8:27:eb:46:86:12";
     bondConfig.Mode = "active-backup";
-    bondConfig.MIIMonitorSec = "100s";
+    bondConfig.MIIMonitorSec = "1s";
     bondConfig.PrimaryReselectPolicy = "always";
   };
   systemd.network.networks = {

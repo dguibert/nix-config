@@ -1,6 +1,4 @@
-[
-  {
-    "publickey": "age1uxagssgmmjs4sha8808yuhzanhhpf5lu8y8apkepnf59tpph458sws4w98",
-    "type": "age"
-  }
-]
+{
+  "publickey": "age1uxagssgmmjs4sha8808yuhzanhhpf5lu8y8apkepnf59tpph458sws4w98",
+  "type": "age"
+}
