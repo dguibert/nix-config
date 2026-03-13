@@ -28,6 +28,9 @@ in
     withGui.enable = (mkEnableOption "Host running with X11 or Wayland") // {
       default = false;
     };
+    withAnnex.enable = mkEnableOption "Use git-annex/datalad/... tools" // {
+      default = false;
+    };
     withPersistence.enable = mkEnableOption "Use Impermanence";
     centralMailHost.enable = mkEnableOption "Host running liier/mbsync" // {
       default = false;
@@ -330,6 +333,8 @@ in
         nix-prefetch-scripts
         nix-update
 
+      ]
+      ++ optionals config.withAnnex.enable [
         mr
         mercurial
         #previousPkgs_pu.git-annex
@@ -352,7 +357,8 @@ in
         exiftool
         udftools
         hub # command-line wrapper for git that makes you better at GitHub
-
+      ]
+      ++ [
         dwm
         dmenu
         xlockmore

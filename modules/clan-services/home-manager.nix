@@ -70,6 +70,17 @@
 
     };
 
+  roles.dguibert-annex.perInstance =
+    { ... }:
+    {
+      nixosModule =
+        { config, pkgs, ... }:
+        {
+          home-manager.users.dguibert.withAnnex.enable = true;
+        };
+
+    };
+
   roles.dguibert-gui.interface =
     { lib, ... }:
     {
