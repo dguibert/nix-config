@@ -31,6 +31,7 @@
               };
               files."user-password-hash".secret = false;
               runtimeInputs = [
+                pkgs.gnused
                 pkgs.xkcdpass
                 pkgs.mosquitto
               ];
@@ -42,7 +43,7 @@
                 touch user-password-hash
                 chmod 700 user-password-hash
                 mosquitto_passwd -b user-password-hash zigbee $(cat $out/user-password)
-                cat user-password-hash | tr -d "\n" > $out/user-password-hash
+                cat user-password-hash | tr -d "\n" | sed -e "s@zigbee:@@" > $out/user-password-hash
 
                 # 16 decimals betwween 0-15
                 echo "network_key: [$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16))]" > $out/network_key.yaml
