@@ -25,7 +25,7 @@
               files."network_key.yaml" = { };
               files.user-password.deploy = false;
               files."user-password.yaml" = {
-                owner = "zigbee";
+                owner = "zigbee2mqtt";
               };
               files."user-password-hash".secret = false;
               runtimeInputs = [
