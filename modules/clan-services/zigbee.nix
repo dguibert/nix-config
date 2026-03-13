@@ -35,11 +35,12 @@
                 pkgs.mosquitto
               ];
               script = ''
+                set -x
                 xkcdpass --numwords 3 --delimiter - --count 1 | tr -d "\n" > $out/user-password
                 echo "password: $(cat $out/user-password)" > $out/user-password.yaml
 
-                touch $out/user-password-hash
-                chmod 700 $out/user-password-hash
+                touch user-password-hash
+                chmod 700 user-password-hash
                 mosquitto_passwd -b user-password-hash zigbee $(cat $out/user-password)
                 cat user-password-hash | tr -d "\n" > $out/user-password-hash
 
