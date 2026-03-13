@@ -22,22 +22,28 @@
 
           {
             clan.core.vars.generators.zigbee2mqtt = {
-              files."network_key.yaml" = { };
+              files."network_key.yaml" = {
+                owner = "zigbee2mqtt";
+              };
               files.user-password.deploy = false;
-              files."user-password.yaml" = { };
+              files."user-password.yaml" = {
+                owner = "zigbee2mqtt";
+              };
               files."user-password-hash".secret = false;
               runtimeInputs = [
+                pkgs.gnused
                 pkgs.xkcdpass
                 pkgs.mosquitto
               ];
               script = ''
+                set -x
                 xkcdpass --numwords 3 --delimiter - --count 1 | tr -d "\n" > $out/user-password
                 echo "password: $(cat $out/user-password)" > $out/user-password.yaml
 
-                touch $out/user-password-hash
-                chmod 700 $out/user-password-hash
+                touch user-password-hash
+                chmod 700 user-password-hash
                 mosquitto_passwd -b user-password-hash zigbee $(cat $out/user-password)
-                cat user-password-hash | tr -d "\n" > $out/user-password-hash
+                cat user-password-hash | tr -d "\n" | sed -e "s@zigbee:@@" > $out/user-password-hash
 
                 # 16 decimals betwween 0-15
                 echo "network_key: [$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16)),$((RANDOM%16))]" > $out/network_key.yaml
@@ -47,17 +53,16 @@
             services.zigbee2mqtt.enable = true;
             systemd.services.zigbee2mqtt.unitConfig.ConditionPathExists = "/dev/ttyACM0";
             services.zigbee2mqtt.settings = {
-              permit_join = true;
               serial.port = "/dev/ttyACM0";
               frontend = true;
               mqtt.user = "zigbee";
-              mqtt.password = "'!${
+              mqtt.password = "!${
                 config.clan.core.vars.generators.zigbee2mqtt.files."user-password.yaml".path
-              } password'";
+              } password";
               # 01030507090000002040608000 (hex DA37E6BABE70A2363500)
-              network_key = "'!${
+              network_key = "!${
                 config.clan.core.vars.generators.zigbee2mqtt.files."network_key.yaml".path
-              } network_key'";
+              } network_key";
               #includes = [
               #  config.secrets.zigbee2mqtt.secretFile
               #];

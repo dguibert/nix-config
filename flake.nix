@@ -386,6 +386,7 @@
             roles.dguibert.tags.dguibert = { };
             roles.dguibert-emacs.tags.dguibert = { };
             roles.dguibert-gui.tags.desktop = { };
+            roles.dguibert-annex.tags.dguibert = { };
             roles.dguibert-persistence.tags.dguibert = { };
             roles.dguibert-mail.machines.titan = { };
             roles.dguibert-3d-tools.machines.titan = { };

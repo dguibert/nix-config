@@ -1,3 +1,30 @@
+let
+  common =
+    { settings, ... }:
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
+    {
+      config.clan.core.vars.generators.rkvm = {
+        share = true;
+        files."rkvm-certificate.pem" = { };
+        files."rkvm-key.pem" = { };
+        files.rkvm-password = { };
+        prompts.rkvm-password = { };
+        runtimeInputs = [
+          pkgs.rkvm
+        ];
+        script = ''
+          rkvm-certificate-gen -i ${settings.rkvm.server} $out/rkvm-certificate.pem $out/rkvm-key.pem
+          cat $prompts/rkvm-password > $out/rkvm-password
+        '';
+      };
+    };
+
+in
 {
   _class = "clan.service";
   manifest.name = "printing";
@@ -18,7 +45,7 @@
 
     };
   roles.client.perInstance =
-    { settings, ... }:
+    { settings, ... }@args:
     {
       nixosModule =
         {
@@ -28,6 +55,7 @@
           ...
         }:
         {
+          imports = [ (common args) ];
           services.rkvm.client = {
             enable = true;
             settings = {
@@ -53,7 +81,7 @@
       };
     };
   roles.server.perInstance =
-    { settings, ... }:
+    { settings, ... }@args:
     {
       nixosModule =
         {
@@ -63,6 +91,7 @@
           ...
         }:
         {
+          imports = [ (common args) ];
           services.rkvm.server = {
             enable = true;
             settings = {
@@ -77,40 +106,6 @@
             };
           };
           networking.firewall.allowedTCPPorts = [ 5258 ];
-        };
-    };
-
-  perMachine =
-    {
-      instances,
-      settings,
-      machine,
-      roles,
-      ...
-    }:
-    {
-      nixosModule =
-        {
-          config,
-          pkgs,
-          lib,
-          ...
-        }:
-        {
-          config.clan.core.vars.generators.rkvm = {
-            share = true;
-            files."rkvm-certificate.pem" = { };
-            files."rkvm-key.pem" = { };
-            files.rkvm-password = { };
-            prompts.rkvm-password = { };
-            runtimeInputs = [
-              pkgs.rkvm
-            ];
-            script = ''
-              rkvm-certificate-gen -i ${settings.rkvm.server} $out/rkvm-certificate.pem $out/rkvm-key.pem
-              cat $prompts/rkvm-password > $out/rkvm-password
-            '';
-          };
         };
     };
 }
