@@ -352,6 +352,10 @@
           "dguibert"
           "wifi"
         ];
+        inventory.machines.wsl.tags = [
+          "desktop"
+          "dguibert"
+        ];
         inventory.machines.rpi41.tags = [
           "desktop64"
           "dguibert_rpi"
@@ -384,22 +388,30 @@
             module.input = "self";
 
             roles.dguibert.tags.dguibert = { };
-            roles.dguibert-emacs.tags.dguibert = { };
-            roles.dguibert-gui.tags.desktop = { };
-            roles.dguibert-annex.tags.dguibert = { };
-            roles.dguibert-persistence.tags.dguibert = { };
-            roles.dguibert-mail.machines.titan = { };
-            roles.dguibert-3d-tools.machines.titan = { };
-            roles.dguibert-ssh-teleport.machines.titan = { };
             roles.dguibert.machines.titan.settings = {
               centralMailHost.enable = true;
             };
+
+            roles.dguibert-emacs.tags.dguibert = { };
+
+            roles.dguibert-annex.tags.dguibert = { };
+
+            roles.dguibert-mail.machines.titan = { };
+
+            roles.dguibert-3d-tools.machines.titan = { };
+
+            roles.dguibert-ssh-teleport.machines.titan = { };
+
             roles.dguibert-vscode.machines.titan = { };
 
             #roles.dguibert.tags.dguibert_rpi.settings = {
+            roles.dguibert-persistence.tags.dguibert = { };
+            roles.dguibert.machines.wsl.settings.withPersistence.enable = false;
             roles.dguibert.machines.rpi41.settings.withPersistence.enable = false;
             roles.dguibert.machines.rpi31.settings.withPersistence.enable = false;
             roles.dguibert.machines.rpi02.settings.withPersistence.enable = false;
+
+            roles.dguibert-gui.tags.desktop = { };
             roles.dguibert-gui.machines.rpi41.settings = {
               hyprland.hyprsplit.enable = false;
             };
