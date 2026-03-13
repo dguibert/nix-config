@@ -24,7 +24,9 @@
             clan.core.vars.generators.zigbee2mqtt = {
               files."network_key.yaml" = { };
               files.user-password.deploy = false;
-              files."user-password.yaml" = { };
+              files."user-password.yaml" = {
+                owner = "zigbee";
+              };
               files."user-password-hash".secret = false;
               runtimeInputs = [
                 pkgs.xkcdpass
