@@ -22,7 +22,9 @@
 
           {
             clan.core.vars.generators.zigbee2mqtt = {
-              files."network_key.yaml" = { };
+              files."network_key.yaml" = {
+                owner = "zigbee2mqtt";
+              };
               files.user-password.deploy = false;
               files."user-password.yaml" = {
                 owner = "zigbee2mqtt";
@@ -49,7 +51,6 @@
             services.zigbee2mqtt.enable = true;
             systemd.services.zigbee2mqtt.unitConfig.ConditionPathExists = "/dev/ttyACM0";
             services.zigbee2mqtt.settings = {
-              permit_join = true;
               serial.port = "/dev/ttyACM0";
               frontend = true;
               mqtt.user = "zigbee";
