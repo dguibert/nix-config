@@ -54,13 +54,13 @@
               serial.port = "/dev/ttyACM0";
               frontend = true;
               mqtt.user = "zigbee";
-              mqtt.password = "'!${
+              mqtt.password = "!${
                 config.clan.core.vars.generators.zigbee2mqtt.files."user-password.yaml".path
-              } password'";
+              } password";
               # 01030507090000002040608000 (hex DA37E6BABE70A2363500)
-              network_key = "'!${
+              network_key = "!${
                 config.clan.core.vars.generators.zigbee2mqtt.files."network_key.yaml".path
-              } network_key'";
+              } network_key";
               #includes = [
               #  config.secrets.zigbee2mqtt.secretFile
               #];
