@@ -354,6 +354,7 @@
         inventory.machines.rpi41.tags = [
           "desktop64"
           "dguibert_rpi"
+          "wifi"
         ];
         inventory.machines.rpi31.tags = [
           "wifi"
