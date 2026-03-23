@@ -140,11 +140,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1774123811,
-        "narHash": "sha256-jgLjWGB+AY1v3X6Y1lZUP7i3TZhx/pIZ9UV5C0t72YY=",
+        "lastModified": 1774258552,
+        "narHash": "sha256-wTJJxhLPr3OHXQ23H9+Ch1YjdlaoMf3605ezfRYLaC4=",
         "ref": "refs/heads/main",
-        "rev": "4e950529c87f19f7d8787a3b5b8ccba7df068b1d",
-        "revCount": 13661,
+        "rev": "28bb98f5aec0ea70b623ab4953eb8186acdb7bba",
+        "revCount": 13671,
         "type": "git",
         "url": "https://git.clan.lol/clan/clan-core"
       },
@@ -1503,11 +1503,11 @@
     },
     "upstream_nixpkgs": {
       "locked": {
-        "lastModified": 1774173114,
-        "narHash": "sha256-5j4rUB/bUkO46ZrtFGrtaL/XtkcWL1cSvOmyZT+8+60=",
+        "lastModified": 1774260035,
+        "narHash": "sha256-edS9njnEtx8jl1upZZkAFT+1dLPJNA8e4JR7ZVkATDo=",
         "owner": "dguibert",
         "repo": "nixpkgs",
-        "rev": "a368823ee813493785b2ed4f5ec6bc7df0dd190b",
+        "rev": "5c3d229ceb98eecbf1ec3531e5c00a09af0ec0eb",
         "type": "github"
       },
       "original": {
