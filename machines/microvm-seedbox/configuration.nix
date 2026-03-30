@@ -51,6 +51,7 @@
     # ssh -o "ProxyCommand socat - VSOCK-CONNECT:1337:22" root@localhost
     vsock.cid = 1337;
   };
+  networking.hostId = "8425e349";
   networking.useNetworkd = true;
   users.users.root.password = "";
   systemd.sockets.sshd = {
