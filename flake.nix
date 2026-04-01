@@ -125,7 +125,6 @@
 
   inputs.microvm.url = "github:astro/microvm.nix";
   inputs.microvm.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.microvm.inputs.flake-utils.follows = "nur_packages/flake-utils";
 
   inputs.nixos-hardware.url = "github:NixOS/nixos-hardware";
 
