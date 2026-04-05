@@ -88,7 +88,7 @@ with lib;
           {
             event = "before-sleep";
             # adding duplicated entries for the same event may not work
-            command = (display "off") + "; " + lock;
+            command = lock + "; " + (display "off");
           }
           {
             event = "after-resume";
@@ -96,7 +96,7 @@ with lib;
           }
           {
             event = "lock";
-            command = (display "off") + "; " + (notif_mode "away") + "; " + lock;
+            command = lock + "; " + (display "off") + "; " + (notif_mode "away");
           }
           {
             event = "unlock";
