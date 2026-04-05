@@ -90,8 +90,8 @@
   inputs.git-hooks-nix.inputs.flake-compat.follows = "flake-compat";
 
   #inputs.hyprland.url = "github:hyprwm/Hyprland";
-  #inputs.hyprland.url = "git+https://github.com/dguibert/Hyprland?submodules=1";
-  inputs.hyprland.url = "github:dguibert/Hyprland?ref=refs/heads/main&submodules=1";
+  inputs.hyprland.url = "git+https://github.com/dguibert/Hyprland?ref=main&submodules=1";
+  #inputs.hyprland.url = "github:dguibert/Hyprland?ref=refs/heads/main&submodules=1";
   inputs.hyprland.inputs.nixpkgs.follows = "nixpkgs";
   inputs.hyprland.inputs.systems.follows = "systems";
   inputs.hyprland.inputs.pre-commit-hooks.follows = "git-hooks-nix";
