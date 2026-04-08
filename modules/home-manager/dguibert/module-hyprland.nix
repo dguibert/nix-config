@@ -31,8 +31,6 @@ with lib;
       wl-clipboard
       alacritty # Alacritty is the default terminal in the config
       dmenu-wayland # Dmenu is the default in the config but i recommend wofi since its wayland native
-      swaylock # lockscreen
-      swayidle
       wlr-randr
       brightnessctl
 
@@ -50,36 +48,62 @@ with lib;
     custom-mako.enable = true;
     custom-mako.systemdTarget = "hyprland-session.target";
 
-    services.swayidle.enable = true;
-    services.swayidle.systemdTarget = "hyprland-session.target";
-    services.swayidle.timeouts = [
+    services.swayidle =
+      let
+        # Lock command
+        lock = "${pkgs.swaylock}/bin/swaylock --daemonize -c 000000";
+        # TODO: modify "display" function based on your window manager
+        # Sway
+        # display = status: "${pkgs.sway}/bin/swaymsg 'output * power ${status}'";
+        # Hyprland
+        display =
+          status: "${config.wayland.windowManager.hyprland.package}/bin/hyprctl dispatch dpms ${status}";
+        # Niri
+        # display = status: "${pkgs.niri}/bin/niri msg action power-${status}-monitors";
+        notif_mode = status: "${config.services.mako.package}/bin/makoctl mode -s ${status}";
+      in
       {
-        timeout = 300;
-        command = "${config.services.mako.package}/bin/makoctl mode -s away";
-      }
-      {
-        timeout = 300;
-        command = "${pkgs.swaylock}/bin/swaylock -f -c 000000";
-      }
-      {
-        timeout = 360;
-        command = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl dispatch dpms off";
-      }
-    ];
-    services.swayidle.events = [
-      {
-        event = "after-resume";
-        command = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl dispatch dpms on";
-      }
-      {
-        event = "after-resume";
-        command = "${config.services.mako.package}/bin/makoctl mode -s default";
-      }
-      {
-        event = "before-sleep";
-        command = "${pkgs.swaylock}/bin/swaylock -f -c 000000";
-      }
-    ];
+        enable = true;
+        systemdTarget = "hyprland-session.target";
+        timeouts = [
+          {
+            timeout = 280; # in seconds
+            command = "${pkgs.libnotify}/bin/notify-send 'Locking in 5 seconds' -t 5000";
+          }
+          {
+            timeout = 300;
+            command = lock;
+          }
+          {
+            timeout = 320;
+            command = display "off";
+            resumeCommand = (display "on") + "; " + (notif_mode "default");
+          }
+          #{
+          #  timeout = 30;
+          #  command = "${pkgs.systemd}/bin/systemctl suspend";
+          #}
+        ];
+        events = [
+          {
+            event = "before-sleep";
+            # adding duplicated entries for the same event may not work
+            command = lock + "; " + (display "off");
+          }
+          {
+            event = "after-resume";
+            command = display "on";
+          }
+          {
+            event = "lock";
+            command = lock + "; " + (display "off") + "; " + (notif_mode "away");
+          }
+          {
+            event = "unlock";
+            command = (display "on") + "; " + (notif_mode "default");
+          }
+        ];
+      };
 
     xdg.configFile."waybar/style.css".source = ./waybar-style.css;
     xdg.configFile."waybar/config".text =

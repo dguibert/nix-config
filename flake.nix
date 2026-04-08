@@ -126,7 +126,6 @@
 
   inputs.microvm.url = "github:astro/microvm.nix";
   inputs.microvm.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.microvm.inputs.flake-utils.follows = "nur_packages/flake-utils";
 
   inputs.nixos-hardware.url = "github:NixOS/nixos-hardware";
 
@@ -359,6 +358,7 @@
         inventory.machines.rpi41.tags = [
           "desktop64"
           "dguibert_rpi"
+          "wifi"
         ];
         inventory.machines.rpi31.tags = [
           "wifi"

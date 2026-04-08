@@ -131,15 +131,5 @@ rec {
       }
     )
   );
-  networking.supplicant.wlan0 = {
-    configFile.path = "/persist/etc/wpa_supplicant.conf";
-    userControlled.group = "network";
-    extraConf = ''
-      ap_scan=1
-      p2p_disabled=1
-    '';
-    extraCmdArgs = "-u";
-  };
-
   services.getty.autologinUser = lib.mkIf (config.users.dguibert.enable) "dguibert";
 }

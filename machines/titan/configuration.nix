@@ -165,10 +165,8 @@ in
     "aarch64-linux"
     "armv7l-linux"
   ];
-  ##boot.binfmt.registrations."aarch64-linux".preserveArgvZero=true;
-  boot.binfmt.registrations."aarch64-linux".fixBinary = true;
-  ##boot.binfmt.registrations."armv7l-linux".preserveArgvZero=true;
-  boot.binfmt.registrations."armv7l-linux".fixBinary = true;
+  boot.binfmt.addEmulatedSystemsToNixSandbox = true;
+  boot.binfmt.preferStaticEmulators = true;
 
   #boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.extraModulePackages = [ pkgs.perf ];
@@ -250,7 +248,7 @@ in
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
     #package = config.boot.kernelPackages.nvidiaPackages.beta;
-    package = config.boot.kernelPackages.nvidiaPackages.production;
+    package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
     forceFullCompositionPipeline = true;
   };
 

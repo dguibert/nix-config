@@ -23,8 +23,6 @@
             nixfmt-rfc-style.excludes = [
               "modules/home-manager/dguibert/home-sec\\.nix"
             ];
-            prettier.enable = true;
-            prettier.stages = [ "pre-commit" ];
             trailing-whitespace = {
               enable = true;
               name = "trim trailing whitespace";
