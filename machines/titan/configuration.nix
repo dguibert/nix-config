@@ -39,6 +39,7 @@ in
     { environment.stub-ld.enable = false; } # conflict with nix-ld
 
     inputs.envfs.nixosModules.envfs
+    { fileSystems."/bin".fsType = "none"; }
     (
       { ... }:
       {
