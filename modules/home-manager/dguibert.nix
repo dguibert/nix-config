@@ -46,7 +46,8 @@ in
   imports = [
     inputs.sops-nix.homeManagerModules.sops
     ./impermanence.nix
-    inputs.impermanence.nixosModules.home-manager.impermanence
+    # The Home Manager module will be automatically imported by the NixOS module
+    #inputs.impermanence.nixosModules.home-manager.impermanence
     (
       { config, lib, ... }:
       {
@@ -93,7 +94,7 @@ in
             "Maildir"
             "Maildir/.notmuch"
           ];
-          home.persistence."/persist/home/${config.home.username}".files = [
+          home.persistence."/persist".files = [
             #my.persistence.files = [
             ".bash_history"
             ".bash_history_backup"
