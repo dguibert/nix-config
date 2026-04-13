@@ -120,8 +120,10 @@
   inputs.nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
   inputs.nixos-wsl.inputs.flake-compat.follows = "flake-compat";
 
-  #inputs.impermanence.url = "github:nix-community/impermanence";
-  inputs.impermanence.url = "github:dguibert/impermanence";
+  inputs.impermanence.url = "github:nix-community/impermanence";
+  inputs.impermanence.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.impermanence.inputs.home-manager.follows = "home-manager";
+  #inputs.impermanence.url = "github:dguibert/impermanence";
 
   inputs.microvm.url = "github:astro/microvm.nix";
   inputs.microvm.inputs.nixpkgs.follows = "nixpkgs";
