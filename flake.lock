@@ -599,17 +599,19 @@
       },
       "locked": {
         "lastModified": 1757928869,
-        "narHash": "sha256-t0oZ1t4CYl35ekMbo34lwkHntOBREBV/YTH5xVcC46Q=",
-        "owner": "dguibert",
-        "repo": "Hyprland",
+        "narHash": "sha256-jrttYuytErhbq4yZaE61wp0iA5oPGa4G8RD0wbOMnq0=",
+        "ref": "refs/heads/main",
         "rev": "f3045de624c50f70ca0a79e1fdff700665091a93",
-        "type": "github"
+        "revCount": 6424,
+        "submodules": true,
+        "type": "git",
+        "url": "https://github.com/dguibert/Hyprland"
       },
       "original": {
-        "owner": "dguibert",
         "ref": "refs/heads/main",
-        "repo": "Hyprland",
-        "type": "github"
+        "submodules": true,
+        "type": "git",
+        "url": "https://github.com/dguibert/Hyprland"
       }
     },
     "hyprland-contrib": {
