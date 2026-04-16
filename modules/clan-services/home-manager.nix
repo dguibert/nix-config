@@ -23,7 +23,7 @@
                 { config, pkgs, ... }:
                 {
                   home.homeDirectory = "/home/dguibert";
-                  home.stateVersion = "23.05";
+                  home.stateVersion = "25.11";
 
                   programs.direnv.enable = true;
                   programs.direnv.nix-direnv.enable = true;
@@ -100,9 +100,18 @@
       nixosModule =
         { config, pkgs, ... }:
         {
-          home-manager.users.dguibert.withGui.enable = true;
-          home-manager.users.dguibert.hyprland.enable = settings.hyprland.enable;
-          home-manager.users.dguibert.hyprland.hyprsplit.enable = settings.hyprland.hyprsplit.enable;
+          home-manager.users.dguibert = {
+            imports = [
+              ../home-manager/dguibert/with-gui.nix
+              ../home-manager/dguibert/module-hyprland.nix
+              {
+                home.stateVersion = "25.11";
+                withGui.enable = true;
+                hyprland.enable = settings.hyprland.enable;
+                hyprland.hyprsplit.enable = settings.hyprland.hyprsplit.enable;
+              }
+            ];
+          };
         };
 
     };

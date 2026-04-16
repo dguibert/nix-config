@@ -10,6 +10,11 @@ let
 in
 with lib;
 {
+  imports = [
+    ./custom-foot.nix
+    ./custom-mako.nix
+  ];
+
   options.hyprland.enable = (lib.mkEnableOption "Enable hyprland config") // {
     default = false;
   };

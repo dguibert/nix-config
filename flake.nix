@@ -391,15 +391,12 @@
             roles.dguibert-mail.machines.titan = { };
             roles.dguibert-3d-tools.machines.titan = { };
             roles.dguibert-ssh-teleport.machines.titan = { };
-            roles.dguibert.machines.titan.settings = {
-              centralMailHost.enable = true;
-            };
+            roles.dguibert.machines.titan.settings.centralMailHost.enable = true;
             roles.dguibert-vscode.machines.titan = { };
 
             #roles.dguibert.tags.dguibert_rpi.settings = {
-            roles.dguibert.machines.rpi41.settings.withPersistence.enable = false;
-            roles.dguibert.machines.rpi31.settings.withPersistence.enable = false;
-            roles.dguibert.machines.rpi02.settings.withPersistence.enable = false;
+            roles.dguibert.machines.titan.settings.withPersistence.enable = true;
+            roles.dguibert.machines.t580.settings.withPersistence.enable = true;
             roles.dguibert-gui.machines.rpi41.settings = {
               hyprland.hyprsplit.enable = false;
             };

@@ -7,6 +7,9 @@
   ...
 }:
 {
+  options.withGui.enable = (lib.mkEnableOption "Host running with X11 or Wayland") // {
+    default = false;
+  };
   config = lib.mkIf config.withGui.enable {
     programs.browserpass.enable = true;
 

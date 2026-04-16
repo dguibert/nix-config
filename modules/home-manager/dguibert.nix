@@ -25,13 +25,12 @@ let
 in
 {
   options = {
-    withGui.enable = (mkEnableOption "Host running with X11 or Wayland") // {
-      default = false;
-    };
     withAnnex.enable = mkEnableOption "Use git-annex/datalad/... tools" // {
       default = false;
     };
-    withPersistence.enable = mkEnableOption "Use Impermanence";
+    withPersistence.enable = mkEnableOption "Use Impermanence" // {
+      default = false;
+    };
     centralMailHost.enable = mkEnableOption "Host running liier/mbsync" // {
       default = false;
     };
