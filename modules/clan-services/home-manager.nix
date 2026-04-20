@@ -65,9 +65,13 @@
       nixosModule =
         { config, pkgs, ... }:
         {
-          home-manager.users.dguibert.withPersistence.enable = true;
+          home-manager.users.dguibert = {
+            imports = [
+              ../home-manager/dguibert/impermanence.nix
+              { withPersistence.enable = true; }
+            ];
+          };
         };
-
     };
 
   roles.dguibert-annex.perInstance =

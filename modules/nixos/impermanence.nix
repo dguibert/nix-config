@@ -8,7 +8,6 @@
 let
   l = lib // builtins;
   cfg = config.my.persistence;
-  cfgHm = user: config.home-manager.users.${user}.my.persistence;
   hmUsers = builtins.attrNames config.home-manager.users;
 in
 {
@@ -123,12 +122,6 @@ in
       ++ cfg.directories;
       files = [ "/etc/machine-id" ] ++ cfg.files;
 
-      users = builtins.listToAttrs (
-        lib.forEach hmUsers (user: {
-          name = user;
-          value = cfgHm user;
-        })
-      );
     };
 
     security.sudo.extraConfig = ''

@@ -247,15 +247,6 @@
               };
             in
             {
-              #genji = {
-              #  hostname = "genji";
-              #  sshOpts = [ "-o" "ControlMaster=no" ]; # https://github.com/serokell/deploy-rs/issues/106
-              #  fastConnection = true;
-              #  autoRollback = false;
-              #  magicRollback = false;
-
-              #  profiles.bguibertd = genProfile "bguibertd" "bguibertd@genji" "hm-x86_64";
-              #};
               spartan = {
                 hostname = "spartan";
                 sshOpts = [

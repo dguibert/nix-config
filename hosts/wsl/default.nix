@@ -26,6 +26,7 @@
     )
     ../../modules/nixos/nix-conf.nix
     inputs.home-manager.nixosModules.home-manager
+    inputs.impermanence.nixosModules.impermanence
     ../../users/dguibert
     (
       { pkgs, ... }:
