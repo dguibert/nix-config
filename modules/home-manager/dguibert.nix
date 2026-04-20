@@ -286,22 +286,9 @@ in
         hub # command-line wrapper for git that makes you better at GitHub
       ]
       ++ [
-        dwm
-        dmenu
-        xlockmore
-        xautolock
-        xset
-        xinput
-        xsetroot
-        setxkbmap
-        xmodmap
-        rxvt-unicode-unwrapped
         st
         dvtm
         abduco
-        pamixer
-        xsel
-        xclip
         #(conky.override { x11Support = false; }) # fails 20230721 conky-1.19.2
         gnuplot
         mkpasswd
@@ -310,10 +297,6 @@ in
         qrencode
 
         go-mtpfs
-
-        wayland
-        corkscrew
-        autossh
 
         urlscan
 
