@@ -33,6 +33,7 @@
       {
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
+        networking.resolvconf.enable = false; # environment.etc."resolv.conf" is also set
         #- dguibert profile: xdg.portal: since you installed Home Manager via its NixOS module and
         #'home-manager.useUserPackages' is enabled, you need to add
         environment.pathsToLink = [
