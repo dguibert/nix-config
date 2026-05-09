@@ -99,7 +99,6 @@
 
   hyprland-contrib = {
     url = "github:hyprwm/contrib";
-    nixpkgs.follows = "nixpkgs";
   };
 
   #eww = {
