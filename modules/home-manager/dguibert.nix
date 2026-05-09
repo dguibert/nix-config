@@ -12,13 +12,13 @@ let
 
   home-secret =
     let
-      home_sec = pkgs.sopsDecrypt_ ./dguibert/home-sec.nix "data";
+      home_sec = pkgs.sopsDecrypt_ ./_dguibert/_home-sec.nix "data";
       loaded = home_sec.success or true;
     in
     if loaded then
-      (builtins.trace "loaded encrypted ./homes/dguibert/home-sec.nix (${toString loaded})" home_sec)
+      (builtins.trace "loaded encrypted ./homes/_dguibert/home-sec.nix (${toString loaded})" home_sec)
     else
-      (builtins.trace "use dummy        ./homes/dguibert/home-sec.nix (${toString loaded})" (
+      (builtins.trace "use dummy        ./homes/_dguibert/home-sec.nix (${toString loaded})" (
         { ... }: { }
       ));
 
@@ -45,7 +45,7 @@ in
       { ... }:
       {
         sops.age.sshKeyPaths = [ "/home/dguibert/.ssh/id_ed25519" ];
-        sops.defaultSopsFile = ./dguibert/secrets.yaml;
+        sops.defaultSopsFile = ./_dguibert/secrets.yaml;
 
         sops.secrets.netrc = { };
         sops.secrets.pass-email1 = { };
@@ -154,27 +154,27 @@ in
       }
     )
 
-    ./dguibert/bash.nix
-    ./dguibert/emacs.nix
-    ./dguibert/git.nix
-    ./dguibert/gpg.nix
-    ./dguibert/htop.nix
-    ./dguibert/nix.nix
-    ./dguibert/ssh.nix
-    ./dguibert/zellij.nix
-    ./dguibert/vscode.nix
-    ./dguibert/with-gui.nix
-    ./dguibert/custom-foot.nix
-    ./dguibert/custom-mako.nix
-    ./dguibert/module-hyprland.nix
-    ./dguibert/module-dwl.nix
+    ./_dguibert/bash.nix
+    ./_dguibert/emacs.nix
+    ./_dguibert/git.nix
+    ./_dguibert/gpg.nix
+    ./_dguibert/htop.nix
+    ./_dguibert/nix.nix
+    ./_dguibert/ssh.nix
+    ./_dguibert/zellij.nix
+    ./_dguibert/vscode.nix
+    ./_dguibert/with-gui.nix
+    ./_dguibert/custom-foot.nix
+    ./_dguibert/custom-mako.nix
+    ./_dguibert/module-hyprland.nix
+    ./_dguibert/module-dwl.nix
   ];
 
   config = {
     programs.home-manager.enable = false;
 
     #home.file.".vim/base16.vim".source = ./base16.vim;
-    home.file.".editorconfig".source = ./dguibert/editorconfig;
+    home.file.".editorconfig".source = ./_dguibert/editorconfig;
 
     # http://ubuntuforums.org/showthread.php?t=1150822
     ## Save and reload the history after each command finishes
