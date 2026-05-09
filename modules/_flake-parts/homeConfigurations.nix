@@ -1,7 +1,7 @@
 {
+  inputs,
   config,
   lib,
-  flake-parts-lib,
   ...
 }:
 let
@@ -10,7 +10,7 @@ let
     types
     literalExpression
     ;
-  inherit (flake-parts-lib)
+  inherit (inputs.flake-parts.lib)
     mkSubmoduleOptions
     ;
 in
