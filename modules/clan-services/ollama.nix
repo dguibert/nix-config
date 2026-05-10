@@ -1,4 +1,5 @@
 {
+  flake.aspects.ollama.clan-services = {
   _class = "clan.service";
   manifest.name = "ollama";
 
@@ -31,4 +32,5 @@
           services.open-webui.enable = true;
         };
     };
+};
 }

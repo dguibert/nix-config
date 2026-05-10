@@ -1,4 +1,5 @@
 {
+  flake.aspects.tiny-ca.clan-services = {
   _class = "clan.service";
   manifest.name = "tiny-ca";
 
@@ -256,4 +257,5 @@
           };
       };
   };
+};
 }

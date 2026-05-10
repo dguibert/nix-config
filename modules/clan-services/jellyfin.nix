@@ -1,4 +1,6 @@
 {
+  flake.aspects.jellyfin.clan-services = 
+{
   _class = "clan.service";
   manifest.name = "jellyfin";
 
@@ -53,4 +55,5 @@
           };
         };
     };
+};
 }

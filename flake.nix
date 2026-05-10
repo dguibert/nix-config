@@ -40,6 +40,7 @@
     };
     emacs-overlay.follows = "nur_packages/emacs-overlay";
     envfs.url = "github:Mic92/envfs";
+    flake-aspects.url = "github:vic/flake-aspects";
     flake-compat.url = "github:edolstra/flake-compat";
     flake-file.url = "github:vic/flake-file";
     flake-parts.url = "github:hercules-ci/flake-parts";

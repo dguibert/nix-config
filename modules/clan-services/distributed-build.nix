@@ -1,5 +1,7 @@
 # https://nixos.org/nix-dev/2015-September/018255.html
 {
+  flake.aspects.distributed-build.clan-services = 
+{
   _class = "clan.service";
   manifest.name = "distributed-build";
 
@@ -122,4 +124,5 @@
           };
       };
   };
+};
 }

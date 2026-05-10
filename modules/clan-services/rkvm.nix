@@ -26,6 +26,7 @@ let
 
 in
 {
+  flake.aspects.rkvm.clan-services = {
   _class = "clan.service";
   manifest.name = "printing";
 
@@ -108,4 +109,5 @@ in
           networking.firewall.allowedTCPPorts = [ 5258 ];
         };
     };
+};
 }

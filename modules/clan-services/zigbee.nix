@@ -1,4 +1,5 @@
 {
+  flake.aspects.zigbee.clan-services ={
   _class = "clan.service";
   manifest.name = "zigbee";
 
@@ -88,4 +89,5 @@
 
       };
   };
+};
 }

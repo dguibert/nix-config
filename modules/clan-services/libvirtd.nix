@@ -1,4 +1,6 @@
 {
+  flake.aspects.libvirtd.clan-services = 
+{
   _class = "clan.service";
   manifest.name = "libvirtd";
 
@@ -65,4 +67,5 @@
           };
       };
   };
+};
 }

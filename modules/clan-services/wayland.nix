@@ -1,4 +1,5 @@
 {
+  flake.aspects.wayland.clan-services = {
   _class = "clan.service";
   manifest.name = "wayland";
 
@@ -145,4 +146,5 @@
           };
       };
   };
+};
 }

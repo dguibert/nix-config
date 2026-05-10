@@ -1,4 +1,5 @@
 {
+  flake.aspects.topt-authentication.clan-services = {
   _class = "clan.service";
   manifest.name = "totp-authentication";
 
@@ -120,4 +121,5 @@
 
         };
     };
+};
 }

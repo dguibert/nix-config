@@ -1,4 +1,6 @@
 {
+  flake.aspects.haproxy.clan-services = 
+{
   _class = "clan.service";
   manifest.name = "haproxy";
 
@@ -121,4 +123,5 @@
           };
       };
   };
+};
 }

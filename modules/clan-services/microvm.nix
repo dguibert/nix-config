@@ -1,4 +1,5 @@
 {
+  flake.aspects.microvm.clan-services = {
   _class = "clan.service";
   manifest.name = "microvm";
 
@@ -79,4 +80,5 @@
       };
   };
 
+};
 }

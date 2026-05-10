@@ -1,4 +1,5 @@
 {
+  flake.aspects.mopidy.clan-services = {
   _class = "clan.service";
   manifest.name = "mopidy";
 
@@ -270,4 +271,5 @@
           };
       };
   };
+};
 }

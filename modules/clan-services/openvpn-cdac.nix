@@ -1,4 +1,5 @@
 {
+  flake.aspects.openvpn-cdac.clan-services = {
   _class = "clan.service";
   manifest.name = "openvpn-cdac";
 
@@ -57,4 +58,5 @@
           };
       };
   };
+};
 }

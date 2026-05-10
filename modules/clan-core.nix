@@ -1,16 +1,20 @@
-{ inputs, self, ...}:
+{ inputs, config, lib,...}:
 {
-      # Usage see: https://docs.clan.lol
+  imports = [
+    inputs.flake-aspects.flakeModule
+  ];
+  flake-file.inputs.flake-aspects.url = "github:vic/flake-aspects";
+     # Usage see: https://docs.clan.lol
       clan = {
         # Ensure this is unique among all clans you want to use.
         meta.name = "orsin-homelab";
 
-        pkgsForSystem = system: builtins.trace "pkgsForSystem.${system}" self.legacyPackages.${system};
+        pkgsForSystem = system: builtins.trace "pkgsForSystem.${system}" config.legacyPackages.${system};
 
         specialArgs = {
           inherit inputs;
           pkgsForSystem =
-            system: builtins.trace "specialArgs.pkgsForSystem.${system}" self.legacyPackages.${system};
+            system: builtins.trace "specialArgs.pkgsForSystem.${system}" config.legacyPackages.${system};
         };
 
         inventory.machines.titan.tags = [
@@ -36,9 +40,9 @@
           "dguibert_rpi"
         ];
 
-        inventory.modules = self.modules.clan;
+        inventory.modules = config.flake.modules.clan;
 
-        modules = ./_clan-services;
+        modules = config.flake.modules.clan-services;
 
         inventory.instances = {
           _3d_printing = {
@@ -244,5 +248,4 @@
         # local> mkdir -p ./machines/machine1
         # local> Edit ./machines/<machine>/configuration.nix to your liking.
       };
-
 }

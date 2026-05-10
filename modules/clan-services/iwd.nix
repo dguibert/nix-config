@@ -1,4 +1,6 @@
 {
+  flake.aspects.iwd.clan-services = 
+{
   _class = "clan.service";
   manifest.name = "iwd";
 
@@ -120,4 +122,5 @@
           };
       };
   };
+};
 }

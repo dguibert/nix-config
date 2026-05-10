@@ -1,4 +1,6 @@
+{ ... }:
 {
+  flake.aspects._3d-printing.clan-services = {
   _class = "clan.service";
   manifest.name = "_3d-printing";
 
@@ -1152,4 +1154,5 @@
 
       };
   };
+};
 }

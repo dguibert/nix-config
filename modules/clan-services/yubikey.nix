@@ -1,4 +1,5 @@
 {
+  flake.aspects.yubikey.clan-services= {
   _class = "clan.service";
   manifest.name = "yubikey";
 
@@ -48,4 +49,5 @@
           };
         };
     };
+};
 }

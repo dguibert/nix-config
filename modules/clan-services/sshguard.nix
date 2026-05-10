@@ -1,4 +1,5 @@
 {
+  flake.aspects.sshguard.clan-services = {
   _class = "clan.service";
   manifest.name = "sshguard";
 
@@ -52,4 +53,5 @@
           };
         };
     };
+};
 }

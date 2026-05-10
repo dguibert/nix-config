@@ -1,4 +1,5 @@
 {
+  flake.aspects.printing.clan-services = {
   _class = "clan.service";
   manifest.name = "printing";
 
@@ -88,4 +89,5 @@
 
         };
     };
+};
 }

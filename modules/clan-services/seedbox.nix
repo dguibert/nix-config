@@ -1,4 +1,5 @@
 {
+  flake.aspects.seedbox.clan-services = {
   _class = "clan.service";
   manifest.name = "seedbox";
 
@@ -261,4 +262,5 @@
 
         };
     };
+};
 }
