@@ -119,9 +119,6 @@
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
-    clan-core.url = "git+https://git.clan.lol/clan/clan-core";
-    clan-core.inputs.nixpkgs.follows = "nixpkgs/nixpkgs"; # Needed if your configuration uses nixpkgs unstable.
-
     treefmt-nix.url = "github:numtide/treefmt-nix";
     treefmt-nix.inputs.nixpkgs.follows = "nixpkgs/nixpkgs";
 

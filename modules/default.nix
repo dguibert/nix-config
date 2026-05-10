@@ -146,7 +146,6 @@
     "aarch64-linux"
   ];
   imports = [
-    inputs.clan-core.flakeModules.default
     #./home/profiles
     ../homes
     ../hosts
