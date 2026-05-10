@@ -129,14 +129,14 @@
 
   };
 
-    imports = [
-       # enable inside-flake and say goodbye to bootstrap
-      inputs.flake-file.flakeModules.default
+  imports = [
+    # enable inside-flake and say goodbye to bootstrap
+    inputs.flake-file.flakeModules.default
 
-       # start splitting from inputs.nix into other files
-    ];
+    # start splitting from inputs.nix into other files
+  ];
 
-    # generate the same output function we used at bootstrap
-   #flake-file.outputs = "flake-parts";
-   flake-file.outputs = "inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules)";
-  }
+  # generate the same output function we used at bootstrap
+  #flake-file.outputs = "flake-parts";
+  flake-file.outputs = "inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules)";
+}
