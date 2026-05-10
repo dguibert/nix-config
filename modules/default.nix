@@ -150,7 +150,6 @@
     ../homes
     ../hosts
     #./modules/all-modules.nix
-    ../apps
     ../checks
     ../shells
   ];
