@@ -146,12 +146,6 @@
     "x86_64-linux"
     "aarch64-linux"
   ];
-  imports = [
-    #./home/profiles
-    ../homes
-    ../hosts
-    #./modules/all-modules.nix
-  ];
 
   ##      perSystem =
   ##        {

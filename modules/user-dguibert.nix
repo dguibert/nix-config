@@ -1,3 +1,4 @@
+{ lib, ... }:
 {
   config.flake.aspects.user-dguibert = {
     nixos =
