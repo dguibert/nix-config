@@ -30,7 +30,6 @@
         nix-conf.enable = true;
       }
     )
-    ../report-changes.nix
 
     ../role-dns.nix
     ../conf-kanata.nix
@@ -123,6 +122,4 @@
   time.timeZone = "Europe/Paris";
 
   programs.gnupg.agent.pinentryPackage = pkgs.pinentry-gtk2;
-
-  report-changes.enable = true;
 }

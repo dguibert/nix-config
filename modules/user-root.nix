@@ -25,9 +25,9 @@
   flake.aspects.root.homeManager =
     { pkgs, ... }:
     {
-      #imports = [
-      #  flake.modules.home.report-changes
-      #];
+      imports = [
+        config.flake.modules.homeManager.report-changes
+      ];
       manual.manpages.enable = false;
       home.username = "root";
       home.homeDirectory = "/root";
