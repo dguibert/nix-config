@@ -94,7 +94,6 @@
     nur_packages = {
       url = "github:dguibert/nur-packages?ref=master";
       inputs = {
-        git-hooks-nix.follows = "git-hooks-nix";
         nix.inputs.flake-compat.follows = "flake-compat";
         nixpkgs.follows = "upstream_nixpkgs";
       };

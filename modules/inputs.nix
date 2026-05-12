@@ -27,7 +27,6 @@
     upstream_nixpkgs.url = "github:dguibert/nixpkgs/pu";
     nur_packages.url = "github:dguibert/nur-packages?ref=master";
     nur_packages.inputs.nixpkgs.follows = "upstream_nixpkgs";
-    nur_packages.inputs.git-hooks-nix.follows = "git-hooks-nix";
     nur_packages.inputs.nix.inputs.flake-compat.follows = "flake-compat";
 
     disko.url = "github:nix-community/disko";
@@ -85,10 +84,6 @@
     emacs-overlay.follows = "nur_packages/emacs-overlay";
 
     flake-utils.follows = "nur_packages/flake-utils";
-
-    git-hooks-nix.url = "github:cachix/git-hooks.nix";
-    git-hooks-nix.inputs.nixpkgs.follows = "nixpkgs/nixpkgs/nixpkgs";
-    git-hooks-nix.inputs.flake-compat.follows = "flake-compat";
 
     #hyprland.url = "github:hyprwm/Hyprland";
     hyprland.url = "git+https://github.com/dguibert/Hyprland?ref=refs/heads/main&submodules=1";

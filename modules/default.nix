@@ -151,7 +151,6 @@
     ../homes
     ../hosts
     #./modules/all-modules.nix
-    ../checks
   ];
 
   ##      perSystem =
