@@ -1,6 +1,6 @@
 { ... }:
 {
-  flake.aspects._3d-printing.clan-services = {
+  flake.aspects._3d_printing.clan-services = {
     _class = "clan.service";
     manifest.name = "_3d-printing";
 
