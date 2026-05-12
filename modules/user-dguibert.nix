@@ -1,16 +1,4 @@
 {
-  config,
-  lib,
-  inputs,
-  pkgs,
-  ...
-}:
-
-with lib;
-let
-  cfg = config.user-dguibert;
-in
-{
   config.flake.aspects.user-dguibert = {
     nixos =
       { config, ... }:
