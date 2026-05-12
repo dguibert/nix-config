@@ -1,6 +1,5 @@
 {
-  flake.aspects.jellyfin.clan-services = {
-    _class = "clan.service";
+  flake.aspects.jellyfin."clan.service" = {
     manifest.name = "jellyfin";
 
     roles.default.perInstance =

@@ -1,6 +1,5 @@
 {
-  flake.aspects.zigbee.clan-services = {
-    _class = "clan.service";
+  flake.aspects.zigbee."clan.service" = {
     manifest.name = "zigbee";
 
     roles.server = {

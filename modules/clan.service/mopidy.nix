@@ -1,6 +1,5 @@
 {
-  flake.aspects.mopidy.clan-services = {
-    _class = "clan.service";
+  flake.aspects.mopidy."clan.service" = {
     manifest.name = "mopidy";
 
     roles.default = {

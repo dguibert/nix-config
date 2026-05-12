@@ -1,6 +1,5 @@
 {
-  flake.aspects.tiny-ca.clan-services = {
-    _class = "clan.service";
+  flake.aspects.tiny-ca."clan.service" = {
     manifest.name = "tiny-ca";
 
     roles.server = {

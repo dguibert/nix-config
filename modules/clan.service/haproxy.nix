@@ -1,6 +1,5 @@
 {
-  flake.aspects.haproxy.clan-services = {
-    _class = "clan.service";
+  flake.aspects.haproxy."clan.service" = {
     manifest.name = "haproxy";
 
     roles.default = {

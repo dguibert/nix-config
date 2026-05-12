@@ -1,7 +1,6 @@
 { ... }:
 {
-  flake.aspects._3d_printing.clan-services = {
-    _class = "clan.service";
+  flake.aspects._3d_printing."clan.service" = {
     manifest.name = "_3d-printing";
 
     roles.voron02_1 = {

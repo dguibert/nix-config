@@ -1,7 +1,6 @@
 { ... }:
 {
-  flake.aspects.my-sshd.clan-services = {
-    _class = "clan.service";
+  flake.aspects.my-sshd."clan.service" = {
     manifest.name = "my-sshd";
     manifest.description = "Enables secure remote access to the machine over SSH (copy of clan-core/sshd)";
     manifest.categories = [

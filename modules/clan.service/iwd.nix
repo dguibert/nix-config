@@ -1,6 +1,5 @@
 {
-  flake.aspects.iwd.clan-services = {
-    _class = "clan.service";
+  flake.aspects.iwd."clan.service" = {
     manifest.name = "iwd";
 
     roles.default = {

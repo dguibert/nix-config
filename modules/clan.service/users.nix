@@ -1,6 +1,5 @@
 {
-  flake.aspects.users.clan-services = {
-    _class = "clan.service";
+  flake.aspects.users."clan.service" = {
     manifest.name = "users";
 
     roles.default = {

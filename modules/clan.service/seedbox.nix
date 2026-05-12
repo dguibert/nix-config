@@ -1,6 +1,5 @@
 {
-  flake.aspects.seedbox.clan-services = {
-    _class = "clan.service";
+  flake.aspects.seedbox."clan.service" = {
     manifest.name = "seedbox";
 
     roles.aria2.perInstance =

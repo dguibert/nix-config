@@ -1,6 +1,5 @@
 {
-  flake.aspects.navidrome.clan-services = {
-    _class = "clan.service";
+  flake.aspects.navidrome."clan.service" = {
     manifest.name = "navidrome";
 
     roles.server = {

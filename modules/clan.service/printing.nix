@@ -1,6 +1,5 @@
 {
-  flake.aspects.printing.clan-services = {
-    _class = "clan.service";
+  flake.aspects.printing."clan.service" = {
     manifest.name = "printing";
 
     roles.default.perInstance =

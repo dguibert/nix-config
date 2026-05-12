@@ -1,6 +1,5 @@
 {
-  flake.aspects.sshguard.clan-services = {
-    _class = "clan.service";
+  flake.aspects.sshguard."clan.service" = {
     manifest.name = "sshguard";
 
     roles.default = { };

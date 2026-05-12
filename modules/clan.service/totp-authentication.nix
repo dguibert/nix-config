@@ -1,6 +1,5 @@
 {
-  flake.aspects.topt-authentication.clan-services = {
-    _class = "clan.service";
+  flake.aspects.topt-authentication."clan.service" = {
     manifest.name = "totp-authentication";
 
     roles.default.interface =

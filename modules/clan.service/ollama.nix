@@ -1,6 +1,5 @@
 {
-  flake.aspects.ollama.clan-services = {
-    _class = "clan.service";
+  flake.aspects.ollama."clan.service" = {
     manifest.name = "ollama";
 
     roles.default = { };

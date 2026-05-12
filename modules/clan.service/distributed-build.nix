@@ -1,7 +1,6 @@
 # https://nixos.org/nix-dev/2015-September/018255.html
 {
-  flake.aspects.distributed-build.clan-services = {
-    _class = "clan.service";
+  flake.aspects.distributed-build."clan.service" = {
     manifest.name = "distributed-build";
 
     roles.server = {

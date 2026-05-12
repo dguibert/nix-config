@@ -53,7 +53,7 @@
 
     inventory.modules = config.flake.modules.clan;
 
-    modules = config.flake.modules.clan-services;
+    modules = config.flake.modules."clan.service";
 
     inventory.instances = {
       _3d_printing = {

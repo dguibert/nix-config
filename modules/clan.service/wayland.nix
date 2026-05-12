@@ -1,6 +1,5 @@
 {
-  flake.aspects.wayland.clan-services = {
-    _class = "clan.service";
+  flake.aspects.wayland."clan.service" = {
     manifest.name = "wayland";
 
     roles.default = {

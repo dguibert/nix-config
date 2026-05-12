@@ -1,6 +1,5 @@
 {
-  flake.aspects.microvm.clan-services = {
-    _class = "clan.service";
+  flake.aspects.microvm."clan.service" = {
     manifest.name = "microvm";
 
     roles.default = {

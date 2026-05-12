@@ -1,6 +1,5 @@
 {
-  flake.aspects.libvirtd.clan-services = {
-    _class = "clan.service";
+  flake.aspects.libvirtd."clan.service" = {
     manifest.name = "libvirtd";
 
     roles.default = {

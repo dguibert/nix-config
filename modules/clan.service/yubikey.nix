@@ -1,6 +1,5 @@
 {
-  flake.aspects.yubikey.clan-services = {
-    _class = "clan.service";
+  flake.aspects.yubikey."clan.service" = {
     manifest.name = "yubikey";
 
     roles.default = { };

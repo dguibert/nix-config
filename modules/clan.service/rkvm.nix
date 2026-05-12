@@ -26,8 +26,7 @@ let
 
 in
 {
-  flake.aspects.rkvm.clan-services = {
-    _class = "clan.service";
+  flake.aspects.rkvm."clan.service" = {
     manifest.name = "printing";
 
     roles.client.interface =

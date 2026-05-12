@@ -1,6 +1,5 @@
 {
-  flake.aspects.openvpn-cdac.clan-services = {
-    _class = "clan.service";
+  flake.aspects.openvpn-cdac."clan.service" = {
     manifest.name = "openvpn-cdac";
 
     roles.default = {
