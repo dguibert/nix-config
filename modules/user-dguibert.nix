@@ -67,4 +67,9 @@
         users.groups.dguibert.gid = 1000;
       };
   };
+
+  flake.aspects.dguibert.homeManager =
+    { pkgs, ... }:
+    {
+    };
 }
