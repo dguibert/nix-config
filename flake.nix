@@ -9,6 +9,7 @@
     extra-experimental-features = [
       "nix-command"
       "flakes"
+      "pipe-operators"
     ];
   };
 
@@ -43,7 +44,10 @@
     flake-aspects.url = "github:vic/flake-aspects";
     flake-compat.url = "github:edolstra/flake-compat";
     flake-file.url = "github:vic/flake-file";
-    flake-parts.url = "github:hercules-ci/flake-parts";
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nur_packages/nixpkgs";
+    };
     flake-utils.follows = "nur_packages/flake-utils";
     git-hooks-nix = {
       url = "github:cachix/git-hooks.nix";

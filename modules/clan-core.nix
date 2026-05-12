@@ -14,6 +14,7 @@
     inputs.flake-parts.flakeModules.modules # exposes flake.modules as output
     inputs.clan-core.flakeModules.default
   ];
+
   # Usage see: https://docs.clan.lol
   clan = {
     # Ensure this is unique among all clans you want to use.

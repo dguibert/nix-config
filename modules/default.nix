@@ -5,6 +5,7 @@
   flake-file.nixConfig.extra-experimental-features = [
     "nix-command"
     "flakes"
+    "pipe-operators"
   ];
 
   ##        deploy.nodes = builtins.foldl' inputs.nur_packages.lib.recursiveUpdate { } [
