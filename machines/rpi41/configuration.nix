@@ -15,7 +15,7 @@ rec {
   imports = [
     #(import "${inputs.nur_packages.inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix")
     #sdImage.compressImage = false;
-    { nixpkgs.system = "aarch64-linux"; }
+    { nixpkgs.hostPlatform.system = "aarch64-linux"; }
     (
       { ... }:
       {
@@ -29,7 +29,7 @@ rec {
       }
     )
     (import "${inputs.nixos-hardware}/raspberry-pi/4/default.nix")
-    ../../modules/nixos/defaults
+    ../../modules/_nixos/defaults
   ];
   hardware.raspberry-pi."4".fkms-3d.enable = true;
   #sound.enable = true;

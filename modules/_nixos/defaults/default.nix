@@ -16,19 +16,6 @@
       }
     )
     (
-      {
-        config,
-        pkgsForSystem,
-        system,
-        ...
-      }:
-      {
-        # ignored when nixpkgs.pkgs set
-        #nixpkgs.hostPlatform = { system=config.nixpkgs.system };
-        nixpkgs.pkgs = pkgsForSystem config.nixpkgs.system;
-      }
-    )
-    (
       { ... }:
       {
         programs.fuse.userAllowOther = true;

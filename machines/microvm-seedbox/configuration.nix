@@ -8,10 +8,10 @@
 }:
 {
   imports = [
-    { nixpkgs.system = "x86_64-linux"; }
+    { nixpkgs.hostPlatform.system = "x86_64-linux"; }
     # Include the microvm module
     inputs.microvm.nixosModules.microvm
-    ../../modules/nixos/defaults
+    ../../modules/_nixos/defaults
   ];
 
   nix.optimise.automatic = lib.mkForce false;

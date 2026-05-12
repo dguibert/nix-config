@@ -2,6 +2,7 @@
   inputs,
   config,
   lib,
+  self,
   ...
 }:
 {
@@ -20,12 +21,12 @@
     # Ensure this is unique among all clans you want to use.
     meta.name = "orsin-homelab";
 
-    pkgsForSystem = system: builtins.trace "pkgsForSystem.${system}" config.legacyPackages.${system};
+    pkgsForSystem = system: builtins.trace "pkgsForSystem.${system}" self.legacyPackages.${system};
 
     specialArgs = {
       inherit inputs;
       pkgsForSystem =
-        system: builtins.trace "specialArgs.pkgsForSystem.${system}" config.legacyPackages.${system};
+        system: builtins.trace "specialArgs.pkgsForSystem.${system}" self.legacyPackages.${system};
     };
 
     inventory.machines.titan.tags = [

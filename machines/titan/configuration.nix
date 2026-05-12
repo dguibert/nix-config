@@ -23,8 +23,8 @@ let
 in
 {
   imports = [
-    { nixpkgs.system = "x86_64-linux"; }
-    ../../modules/nixos/defaults
+    { nixpkgs.hostPlatform.system = "x86_64-linux"; }
+    ../../modules/_nixos/defaults
     (
       { ... }:
       {

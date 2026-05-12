@@ -7,7 +7,7 @@
 with lib;
 rec {
   imports = [
-    { nixpkgs.system = "x86_64-linux"; }
+    { nixpkgs.hostPlatform.system = "x86_64-linux"; }
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     (
@@ -16,7 +16,7 @@ rec {
         services.udisks2.enable = true;
       }
     )
-    ../../modules/nixos/defaults
+    ../../modules/_nixos/defaults
     (
       { ... }:
       {
