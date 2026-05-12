@@ -16,8 +16,13 @@
     ];
   };
 
-  configurations.home.root.system = "x86_64-linux";
-  configurations.home.root.module =
+  configurations.home."root@x86_64".system = "x86_64-linux";
+  configurations.home."root@x86_64".module = config.flake.modules.homeManager.root;
+
+  configurations.home."root@aarch64".system = "aarch64-linux";
+  configurations.home."root@aarch64".module = config.flake.modules.homeManager.root;
+
+  flake.aspects.root.homeManager =
     { pkgs, ... }:
     {
       #imports = [
