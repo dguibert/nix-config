@@ -36,9 +36,6 @@
     ../conf-kanata.nix
 
     #../../modules/services.nix
-
-    ../../../users/default.nix
-
     (
       { ... }:
       {

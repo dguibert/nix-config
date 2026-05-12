@@ -30,24 +30,29 @@
     };
 
     inventory.machines.titan.tags = [
+      "users"
       "desktop"
       "dguibert"
     ];
     inventory.machines.t580.tags = [
+      "users"
       "desktop"
       "dguibert"
       "wifi"
     ];
     inventory.machines.rpi41.tags = [
+      "users"
       "desktop64"
       "dguibert_rpi"
       "wifi"
     ];
     inventory.machines.rpi31.tags = [
+      "users"
       "wifi"
       "dguibert_rpi"
     ];
     inventory.machines.rpi02.tags = [
+      "users"
       "wifi"
       "dguibert_rpi"
     ];
@@ -57,6 +62,14 @@
     modules = config.flake.modules."clan.service";
 
     inventory.instances = {
+      default-settings = {
+        module.name = "importer";
+        roles.default.tags.all = { };
+        roles.default.extraModules = [
+          config.flake.modules.nixos.user-root
+          config.flake.modules.nixos.user-dguibert
+        ];
+      };
       _3d_printing = {
         module.input = "self";
         roles.voron02_1.machines.rpi02 = { };
@@ -177,7 +190,7 @@
 
       users = {
         module.input = "self";
-        roles.default.tags.all = { };
+        roles.default.tags.users = { };
         roles.default.settings.passwords.root.prompt = true;
         roles.default.settings.passwords.dguibert.prompt = true;
       };

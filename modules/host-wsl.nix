@@ -3,7 +3,7 @@
   ...
 }:
 {
-  config.configurations.nixos.iso.module = {
+  config.configurations.nixos.wsl.module = {
     imports = [
       inputs.nixos-wsl.nixosModules.wsl
       ({
@@ -17,7 +17,6 @@
       ./_nixos/nix-conf.nix
       inputs.home-manager.nixosModules.home-manager
       inputs.impermanence.nixosModules.impermanence
-      ../users/dguibert
       (
         { pkgs, ... }:
         {
@@ -46,7 +45,7 @@
                 { config, pkgs, ... }:
                 {
                   imports = [
-                    ../../modules/home-manager/dguibert.nix
+                    #../modules/home-manager/dguibert.nix
                   ];
                   withGui.enable = false;
                   withEmacs.enable = true;
