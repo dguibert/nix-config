@@ -234,6 +234,11 @@ in
   ##specialisation.nvidia = {
   ##  inheritParentConfig = true;
   ##  configuration = {
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
+    builtins.elem (lib.getName pkg) [
+      "nvidia-x11"
+    ];
   ## https://nixos.wiki/wiki/Nvidia
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {

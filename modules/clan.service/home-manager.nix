@@ -32,7 +32,7 @@
                     ];
                   }
                 )
-                ../home-manager/dguibert.nix
+                ../_home-manager/dguibert.nix
                 {
                   withZellij.enable = true;
                 }
@@ -49,7 +49,7 @@
           {
             home-manager.users.dguibert = {
               imports = [
-                ../home-manager/dguibert/emacs.nix
+                ../_home-manager/dguibert/emacs.nix
                 {
                   withEmacs.enable = true;
                 }
@@ -67,7 +67,7 @@
           {
             home-manager.users.dguibert = {
               imports = [
-                ../home-manager/dguibert/impermanence.nix
+                #../home-manager/dguibert/impermanence.nix
                 { withPersistence.enable = true; }
               ];
             };
@@ -106,8 +106,8 @@
           {
             home-manager.users.dguibert = {
               imports = [
-                ../home-manager/dguibert/with-gui.nix
-                ../home-manager/dguibert/module-hyprland.nix
+                #../_home-manager/dguibert/with-gui.nix
+                #../_home-manager/dguibert/module-hyprland.nix
                 {
                   home.stateVersion = "25.11";
                   withGui.enable = true;

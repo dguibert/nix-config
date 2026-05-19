@@ -1,5 +1,6 @@
 {
   inputs,
+  config,
   ...
 }:
 {
@@ -15,7 +16,6 @@
         #programs.bash.loginShellInit = "nixos-wsl-welcome";
       })
       ./_nixos/nix-conf.nix
-      inputs.home-manager.nixosModules.home-manager
       inputs.impermanence.nixosModules.impermanence
       (
         { pkgs, ... }:
@@ -38,25 +38,16 @@
           i18n = {
             supportedLocales = [ "en_US.UTF-8/UTF-8" ];
           };
-
-          home-manager.users.dguibert = {
-            imports = [
-              (
-                { config, pkgs, ... }:
-                {
-                  imports = [
-                    #../modules/home-manager/dguibert.nix
-                  ];
-                  withGui.enable = false;
-                  withEmacs.enable = true;
-                  home.homeDirectory = "/home/dguibert";
-                  home.stateVersion = "23.05";
-                }
-              )
-            ];
-          };
         }
       )
+      config.flake.modules.nixos.dguibert
+      config.flake.modules.nixos.dguibert-bash
+      config.flake.modules.nixos.dguibert-emacs
+      config.flake.modules.nixos.dguibert-git
+      config.flake.modules.nixos.dguibert-htop
+      config.flake.modules.nixos.dguibert-nix
+      config.flake.modules.nixos.dguibert-ssh
+      config.flake.modules.nixos.dguibert-zellij
 
     ];
   };

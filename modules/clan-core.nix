@@ -80,32 +80,66 @@
         roles.default.machines.rpi41 = { };
       };
 
-      home-manager = {
-        module.input = "self";
+      home-manager-dguibert = {
+        module.name = "importer";
+        roles.default.tags.dguibert = { };
+        roles.default.extraModules = [
+          config.flake.modules.nixos.dguibert
+          config.flake.modules.nixos.dguibert-bash
+          #config.flake.modules.nixos.dguibert-custom-profile
+          config.flake.modules.nixos.dguibert-emacs
+          config.flake.modules.nixos.dguibert-foot
+          config.flake.modules.nixos.dguibert-git
+          config.flake.modules.nixos.dguibert-gpg
+          config.flake.modules.nixos.dguibert-htop
+          config.flake.modules.nixos.dguibert-nix
+          config.flake.modules.nixos.dguibert-ssh
+          config.flake.modules.nixos.dguibert-tmux
+          config.flake.modules.nixos.dguibert-annex
+          #roles.dguibert-annex.tags.dguibert = { };
+        ];
+      };
 
-        roles.dguibert.tags.dguibert = { };
-        roles.dguibert-emacs.tags.dguibert = { };
-        roles.dguibert-gui.tags.desktop = { };
-        roles.dguibert-annex.tags.dguibert = { };
-        roles.dguibert-persistence.tags.dguibert = { };
-        roles.dguibert-mail.machines.titan = { };
-        roles.dguibert-3d-tools.machines.titan = { };
-        roles.dguibert-ssh-teleport.machines.titan = { };
-        roles.dguibert.machines.titan.settings.centralMailHost.enable = true;
-        roles.dguibert-vscode.machines.titan = { };
+      home-manager-dguibert-impermanence = {
+        module.name = "importer";
+        roles.default.machines.titan = { };
+        roles.default.machines.t580 = { };
+        roles.default.extraModules = [
+          ##         config.flake.modules.nixos.dguibert-impermanence
+        ];
+      };
 
-        #roles.dguibert.tags.dguibert_rpi.settings = {
-        roles.dguibert.machines.titan.settings.withPersistence.enable = true;
-        roles.dguibert.machines.t580.settings.withPersistence.enable = true;
-        roles.dguibert-gui.machines.rpi41.settings = {
-          hyprland.hyprsplit.enable = false;
-        };
+      home-manager-dguibert-desktop = {
+        module.name = "importer";
+        roles.default.tags.desktop = { };
+        roles.default.extraModules = [
+          #config.flake.modules.nixos.dguibert-dwl
+          # desktop
+          #roles.dguibert-gui.tags.desktop = { };
+          config.flake.modules.nixos.dguibert-mako
+          config.flake.modules.nixos.dguibert-hyprland
+          config.flake.modules.nixos.dguibert-with-gui
+        ];
+      };
+
+      home-manager-dguibert-titan = {
+        module.name = "importer";
+        roles.default.machines.titan = { };
+        roles.default.extraModules = [
+          #roles.dguibert-mail.machines.titan = { };
+          #roles.dguibert-3d-tools.machines.titan = { };
+          #roles.dguibert-ssh-teleport.machines.titan = { };
+          #roles.dguibert.machines.titan.settings.centralMailHost.enable = true;
+          config.flake.modules.nixos.dguibert-with-3d-tools
+          ##          config.flake.modules.homeManager.dguibert-vscode
+        ];
       };
 
       jellyfin = {
         module.input = "self";
         roles.default.machines.titan = { };
       };
+
       libvirtd = {
         module.input = "self";
         roles.default.machines.titan = { };

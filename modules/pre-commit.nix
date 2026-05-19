@@ -23,6 +23,7 @@
             nixfmt-rfc-style.enable = true;
             nixfmt-rfc-style.excludes = [
               "modules/home-manager/dguibert/home-sec\\.nix"
+              "modules/user-dguibert/_home-sec\\.nix"
             ];
             trailing-whitespace = {
               enable = true;

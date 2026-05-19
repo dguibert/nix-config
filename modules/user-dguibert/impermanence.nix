@@ -5,6 +5,9 @@
   ...
 }:
 {
+  flake.aspects.dguibert-impermanence.nixos.home-manager.users.dguibert.imports = [
+    config.flake.modules.homeManager.dguibert-impermanence
+  ];
   flake.aspects.dguibert-impermanence.homeManager =
     { pkgs, ... }:
     {

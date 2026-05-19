@@ -1,6 +1,14 @@
-{ lib, ... }:
 {
-  config.flake.aspects.user-dguibert = {
+  inputs,
+  config,
+  lib,
+  ...
+}:
+let
+  home_path = "/home/dguibert";
+in
+{
+  flake.aspects.user-dguibert = {
     nixos =
       { config, ... }:
       {
@@ -8,7 +16,7 @@
           isNormalUser = true;
           uid = 1000;
           description = "David Guibert";
-          home = "/home/dguibert";
+          home = home_path;
           group = "dguibert";
           extraGroups = [
             "dguibert"
@@ -68,8 +76,123 @@
       };
   };
 
+  flake.aspects.dguibert.nixos = {
+    imports = [ inputs.home-manager.nixosModules.home-manager ];
+    home-manager.users.dguibert = {
+      home.homeDirectory = home_path;
+      home.stateVersion = "25.11";
+
+      programs.home-manager.enable = false;
+    };
+  };
+
   flake.aspects.dguibert.homeManager =
     { pkgs, ... }:
     {
+      imports = [
+        config.flake.modules.homeManager.report-changes
+      ];
+      # mimeapps.list
+      # https://github.com/bobvanderlinden/nix-home/blob/master/home.nix
+      home.keyboard.layout = "fr";
+
+      #home.file.".vim/base16.vim".source = ./base16.vim;
+      home.file.".editorconfig".source = ./_editorconfig;
+
+      # http://ubuntuforums.org/showthread.php?t=1150822
+      ## Save and reload the history after each command finishes
+      home.sessionVariables.SQUEUE_FORMAT = "%.18i %.25P %35j %.8u %.2t %.10M %.6D %.6C %.6z %.15E %20R %W";
+      #home.sessionVariables.SINFO_FORMAT="%30N  %.6D %.6c %15F %10t %20f %P"; # with state
+      home.sessionVariables.SINFO_FORMAT = "%30N  %.6D %.6c %15F %20f %P";
+      home.sessionVariables.MOZ_ENABLE_WAYLAND = 1;
+
+      # Fix stupid java applications like android studio
+      home.sessionVariables._JAVA_AWT_WM_NONREPARENTING = "1";
+
+      home.packages = with pkgs; [
+        (vim-full.override {
+          guiSupport = "no";
+          rubySupport = false;
+          libsm = false;
+          libice = false;
+          libx11 = false;
+          libxext = false;
+          libxpm = false;
+          libxt = false;
+          libxaw = false;
+          libxau = false;
+          libxmu = false;
+          gtk2-x11 = false;
+          gtk3-x11 = false;
+        })
+
+        rsync
+
+        gnumake
+        #nix-repl
+        pstree
+
+        screen
+        #teamviewer
+        lsof
+        #haskellPackages.nix-deploy
+        htop
+        tree
+
+        #wpsoffice
+        file
+        bc
+        unzip
+
+        jq
+
+        st
+        dvtm
+        abduco
+        #(conky.override { x11Support = false; }) # fails 20230721 conky-1.19.2
+        gnuplot
+        mkpasswd
+        aria2
+        qtpass
+        qrencode
+
+        go-mtpfs
+
+        urlscan
+
+        hledger
+        haskellPackages.hledger-interest
+        #pythonPackages.ofxparse
+
+        mpv
+        python3
+
+        baobab
+        #bup
+        #par2cmdline
+
+        lieer
+        muchsync
+        notmuch-addrlookup
+        #firefox-bin
+
+        terminus_font
+        powerline-fonts # corefonts
+        fira-code
+        fira-code-symbols
+
+        nxsession
+
+        (makeDesktopItem {
+          name = "org-protocol";
+          exec = "emacsclient %u";
+          comment = "Org protocol";
+          desktopName = "org-protocol";
+          type = "Application";
+          mimeTypes = [ "x-scheme-handler/org-protocol" ];
+        })
+
+      ];
+
     };
 }
