@@ -83,7 +83,6 @@ in
     home-manager.users.dguibert = {
       imports = [
         config.flake.modules.homeManager.dguibert
-        config.flake.modules.homeManager.nixpkgs
       ];
       home.homeDirectory = home_path;
       home.stateVersion = "25.11";
