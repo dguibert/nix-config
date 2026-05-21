@@ -13,7 +13,7 @@ in
 {
   config.configurations.nixos.iso.module = {
     imports = [
-      (import "${inputs.nur_packages.inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix")
+      (import "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix")
       config.flake.modules.nixos.zfs
       ({
         zfs-conf.enable = true;

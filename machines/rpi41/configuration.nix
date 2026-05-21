@@ -13,7 +13,7 @@ with lib;
 
 rec {
   imports = [
-    #(import "${inputs.nur_packages.inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix")
+    #(import "${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix")
     #sdImage.compressImage = false;
     { nixpkgs.hostPlatform.system = "aarch64-linux"; }
     (
