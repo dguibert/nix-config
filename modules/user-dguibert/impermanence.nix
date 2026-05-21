@@ -49,7 +49,7 @@
         #  method = "symlink";
         #}
       ]
-      ++ lib.optionals config.centralMailHost.enable [
+      ++ lib.optionals (config.centralMailHost.enable or false) [
         "Maildir"
         "Maildir/.notmuch"
       ];
@@ -68,7 +68,7 @@
         ".signature.work"
         ".vimrc"
       ]
-      ++ lib.optionals config.centralMailHost.enable [
+      ++ lib.optionals (config.centralMailHost.enable or false) [
         ".local/state/davmail-tokens"
       ];
     };

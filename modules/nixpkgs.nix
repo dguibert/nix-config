@@ -1,53 +1,65 @@
 {
-  self,
-  config,
-  pkgs,
   lib,
   inputs,
   perSystem,
-  system,
+  withSystem,
   ...
 }:
 let
-  config' = config;
   overlays = [
     #self.overlays.default
     inputs.deploy-rs.overlays.default
     inputs.nxsession.overlay
+    inputs.nur_packages.overlays.extra-builtins
     #inputs.nixpkgs-wayland.overlay
     #inputs.hyprland.overlays.default
-    # for rpi31
-    (final: prev: {
-      makeModulesClosure =
-        {
-          allowMissing ? false,
-          ...
-        }@args:
-        prev.makeModulesClosure (
-          args
-          // {
-            allowMissing = true;
-          }
-        );
-    })
   ];
 
-  packages = config: system: inputs.nixpkgs.legacyPackages.${system}.appendOverlays overlays;
+  nixpkgs_config = {
+    allowUnfree = true;
+  };
+
+  #packages = system: inputs.nixpkgs.legacyPackages.${system}.appendOverlays overlays;
+  packages =
+    system:
+    import inputs.upstream_nixpkgs {
+      inherit system overlays;
+      config = nixpkgs_config;
+    };
 in
 {
-  config._module.args.pkgs = packages config system;
+  _module.args.pkgs = builtins.trace "pkgs" packages (builtins.currentSystem or "x86_64-linux");
+  #  config._module.args.pkgs = packages config system;
+  # https://flake.parts/system
+  flake.aspects.nixpkgs.nixos = {
+    nixpkgs.config = nixpkgs_config;
+    nixpkgs.overlays = overlays;
+  };
 
-  config.perSystem =
+  flake.aspects.nixpkgs.homeManager = {
+    nixpkgs.config = nixpkgs_config;
+    nixpkgs.overlays = overlays;
+  };
+
+  #flake.aspects.nixpkgs.nixos.imports = [
+  #  inputs.nixpkgs.nixosModules.readOnlyPkgs
+  #    ({ config, ... }: {
+  #      # Use the configured pkgs from perSystem
+  #      nixpkgs.pkgs = withSystem config.nixpkgs.hostPlatform.system (
+  #        { pkgs, ... }: # perSystem module arguments
+  #        pkgs
+  #      );
+  #    })
+  #];
+
+  perSystem =
     {
-      config,
-      self',
-      inputs',
-      pkgs,
       system,
+      config,
       ...
     }:
     {
-      _module.args.pkgs = packages config system;
-      legacyPackages = packages config system;
+      _module.args.pkgs = packages system;
+      legacyPackages = packages system;
     };
 }

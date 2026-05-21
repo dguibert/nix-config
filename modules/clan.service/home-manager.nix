@@ -1,3 +1,7 @@
+{ config, ... }:
+let
+  config' = config;
+in
 {
   flake.aspects.home-manager."clan.service" = {
     manifest.name = "home-manager";
@@ -185,7 +189,7 @@
             imports = [
               inputs.home-manager.nixosModules.home-manager
             ];
-            home-manager.useGlobalPkgs = true;
+            home-manager.useGlobalPkgs = true; # or config'.flake.modules.homeManager.nixpkgs
             home-manager.useUserPackages = true;
             #- dguibert profile: xdg.portal: since you installed Home Manager via its NixOS module and
             #'home-manager.useUserPackages' is enabled, you need to add

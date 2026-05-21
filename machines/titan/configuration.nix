@@ -24,7 +24,6 @@ in
 {
   imports = [
     { nixpkgs.hostPlatform.system = "x86_64-linux"; }
-    ../../modules/_nixos/defaults
     (
       { ... }:
       {
@@ -238,6 +237,13 @@ in
     pkg:
     builtins.elem (lib.getName pkg) [
       "nvidia-x11"
+      "nvidia-settings"
+      "broadcom-bt-firmware"
+      "b43-firmware"
+      "xone-dongle-firmware"
+      "facetimehd-calibration"
+      "facetimehd-firmware"
+      "nvidia-kernel-modules"
     ];
   ## https://nixos.wiki/wiki/Nvidia
   services.xserver.videoDrivers = [ "nvidia" ];

@@ -29,7 +29,6 @@ rec {
       }
     )
     (import "${inputs.nixos-hardware}/raspberry-pi/4/default.nix")
-    ../../modules/_nixos/defaults
   ];
   hardware.raspberry-pi."4".fkms-3d.enable = true;
   #sound.enable = true;

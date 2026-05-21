@@ -1,10 +1,4 @@
 {
-  config,
-  lib,
-  ...
-}:
-with lib;
-{
   flake.aspects.report-changes = {
     nixos =
       { config, ... }:
@@ -16,7 +10,7 @@ with lib;
       };
 
     homeManager =
-      { activationPkgs, ... }:
+      { activationPkgs, config, ... }:
       {
         home.activation.report-changes = config.lib.dag.entryAnywhere ''
           if [[ -v oldGenPath ]]; then

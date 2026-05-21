@@ -15,7 +15,6 @@
 
         #programs.bash.loginShellInit = "nixos-wsl-welcome";
       })
-      ./_nixos/nix-conf.nix
       inputs.impermanence.nixosModules.impermanence
       (
         { pkgs, ... }:
@@ -40,12 +39,17 @@
           };
         }
       )
+      config.flake.modules.nixos.dns
+      config.flake.modules.nixos.nix
+      config.flake.modules.nixos.nix-registry
+
+      config.flake.modules.nixos.user-root
+
       config.flake.modules.nixos.dguibert
       config.flake.modules.nixos.dguibert-bash
       config.flake.modules.nixos.dguibert-emacs
       config.flake.modules.nixos.dguibert-git
       config.flake.modules.nixos.dguibert-htop
-      config.flake.modules.nixos.dguibert-nix
       config.flake.modules.nixos.dguibert-ssh
       config.flake.modules.nixos.dguibert-zellij
 

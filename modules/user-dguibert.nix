@@ -77,8 +77,14 @@ in
   };
 
   flake.aspects.dguibert.nixos = {
-    imports = [ inputs.home-manager.nixosModules.home-manager ];
+    imports = [
+      inputs.home-manager.nixosModules.home-manager
+    ];
     home-manager.users.dguibert = {
+      imports = [
+        config.flake.modules.homeManager.dguibert
+        config.flake.modules.homeManager.nixpkgs
+      ];
       home.homeDirectory = home_path;
       home.stateVersion = "25.11";
 
@@ -91,13 +97,14 @@ in
     {
       imports = [
         config.flake.modules.homeManager.report-changes
+        config.flake.modules.homeManager.dguibert-home-sec
       ];
       # mimeapps.list
       # https://github.com/bobvanderlinden/nix-home/blob/master/home.nix
       home.keyboard.layout = "fr";
 
       #home.file.".vim/base16.vim".source = ./base16.vim;
-      home.file.".editorconfig".source = ./_editorconfig;
+      home.file.".editorconfig".source = ./user-dguibert/_editorconfig;
 
       # http://ubuntuforums.org/showthread.php?t=1150822
       ## Save and reload the history after each command finishes

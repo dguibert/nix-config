@@ -66,6 +66,18 @@
         module.name = "importer";
         roles.default.tags.all = { };
         roles.default.extraModules = [
+          ({ config, ...}: {
+            clan.core.networking.targetHost = config.clan.core.settings.machine.name;
+          })
+          config.flake.modules.nixos.cacerts
+          config.flake.modules.nixos.dns
+          config.flake.modules.nixos.fr
+          config.flake.modules.nixos.kanata
+          config.flake.modules.nixos.nix
+          config.flake.modules.nixos.nix-registry
+          config.flake.modules.nixos.sshd
+          config.flake.modules.nixos.nixpkgs
+
           config.flake.modules.nixos.user-root
           config.flake.modules.nixos.user-dguibert
         ];
@@ -92,7 +104,6 @@
           config.flake.modules.nixos.dguibert-git
           config.flake.modules.nixos.dguibert-gpg
           config.flake.modules.nixos.dguibert-htop
-          config.flake.modules.nixos.dguibert-nix
           config.flake.modules.nixos.dguibert-ssh
           config.flake.modules.nixos.dguibert-tmux
           config.flake.modules.nixos.dguibert-annex
@@ -105,7 +116,8 @@
         roles.default.machines.titan = { };
         roles.default.machines.t580 = { };
         roles.default.extraModules = [
-          ##         config.flake.modules.nixos.dguibert-impermanence
+          config.flake.modules.nixos.impermanence
+          config.flake.modules.nixos.dguibert-impermanence
         ];
       };
 

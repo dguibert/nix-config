@@ -1,3 +1,7 @@
+{ pkgs, ... }:
+let
+  pkgs' = pkgs;
+in
 {
   flake.aspects.tiny-ca."clan.service" = {
     manifest.name = "tiny-ca";
@@ -204,7 +208,7 @@
                             type = "OIDC";
                             name = "Google";
                             clientID = "811353294591-2k31p85ic5csh3v18r7ro0aa5clchm38.apps.googleusercontent.com";
-                            clientSecret = pkgs.sopsDecrypt_ ../../secrets/defaults.yaml "orsin-ca-811353294591-2k31p85ic5csh3v18r7ro0aa5clchm38.apps.googleusercontent.com";
+                            clientSecret = pkgs'.sopsDecrypt_ ../../secrets/defaults.yaml "orsin-ca-811353294591-2k31p85ic5csh3v18r7ro0aa5clchm38.apps.googleusercontent.com";
                             configurationEndpoint = "https://accounts.google.com/.well-known/openid-configuration";
                             admins = [ "david.guibert@gmail.com" ];
                             domains = [ "gmail.com" ];

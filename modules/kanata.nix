@@ -1,20 +1,5 @@
 {
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-let
-  cfg = config.conf-kanata;
-in
-{
-  options.conf-kanata.enable = lib.mkOption {
-    default = true;
-    description = "Whether to enable kanata remapping keyboard keys";
-    type = lib.types.bool;
-  };
-
-  config = lib.mkIf cfg.enable {
+  flake.aspects.kanata.nixos = {
     services.kanata = {
       enable = true;
       keyboards = {
