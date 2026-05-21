@@ -5,6 +5,7 @@
     systems.url = "github:nix-systems/default-linux";
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
+    flake-utils.url = "github:numtide/flake-utils";
 
     # make sure you add flake-file dependency.
     flake-file.url = lib.mkDefault "github:vic/flake-file";
