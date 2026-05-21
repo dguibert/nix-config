@@ -21,19 +21,21 @@
 
   config.flake = {
     lib.genProfile = user: name: profile: {
-                  path =
-                    pkgs.deploy-rs.lib.activate.custom
-                      config.flake.homeConfigurations."${name}".activationPackage
-                      ''
-                        export NIX_STATE_DIR=${config.flake.homeConfigurations."${name}".config.home.sessionVariables.NIX_STATE_DIR}
-                        export NIX_PROFILE=${config.flake.homeConfigurations."${name}".config.home.sessionVariables.NIX_PROFILE}
-                        ./activate
-                      '';
-                  sshUser = user;
-                  profilePath = "${builtins.dirOf builtins.storeDir}/var/nix/profiles/per-user/${user}/${profile}";
-                };
+      path =
+        pkgs.deploy-rs.lib.activate.custom config.flake.homeConfigurations."${name}".activationPackage
+          ''
+            export NIX_STATE_DIR=${
+              config.flake.homeConfigurations."${name}".config.home.sessionVariables.NIX_STATE_DIR
+            }
+            export NIX_PROFILE=${
+              config.flake.homeConfigurations."${name}".config.home.sessionVariables.NIX_PROFILE
+            }
+            ./activate
+          '';
+      sshUser = user;
+      profilePath = "${builtins.dirOf builtins.storeDir}/var/nix/profiles/per-user/${user}/${profile}";
+    };
 
-    
     homeConfigurations = lib.flip lib.mapAttrs config.configurations.home (
       name:
       { module, system }:

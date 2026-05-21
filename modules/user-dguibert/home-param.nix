@@ -6,17 +6,17 @@
 }:
 {
 
-  flake.deploy.nodes.mn5 = {
-    hostname = "mn5-nix";
+  flake.deploy.nodes."gdavid@param-rudra" = {
+    hostname = "param(rudra";
     fastConnection = true;
     autoRollback = false;
     magicRollback = false;
 
-    profiles.user = config.flake.lib.genProfile "evid356257" "mn5" "hm";
+    profiles.user = config.flake.lib.genProfile "gdavid" "gdavid@param-rudra" "hm";
   };
 
-  configurations.home.mn5.system = "x86_64-linux";
-  configurations.home.mn5.module = {
+  configurations.home."gdavid@param-rudra".system = "x86_64-linux";
+  configurations.home."gdavid@param-rudra".module = {
     imports = [
       config.flake.modules.homeManager.dguibert
       config.flake.modules.homeManager.dguibert-bash
@@ -31,8 +31,8 @@
       config.flake.modules.homeManager.dguibert-zellij
       config.flake.modules.homeManager.dguibert-annex
     ];
-    home.username = "evid356257";
-    home.homeDirectory = "/home/evid/evid356257";
+    home.username = "gdavid";
+    home.homeDirectory = "/home/gdavid";
     home.stateVersion = "25.11";
 
     withCustomProfile.enable = true;
