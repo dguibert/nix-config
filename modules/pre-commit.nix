@@ -5,7 +5,7 @@
 {
   flake-file.inputs = {
     git-hooks-nix.url = "github:cachix/git-hooks.nix";
-    git-hooks-nix.inputs.nixpkgs.follows = "nixpkgs/nixpkgs/nixpkgs";
+    git-hooks-nix.inputs.nixpkgs.follows = "nixpkgs";
     git-hooks-nix.inputs.flake-compat.follows = "flake-compat";
   };
 

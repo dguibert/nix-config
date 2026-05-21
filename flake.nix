@@ -25,7 +25,6 @@
     };
     clan-core = {
       url = "git+https://git.clan.lol/clan/clan-core";
-      inputs.nixpkgs.follows = "nixpkgs/nixpkgs";
     };
     deploy-rs = {
       url = "github:dguibert/deploy-rs/pu";
@@ -53,7 +52,7 @@
       url = "github:cachix/git-hooks.nix";
       inputs = {
         flake-compat.follows = "flake-compat";
-        nixpkgs.follows = "nixpkgs/nixpkgs/nixpkgs";
+        nixpkgs.follows = "nixpkgs";
       };
     };
     gitignore = {
