@@ -30,5 +30,7 @@
         inherit drv;
         exePath = "/bin/deploy";
       };
+      # This is highly advised, and will prevent many possible mistakes
+      checks = pkgs.deploy-rs.lib.deployChecks inputs.self.deploy;
     };
 }

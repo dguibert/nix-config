@@ -11,77 +11,11 @@ let
 in
 {
   imports = [
-    (genHomeManagerConfiguration "x86_64-linux" "evid356257@mn5")
-    (genHomeManagerConfiguration "x86_64-linux" "gdavid@param")
 
     (genHomeManagerConfiguration "x86_64-linux" "bguibertd@spartan")
     (genHomeManagerConfiguration "x86_64-linux" "bguibertd@spartan-x86_64")
     #(genHomeManagerConfiguration "aarch64-linux" "bguibertd@spartan-aarch64")
     (genHomeManagerConfiguration "x86_64-linux" "bguibertd@spartan-aarch64")
-  ];
-
-  modules.homes."bguibertd@spartan" = [
-    (
-      { config, pkgs, ... }:
-      {
-        imports = [
-          ../modules/home-manager/dguibert.nix
-          ../modules/home-manager/dguibert/custom-profile.nix
-        ];
-        centralMailHost.enable = false;
-        withGui.enable = false;
-        withCustomProfile.enable = true;
-        withCustomProfile.suffix = "";
-
-        home.username = "bguibertd";
-        home.homeDirectory = "/home_nfs/users/bguibertd";
-        home.stateVersion = "22.11";
-        #home.activation.setNixVariables = lib.hm.dag.entryBefore ["writeBoundary"]
-
-        # don't use full bash config
-        withBash.enable = false;
-        withGpg.enable = false;
-        programs.bash.enable = true;
-        programs.bash.historySize = -1; # no truncation
-        programs.bash.historyFile = "$HOME/.bash_history";
-        programs.bash.historyFileSize = -1; # no truncation
-        programs.bash.historyControl = [
-          "erasedups"
-          "ignoredups"
-          "ignorespace"
-        ];
-        programs.bash.historyIgnore = [
-          "ls"
-          "cd"
-          "clear"
-          "[bf]g"
-          " *"
-          "cd -"
-          "history"
-          "history -*"
-          "pwd"
-          "exit"
-          "date"
-        ];
-
-        programs.bash.bashrcExtra = # (homes.withoutX11 args).programs.bash.initExtra +
-          ''
-            # support for x86_64/aarch64
-            # include .bashrc if it exists
-            [[ -f ~/.bashrc.$(uname -m) ]] && . ~/.bashrc.$(uname -m)
-          '';
-        programs.bash.profileExtra = ''
-          # support for x86_64/aarch64
-          # include .profile if it exists
-          [[ -f ~/.profile.$(uname -m) ]] && . ~/.profile.$(uname -m)
-        '';
-
-        home.packages = with pkgs; [
-          dtach
-        ];
-        dconf.enable = false; # dbus: Failed to start message bus: Configuration file needs one or more <listen> elements giving addresses
-      }
-    )
   ];
 
   modules.homes."bguibertd@spartan-x86_64" = [

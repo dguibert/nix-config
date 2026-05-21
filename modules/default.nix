@@ -68,26 +68,6 @@
   ##              t580 = self.homeConfigurations."root@t580";
   ##            }
   ##          )
-  ##          (
-  ##            let
-  ##            in
-  ##            {
-  ##              spartan = {
-  ##                hostname = "spartan";
-  ##                sshOpts = [
-  ##                  "-o"
-  ##                  "ControlMaster=no"
-  ##                ]; # https://github.com/serokell/deploy-rs/issues/106
-  ##                fastConnection = true;
-  ##                autoRollback = false;
-  ##                magicRollback = false;
-  ##
-  ##                profiles.bguibertd = genProfile "bguibertd" "bguibertd@spartan" "hm";
-  ##                profiles.bguibertd-x86_64 = genProfile "bguibertd" "bguibertd@spartan-x86_64" "hm-x86_64";
-  ##                profiles.bguibertd-aarch64 = genProfile "bguibertd" "bguibertd@spartan-aarch64" "hm-aarch64";
-  ##              };
-  ##          ({ })
-  ##        ];
   ##
   ##      };
   systems = [

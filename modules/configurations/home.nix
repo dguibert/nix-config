@@ -15,6 +15,10 @@
         options.system = lib.mkOption {
           type = lib.types.str;
         };
+        options.crossCompilation = lib.mkOption {
+          type = lib.types.bool;
+          default = false;
+        };
       }
     );
   };
@@ -24,11 +28,21 @@
       path =
         pkgs.deploy-rs.lib.activate.custom config.flake.homeConfigurations."${name}".activationPackage
           ''
-            export NIX_STATE_DIR=${
-              config.flake.homeConfigurations."${name}".config.home.sessionVariables.NIX_STATE_DIR
+            ${
+              if config.flake.homeConfigurations."${name}".config.home.sessionVariables ? NIX_STATE_DIR then
+                "export NIX_STATE_DIR=${
+                  config.flake.homeConfigurations."${name}".config.home.sessionVariables.NIX_STATE_DIR
+                }"
+              else
+                ""
             }
-            export NIX_PROFILE=${
-              config.flake.homeConfigurations."${name}".config.home.sessionVariables.NIX_PROFILE
+            ${
+              if config.flake.homeConfigurations."${name}".config.home.sessionVariables ? NIX_STATE_DIR then
+                "export NIX_PROFILE=${
+                  config.flake.homeConfigurations."${name}".config.home.sessionVariables.NIX_PROFILE
+                }"
+              else
+                ""
             }
             ./activate
           '';
@@ -38,9 +52,13 @@
 
     homeConfigurations = lib.flip lib.mapAttrs config.configurations.home (
       name:
-      { module, system }:
+      {
+        module,
+        system,
+        crossCompilation,
+      }:
       inputs.home-manager.lib.homeManagerConfiguration {
-        pkgs = config.flake.legacyPackages.${system};
+        pkgs = if crossCompilation then pkgs.pkgsCross.${system} else config.flake.legacyPackages.${system};
         modules = [ module ];
       }
     );
