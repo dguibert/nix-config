@@ -4,7 +4,6 @@
   flake-file.inputs = {
     systems.url = "github:nix-systems/default-linux";
     flake-parts.url = "github:hercules-ci/flake-parts";
-    flake-parts.inputs.nixpkgs-lib.follows = "nur_packages/nixpkgs";
 
     # make sure you add flake-file dependency.
     flake-file.url = lib.mkDefault "github:vic/flake-file";
@@ -13,22 +12,16 @@
     # To update all inputs:
     # $ nix flake update --recreate-lock-file
     home-manager.url = "github:dguibert/home-manager/pu";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    #nix.follows = "nur_packages/nix";
     nix.url = "github:dguibert/nix/pu";
 
     sops-nix.url = "github:dguibert/sops-nix/pu"; # for dg/use-with-cross-system
-    sops-nix.inputs.nixpkgs.follows = "nur_packages/nixpkgs";
 
     nixpkgs.url = "github:dguibert/nixpkgs/pu";
     nur_packages.url = "github:dguibert/nur-packages?ref=master";
-    nur_packages.inputs.nixpkgs.follows = "nixpkgs";
-    nur_packages.inputs.nix.inputs.flake-compat.follows = "flake-compat";
 
     disko.url = "github:nix-community/disko";
     #disko.url = github:dguibert/disko;
-    disko.inputs.nixpkgs.follows = "nixpkgs";
 
     terranix = {
       url = "github:mrVanDalo/terranix";
@@ -38,14 +31,8 @@
     #"nixos-18.09".url   = "github:nixos/nixpkgs-channels/nixos-18.09";
     #"nixos-19.03".url   = "github:nixos/nixpkgs-channels/nixos-19.03";
     stylix.url = "github:danth/stylix";
-    stylix.inputs.base16.follows = "base16";
-    stylix.inputs.base16-vim.follows = "base16-vim";
-    stylix.inputs.flake-parts.follows = "flake-parts";
-    stylix.inputs.nixpkgs.follows = "nixpkgs";
-    stylix.inputs.systems.follows = "systems";
 
     base16.url = "github:SenchoPens/base16.nix";
-    #base16.inputs.nixpkgs.follows = "nixpkgs";
     tt-schemes = {
       url = "github:tinted-theming/schemes";
       flake = false;
@@ -64,42 +51,24 @@
     };
 
     nxsession.url = "github:dguibert/nxsession";
-    nxsession.inputs.nixpkgs.follows = "nixpkgs";
-    nxsession.inputs.flake-utils.follows = "nur_packages/flake-utils";
 
     # For accessing `deploy-rs`'s utility Nix functions
     deploy-rs.url = "github:dguibert/deploy-rs/pu";
-    deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
-    deploy-rs.inputs.flake-compat.follows = "flake-compat";
-    deploy-rs.inputs.utils.follows = "nur_packages/flake-utils";
 
     #nixpkgs-wayland.url = "github:colemickens/nixpkgs-wayland";
     # only needed if you use as a package set:
-    #nixpkgs-wayland.inputs.nixpkgs.follows = "nixpkgs";
-    #nixpkgs-wayland.inputs.master.follows = "master";
-    #emacs-overlay.url = "github:nix-community/emacs-overlay";
-    emacs-overlay.follows = "nur_packages/emacs-overlay";
-
-    flake-utils.follows = "nur_packages/flake-utils";
 
     #hyprland.url = "github:hyprwm/Hyprland";
     hyprland.url = "git+https://github.com/dguibert/Hyprland?ref=refs/heads/main&submodules=1";
-    hyprland.inputs.nixpkgs.follows = "nixpkgs";
-    hyprland.inputs.systems.follows = "systems";
-    hyprland.inputs.pre-commit-hooks.follows = "git-hooks-nix";
     hyprsplit.url = "github:dguibert/hyprsplit";
-    hyprsplit.inputs.hyprland.follows = "hyprland";
 
     hyprland-contrib.url = "github:hyprwm/contrib";
 
     #eww = {
     #  url = "github:elkowar/eww";
-    #  nixpkgs.follows = "nur_packages";
-    #  rust-overlay.follows = "rust-overlay";
     #};
     nix-ld.url = "github:Mic92/nix-ld";
     # this line assume that you also have nixpkgs as an input
-    nix-ld.inputs.nixpkgs.follows = "nixpkgs";
 
     envfs.url = "github:Mic92/envfs";
 
@@ -113,7 +82,6 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
     treefmt-nix.url = "github:numtide/treefmt-nix";
-    treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
 
     flake-compat.url = "github:edolstra/flake-compat";
 

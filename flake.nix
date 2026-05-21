@@ -23,60 +23,23 @@
       url = "github:tinted-theming/base16-vim";
       flake = false;
     };
-    clan-core = {
-      url = "git+https://git.clan.lol/clan/clan-core";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    deploy-rs = {
-      url = "github:dguibert/deploy-rs/pu";
-      inputs = {
-        flake-compat.follows = "flake-compat";
-        nixpkgs.follows = "nixpkgs";
-        utils.follows = "nur_packages/flake-utils";
-      };
-    };
-    disko = {
-      url = "github:nix-community/disko";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    emacs-overlay.follows = "nur_packages/emacs-overlay";
+    clan-core.url = "git+https://git.clan.lol/clan/clan-core";
+    deploy-rs.url = "github:dguibert/deploy-rs/pu";
+    disko.url = "github:nix-community/disko";
     envfs.url = "github:Mic92/envfs";
     flake-aspects.url = "github:vic/flake-aspects";
     flake-compat.url = "github:edolstra/flake-compat";
     flake-file.url = "github:vic/flake-file";
-    flake-parts = {
-      url = "github:hercules-ci/flake-parts";
-      inputs.nixpkgs-lib.follows = "nur_packages/nixpkgs";
-    };
-    flake-utils.follows = "nur_packages/flake-utils";
-    git-hooks-nix = {
-      url = "github:cachix/git-hooks.nix";
-      inputs = {
-        flake-compat.follows = "flake-compat";
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    git-hooks-nix.url = "github:cachix/git-hooks.nix";
     gitignore = {
       url = "github:hercules-ci/gitignore";
       flake = false;
     };
-    home-manager = {
-      url = "github:dguibert/home-manager/pu";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    hyprland = {
-      url = "git+https://github.com/dguibert/Hyprland?ref=refs/heads/main&submodules=1";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        pre-commit-hooks.follows = "git-hooks-nix";
-        systems.follows = "systems";
-      };
-    };
+    home-manager.url = "github:dguibert/home-manager/pu";
+    hyprland.url = "git+https://github.com/dguibert/Hyprland?ref=refs/heads/main&submodules=1";
     hyprland-contrib.url = "github:hyprwm/contrib";
-    hyprsplit = {
-      url = "github:dguibert/hyprsplit";
-      inputs.hyprland.follows = "hyprland";
-    };
+    hyprsplit.url = "github:dguibert/hyprsplit";
     impermanence.url = "github:nix-community/impermanence";
     import-tree.url = "github:vic/import-tree";
     microvm.url = "github:astro/microvm.nix";
@@ -85,50 +48,20 @@
       url = "github:fzakaria/nix-auto-follow";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-ld = {
-      url = "github:Mic92/nix-ld";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nix-ld.url = "github:Mic92/nix-ld";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
     nixpkgs.url = "github:dguibert/nixpkgs/pu";
-    nur_packages = {
-      url = "github:dguibert/nur-packages?ref=master";
-      inputs = {
-        nix.inputs.flake-compat.follows = "flake-compat";
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
-    nxsession = {
-      url = "github:dguibert/nxsession";
-      inputs = {
-        flake-utils.follows = "nur_packages/flake-utils";
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
-    sops-nix = {
-      url = "github:dguibert/sops-nix/pu";
-      inputs.nixpkgs.follows = "nur_packages/nixpkgs";
-    };
-    stylix = {
-      url = "github:danth/stylix";
-      inputs = {
-        base16.follows = "base16";
-        base16-vim.follows = "base16-vim";
-        flake-parts.follows = "flake-parts";
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-      };
-    };
+    nur_packages.url = "github:dguibert/nur-packages?ref=master";
+    nxsession.url = "github:dguibert/nxsession";
+    sops-nix.url = "github:dguibert/sops-nix/pu";
+    stylix.url = "github:danth/stylix";
     systems.url = "github:nix-systems/default-linux";
     terranix = {
       url = "github:mrVanDalo/terranix";
       flake = false;
     };
-    treefmt-nix = {
-      url = "github:numtide/treefmt-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    treefmt-nix.url = "github:numtide/treefmt-nix";
     tt-schemes = {
       url = "github:tinted-theming/schemes";
       flake = false;

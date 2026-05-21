@@ -8,7 +8,6 @@
 {
   flake-file.inputs.flake-aspects.url = lib.mkDefault "github:vic/flake-aspects";
   flake-file.inputs.clan-core.url = lib.mkDefault "git+https://git.clan.lol/clan/clan-core";
-  flake-file.inputs.clan-core.inputs.nixpkgs.follows = "nixpkgs"; # Needed if your configuration uses nixpkgs unstable.
 
   imports = [
     inputs.flake-aspects.flakeModule
