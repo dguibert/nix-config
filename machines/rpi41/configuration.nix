@@ -15,7 +15,7 @@ rec {
   imports = [
     #(import "${inputs.nur_packages.inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix")
     #sdImage.compressImage = false;
-    { nixpkgs.system = "aarch64-linux"; }
+    { nixpkgs.hostPlatform.system = "aarch64-linux"; }
     (
       { ... }:
       {

@@ -26,7 +26,7 @@ in
         ...
       }:
       {
-        nixpkgs.localSystem.system = lib.mkForce "aarch64-linux";
+        nixpkgs.hostPlatform.system = lib.mkForce "aarch64-linux";
       }
     )
   ];

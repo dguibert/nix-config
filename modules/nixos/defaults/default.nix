@@ -25,7 +25,7 @@
       {
         # ignored when nixpkgs.pkgs set
         #nixpkgs.hostPlatform = { system=config.nixpkgs.system };
-        nixpkgs.pkgs = pkgsForSystem config.nixpkgs.system;
+        nixpkgs.pkgs = pkgsForSystem config.nixpkgs.hostPlatform.system;
       }
     )
     (
@@ -108,10 +108,10 @@
     "big-parallel"
     "kvm"
   ]
-  ++ lib.optionals (config.nixpkgs ? localSystem && config.nixpkgs.localSystem ? system) [
+  ++ lib.optionals (config.nixpkgs ? hostPlatform && config.nixpkgs.hostPlatform ? system) [
     "gccarch-${
       builtins.replaceStrings [ "_" ] [ "-" ] (
-        builtins.head (builtins.split "-" config.nixpkgs.localSystem.system)
+        builtins.head (builtins.split "-" config.nixpkgs.hostPlatform.system)
       )
     }"
   ]

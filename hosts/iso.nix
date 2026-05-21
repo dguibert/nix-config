@@ -34,7 +34,7 @@ in
         ...
       }:
       {
-        nixpkgs.localSystem.system = "x86_64-linux";
+        nixpkgs.hostPlatform.system = "x86_64-linux";
       }
     )
     (

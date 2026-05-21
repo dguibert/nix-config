@@ -176,7 +176,7 @@
             (
               host: nixosConfig:
               let
-                system = nixosConfig.config.nixpkgs.localSystem.system;
+                system = nixosConfig.config.nixpkgs.hostPlatform.system;
               in
               {
                 hostname = "${nixosConfig.config.networking.hostName}";
@@ -213,7 +213,7 @@
             (
               host: homeConfig:
               let
-                system = self.nixosConfigurations.${host}.config.nixpkgs.localSystem.system;
+                system = self.nixosConfigurations.${host}.config.nixpkgs.hostPlatform.system;
               in
               {
                 #profiles.root.path = inputs.deploy-rs.lib.aarch64-linux.activate.custom

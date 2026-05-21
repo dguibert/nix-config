@@ -17,6 +17,7 @@
     (
       { ... }:
       {
+        nixpkgs.hostPlatform.system = "x86_64-linux";
         wsl.enable = true;
         wsl.defaultUser = "dguibert";
         wsl.startMenuLaunchers = true;
