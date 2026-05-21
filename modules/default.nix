@@ -70,18 +70,6 @@
   ##          )
   ##          (
   ##            let
-  ##              genProfile = user: name: profile: {
-  ##                path =
-  ##                  self.legacyPackages.x86_64-linux.deploy-rs.lib.activate.custom
-  ##                    self.homeConfigurations."${name}".activationPackage
-  ##                    ''
-  ##                      export NIX_STATE_DIR=${self.homeConfigurations."${name}".config.home.sessionVariables.NIX_STATE_DIR}
-  ##                      export NIX_PROFILE=${self.homeConfigurations."${name}".config.home.sessionVariables.NIX_PROFILE}
-  ##                      ./activate
-  ##                    '';
-  ##                sshUser = user;
-  ##                profilePath = "${builtins.dirOf builtins.storeDir}/var/nix/profiles/per-user/${user}/${profile}";
-  ##              };
   ##            in
   ##            {
   ##              spartan = {
@@ -99,14 +87,6 @@
   ##                profiles.bguibertd-aarch64 = genProfile "bguibertd" "bguibertd@spartan-aarch64" "hm-aarch64";
   ##              };
   ##
-  ##              mn5 = {
-  ##                hostname = "mn5-nix";
-  ##                fastConnection = true;
-  ##                autoRollback = false;
-  ##                magicRollback = false;
-  ##
-  ##                profiles.user = genProfile "evid356257" "evid356257@mn5" "hm";
-  ##              };
   ##              param = {
   ##                hostname = "param";
   ##                fastConnection = true;
@@ -115,26 +95,6 @@
   ##
   ##                profiles.user = genProfile "gdavid" "gdavid@param" "hm";
   ##              };
-  ##              #levante = {
-  ##              #  hostname = "levante";
-  ##              #  sshOpts = [ "-o" "ControlMaster=no" ]; # https://github.com/serokell/deploy-rs/issues/106
-  ##              #  fastConnection = true;
-  ##              #  autoRollback = false;
-  ##              #  magicRollback = false;
-  ##
-  ##              #  profiles.dguibert = genProfile "b381115" "dguibert@levante" "hm";
-  ##
-  ##              #};
-  ##              #lumi = {
-  ##              #  hostname = "lumi";
-  ##              #  sshOpts = [ "-o" "ControlMaster=no" ]; # https://github.com/serokell/deploy-rs/issues/106
-  ##              #  fastConnection = true;
-  ##              #  autoRollback = false;
-  ##              #  magicRollback = false;
-  ##
-  ##              #  profiles.dguibert = genProfile "dguibert" "dguibert@lumi" "hm";
-  ##
-  ##              #};
   ##            }
   ##          )
   ##

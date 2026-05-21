@@ -65,9 +65,12 @@
         module.name = "importer";
         roles.default.tags.all = { };
         roles.default.extraModules = [
-          ({ config, ...}: {
-            clan.core.networking.targetHost = config.clan.core.settings.machine.name;
-          })
+          (
+            { config, ... }:
+            {
+              clan.core.networking.targetHost = config.clan.core.settings.machine.name;
+            }
+          )
           config.flake.modules.nixos.cacerts
           config.flake.modules.nixos.dns
           config.flake.modules.nixos.fr

@@ -9,11 +9,11 @@
     config.flake.modules.homeManager.dguibert-custom-profile
   ];
   flake.aspects.dguibert-custom-profile.homeManager =
-    { pkgs, config, ... }:
     {
       config,
       pkgs,
       activationPkgs,
+      lib,
       ...
     }:
     let
