@@ -124,7 +124,6 @@
         "nix-darwin": "nix-darwin",
         "nix-select": "nix-select",
         "nixpkgs": [
-          "nixpkgs",
           "nixpkgs"
         ],
         "sops-nix": "sops-nix",
@@ -178,7 +177,6 @@
           "flake-compat"
         ],
         "nixpkgs": [
-          "nixpkgs",
           "nixpkgs"
         ],
         "utils": [
@@ -612,8 +610,6 @@
         ],
         "gitignore": "gitignore",
         "nixpkgs": [
-          "nixpkgs",
-          "nixpkgs",
           "nixpkgs"
         ]
       },
@@ -762,7 +758,6 @@
     "home-manager": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs",
           "nixpkgs"
         ]
       },
@@ -1513,24 +1508,18 @@
       }
     },
     "nixpkgs_7": {
-      "inputs": {
-        "nixpkgs": [
-          "nur_packages"
-        ]
-      },
       "locked": {
-        "dir": "nixpkgs",
-        "lastModified": 1771237204,
-        "narHash": "sha256-PUo+S2l8O0q2+cnAuUWFnIsbxHY6Ar88Z+BRJMclvzA=",
+        "lastModified": 1779285054,
+        "narHash": "sha256-oAnafEE51u5XSZhSyWvEkxpNUJxlMwMqcJDUGkKAnwY=",
         "owner": "dguibert",
-        "repo": "nix-config",
-        "rev": "504f8cd08d531aa81755e387f19e4522ba783c26",
+        "repo": "nixpkgs",
+        "rev": "c5d3604e8e883882f519ea30d019ae5abe6bbff2",
         "type": "github"
       },
       "original": {
-        "dir": "nixpkgs",
         "owner": "dguibert",
-        "repo": "nix-config",
+        "ref": "pu",
+        "repo": "nixpkgs",
         "type": "github"
       }
     },
@@ -1598,7 +1587,6 @@
           "flake-utils"
         ],
         "nixpkgs": [
-          "nixpkgs",
           "nixpkgs"
         ]
       },
@@ -1983,7 +1971,6 @@
     "treefmt-nix_3": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs",
           "nixpkgs"
         ]
       },

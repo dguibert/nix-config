@@ -11,6 +11,7 @@ let
     inputs.deploy-rs.overlays.default
     inputs.nxsession.overlay
     inputs.nur_packages.overlays.extra-builtins
+    inputs.nur_packages.overlays.emacs
     #inputs.nixpkgs-wayland.overlay
     #inputs.hyprland.overlays.default
   ];
@@ -22,7 +23,7 @@ let
   #packages = system: inputs.nixpkgs.legacyPackages.${system}.appendOverlays overlays;
   packages =
     system:
-    import inputs.upstream_nixpkgs {
+    import inputs.nixpkgs {
       inherit system overlays;
       config = nixpkgs_config;
     };

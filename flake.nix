@@ -31,7 +31,7 @@
       url = "github:dguibert/deploy-rs/pu";
       inputs = {
         flake-compat.follows = "flake-compat";
-        nixpkgs.follows = "nixpkgs/nixpkgs";
+        nixpkgs.follows = "nixpkgs";
         utils.follows = "nur_packages/flake-utils";
       };
     };
@@ -62,7 +62,7 @@
     };
     home-manager = {
       url = "github:dguibert/home-manager/pu";
-      inputs.nixpkgs.follows = "nixpkgs/nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland = {
       url = "git+https://github.com/dguibert/Hyprland?ref=refs/heads/main&submodules=1";
@@ -87,22 +87,19 @@
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
-    nixpkgs = {
-      url = "github:dguibert/nix-config?dir=nixpkgs";
-      inputs.nixpkgs.follows = "nur_packages";
-    };
+    nixpkgs.url = "github:dguibert/nixpkgs/pu";
     nur_packages = {
       url = "github:dguibert/nur-packages?ref=master";
       inputs = {
         nix.inputs.flake-compat.follows = "flake-compat";
-        nixpkgs.follows = "upstream_nixpkgs";
+        nixpkgs.follows = "nixpkgs";
       };
     };
     nxsession = {
       url = "github:dguibert/nxsession";
       inputs = {
         flake-utils.follows = "nur_packages/flake-utils";
-        nixpkgs.follows = "nixpkgs/nixpkgs";
+        nixpkgs.follows = "nixpkgs";
       };
     };
     sops-nix = {
@@ -126,12 +123,11 @@
     };
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
-      inputs.nixpkgs.follows = "nixpkgs/nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     tt-schemes = {
       url = "github:tinted-theming/schemes";
       flake = false;
     };
-    upstream_nixpkgs.url = "github:dguibert/nixpkgs/pu";
   };
 }

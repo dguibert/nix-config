@@ -13,7 +13,7 @@
     # To update all inputs:
     # $ nix flake update --recreate-lock-file
     home-manager.url = "github:dguibert/home-manager/pu";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs/nixpkgs";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     #nix.follows = "nur_packages/nix";
     nix.url = "github:dguibert/nix/pu";
@@ -21,12 +21,9 @@
     sops-nix.url = "github:dguibert/sops-nix/pu"; # for dg/use-with-cross-system
     sops-nix.inputs.nixpkgs.follows = "nur_packages/nixpkgs";
 
-    #nixpkgs.url = "path:nixpkgs";
-    nixpkgs.url = "github:dguibert/nix-config?dir=nixpkgs";
-    nixpkgs.inputs.nixpkgs.follows = "nur_packages";
-    upstream_nixpkgs.url = "github:dguibert/nixpkgs/pu";
+    nixpkgs.url = "github:dguibert/nixpkgs/pu";
     nur_packages.url = "github:dguibert/nur-packages?ref=master";
-    nur_packages.inputs.nixpkgs.follows = "upstream_nixpkgs";
+    nur_packages.inputs.nixpkgs.follows = "nixpkgs";
     nur_packages.inputs.nix.inputs.flake-compat.follows = "flake-compat";
 
     disko.url = "github:nix-community/disko";
@@ -67,12 +64,12 @@
     };
 
     nxsession.url = "github:dguibert/nxsession";
-    nxsession.inputs.nixpkgs.follows = "nixpkgs/nixpkgs";
+    nxsession.inputs.nixpkgs.follows = "nixpkgs";
     nxsession.inputs.flake-utils.follows = "nur_packages/flake-utils";
 
     # For accessing `deploy-rs`'s utility Nix functions
     deploy-rs.url = "github:dguibert/deploy-rs/pu";
-    deploy-rs.inputs.nixpkgs.follows = "nixpkgs/nixpkgs";
+    deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
     deploy-rs.inputs.flake-compat.follows = "flake-compat";
     deploy-rs.inputs.utils.follows = "nur_packages/flake-utils";
 
@@ -116,7 +113,7 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
     treefmt-nix.url = "github:numtide/treefmt-nix";
-    treefmt-nix.inputs.nixpkgs.follows = "nixpkgs/nixpkgs";
+    treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
 
     flake-compat.url = "github:edolstra/flake-compat";
 
