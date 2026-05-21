@@ -14,6 +14,7 @@
   };
 
   inputs = {
+    allfollow.url = "github:spikespaz/allfollow";
     base16.url = "github:SenchoPens/base16.nix";
     base16-shell = {
       url = "github:tinted-theming/tinted-shell";
@@ -44,10 +45,6 @@
     import-tree.url = "github:vic/import-tree";
     microvm.url = "github:astro/microvm.nix";
     nix.url = "github:dguibert/nix/pu";
-    nix-auto-follow = {
-      url = "github:fzakaria/nix-auto-follow";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nix-ld.url = "github:Mic92/nix-ld";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
