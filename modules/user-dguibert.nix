@@ -97,6 +97,7 @@ in
       imports = [
         config.flake.modules.homeManager.report-changes
         config.flake.modules.homeManager.dguibert-home-sec
+        config.flake.modules.homeManager.nixpkgs
       ];
       # mimeapps.list
       # https://github.com/bobvanderlinden/nix-home/blob/master/home.nix

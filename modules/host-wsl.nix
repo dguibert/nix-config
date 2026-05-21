@@ -19,7 +19,6 @@
       (
         { pkgs, ... }:
         {
-          home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           networking.resolvconf.enable = false; # environment.etc."resolv.conf" is also set
           #- dguibert profile: xdg.portal: since you installed Home Manager via its NixOS module and
@@ -40,7 +39,9 @@
         }
       )
       config.flake.modules.nixos.dns
+      config.flake.modules.nixos.fr
       config.flake.modules.nixos.nix
+      config.flake.modules.nixos.nixpkgs
       config.flake.modules.nixos.nix-registry
 
       config.flake.modules.nixos.user-root

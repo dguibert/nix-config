@@ -1,5 +1,6 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 let
+  pkgs' = pkgs;
   config' = config;
 in
 {
@@ -189,7 +190,9 @@ in
             imports = [
               inputs.home-manager.nixosModules.home-manager
             ];
-            home-manager.useGlobalPkgs = true; # or config'.flake.modules.homeManager.nixpkgs
+            #home-manager.useGlobalPkgs = true; # or config'.flake.modules.homeManager.nixpkgs
+            #_module.args.pkgsPath = builtins.trace "hm pkgs" pkgs.path;
+            #_module.args.pkgs = builtins.trace "hm pkgs" pkgs;
             home-manager.useUserPackages = true;
             #- dguibert profile: xdg.portal: since you installed Home Manager via its NixOS module and
             #'home-manager.useUserPackages' is enabled, you need to add
@@ -199,10 +202,6 @@ in
             ];
 
             home-manager.backupFileExtension = "hm-backup";
-            home-manager.extraSpecialArgs = {
-              inherit inputs pkgs;
-              sopsDecrypt_ = pkgs.sopsDecrypt_;
-            };
           };
       };
   };
