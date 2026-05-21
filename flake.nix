@@ -25,6 +25,7 @@
     };
     clan-core = {
       url = "git+https://git.clan.lol/clan/clan-core";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     deploy-rs = {
       url = "github:dguibert/deploy-rs/pu";
@@ -80,6 +81,10 @@
     import-tree.url = "github:vic/import-tree";
     microvm.url = "github:astro/microvm.nix";
     nix.url = "github:dguibert/nix/pu";
+    nix-auto-follow = {
+      url = "github:fzakaria/nix-auto-follow";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-ld = {
       url = "github:Mic92/nix-ld";
       inputs.nixpkgs.follows = "nixpkgs";

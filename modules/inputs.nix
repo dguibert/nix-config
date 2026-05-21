@@ -122,6 +122,7 @@
   imports = [
     # enable inside-flake and say goodbye to bootstrap
     inputs.flake-file.flakeModules.default
+    inputs.flake-file.flakeModules.nix-auto-follow
 
     # start splitting from inputs.nix into other files
   ];
