@@ -18,6 +18,7 @@
   configurations.home.mn5.system = "x86_64-linux";
   configurations.home.mn5.module = {
     imports = [
+      config.flake.modules.homeManager.custom_stdenv
       config.flake.modules.homeManager.dguibert
       config.flake.modules.homeManager.dguibert-bash
       config.flake.modules.homeManager.dguibert-custom-profile
