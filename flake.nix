@@ -14,7 +14,6 @@
   };
 
   inputs = {
-    allfollow.url = "github:spikespaz/allfollow";
     base16.url = "github:SenchoPens/base16.nix";
     base16-shell = {
       url = "github:tinted-theming/tinted-shell";
@@ -31,8 +30,10 @@
     flake-aspects.url = "github:vic/flake-aspects";
     flake-compat.url = "github:edolstra/flake-compat";
     flake-file.url = "github:vic/flake-file";
-    flake-parts.url = "github:hercules-ci/flake-parts";
-    flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
     flake-utils.url = "github:numtide/flake-utils";
     git-hooks-nix.url = "github:cachix/git-hooks.nix";
     gitignore = {
@@ -47,10 +48,15 @@
     import-tree.url = "github:vic/import-tree";
     microvm.url = "github:astro/microvm.nix";
     nix.url = "github:dguibert/nix/pu";
+    nix-auto-follow = {
+      url = "github:fzakaria/nix-auto-follow";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-ld.url = "github:Mic92/nix-ld";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
     nixpkgs.url = "github:dguibert/nixpkgs/pu";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
     nur_packages.url = "github:dguibert/nur-packages?ref=master";
     nxsession.url = "github:dguibert/nxsession";
     sops-nix.url = "github:dguibert/sops-nix/pu";

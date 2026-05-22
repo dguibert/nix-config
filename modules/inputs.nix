@@ -6,6 +6,9 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
+    #allfollow.inputs.nixpkgs.follows = "nixpkgs";
+    #allfollow.inputs.rust-overlay.follows = "rust-overlay";
+    #rust-overlay.url = "github:oxalica/rust-overlay";
 
     # make sure you add flake-file dependency.
     flake-file.url = lib.mkDefault "github:vic/flake-file";
@@ -20,6 +23,7 @@
     sops-nix.url = "github:dguibert/sops-nix/pu"; # for dg/use-with-cross-system
 
     nixpkgs.url = "github:dguibert/nixpkgs/pu";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
     nur_packages.url = "github:dguibert/nur-packages?ref=master";
 
     disko.url = "github:nix-community/disko";
@@ -92,8 +96,8 @@
   imports = [
     # enable inside-flake and say goodbye to bootstrap
     inputs.flake-file.flakeModules.default
-    #inputs.flake-file.flakeModules.nix-auto-follow
-    inputs.flake-file.flakeModules.allfollow
+    inputs.flake-file.flakeModules.nix-auto-follow
+    #inputs.flake-file.flakeModules.allfollow
 
     # start splitting from inputs.nix into other files
   ];
