@@ -67,11 +67,15 @@
       config.flake.homeConfigurations
       |> lib.mapAttrsToList (
         name: home: {
-          "${if config.configurations.home.${name}.crossCompilation
-             then "x86_64-linux"
-             else "${config.configurations.home.${name}.system}"}" = {
-            "configurations/home/${name}" = home.config.home.activationPackage;
-          };
+          "${
+            if config.configurations.home.${name}.crossCompilation then
+              "x86_64-linux"
+            else
+              "${config.configurations.home.${name}.system}"
+          }" =
+            {
+              "configurations/home/${name}" = home.config.home.activationPackage;
+            };
         }
       )
       |> lib.mkMerge;
