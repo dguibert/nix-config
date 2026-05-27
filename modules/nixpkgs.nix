@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   inputs,
   perSystem,
@@ -14,7 +15,8 @@ let
     inputs.nur_packages.overlays.emacs
     #inputs.nixpkgs-wayland.overlay
     #inputs.hyprland.overlays.default
-  ];
+  ]
+  ++ (builtins.attrValues config.flake.overlays);
 
   nixpkgs_config = {
     allowUnfree = true;
