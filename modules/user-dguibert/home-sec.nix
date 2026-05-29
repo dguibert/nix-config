@@ -18,6 +18,10 @@ let
 
 in
 {
+  flake-file.inputs = {
+    sops-nix.url = "github:dguibert/sops-nix/pu"; # for dg/use-with-cross-system
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+  };
   flake.aspects.dguibert-home-sec.nixos.home-manager.users.dguibert.imports = [
     config.flake.modules.homeManager.dguibert-home-sec
   ];

@@ -22,7 +22,10 @@
       url = "github:tinted-theming/base16-vim";
       flake = false;
     };
-    clan-core.url = "git+https://git.clan.lol/clan/clan-core";
+    clan-core = {
+      url = "git+https://git.clan.lol/clan/clan-core";
+      inputs.sops-nix.follows = "sops-nix";
+    };
     deploy-rs.url = "github:dguibert/deploy-rs/pu";
     disko.url = "github:nix-community/disko";
     envfs = {
@@ -66,7 +69,10 @@
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
     nur_packages.url = "github:dguibert/nur-packages?ref=master";
     nxsession.url = "github:dguibert/nxsession";
-    sops-nix.url = "github:dguibert/sops-nix/pu";
+    sops-nix = {
+      url = "github:dguibert/sops-nix/pu";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     stylix.url = "github:danth/stylix";
     systems.url = "github:nix-systems/default-linux";
     terranix = {

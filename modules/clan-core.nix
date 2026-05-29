@@ -9,6 +9,7 @@
   flake-file.inputs = {
     flake-aspects.url = lib.mkDefault "github:vic/flake-aspects";
     clan-core.url = lib.mkDefault "git+https://git.clan.lol/clan/clan-core";
+    clan-core.inputs.sops-nix.follows = "sops-nix";
     nix-ld.url = "github:Mic92/nix-ld";
     nix-ld.inputs.nixpkgs.follows = "nixpkgs";
 

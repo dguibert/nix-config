@@ -20,8 +20,6 @@
 
     nix.url = "github:dguibert/nix/pu";
 
-    sops-nix.url = "github:dguibert/sops-nix/pu"; # for dg/use-with-cross-system
-
     nixpkgs.url = "github:dguibert/nixpkgs/pu";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
     nur_packages.url = "github:dguibert/nur-packages?ref=master";
