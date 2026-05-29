@@ -6,8 +6,10 @@
 }:
 {
   flake-file.inputs = {
-    impermanence.url = "github:nix-community/impermanence";
     #impermanence.url = "github:dguibert/impermanence";
+    impermanence.url = "github:nix-community/impermanence";
+    impermanence.inputs.home-manager.follows = "home-manager";
+    impermanence.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   flake.aspects.impermanence.nixos =

@@ -49,9 +49,18 @@
       url = "github:hercules-ci/gitignore";
       flake = false;
     };
-    home-manager.url = "github:dguibert/home-manager/pu";
+    home-manager = {
+      url = "github:dguibert/home-manager/pu";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     hyprland-contrib.url = "github:hyprwm/contrib";
-    impermanence.url = "github:nix-community/impermanence";
+    impermanence = {
+      url = "github:nix-community/impermanence";
+      inputs = {
+        home-manager.follows = "home-manager";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
     import-tree.url = "github:vic/import-tree";
     microvm.url = "github:astro/microvm.nix";
     nix.url = "github:dguibert/nix/pu";
@@ -75,10 +84,6 @@
     };
     stylix.url = "github:danth/stylix";
     systems.url = "github:nix-systems/default-linux";
-    terranix = {
-      url = "github:mrVanDalo/terranix";
-      flake = false;
-    };
     treefmt-nix.url = "github:numtide/treefmt-nix";
     tt-schemes = {
       url = "github:tinted-theming/schemes";

@@ -16,7 +16,6 @@
 
     # To update all inputs:
     # $ nix flake update --recreate-lock-file
-    home-manager.url = "github:dguibert/home-manager/pu";
 
     nix.url = "github:dguibert/nix/pu";
 
@@ -27,10 +26,6 @@
     disko.url = "github:nix-community/disko";
     #disko.url = github:dguibert/disko;
 
-    terranix = {
-      url = "github:mrVanDalo/terranix";
-      flake = false;
-    };
     #"nixos-18.03".url   = "github:nixos/nixpkgs-channels/nixos-18.03";
     #"nixos-18.09".url   = "github:nixos/nixpkgs-channels/nixos-18.09";
     #"nixos-19.03".url   = "github:nixos/nixpkgs-channels/nixos-19.03";
