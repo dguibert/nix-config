@@ -155,8 +155,14 @@
           #roles.dguibert-3d-tools.machines.titan = { };
           #roles.dguibert-ssh-teleport.machines.titan = { };
           #roles.dguibert.machines.titan.settings.centralMailHost.enable = true;
+          config.flake.modules.nixos.dguibert-vscode
           config.flake.modules.nixos.dguibert-with-3d-tools
-          { home-manager.users.dguibert.hyprland.nvidia.enable = true; }
+          {
+            home-manager.users.dguibert.hyprland.nvidia.enable = true;
+            home-manager.users.dguibert.withVSCode.enable = true;
+            home-manager.users.dguibert.centralMailHost.enable = true;
+            home-manager.users.dguibert.ssh-teleport.enable = true;
+          }
           ##          config.flake.modules.homeManager.dguibert-vscode
 
           inputs.envfs.nixosModules.envfs
