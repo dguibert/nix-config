@@ -17,15 +17,6 @@
     # To update all inputs:
     # $ nix flake update --recreate-lock-file
 
-    nix.url = "github:dguibert/nix/pu";
-
-    nixpkgs.url = "github:dguibert/nixpkgs/pu";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
-    nur_packages.url = "github:dguibert/nur-packages?ref=master";
-
-    disko.url = "github:nix-community/disko";
-    #disko.url = github:dguibert/disko;
-
     #"nixos-18.03".url   = "github:nixos/nixpkgs-channels/nixos-18.03";
     #"nixos-18.09".url   = "github:nixos/nixpkgs-channels/nixos-18.09";
     #"nixos-19.03".url   = "github:nixos/nixpkgs-channels/nixos-19.03";
@@ -41,8 +32,6 @@
     #eww = {
     #  url = "github:elkowar/eww";
     #};
-    nixos-wsl.url = "github:nix-community/NixOS-WSL";
-
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
     treefmt-nix.url = "github:numtide/treefmt-nix";
@@ -56,8 +45,6 @@
     inputs.flake-file.flakeModules.default
     inputs.flake-file.flakeModules.nix-auto-follow
     #inputs.flake-file.flakeModules.allfollow
-
-    # start splitting from inputs.nix into other files
   ];
 
   # generate the same output function we used at bootstrap

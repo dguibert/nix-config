@@ -33,6 +33,10 @@ let
 in
 {
   flake-file.inputs = {
+    nixpkgs.url = "github:dguibert/nixpkgs/pu";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nur_packages.url = "github:dguibert/nur-packages?ref=master";
+
     nxsession.url = "github:dguibert/nxsession";
     # For accessing `deploy-rs`'s utility Nix functions
     deploy-rs.url = "github:dguibert/deploy-rs/pu";

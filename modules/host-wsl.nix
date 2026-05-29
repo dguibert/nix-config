@@ -4,7 +4,13 @@
   ...
 }:
 {
-  config.configurations.nixos.wsl.module = {
+  flake-file.inputs = {
+    nixos-wsl.url = "github:nix-community/NixOS-WSL";
+    nixos-wsl.inputs.flake-compat.follows = "flake-compat";
+    nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
+  };
+
+  configurations.nixos.wsl.module = {
     imports = [
       inputs.nixos-wsl.nixosModules.wsl
       ({

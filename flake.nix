@@ -27,7 +27,6 @@
       inputs.sops-nix.follows = "sops-nix";
     };
     deploy-rs.url = "github:dguibert/deploy-rs/pu";
-    disko.url = "github:nix-community/disko";
     envfs = {
       url = "github:Mic92/envfs";
       inputs = {
@@ -63,7 +62,6 @@
     };
     import-tree.url = "github:vic/import-tree";
     microvm.url = "github:astro/microvm.nix";
-    nix.url = "github:dguibert/nix/pu";
     nix-auto-follow = {
       url = "github:fzakaria/nix-auto-follow";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -73,7 +71,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware";
-    nixos-wsl.url = "github:nix-community/NixOS-WSL";
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL";
+      inputs = {
+        flake-compat.follows = "flake-compat";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
     nixpkgs.url = "github:dguibert/nixpkgs/pu";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
     nur_packages.url = "github:dguibert/nur-packages?ref=master";
