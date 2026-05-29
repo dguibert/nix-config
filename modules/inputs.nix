@@ -45,12 +45,6 @@
     #nixpkgs-wayland.url = "github:colemickens/nixpkgs-wayland";
     # only needed if you use as a package set:
 
-    #hyprland.url = "github:hyprwm/Hyprland";
-    hyprland.url = "git+https://github.com/dguibert/Hyprland?ref=refs/heads/main&submodules=1";
-    hyprsplit.url = "github:dguibert/hyprsplit";
-
-    hyprland-contrib.url = "github:hyprwm/contrib";
-
     #eww = {
     #  url = "github:elkowar/eww";
     #};

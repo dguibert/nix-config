@@ -47,9 +47,7 @@
       flake = false;
     };
     home-manager.url = "github:dguibert/home-manager/pu";
-    hyprland.url = "git+https://github.com/dguibert/Hyprland?ref=refs/heads/main&submodules=1";
     hyprland-contrib.url = "github:hyprwm/contrib";
-    hyprsplit.url = "github:dguibert/hyprsplit";
     impermanence.url = "github:nix-community/impermanence";
     import-tree.url = "github:vic/import-tree";
     microvm.url = "github:astro/microvm.nix";

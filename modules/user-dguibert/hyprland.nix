@@ -8,6 +8,10 @@ let
   config_ = config;
 in
 {
+  flake-file.inputs = {
+    hyprland-contrib.url = "github:hyprwm/contrib";
+  };
+
   flake.aspects.dguibert-hyprland.nixos.home-manager.users.dguibert.imports = [
     config.flake.modules.homeManager.dguibert-hyprland
   ];
@@ -261,11 +265,8 @@ in
 
         wayland.windowManager.hyprland = {
           enable = true;
-          #package = inputs.hyprland.packages.${pkgs.system}.hyprland;
           plugins = lib.optionals cfg.hyprsplit.enable [
-            #pkgs.hyprlandPlugins.split-monitor-workspaces
             pkgs.hyprlandPlugins.hyprsplit
-            #inputs.hyprsplit.packages.${pkgs.system}.hyprsplit
           ];
           settings = {
             plugin.hyprsplit.num_workspaces = 10;
