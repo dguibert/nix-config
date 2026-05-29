@@ -25,7 +25,14 @@
     clan-core.url = "git+https://git.clan.lol/clan/clan-core";
     deploy-rs.url = "github:dguibert/deploy-rs/pu";
     disko.url = "github:nix-community/disko";
-    envfs.url = "github:Mic92/envfs";
+    envfs = {
+      url = "github:Mic92/envfs";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "treefmt-nix";
+      };
+    };
     flake-aspects.url = "github:vic/flake-aspects";
     flake-compat.url = "github:edolstra/flake-compat";
     flake-file.url = "github:vic/flake-file";
@@ -51,7 +58,10 @@
       url = "github:fzakaria/nix-auto-follow";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-ld.url = "github:Mic92/nix-ld";
+    nix-ld = {
+      url = "github:Mic92/nix-ld";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
     nixpkgs.url = "github:dguibert/nixpkgs/pu";

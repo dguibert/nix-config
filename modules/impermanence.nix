@@ -5,6 +5,11 @@
   ...
 }:
 {
+  flake-file.inputs = {
+    impermanence.url = "github:nix-community/impermanence";
+    #impermanence.url = "github:dguibert/impermanence";
+  };
+
   flake.aspects.impermanence.nixos =
     { config, pkgs, ... }:
     let

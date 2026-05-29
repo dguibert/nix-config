@@ -30,14 +30,12 @@ in
         my.persistence.enable = true;
       }
     )
-    inputs.nix-ld.nixosModules.nix-ld
 
     # The module in this repository defines a new module under (programs.nix-ld.dev) instead of (programs.nix-ld)
     # to not collide with the nixpkgs version.
     { programs.nix-ld.dev.enable = true; }
     { environment.stub-ld.enable = false; } # conflict with nix-ld
 
-    inputs.envfs.nixosModules.envfs
     { fileSystems."/bin".fsType = "none"; }
     (
       { ... }:

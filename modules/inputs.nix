@@ -42,11 +42,6 @@
       flake = false;
     };
 
-    nxsession.url = "github:dguibert/nxsession";
-
-    # For accessing `deploy-rs`'s utility Nix functions
-    deploy-rs.url = "github:dguibert/deploy-rs/pu";
-
     #nixpkgs-wayland.url = "github:colemickens/nixpkgs-wayland";
     # only needed if you use as a package set:
 
@@ -59,17 +54,7 @@
     #eww = {
     #  url = "github:elkowar/eww";
     #};
-    nix-ld.url = "github:Mic92/nix-ld";
-    # this line assume that you also have nixpkgs as an input
-
-    envfs.url = "github:Mic92/envfs";
-
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
-
-    impermanence.url = "github:nix-community/impermanence";
-    #impermanence.url = "github:dguibert/impermanence";
-
-    microvm.url = "github:astro/microvm.nix";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 

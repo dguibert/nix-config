@@ -32,6 +32,12 @@ let
     };
 in
 {
+  flake-file.inputs = {
+    nxsession.url = "github:dguibert/nxsession";
+    # For accessing `deploy-rs`'s utility Nix functions
+    deploy-rs.url = "github:dguibert/deploy-rs/pu";
+  };
+
   _module.args.pkgs = builtins.trace "pkgs" packages (builtins.currentSystem or "x86_64-linux");
   #  config._module.args.pkgs = packages config system;
   # https://flake.parts/system

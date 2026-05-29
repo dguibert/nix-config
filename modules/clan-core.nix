@@ -6,8 +6,17 @@
   ...
 }:
 {
-  flake-file.inputs.flake-aspects.url = lib.mkDefault "github:vic/flake-aspects";
-  flake-file.inputs.clan-core.url = lib.mkDefault "git+https://git.clan.lol/clan/clan-core";
+  flake-file.inputs = {
+    flake-aspects.url = lib.mkDefault "github:vic/flake-aspects";
+    clan-core.url = lib.mkDefault "git+https://git.clan.lol/clan/clan-core";
+    nix-ld.url = "github:Mic92/nix-ld";
+    nix-ld.inputs.nixpkgs.follows = "nixpkgs";
+
+    envfs.url = "github:Mic92/envfs";
+    envfs.inputs.flake-parts.follows = "flake-parts";
+    envfs.inputs.nixpkgs.follows = "nixpkgs";
+    envfs.inputs.treefmt-nix.follows = "treefmt-nix";
+  };
 
   imports = [
     inputs.flake-aspects.flakeModule
@@ -149,6 +158,9 @@
           config.flake.modules.nixos.dguibert-with-3d-tools
           { home-manager.users.dguibert.hyprland.nvidia.enable = true; }
           ##          config.flake.modules.homeManager.dguibert-vscode
+
+          inputs.envfs.nixosModules.envfs
+          inputs.nix-ld.nixosModules.nix-ld
         ];
       };
 

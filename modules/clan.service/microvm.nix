@@ -1,4 +1,8 @@
 {
+  flake-file.inputs = {
+    microvm.url = "github:astro/microvm.nix";
+  };
+
   flake.aspects.microvm."clan.service" = {
     manifest.name = "microvm";
 
