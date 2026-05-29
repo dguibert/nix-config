@@ -130,5 +130,5 @@ rec {
       }
     )
   );
-  services.getty.autologinUser = lib.mkIf (config.users.dguibert.enable) "dguibert";
+  services.getty.autologinUser = lib.mkIf (config.users ? dguibert) "dguibert";
 }
