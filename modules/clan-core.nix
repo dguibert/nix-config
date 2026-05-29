@@ -102,6 +102,7 @@
           config.flake.modules.nixos.dguibert-bash
           #config.flake.modules.nixos.dguibert-custom-profile
           config.flake.modules.nixos.dguibert-emacs
+          { home-manager.users.dguibert.withEmacs.enable = true; }
           config.flake.modules.nixos.dguibert-foot
           config.flake.modules.nixos.dguibert-git
           config.flake.modules.nixos.dguibert-gpg
@@ -132,6 +133,7 @@
           #roles.dguibert-gui.tags.desktop = { };
           config.flake.modules.nixos.dguibert-mako
           config.flake.modules.nixos.dguibert-hyprland
+          { home-manager.users.dguibert.hyprland.enable = true; }
           config.flake.modules.nixos.dguibert-with-gui
         ];
       };
@@ -145,6 +147,7 @@
           #roles.dguibert-ssh-teleport.machines.titan = { };
           #roles.dguibert.machines.titan.settings.centralMailHost.enable = true;
           config.flake.modules.nixos.dguibert-with-3d-tools
+          { home-manager.users.dguibert.hyprland.nvidia.enable = true; }
           ##          config.flake.modules.homeManager.dguibert-vscode
         ];
       };
