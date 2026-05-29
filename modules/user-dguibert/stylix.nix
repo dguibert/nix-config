@@ -5,6 +5,22 @@
   ...
 }:
 {
+  flake-file.inputs = {
+    stylix.url = "github:danth/stylix";
+    tt-schemes = {
+      url = "github:tinted-theming/schemes";
+      flake = false;
+    };
+    base16-vim = {
+      url = "github:tinted-theming/base16-vim";
+      flake = false;
+    };
+    base16-shell = {
+      url = "github:tinted-theming/tinted-shell";
+      flake = false;
+    };
+  };
+
   flake.aspects.dguibert-stylix.nixos.home-manager.users.dguibert.imports = [
     config.flake.modules.homeManager.dguibert-stylix
   ];

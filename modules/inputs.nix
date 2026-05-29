@@ -36,21 +36,7 @@
     #"nixos-18.03".url   = "github:nixos/nixpkgs-channels/nixos-18.03";
     #"nixos-18.09".url   = "github:nixos/nixpkgs-channels/nixos-18.09";
     #"nixos-19.03".url   = "github:nixos/nixpkgs-channels/nixos-19.03";
-    stylix.url = "github:danth/stylix";
 
-    base16.url = "github:SenchoPens/base16.nix";
-    tt-schemes = {
-      url = "github:tinted-theming/schemes";
-      flake = false;
-    };
-    base16-vim = {
-      url = "github:tinted-theming/base16-vim";
-      flake = false;
-    };
-    base16-shell = {
-      url = "github:tinted-theming/tinted-shell";
-      flake = false;
-    };
     gitignore = {
       url = "github:hercules-ci/gitignore";
       flake = false;

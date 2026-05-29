@@ -14,7 +14,6 @@
   };
 
   inputs = {
-    base16.url = "github:SenchoPens/base16.nix";
     base16-shell = {
       url = "github:tinted-theming/tinted-shell";
       flake = false;
