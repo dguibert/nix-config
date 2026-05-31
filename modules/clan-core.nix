@@ -145,6 +145,7 @@
           config.flake.modules.nixos.dguibert-hyprland
           { home-manager.users.dguibert.hyprland.enable = true; }
           config.flake.modules.nixos.dguibert-with-gui
+          config.flake.modules.nixos.dguibert-stylix
         ];
       };
 
