@@ -548,7 +548,7 @@
     },
     "flake-utils_2": {
       "inputs": {
-        "systems": "systems_3"
+        "systems": "systems_4"
       },
       "locked": {
         "lastModified": 1731533236,
@@ -566,7 +566,7 @@
     },
     "flake-utils_3": {
       "inputs": {
-        "systems": "systems_3"
+        "systems": "systems_6"
       },
       "locked": {
         "lastModified": 1731533236,
@@ -620,9 +620,9 @@
     },
     "git-hooks-nix_2": {
       "inputs": {
-        "flake-compat": "flake-compat_3",
-        "gitignore": "gitignore",
-        "nixpkgs": "nixpkgs_5"
+        "flake-compat": "flake-compat_4",
+        "gitignore": "gitignore_3",
+        "nixpkgs": "nixpkgs_9"
       },
       "locked": {
         "lastModified": 1778507602,
@@ -640,9 +640,9 @@
     },
     "git-hooks-nix_3": {
       "inputs": {
-        "flake-compat": "flake-compat_3",
-        "gitignore": "gitignore",
-        "nixpkgs": "nixpkgs_5"
+        "flake-compat": "flake-compat_6",
+        "gitignore": "gitignore_4",
+        "nixpkgs": "nixpkgs_10"
       },
       "locked": {
         "lastModified": 1778507602,
@@ -1688,7 +1688,7 @@
     },
     "treefmt-nix": {
       "inputs": {
-        "nixpkgs": "nixpkgs_15"
+        "nixpkgs": "nixpkgs_3"
       },
       "locked": {
         "lastModified": 1775636079,

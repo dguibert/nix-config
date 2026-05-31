@@ -271,10 +271,6 @@ in
           settings = {
             plugin.hyprsplit.num_workspaces = 10;
 
-            render = lib.mkIf cfg.nvidia.enable {
-              explicit_sync = 0;
-              explicit_sync_kms = 0;
-            };
             env = lib.mkIf cfg.nvidia.enable [
               "LIBVA_DRIVER_NAME,nvidia"
               "GBM_BACKEND,nvidia-drm"
