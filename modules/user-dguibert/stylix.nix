@@ -71,6 +71,7 @@
         stylix.targets.xresources.enable = true;
         stylix.targets.vim.enable = false;
         stylix.targets.emacs.enable = false;
+        stylix.targets.opencode.enable = false;
       }
     )
     (
