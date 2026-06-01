@@ -38,6 +38,8 @@ in
     nur_packages.url = "github:dguibert/nur-packages?ref=master";
 
     nxsession.url = "github:dguibert/nxsession";
+    nxsession.inputs.nixpkgs.follows = "nixpkgs";
+    nxsession.inputs.flake-utils.follows = "flake-utils";
     # For accessing `deploy-rs`'s utility Nix functions
     deploy-rs.url = "github:dguibert/deploy-rs/pu";
   };

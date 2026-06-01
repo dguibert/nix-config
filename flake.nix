@@ -81,7 +81,13 @@
     nixpkgs.url = "github:dguibert/nixpkgs/pu";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
     nur_packages.url = "github:dguibert/nur-packages?ref=master";
-    nxsession.url = "github:dguibert/nxsession";
+    nxsession = {
+      url = "github:dguibert/nxsession";
+      inputs = {
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
     sops-nix = {
       url = "github:dguibert/sops-nix/pu";
       inputs.nixpkgs.follows = "nixpkgs";
