@@ -53,6 +53,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland-contrib.url = "github:hyprwm/contrib";
+    hyprsplit.url = "github:shezdy/hyprsplit";
     impermanence = {
       url = "github:nix-community/impermanence";
       inputs = {

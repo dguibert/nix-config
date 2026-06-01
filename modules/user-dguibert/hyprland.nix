@@ -10,6 +10,8 @@ in
 {
   flake-file.inputs = {
     hyprland-contrib.url = "github:hyprwm/contrib";
+    hyprsplit.url = "github:shezdy/hyprsplit";
+    hyprsplit.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   flake.aspects.dguibert-hyprland.nixos.home-manager.users.dguibert.imports = [
@@ -248,32 +250,374 @@ in
           Wants = [ "tray.target" ];
         };
 
-        wayland.windowManager.hyprland = {
-          configType = "hyprlang";
-          enable = true;
-          plugins = lib.optionals cfg.hyprsplit.enable [
-            pkgs.hyprlandPlugins.hyprsplit
-          ];
-          settings = {
-            plugin.hyprsplit.num_workspaces = 10;
+        xdg.configFile."hypr/hyprsplit" = lib.mkIf cfg.hyprsplit.enable {
+          source = "${
+            inputs.hyprsplit.packages.${toString pkgs.stdenv.hostPlatform.system}.hyprsplitlua
+          }/share/hyprsplit";
+          recursive = true;
+        };
 
-            env = lib.mkIf cfg.nvidia.enable [
-              "LIBVA_DRIVER_NAME,nvidia"
-              "GBM_BACKEND,nvidia-drm"
-              "WLR_NO_HARDWARE_CURSORS,1"
-              #"__GLX_VENDOR_LIBRARY_NAME,nvidia" # to be removed if problems with discord or screen sharing with zoom
-              "__GLX_VENDOR_LIBRARY_NAME,mesa" # for orca-slicer
-              "__EGL_VENDOR_LIBRARY_FILENAMES,${pkgs.mesa}/share/glvnd/egl_vendor.d/50_mesa.json"
-              "MESA_LOADER_DRIVER_OVERRIDE,zink"
-              "GALLIUM_DRIVER,zink"
-              "WEBKIT_DISABLE_DMABUF_RENDERER,1"
+        wayland.windowManager.hyprland = {
+          configType = "lua";
+          enable = true;
+          settings = {
+            mod._var = "SUPER";
+            env = [
+              {
+                _args = [
+                  "XCURSOR_SIZE"
+                  "24"
+                ];
+              }
+              {
+                _args = [
+                  "GDK_BACKEND"
+                  "wayland,x11"
+                ];
+              }
+              {
+                _args = [
+                  "SDL_VIDEODRIVER"
+                  "wayland"
+                ];
+              }
+              {
+                _args = [
+                  "CLUTTER_BACKEND"
+                  "wayland"
+                ];
+              }
+              {
+                _args = [
+                  "XDG_CURRENT_DESKTOP"
+                  "Hyprland"
+                ];
+              }
+              {
+                _args = [
+                  "XDG_SESSION_TYPE"
+                  "wayland"
+                ];
+              }
+              {
+                _args = [
+                  "XDG_SESSION_DESKTOP"
+                  "Hyprland"
+                ];
+              }
+              {
+                _args = [
+                  "QT_QPA_PLATFORM"
+                  "wayland"
+                ];
+              }
+              {
+                _args = [
+                  "QT_AUTO_SCREEN_SCALE_FACTOR"
+                  "1"
+                ];
+              }
+              {
+                _args = [
+                  "QT_WAYLAND_DISABLE_WINDOWDECORATION"
+                  "1"
+                ];
+              }
+              {
+                _args = [
+                  "QT_QPA_PLATFORMTHEME"
+                  "qt6ct"
+                ];
+              }
+            ]
+            ++ lib.optionals cfg.nvidia.enable [
+              {
+                _args = [
+                  "LIBVA_DRIVER_NAME"
+                  "nvidia"
+                ];
+              }
+              {
+                _args = [
+                  "GBM_BACKEND"
+                  "nvidia-drm"
+                ];
+              }
+              {
+                _args = [
+                  "WLR_NO_HARDWARE_CURSORS"
+                  "1"
+                ];
+              }
+              #"__GLX_VENDOR_LIBRARY_NAME" " " "nvidia" # to be removed if problems with discord or screen sharing with zoom;
+              #{ _args = [ "__GLX_VENDOR_LIBRARY_NAME" "mesa" ]; } # for orca-slicer
+              #{ _args = [ "__EGL_VENDOR_LIBRARY_FILENAMES" "${pkgs.mesa}/share/glvnd/egl_vendor.d/50_mesa.json" ]; }
+              #{ _args = [ "MESA_LOADER_DRIVER_OVERRIDE" "zink" ]; }
+              #{ _args = [ "GALLIUM_DRIVER" "zink" ]; }
+              #{ _args = [ "WEBKIT_DISABLE_DMABUF_RENDERER" "1" ]; }
             ];
+            monitor = [
+              {
+                output = "";
+                mode = "preferred";
+                position = "auto";
+                scale = "auto";
+              }
+              {
+                output = "desc:Lenovo Group Limited LEN T24d-10 V5GG2005";
+                mode = "preferred";
+                position = "1920x0";
+                scale = "auto";
+              }
+              {
+                output = "desc:Lenovo Group Limited LEN T24d-10 V5FTW686";
+                mode = "preferred";
+                position = "0x0";
+                scale = "auto";
+              }
+              {
+                output = "VGA-1";
+                disabled = true;
+              }
+              #monitor=Unknown-1,disable
+              #monitor=VGA-1,disable
+              #monitor=desc:Lenovo Group Limited 0x40BA,preferred,auto,1
+
+            ];
+            config = {
+              input = {
+                kb_layout = "fr";
+                follow_mouse = 1;
+                touchpad.natural_scroll = false;
+                sensitivity = 0;
+              };
+              general = {
+                gaps_in = 0;
+                gaps_out = 0;
+                col.active_border = "rgba(005577ff)";
+                col.inactive_border = "rgba(444444ff)";
+
+                layout = "master";
+
+              };
+              decoration.rounding = 2;
+              misc = {
+                mouse_move_enables_dpms = true;
+                key_press_enables_dpms = true;
+              };
+              master = {
+                new_status = "master";
+                new_on_top = true;
+              };
+            };
             bind = [
-              ", Print, exec, grimblast copy area"
-              #",Print,exec,grim -g "$(slurp)" -t png - | wl-copy -t image/png"
+              {
+                _args = [
+                  ("SUPER + SHIFT + RETURN")
+                  (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"foot\")")
+                ];
+              }
+              {
+                _args = [
+                  ("SUPER + P")
+                  (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"dmenu-wl_run -i\")")
+                ];
+              }
+              {
+                _args = [
+                  ("SUPER + SHIFT + L")
+                  (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"pkill -USR1 swayidle\")")
+                ];
+              }
+              {
+                _args = [
+                  ("SUPER + SHIFT + C")
+                  (lib.generators.mkLuaInline "hl.dsp.window.close()")
+                ];
+              }
+              {
+                _args = [
+                  "Print"
+                  (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"grimblast copy area\")")
+                  #",Print,exec,grim -g "$(slurp)" -t png - | wl-copy -t image/png"
+                ];
+              }
+              {
+                _args = [
+                  ("SUPER + h")
+                  (lib.generators.mkLuaInline "hl.dsp.layout(\"mfact -0.01\")")
+                  "{ repeating = true })"
+                ];
+              }
+              {
+                _args = [
+                  ("SUPER + l")
+                  (lib.generators.mkLuaInline "hl.dsp.layout(\"mfact +0.01\")")
+                  "{ repeating = true })"
+                ];
+              }
+              {
+                _args = [
+                  "SUPER + k"
+                  (lib.generators.mkLuaInline "hl.dsp.layout(\"cyclenext\")")
+                ];
+              }
+              {
+                _args = [
+                  "SUPER + j"
+                  (lib.generators.mkLuaInline "hl.dsp.layout(\"cycleprev\")")
+                ];
+              }
+              {
+                _args = [
+                  "SUPER + d"
+                  (lib.generators.mkLuaInline "hl.dsp.layout(\"removemaster\")")
+                ];
+              }
+              {
+                _args = [
+                  "SUPER + i"
+                  (lib.generators.mkLuaInline "hl.dsp.layout(\"addmaster\")")
+                ];
+              }
+              {
+                _args = [
+                  "SUPER + return"
+                  (lib.generators.mkLuaInline "hl.dsp.layout(\"swapwithmaster\")")
+                ];
+              }
+              {
+                _args = [
+                  "SUPER + SHIFT + k"
+                  (lib.generators.mkLuaInline "hl.dsp.layout(\"swapnext\")")
+                ];
+              }
+              {
+                _args = [
+                  "SUPER + SHIFT + j"
+                  (lib.generators.mkLuaInline "hl.dsp.layout(\"swapprev\")")
+                ];
+              }
+              {
+                _args = [
+                  ("SUPER + SHIFT + Space")
+                  (lib.generators.mkLuaInline "hl.dsp.window.float({ action = \"toggle\" })")
+                  "{ description = \"Window: Float/Tile\" })"
+                ];
+              }
+              {
+                _args = [
+                  ("SUPER + M")
+                  (lib.generators.mkLuaInline "hl.dsp.window.fullscreen({ mode = \"maximized\", action = \"toggle\" })")
+                  "{ description = \"Window: Maximize\" })"
+                ];
+              }
+              {
+                _args = [
+                  ("SUPER + F")
+                  (lib.generators.mkLuaInline "hl.dsp.window.fullscreen({ mode = \"fullscreen\", action = \"toggle\" })")
+                  "{ description = \"Window: Fullscreen\" })"
+                ];
+              }
+              {
+                _args = [
+                  "SUPER + mouse:272"
+                  (lib.generators.mkLuaInline "hl.dsp.window.drag()")
+                  "{ mouse = true, description = \"Window: Move\" }"
+                ];
+              }
+              {
+                _args = [
+                  "SUPER + mouse:273"
+                  (lib.generators.mkLuaInline "hl.dsp.window.resize()")
+                  "{ mouse = true, description = \"Window: Resize\" }"
+                ];
+              }
+
+              {
+                _args = [
+                  "XF86AudioRaiseVolume"
+                  (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"wpctl set-volume -l 1.2 @DEFAUT_AUDIO_SINK@ 6%+\")")
+                  "{ locked = true, repeating = true }"
+                ];
+              }
+              {
+                _args = [
+                  "XF86AudioLowerVolume"
+                  (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"wpctl set-volume -l 1.2 @DEFAUT_AUDIO_SINK@ 6%-\")")
+                  "{ locked = true, repeating = true }"
+                ];
+              }
+              {
+                _args = [
+                  "XF86AudioMute"
+                  (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"wpctl set-mute @DEFAUT_AUDIO_SINK@ toggle\")")
+                  "{ locked = true }"
+                ];
+              }
+              {
+                _args = [
+                  "XF86AudioMicMute"
+                  (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"wpctl set-mute @DEFAUT_AUDIO_SOURCE@ toggle\")")
+                  "{ locked = true }"
+                ];
+              }
+
+              {
+                _args = [
+                  "XF86MonBrightnessUp"
+                  (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"brightnessctl s 2%+\")")
+                  "{ locked = true, repeating = true }"
+                ];
+              }
+              {
+                _args = [
+                  "XF86MonBrightnessDown"
+                  (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"brightnessctl s 2%-\")")
+                  "{ locked = true, repeating = true }"
+                ];
+              }
             ];
           };
-          extraConfig = builtins.readFile ./hyprland.conf;
+          extraConfig = ''
+            local hs = require("hyprsplit")
+            hs.config({ num_workspaces = 10 })
+
+            for i = 1, 10 do
+                local azerty_keys = {"ampersand", "eacute", "quotedbl", "apostrophe", "parenleft", "minus", "egrave", "underscore", "ccedilla", "agrave" }
+                hl.bind("SUPER + " .. azerty_keys[i], hs.dsp.focus({ workspace = i }))
+                hl.bind("SUPER + SHIFT + " .. azerty_keys[i], hs.dsp.window.move({ workspace = i, follow = true }))
+            end
+
+            hl.bind("SUPER + " .. "g", hs.dsp.grab_rogue_windows())
+            -- hl.bind("SUPER + " .. "d", hs.dsp.workspace.swap_monitors({ monitor1 = "current", monitor2 = "+1" }))
+
+            --#/# bind = SUPER + ←/↑/→/↓,, -- Focus in direction
+            for i = 1, 4 do
+                local arrowkey = { "Left", "Right", "Up", "Down" }
+                local focusdir = { "l", "r", "u", "d" }
+                hl.bind("SUPER + " .. arrowkey[i], hl.dsp.focus({ direction = focusdir[i] }),
+                    { description = "Window: Focus " .. arrowkey[i] })
+            end
+            for i = 1, 2 do
+                local arrowkey = { "tab", "backspace" }
+                local focusdir = { "previous", "previous_per_monitor" }
+                hl.bind("SUPER + " .. arrowkey[i], hl.dsp.focus({ workspace = focusdir[i] }))
+            end
+            --#/# bind = SUPER + SHIFT, ←/↑/→/↓,, -- Move in direction
+            for i = 1, 4 do
+                local arrowkey = { "Left", "Right", "Up", "Down" }
+                local focusdir = { "l", "r", "u", "d" }
+                hl.bind("SUPER + SHIFT + " .. arrowkey[i], hl.dsp.window.move({ direction = focusdir[i] }),
+                    { description = "Window: Move " .. arrowkey[i] })
+            end
+            for i = 1, 2 do
+                local arrowkey = { "tab", "backspace" }
+                local focusdir = { "previous", "previous_per_monitor" }
+                hl.bind("SUPER + SHIFT + " .. arrowkey[i], hl.dsp.window.move({ workspace = focusdir[i] }))
+            end
+
+          '';
           systemd = {
             variables = [ "--all" ];
             extraCommands = [
