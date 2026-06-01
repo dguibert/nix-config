@@ -24,75 +24,76 @@
             match = "originalhost ${host} Exec \"nc -w 1 -z ${ip} ${toString port} 1>&2 >/dev/null\"";
             hostname = ip;
             proxyCommand = "none";
-            extraOptions.HostKeyAlias = host;
+            HostKeyAlias = host;
           };
           ## https://superuser.com/a/1635657
-          home_host = host: ip: port: vpn_ip: mac: {
+          home_host = Host: ip: Port: vpn_ip: mac: {
             ## Coming from localhost.
-            "${host}_0" = {
-              match = "originalhost ${host} exec \"[ %h = %L ]\"";
-              extraOptions.LocalCommand = "echo \"SSH %n: To localhost\" >&2";
-            };
+            "Match originalhost ${Host} exec \"[ %h = %L ]\"".LocalCommand =
+              "echo \"SSH %n: To localhost\" >&2";
             ## Coming from outside home network.
-            "${host}_1" = lib.hm.dag.entryAfter [ "${host}_0" ] {
-              match = "originalhost ${host} !exec \"[ %h = %L ]\" !exec \" ip neigh | grep REACHABLE | grep -Fw ${mac}\" !exec \"ip route | grep ${vpn_ip}\"";
-              extraOptions.LocalCommand = "echo \"SSH %n: From outside network, to %h\" >&2";
-              proxyJump = lib.mkIf (host != "rpi41") "rpi41";
-              hostname = lib.mkIf (host == "rpi41") "82.64.121.168";
-              port = lib.mkIf (host == "rpi41") 443;
+            "Match originalhost ${Host} !exec \"[ %h = %L ]\" !exec \" ip neigh | grep REACHABLE | grep -Fw ${mac}\" !exec \"ip route | grep ${vpn_ip}\"" =
+              lib.hm.dag.entryAfter [ "Match originalhost ${Host} exec \"[ %h = %L ]\"" ] {
+                LocalCommand = "echo \"SSH %n: From outside network, to %h\" >&2";
+                ProxyJump = lib.mkIf (Host != "rpi41") "rpi41";
+                HostName = lib.mkIf (Host == "rpi41") "82.64.121.168";
+                Port = lib.mkIf (Host == "rpi41") 443;
 
-            };
+              };
             ## Coming from VPN
-            "${host}_2" = lib.hm.dag.entryAfter [ "${host}_1" ] {
-              match = "originalhost ${host} !exec \"[ %h = %L ]\" !exec \" ip neigh | grep REACHABLE | grep -Fw ${mac}\" exec \"ip route | grep ${vpn_ip}\"";
-              extraOptions.PermitLocalCommand = "yes";
-              extraOptions.LocalCommand = "echo \"SSH %n: From VPN network, to %h\" >&2";
-              proxyCommand = "none";
-              hostname = "${vpn_ip}";
-              inherit port;
-            };
+            "Match originalhost ${Host} !exec \"[ %h = %L ]\" !exec \" ip neigh | grep REACHABLE | grep -Fw ${mac}\" exec \"ip route | grep ${vpn_ip}\"" =
+              lib.hm.dag.entryAfter
+                [
+                  "Match originalhost ${Host} !exec \"[ %h = %L ]\" !exec \" ip neigh | grep REACHABLE | grep -Fw ${mac}\" !exec \"ip route | grep ${vpn_ip}\""
+                ]
+                {
+                  PermitLocalCommand = "yes";
+                  LocalCommand = "echo \"SSH %n: From VPN network, to %h\" >&2";
+                  ProxyCommand = "none";
+                  HostName = "${vpn_ip}";
+                  inherit Port;
+                };
             ## Coming from inside home network.
-            "${host}_3" = lib.hm.dag.entryAfter [ "${host}_2" ] {
-              host = "${host}";
-              extraOptions.PermitLocalCommand = "yes";
-              extraOptions.LocalCommand = "echo \"SSH %n: From home network, to %h\" >&2";
-              hostname = "${ip}";
-              inherit port;
-            };
+            "Host ${Host}" =
+              lib.hm.dag.entryAfter
+                [
+                  "Match originalhost ${Host} !exec \"[ %h = %L ]\" !exec \" ip neigh | grep REACHABLE | grep -Fw ${mac}\" exec \"ip route | grep ${vpn_ip}\""
+                ]
+                {
+                  inherit Host Port;
+                  PermitLocalCommand = "yes";
+                  LocalCommand = "echo \"SSH %n: From home network, to %h\" >&2";
+                  HostName = "${ip}";
+                };
           };
         in
         {
           enable = true;
           enableDefaultConfig = false;
-          #extraOptionOverrides = ''
-          #'';
-          extraConfig = ''
-            IdentitiesOnly yes
-            #IdentityFile id_dsa
-            PasswordAuthentication no
-            PubkeyAuthentication yes
-            TCPKeepAlive yes
-            SendEnv COLORTERM
-          '';
-
-          matchBlocks = {
+          settings = {
             "*" = {
-              compression = true;
-              controlMaster = "auto";
-              controlPath = "/run/user/%i/socket-%C";
-              controlPersist = "4h";
-            };
-            "extra_config" = {
-              match = "Host * Exec \"test -e ~/.ssh/extra_config\"";
-              extraOptions.Include = "~/.ssh/extra_config";
-            };
-            "127.0.0.1 | localhost" = {
-              forwardAgent = true;
-              forwardX11 = true;
-              forwardX11Trusted = true;
-              extraOptions.NoHostAuthenticationForLocalhost = "yes";
+              IdentitiesOnly = true;
+              #IdentityFile id_dsa
+              PasswordAuthentication = false;
+              PubkeyAuthentication = true;
+              TCPKeepAlive = true;
+              SendEnv = "COLORTERM";
+              Compression = true;
+              ControlMaster = "auto";
+              ControlPath = "/run/user/%i/socket-%C";
+              ControlPersist = "4h";
             };
 
+            "Host * Exec \"test -e ~/.ssh/extra_config\"" = lib.hm.dag.entryBefore [ "*" ] {
+              Include = "~/.ssh/extra_config";
+            };
+
+            "127.0.0.1 | localhost" = {
+              ForwardAgent = true;
+              ForwardX11 = true;
+              ForwardX11Trusted = true;
+              NoHostAuthenticationForLocalhost = "yes";
+            };
           }
           // (home_host "rpi31" "192.168.1.13" 22322 "10.147.27.13" "b8:27:eb:46:86:14")
           // (home_host "rpi41" "192.168.1.14" 22322 "10.147.27.14" "dc:a6:32:67:dd:9f")
