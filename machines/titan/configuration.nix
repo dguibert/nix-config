@@ -23,22 +23,19 @@ let
 in
 {
   imports = [
-    { nixpkgs.system = "x86_64-linux"; }
-    ../../modules/nixos/defaults
+    { nixpkgs.hostPlatform.system = "x86_64-linux"; }
     (
       { ... }:
       {
         my.persistence.enable = true;
       }
     )
-    inputs.nix-ld.nixosModules.nix-ld
 
     # The module in this repository defines a new module under (programs.nix-ld.dev) instead of (programs.nix-ld)
     # to not collide with the nixpkgs version.
     { programs.nix-ld.dev.enable = true; }
     { environment.stub-ld.enable = false; } # conflict with nix-ld
 
-    inputs.envfs.nixosModules.envfs
     { fileSystems."/bin".fsType = "none"; }
     (
       { ... }:
@@ -174,7 +171,7 @@ in
   # *** ZFS Version: zfs-2.0.4-1
   # *** Compatible Kernels: 3.10 - 5.11
   #boot.zfs.package = pkgs.zfs_unstable;
-  boot.zfs.allowHibernation = true;
+  boot.zfs.unsafeAllowHibernation = true;
   boot.zfs.forceImportRoot = false;
 
   services.zfs.autoScrub.enable = true;
@@ -234,6 +231,18 @@ in
   ##specialisation.nvidia = {
   ##  inheritParentConfig = true;
   ##  configuration = {
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
+    builtins.elem (lib.getName pkg) [
+      "nvidia-x11"
+      "nvidia-settings"
+      "broadcom-bt-firmware"
+      "b43-firmware"
+      "xone-dongle-firmware"
+      "facetimehd-calibration"
+      "facetimehd-firmware"
+      "nvidia-kernel-modules"
+    ];
   ## https://nixos.wiki/wiki/Nvidia
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
