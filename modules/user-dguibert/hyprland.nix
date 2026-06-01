@@ -53,7 +53,7 @@ in
           slurp
           wayvnc
 
-          inputs.hyprland-contrib.packages.${toString pkgs.system}.grimblast
+          inputs.hyprland-contrib.packages.${toString stdenv.hostPlatform.system}.grimblast
         ];
 
         custom-foot.enable = true;
