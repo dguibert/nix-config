@@ -36,7 +36,7 @@
       ];
       home.username = "gdavid";
       home.homeDirectory = "/home/gdavid";
-      home.stateVersion = "25.11";
+      home.stateVersion = "26.05";
 
       withCustomProfile.enable = true;
       withCustomProfile.suffix = "";

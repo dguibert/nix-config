@@ -126,6 +126,6 @@
       # https://github.com/bobvanderlinden/nix-home/blob/master/home.nix
       home.keyboard.layout = "fr";
 
-      home.stateVersion = "20.09";
+      home.stateVersion = "26.05";
     };
 }

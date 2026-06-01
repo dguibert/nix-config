@@ -33,7 +33,7 @@
       ];
       home.username = "bguibertd";
       home.homeDirectory = "/home_nfs/users/bguibertd";
-      home.stateVersion = "25.11";
+      home.stateVersion = "26.05";
 
       withCustomProfile.enable = true;
       withCustomProfile.suffix = "";

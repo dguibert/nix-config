@@ -36,7 +36,7 @@
       ];
       home.username = "evid356257";
       home.homeDirectory = "/home/evid/evid356257";
-      home.stateVersion = "25.11";
+      home.stateVersion = "26.05";
 
       withCustomProfile.enable = true;
       withCustomProfile.suffix = "";
