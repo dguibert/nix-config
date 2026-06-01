@@ -548,7 +548,7 @@
     },
     "flake-utils_2": {
       "inputs": {
-        "systems": "systems_3"
+        "systems": "systems_4"
       },
       "locked": {
         "lastModified": 1731533236,
@@ -602,9 +602,9 @@
     },
     "git-hooks-nix_2": {
       "inputs": {
-        "flake-compat": "flake-compat_3",
-        "gitignore": "gitignore",
-        "nixpkgs": "nixpkgs_5"
+        "flake-compat": "flake-compat_4",
+        "gitignore": "gitignore_3",
+        "nixpkgs": "nixpkgs_9"
       },
       "locked": {
         "lastModified": 1778507602,
@@ -622,9 +622,9 @@
     },
     "git-hooks-nix_3": {
       "inputs": {
-        "flake-compat": "flake-compat_3",
-        "gitignore": "gitignore",
-        "nixpkgs": "nixpkgs_5"
+        "flake-compat": "flake-compat_6",
+        "gitignore": "gitignore_4",
+        "nixpkgs": "nixpkgs_10"
       },
       "locked": {
         "lastModified": 1778507602,
@@ -728,11 +728,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779701135,
-        "narHash": "sha256-Ko+KK6wWnIM8l3A3uFWkWO3Fhcp9REmh+sylBnMBrf0=",
+        "lastModified": 1780323608,
+        "narHash": "sha256-wqR17PZlCsrCVFD9RFHaKBgWsNp6GpQw1D1CPSWkXqk=",
         "owner": "dguibert",
         "repo": "home-manager",
-        "rev": "9034ad497fcc363930502d4796d83ad507332ed3",
+        "rev": "b83104f6c6442982521b0e9d3786ac341671e48a",
         "type": "github"
       },
       "original": {
@@ -1643,7 +1643,7 @@
     },
     "treefmt-nix": {
       "inputs": {
-        "nixpkgs": "nixpkgs_14"
+        "nixpkgs": "nixpkgs_3"
       },
       "locked": {
         "lastModified": 1775636079,
