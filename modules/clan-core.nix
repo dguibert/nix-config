@@ -138,7 +138,6 @@
         module.name = "importer";
         roles.default.tags.desktop = { };
         roles.default.extraModules = [
-          #config.flake.modules.nixos.dguibert-dwl
           # desktop
           #roles.dguibert-gui.tags.desktop = { };
           config.flake.modules.nixos.dguibert-mako
