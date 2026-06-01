@@ -76,7 +76,7 @@ in
           in
           {
             enable = true;
-            systemdTarget = "hyprland-session.target";
+            systemdTargets = [ "hyprland-session.target" ];
             timeouts = [
               {
                 timeout = 280; # in seconds
