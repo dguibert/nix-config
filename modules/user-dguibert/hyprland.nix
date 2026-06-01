@@ -249,6 +249,7 @@ in
         };
 
         wayland.windowManager.hyprland = {
+          configType = "hyprlang";
           enable = true;
           plugins = lib.optionals cfg.hyprsplit.enable [
             pkgs.hyprlandPlugins.hyprsplit
