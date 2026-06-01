@@ -96,25 +96,10 @@ in
               #  command = "${pkgs.systemd}/bin/systemctl suspend";
               #}
             ];
-            events = [
-              {
-                event = "before-sleep";
-                # adding duplicated entries for the same event may not work
-                command = lock + "; " + (display "off");
-              }
-              {
-                event = "after-resume";
-                command = display "on";
-              }
-              {
-                event = "lock";
-                command = lock + "; " + (display "off") + "; " + (notif_mode "away");
-              }
-              {
-                event = "unlock";
-                command = (display "on") + "; " + (notif_mode "default");
-              }
-            ];
+            events.before-sleep = lock + "; " + (display "off");
+            events.after-resume = display "on";
+            events.lock = lock + "; " + (display "off") + "; " + (notif_mode "away");
+            events.unlock = (display "on") + "; " + (notif_mode "default");
           };
 
         xdg.configFile."waybar/style.css".source = ./waybar-style.css;
