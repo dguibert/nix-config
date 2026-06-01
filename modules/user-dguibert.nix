@@ -180,6 +180,7 @@ in
 
         lieer
         muchsync
+        notmuch
         notmuch-addrlookup
         #firefox-bin
 

@@ -9,7 +9,7 @@
     config.flake.modules.homeManager.dguibert-impermanence
   ];
   flake.aspects.dguibert-impermanence.homeManager =
-    { pkgs, ... }:
+    { pkgs, config, ... }:
     {
       home.persistence."/persist".directories = [
         "3D_printing"
@@ -49,7 +49,7 @@
         #  method = "symlink";
         #}
       ]
-      ++ lib.optionals (config.centralMailHost.enable or false) [
+      ++ lib.optionals (config.centralMailHost.enable) [
         "Maildir"
         "Maildir/.notmuch"
       ];
