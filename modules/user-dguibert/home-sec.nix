@@ -26,6 +26,19 @@ in
     config.flake.modules.homeManager.dguibert-home-sec
   ];
   flake.aspects.dguibert-home-sec.homeManager.imports = [
+    (
+      { lib, ... }:
+      {
+        options = {
+          centralMailHost.enable = lib.mkEnableOption "Host running liier/mbsync" // {
+            default = false;
+          };
+          ssh-teleport.enable = lib.mkEnableOption "Enable connect to ssh client with teleport" // {
+            default = false;
+          };
+        };
+      }
+    )
     home-secret
     inputs.sops-nix.homeManagerModules.sops
     (
