@@ -71,7 +71,8 @@ in
             # display = status: "${pkgs.sway}/bin/swaymsg 'output * power ${status}'";
             # Hyprland
             display =
-              status: "${config.wayland.windowManager.hyprland.package}/bin/hyprctl dispatch dpms ${status}";
+              status:
+              "${config.wayland.windowManager.hyprland.package}/bin/hyprctl dispatch 'hl.dsp.dpms({ action = \"${status}\" })' ";
             # Niri
             # display = status: "${pkgs.niri}/bin/niri msg action power-${status}-monitors";
             notif_mode = status: "${config.services.mako.package}/bin/makoctl mode -s ${status}";
@@ -90,18 +91,18 @@ in
               }
               {
                 timeout = 320;
-                command = display "off";
-                resumeCommand = (display "on") + "; " + (notif_mode "default");
+                command = display "disable";
+                resumeCommand = (display "enable") + "; " + (notif_mode "default");
               }
               #{
               #  timeout = 30;
               #  command = "${pkgs.systemd}/bin/systemctl suspend";
               #}
             ];
-            events.before-sleep = lock + "; " + (display "off");
-            events.after-resume = display "on";
-            events.lock = lock + "; " + (display "off") + "; " + (notif_mode "away");
-            events.unlock = (display "on") + "; " + (notif_mode "default");
+            events.before-sleep = lock + "; " + (display "disable");
+            events.after-resume = display "enable";
+            events.lock = lock + "; " + (display "disable") + "; " + (notif_mode "away");
+            events.unlock = (display "enable") + "; " + (notif_mode "default");
           };
 
         xdg.configFile."waybar/style.css".source = ./waybar-style.css;
