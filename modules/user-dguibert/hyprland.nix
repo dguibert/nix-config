@@ -377,7 +377,17 @@ in
                 scale = "auto";
               }
               {
+                output = "desc:Lenovo Group Limited 0x40BA";
+                mode = "preferred";
+                position = "auto";
+                scale = "1";
+              }
+              {
                 output = "VGA-1";
+                disabled = true;
+              }
+              {
+                output = "Unknown-1";
                 disabled = true;
               }
               #monitor=Unknown-1,disable
