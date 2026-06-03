@@ -65,7 +65,10 @@
       nix.settings.keep-derivations = true; # Idem
       #extra-sandbox-paths = /opt/intel/licenses=/home/dguibert/nur-packages/secrets?
       #nix.settings.experimental-features = "ca-derivations recursive-nix";
-      nix.settings.experimental-features = [ "recursive-nix" ];
+      nix.settings.experimental-features = [
+        "recursive-nix"
+        "pipe-operators"
+      ];
       nix.settings.system-features = [
         "recursive-nix"
       ]
