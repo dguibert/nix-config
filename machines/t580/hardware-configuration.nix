@@ -113,6 +113,7 @@
       libvdpau-va-gl
     ];
   };
+  hardware.firmware = [ pkgs.linux-firmware ];
   environment.sessionVariables = {
     LIBVA_DRIVER_NAME = "iHD";
   }; # Force intel-media-driver
