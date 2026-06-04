@@ -212,6 +212,36 @@ in
             };
           };
         };
+        st4000dm004-1 = {
+          type = "zpool";
+          #mode = "mirror";
+          options = {
+            ashift = "12";
+            autotrim = "on";
+          };
+          rootFsOptions = {
+            acltype = "posixacl";
+            canmount = "off";
+            compression = "zstd";
+            dnodesize = "auto";
+            normalization = "formD";
+            recordsize = "1M";
+            relatime = "on";
+            xattr = "sa";
+          };
+          datasets = {
+            "ria" = {
+              type = "zfs_fs";
+              mountpoint = "/st4000dm004-1/ria";
+              options.mountpoint = "legacy";
+              mountOptions = [
+                "defaults"
+                "x-systemd.automount"
+                "noauto"
+              ];
+            };
+          };
+        };
       };
     };
   };
