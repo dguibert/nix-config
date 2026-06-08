@@ -76,6 +76,15 @@ creation_rules:
           - *rpi41_age
           - *t580_age
           - *titan_age
+  - path_regex: modules/user-dguibert/_[^/]+-sec\.nix$
+    key_groups:
+      - pgp:
+          - *dguibert
+        age:
+          - *rpi31_age
+          - *rpi41_age
+          - *t580_age
+          - *titan_age
   - path_regex: modules/clan/home-manager/roles/dguibert/[^/]+\.yaml$
     key_groups:
       - pgp:

@@ -13,10 +13,9 @@ with lib;
 
 rec {
   imports = [
-    (import "${inputs.nur_packages.inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix")
+    (import "${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix")
     { nixpkgs.hostPlatform.system = "aarch64-linux"; }
     (import "${inputs.nixos-hardware}/raspberry-pi/3/default.nix")
-    ../../modules/nixos/defaults
   ];
   #sdImage.bootSize = 512;
 

@@ -16,7 +16,6 @@ rec {
         services.udisks2.enable = true;
       }
     )
-    ../../modules/nixos/defaults
     (
       { ... }:
       {
