@@ -89,6 +89,7 @@
           config.flake.modules.nixos.nix-registry
           config.flake.modules.nixos.sshd
           config.flake.modules.nixos.nixpkgs
+          config.flake.modules.nixos.report-changes
 
           config.flake.modules.nixos.user-root
           config.flake.modules.nixos.user-dguibert
