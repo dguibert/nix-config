@@ -12,6 +12,7 @@ let
     inputs.deploy-rs.overlays.default
     inputs.nxsession.overlay
     inputs.nur_packages.inputs.emacs-overlay.overlay
+    inputs.nur_packages.overlays.default
     inputs.nur_packages.overlays.extra-builtins
     inputs.nur_packages.overlays.emacs
     #inputs.nixpkgs-wayland.overlay
