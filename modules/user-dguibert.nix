@@ -153,7 +153,7 @@ in
 
         jq
 
-        st
+        #st
         dvtm
         abduco
         #(conky.override { x11Support = false; }) # fails 20230721 conky-1.19.2
