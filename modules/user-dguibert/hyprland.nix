@@ -548,28 +548,28 @@ in
               {
                 _args = [
                   "XF86AudioRaiseVolume"
-                  (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"wpctl set-volume -l 1.2 @DEFAUT_AUDIO_SINK@ 6%+\")")
+                  (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"wpctl set-volume -l 1.2 @DEFAULT_AUDIO_SINK@ 6%+\")")
                   "{ locked = true, repeating = true }"
                 ];
               }
               {
                 _args = [
                   "XF86AudioLowerVolume"
-                  (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"wpctl set-volume -l 1.2 @DEFAUT_AUDIO_SINK@ 6%-\")")
+                  (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"wpctl set-volume -l 1.2 @DEFAULT_AUDIO_SINK@ 6%-\")")
                   "{ locked = true, repeating = true }"
                 ];
               }
               {
                 _args = [
                   "XF86AudioMute"
-                  (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"wpctl set-mute @DEFAUT_AUDIO_SINK@ toggle\")")
+                  (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle\")")
                   "{ locked = true }"
                 ];
               }
               {
                 _args = [
                   "XF86AudioMicMute"
-                  (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"wpctl set-mute @DEFAUT_AUDIO_SOURCE@ toggle\")")
+                  (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle\")")
                   "{ locked = true }"
                 ];
               }
