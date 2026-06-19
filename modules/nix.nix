@@ -58,7 +58,7 @@
       zramSwap.enable = true;
       zramSwap.algorithm = "lzo";
 
-      nix.settings.sandbox = true; # "relaxed";
+      nix.settings.sandbox = "relaxed";
       nix.settings.auto-optimise-store = true; # lib.mkForce false;
       #nix.optimise.automatic=true;
       nix.settings.keep-outputs = true; # Nice for developers
