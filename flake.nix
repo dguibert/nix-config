@@ -26,7 +26,10 @@
       url = "git+https://git.clan.lol/clan/clan-core";
       inputs.sops-nix.follows = "sops-nix";
     };
-    deploy-rs.url = "github:dguibert/deploy-rs/pu";
+    deploy-rs = {
+      url = "github:dguibert/deploy-rs/pu";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     envfs = {
       url = "github:Mic92/envfs";
       inputs = {

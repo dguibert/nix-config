@@ -4,7 +4,11 @@
   inputs,
   ...
 }:
+let
+  isNixStore = builtins.storeDir == "/nix/store";
+in
 {
+  custom_stdenv.enable = !isNixStore;
   perSystem =
     {
       config,
@@ -21,7 +25,6 @@
       pre-commit-check-shellHook = inputs.self.checks.${system}.pre-commit-check.shellHook;
       pre-commit-check-enabledPackages = inputs.self.checks.${system}.pre-commit-check.enabledPackages;
 
-      isNixStore = builtins.storeDir == "/nix/store";
       name =
         if isNixStore then
           "deploy"

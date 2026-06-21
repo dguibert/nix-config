@@ -2,8 +2,6 @@
   config,
   lib,
   inputs,
-  perSystem,
-  withSystem,
   ...
 }:
 let
@@ -28,55 +26,80 @@ let
   packages =
     system:
     import inputs.nixpkgs {
-      inherit system overlays;
-      config = nixpkgs_config;
+      localSystem.system = system;
+      overlays = config.pkgs.overlays;
+      config = config.pkgs.config;
     };
 in
 {
-  flake-file.inputs = {
-    nixpkgs.url = "github:dguibert/nixpkgs/pu";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
-    nur_packages.url = "github:dguibert/nur-packages?ref=master";
-
-    nxsession.url = "github:dguibert/nxsession";
-    nxsession.inputs.nixpkgs.follows = "nixpkgs";
-    nxsession.inputs.flake-utils.follows = "flake-utils";
-    # For accessing `deploy-rs`'s utility Nix functions
-    deploy-rs.url = "github:dguibert/deploy-rs/pu";
-  };
-
-  _module.args.pkgs = builtins.trace "pkgs" packages (builtins.currentSystem or "x86_64-linux");
-  #  config._module.args.pkgs = packages config system;
-  # https://flake.parts/system
-  flake.aspects.nixpkgs.nixos = {
-    nixpkgs.config = nixpkgs_config;
-    nixpkgs.overlays = overlays;
-  };
-
-  flake.aspects.nixpkgs.homeManager = {
-    nixpkgs.config = nixpkgs_config;
-    nixpkgs.overlays = overlays;
-  };
-
-  #flake.aspects.nixpkgs.nixos.imports = [
-  #  inputs.nixpkgs.nixosModules.readOnlyPkgs
-  #    ({ config, ... }: {
-  #      # Use the configured pkgs from perSystem
-  #      nixpkgs.pkgs = withSystem config.nixpkgs.hostPlatform.system (
-  #        { pkgs, ... }: # perSystem module arguments
-  #        pkgs
-  #      );
-  #    })
-  #];
-
-  perSystem =
-    {
-      system,
-      config,
-      ...
-    }:
-    {
-      _module.args.pkgs = packages system;
-      legacyPackages = packages system;
+  options.pkgs = {
+    config = lib.mkOption {
+      type = lib.types.attrsOf lib.types.raw;
+      default = {
+        allowUnfree = true;
+      };
     };
+    overlays = lib.mkOption {
+      type = lib.types.listOf lib.types.raw;
+      default = [ ];
+    };
+  };
+
+  config = {
+    flake-file.inputs = {
+      nixpkgs.url = "github:dguibert/nixpkgs/pu";
+      nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
+      nur_packages.url = "github:dguibert/nur-packages?ref=master";
+
+      nxsession.url = "github:dguibert/nxsession";
+      nxsession.inputs.nixpkgs.follows = "nixpkgs";
+      nxsession.inputs.flake-utils.follows = "flake-utils";
+      # For accessing `deploy-rs`'s utility Nix functions
+      deploy-rs.url = "github:dguibert/deploy-rs/pu";
+      deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    pkgs.config = nixpkgs_config;
+    pkgs.overlays = overlays;
+
+    _module.args.pkgs = builtins.trace "pkgs" packages (builtins.currentSystem or "x86_64-linux");
+    #  config._module.args.pkgs = packages config system;
+    # https://flake.parts/system
+    flake.aspects.nixpkgs.flakeModule = {
+      nixpkgs.config = config.pkgs.config;
+      nixpkgs.overlays = config.pkgs.overlays;
+    };
+
+    flake.aspects.nixpkgs.nixos = {
+      nixpkgs.config = config.pkgs.config;
+      nixpkgs.overlays = config.pkgs.overlays;
+    };
+
+    flake.aspects.nixpkgs.homeManager = {
+      nixpkgs.config = config.pkgs.config;
+      nixpkgs.overlays = config.pkgs.overlays;
+    };
+
+    #flake.aspects.nixpkgs.nixos.imports = [
+    #  inputs.nixpkgs.nixosModules.readOnlyPkgs
+    #    ({ config, ... }: {
+    #      # Use the configured pkgs from perSystem
+    #      nixpkgs.pkgs = withSystem config.nixpkgs.hostPlatform.system (
+    #        { pkgs, ... }: # perSystem module arguments
+    #        pkgs
+    #      );
+    #    })
+    #];
+
+    perSystem =
+      {
+        system,
+        config,
+        ...
+      }:
+      {
+        _module.args.pkgs = builtins.trace "pkgs in perSystem" packages system;
+        legacyPackages = packages system;
+      };
+  };
 }
