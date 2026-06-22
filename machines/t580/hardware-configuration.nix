@@ -51,7 +51,7 @@
   # *** ZFS Version: zfs-2.0.4-1
   # *** Compatible Kernels: 3.10 - 5.11
   #boot.zfs.package = pkgs.zfs_unstable;
-  boot.zfs.allowHibernation = true;
+  boot.zfs.unsafeAllowHibernation = true;
   boot.zfs.forceImportRoot = false;
 
   services.zfs.autoScrub.enable = true;
@@ -113,6 +113,7 @@
       libvdpau-va-gl
     ];
   };
+  hardware.firmware = [ pkgs.linux-firmware ];
   environment.sessionVariables = {
     LIBVA_DRIVER_NAME = "iHD";
   }; # Force intel-media-driver

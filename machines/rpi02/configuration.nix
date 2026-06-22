@@ -13,32 +13,9 @@ with lib;
 
 rec {
   imports = [
-    #(import "${inputs.nur_packages.inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix")
-    # sd-image.nix
-    {
-      hardware.enableAllHardware = true;
-
-      fileSystems = {
-        "/boot/firmware" = {
-          device = "/dev/disk/by-label/FIRMWARE";
-          fsType = "vfat";
-          # Alternatively, this could be removed from the configuration.
-          # The filesystem is not needed at runtime, it could be treated
-          # as an opaque blob instead of a discrete FAT32 filesystem.
-          options = [
-            "nofail"
-            "noauto"
-          ];
-        };
-        "/" = {
-          device = "/dev/disk/by-label/NIXOS_SD";
-          fsType = "ext4";
-        };
-      };
-    }
-    { nixpkgs.system = "aarch64-linux"; }
+    (import "${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix")
+    { nixpkgs.hostPlatform.system = "aarch64-linux"; }
     (import "${inputs.nixos-hardware}/raspberry-pi/3/default.nix")
-    ../../modules/nixos/defaults
   ];
 
   # Enables the generation of /boot/extlinux/extlinux.conf
