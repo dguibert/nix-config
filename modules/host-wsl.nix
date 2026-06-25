@@ -13,6 +13,7 @@
   configurations.nixos.wsl.module = {
     imports = [
       inputs.nixos-wsl.nixosModules.wsl
+      inputs.sops-nix.nixosModules.sops
       ({
         nixpkgs.hostPlatform.system = "x86_64-linux";
         wsl.enable = true;
@@ -21,7 +22,6 @@
 
         #programs.bash.loginShellInit = "nixos-wsl-welcome";
       })
-      inputs.impermanence.nixosModules.impermanence
       (
         { pkgs, ... }:
         {
@@ -44,22 +44,32 @@
           };
         }
       )
+      config.flake.modules.nixos.cacerts
       config.flake.modules.nixos.dns
       config.flake.modules.nixos.fr
       config.flake.modules.nixos.nix
-      config.flake.modules.nixos.nixpkgs
       config.flake.modules.nixos.nix-registry
+      config.flake.modules.nixos.sshd
+      config.flake.modules.nixos.nixpkgs
+      config.flake.modules.nixos.report-changes
+
 
       config.flake.modules.nixos.user-root
 
       config.flake.modules.nixos.dguibert
       config.flake.modules.nixos.dguibert-bash
       config.flake.modules.nixos.dguibert-emacs
+      config.flake.modules.nixos.dguibert-stylix
+      { home-manager.users.dguibert.withEmacs.enable = true; }
+      config.flake.modules.nixos.dguibert-foot
       config.flake.modules.nixos.dguibert-git
+      config.flake.modules.nixos.dguibert-gpg
       config.flake.modules.nixos.dguibert-htop
       config.flake.modules.nixos.dguibert-ssh
+      config.flake.modules.nixos.dguibert-tmux
+      #config.flake.modules.nixos.dguibert-annex
       config.flake.modules.nixos.dguibert-zellij
-
+      {  home-manager.users.dguibert.dconf.enable = false; } # dbus: Failed to start message bus:
     ];
   };
 }

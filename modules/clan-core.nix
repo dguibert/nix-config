@@ -121,6 +121,7 @@
           config.flake.modules.nixos.dguibert-ssh
           config.flake.modules.nixos.dguibert-tmux
           config.flake.modules.nixos.dguibert-annex
+          config.flake.modules.nixos.dguibert-zellij
           #roles.dguibert-annex.tags.dguibert = { };
         ];
       };

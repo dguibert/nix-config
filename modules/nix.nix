@@ -66,6 +66,8 @@
       #extra-sandbox-paths = /opt/intel/licenses=/home/dguibert/nur-packages/secrets?
       #nix.settings.experimental-features = "ca-derivations recursive-nix";
       nix.settings.experimental-features = [
+        "nix-command"
+        "flakes"
         "recursive-nix"
         "pipe-operators"
       ];
