@@ -587,7 +587,7 @@
     },
     "flake-utils_2": {
       "inputs": {
-        "systems": "systems_3"
+        "systems": "systems_5"
       },
       "locked": {
         "lastModified": 1731533236,
@@ -641,9 +641,9 @@
     },
     "git-hooks-nix_2": {
       "inputs": {
-        "flake-compat": "flake-compat_3",
-        "gitignore": "gitignore",
-        "nixpkgs": "nixpkgs_4"
+        "flake-compat": "flake-compat_5",
+        "gitignore": "gitignore_4",
+        "nixpkgs": "nixpkgs_9"
       },
       "locked": {
         "lastModified": 1778507602,
@@ -1609,11 +1609,11 @@
     },
     "nixpkgs_8": {
       "locked": {
-        "lastModified": 1782056349,
-        "narHash": "sha256-ZJ0ybs+NZyj4HgRqspQNGiWtOqy4mN+aYNP0KkNiM0M=",
+        "lastModified": 1782456638,
+        "narHash": "sha256-wIVWLm8YMg+RVg19+ygpZ4Zkiru3K/mv7jc+/LgQ6l0=",
         "owner": "dguibert",
         "repo": "nixpkgs",
-        "rev": "addf8d266e8b785a74ee7cfe22403f9008c0549d",
+        "rev": "83a287db4a0eb41218b7bb745a85b4c9b4830663",
         "type": "github"
       },
       "original": {
@@ -2048,7 +2048,7 @@
     },
     "treefmt-nix": {
       "inputs": {
-        "nixpkgs": "nixpkgs_12"
+        "nixpkgs": "nixpkgs_3"
       },
       "locked": {
         "lastModified": 1775636079,
