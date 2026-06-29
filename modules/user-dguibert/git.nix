@@ -58,10 +58,11 @@
       programs.git.iniContent.notes.rewrite.rebase = true;
       programs.git.iniContent.notes.rewriteRefs = "refs/notes/commits";
 
-      #home.packages = with pkgs; [
+      home.packages = with pkgs; [
+        pass-git-helper
       #  git-remote-gcrypt
       #  (git-crypt.override { git = config.programs.git.package; })
-      #];
+      ];
 
     };
 }

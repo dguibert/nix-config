@@ -168,7 +168,6 @@
             }))
           ]
         ))
-        git-credential-password-store
 
         git-remote-gcrypt
         git-crypt
