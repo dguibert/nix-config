@@ -35,11 +35,11 @@
       programs.git.iniContent.rerere.autoupdate = true;
       programs.git.iniContent.rebase.autosquash = true;
       programs.git.iniContent.credential.helper = [
+        "cache --timeout 86400"
+        "store"
         # https://github.com/languitar/pass-git-helper
         # maybe need to define ~/.config/pass-git-helper/git-pass-mapping.ini
         "!type pass-git-helper >/dev/null && pass-git-helper $@"
-        "store"
-        "cache --timeout 86400"
       ];
       programs.git.iniContent."url \"software.ecmwf.int\"".insteadOf =
         "ssh://git@software.ecmwf.int:7999";
@@ -60,8 +60,8 @@
 
       home.packages = with pkgs; [
         pass-git-helper
-      #  git-remote-gcrypt
-      #  (git-crypt.override { git = config.programs.git.package; })
+        #  git-remote-gcrypt
+        #  (git-crypt.override { git = config.programs.git.package; })
       ];
 
     };
