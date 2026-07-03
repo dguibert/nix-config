@@ -172,6 +172,7 @@ in
             "local/nix--home-b-b381115-nix" = ds_mount "/home/b/b381115/nix";
             "local/nix--users-dguibert-nix" = ds_mount "/users/dguibert/nix";
             "local/nix--home-evid-evid356257-nix" = ds_mount "/home/evid/evid356257/nix";
+            "local/nix--gpfs-home-evid-evid356257-nix" = ds_mount "/gpfs/home/evid/evid356257/nix";
             "local/nix--software-stack-cepp-nix" = ds_mount "/software/stack/cepp/nix";
             "local/nix--home-gdavid-nix" = ds_mount "/home/gdavid/nix";
           };
