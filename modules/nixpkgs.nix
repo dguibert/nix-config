@@ -51,6 +51,10 @@ in
       nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
       nur_packages.url = "github:dguibert/nur-packages?ref=master";
 
+      nix.url = "github:dguibert/nix/pu";
+      nix.inputs.nixpkgs.follows = "nixpkgs";
+      nix.inputs.git-hooks-nix.follows = "git-hooks-nix";
+
       nxsession.url = "github:dguibert/nxsession";
       nxsession.inputs.nixpkgs.follows = "nixpkgs";
       nxsession.inputs.flake-utils.follows = "flake-utils";

@@ -69,6 +69,13 @@
     };
     import-tree.url = "github:vic/import-tree";
     microvm.url = "github:astro/microvm.nix";
+    nix = {
+      url = "github:dguibert/nix/pu";
+      inputs = {
+        git-hooks-nix.follows = "git-hooks-nix";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
     nix-auto-follow = {
       url = "github:fzakaria/nix-auto-follow";
       inputs.nixpkgs.follows = "nixpkgs";
