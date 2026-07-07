@@ -29,6 +29,9 @@
       programs.git.settings.alias.dp = "diff --no-ext-diff";
       programs.git.settings.alias.ds = "diff --stat -w";
       programs.git.settings.alias.dt = "difftool";
+      # tree looks like tig
+      programs.git.settings.alias.tree =
+        "log --graph --pretty=tformat:'%C(bold blue)%h%Creset %s %C(dim white)- %an%C(reset) %Cgreen(%cr)%C(auto)%d%C(reset)'";
       #programs.git.ignores
       programs.git.iniContent.clean.requireForce = true;
       programs.git.iniContent.rerere.enabled = true;
