@@ -15,6 +15,7 @@ let
     inputs.nur_packages.overlays.emacs
     #inputs.nixpkgs-wayland.overlay
     #inputs.hyprland.overlays.default
+    inputs.nix.overlays.default
   ]
   ++ (builtins.attrValues config.flake.overlays);
 

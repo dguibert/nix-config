@@ -34,7 +34,7 @@ in
         let
           nixConfOrig = builtins.readFile "/etc/nix/nix.conf";
           nixConf = pkgs.writeTextDir "opt/nix.conf" ''
-            ${nixConfOrig}
+            #{nixConfOrig}
             store = local?store=${builtins.storeDir}&state=${builtins.dirOf builtins.storeDir}/state&log=${builtins.dirOf builtins.storeDir}/log'
             secret-key-files =
             extra-sandbox-paths =
@@ -67,7 +67,7 @@ in
             jq
             nix
           ]
-          ++ pre-commit-check-enabledPackages
+          ++ lib.optional isNixStore pre-commit-check-enabledPackages
           ++ lib.optionals isNixStore [
             inputs.clan-core.packages.${system}.clan-cli
             ssh-to-pgp
@@ -80,13 +80,13 @@ in
 
             nix-output-monitor
           ];
-        nativeBuildInputs = [
+        nativeBuildInputs = lib.optionals isNixStore [
           sops-import-keys-hook
         ];
         #SOPS_PGP_FP = "";
         sopsCreateGPGHome = "";
         shellHook = ''
-          ${pre-commit-check-shellHook}
+          ${if isNixStore then pre-commit-check-shellHook else ""}
 
           unset NIX_INDENT_MAKE
           unset IN_NIX_SHELL NIX_REMOTE
